@@ -98,3 +98,58 @@ test('ics + test weights', () => {
   assert.match(ics, /DTSTART;TZID=Asia\/Kolkata:20261128T093000/);
   assert.deepEqual(testWeights([{ type: 'test', date: '2026-11-20', chapters: ['sci-7'] }], '2026-11-16'), { 'sci-7': 3 });
 });
+
+import { weekKey, periodKey, taskStats, blocksFor, currentBlock, moneyBalances, spendSummary, buildInsights } from '../src/lib/logic.js';
+
+test('periods + tasks', () => {
+  assert.equal(weekKey('2026-11-16'), '2026-W47');
+  assert.equal(weekKey('2027-01-01'), '2026-W53');
+  assert.equal(periodKey('monthly', '2026-11-16'), '2026-11');
+  const tasks = [{ freq: 'daily', done: { '2026-11-16': true } }, { freq: 'daily', days: [1], done: {} }, { freq: 'weekly', done: { '2026-W47': true } }];
+  const s = taskStats(tasks, 'daily', '2026-11-16', 2);
+  assert.deepEqual(s[0], { key: '2026-11-16', done: 1, total: 2, pct: 50 }); // Monday: both apply
+  assert.equal(s[1].total, 1); // Sunday: only the every-day task
+  assert.equal(taskStats(tasks, 'weekly', '2026-11-16', 1)[0].pct, 100);
+});
+
+test('timetable blocks', () => {
+  const blocks = [{ days: [1], start: '17:00', end: '18:00', kind: 'study' }, { days: [1, 2], start: '16:00', end: '16:30', kind: 'play' }];
+  assert.equal(blocksFor(blocks, '2026-11-16').length, 2);
+  assert.equal(blocksFor(blocks, '2026-11-16')[0].kind, 'play');
+  assert.equal(currentBlock(blocks, '2026-11-16', 17 * 60 + 5).kind, 'study');
+  assert.equal(currentBlock(blocks, '2026-11-17', 17 * 60 + 5), null);
+});
+
+test('finance', () => {
+  const e = [
+    { type: 'in', amount: 500, account: 'Cash', currency: 'INR' },
+    { type: 'out', amount: 100, account: 'Cash', currency: 'INR', paidBy: 'self', category: 'Snacks', date: '2026-11-10' },
+    { type: 'out', amount: 300, account: 'Cash', currency: 'INR', paidBy: 'dad', category: 'Books', date: '2026-11-11' },
+    { type: 'in', amount: 20, account: 'Cash', currency: 'AED' },
+    { type: 'transfer', amount: 200, account: 'Cash', toAccount: 'Bank', currency: 'INR' }
+  ];
+  const b = moneyBalances(e);
+  assert.deepEqual(b.find((x) => x.account === 'Cash' && x.currency === 'INR').balance, 200);
+  assert.deepEqual(b.find((x) => x.account === 'Bank').balance, 200);
+  assert.deepEqual(b.find((x) => x.currency === 'AED').balance, 20);
+  const s = spendSummary(e, '2026-11');
+  assert.equal(s.byCategory[0].name, 'Books');
+  assert.deepEqual(s.byPayer.map((p) => p.name).sort(), ['dad', 'self']);
+});
+
+test('insights do not crash on empty data', () => {
+  const out = buildInsights({ days: {}, attempts: [], tasks: [], blocks: [], mistakes: [], today: '2026-11-16' });
+  assert.ok(Array.isArray(out));
+  assert.ok(out.some((i) => i.title.includes('timetable')));
+});
+
+import { parseSchoolCalendar, HOLIDAYS } from '../src/lib/content.js';
+test('school calendar import', () => {
+  const { events, errors } = parseSchoolCalendar('2026-12-05 Annual Day\n15/12/2026 to 19/12/2026 Periodic Test 2\n2026-12-24 to 2027-01-01 Winter vacation\n10/01/2027 PTM\nnonsense');
+  assert.equal(events.length, 4);
+  assert.deepEqual(events[1], { date: '2026-12-15', endDate: '2026-12-19', title: 'Periodic Test 2', type: 'test' });
+  assert.equal(events[2].type, 'holiday');
+  assert.equal(events[3].type, 'ptm');
+  assert.equal(errors.length, 1);
+  assert.ok(HOLIDAYS.find((h) => h.date === '2026-11-27'));
+});

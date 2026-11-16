@@ -51,7 +51,7 @@ export async function markStep(F, key, value = true) {
   const today = ymd();
   const day = { ...(F.days[today] || {}), [key]: value };
   const completed = STEPS.every((s) => day[s.key]);
-  await setDay(fid, today, { [key]: value, completed });
+  await setDay(fid, today, { [key]: value, [key + 'At']: Date.now(), completed, ...(completed && !F.days[today]?.completed ? { completedAt: Date.now() } : {}) });
   if (completed && !F.days[today]?.completed) {
     await reward(F, `day-${today}`, F.settings.rewards.dayComplete, 'Full routine done');
     const streak = currentStreak({ ...F.days, [today]: { completed: true } }, today);

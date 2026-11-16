@@ -64,12 +64,17 @@ export function useFamily(familyId) {
   const attempts = useCollection(familyId, 'attempts', { order: 'at', dir: 'desc', limit: 200 });
   const tests = useCollection(familyId, 'tests', { order: 'createdAt', dir: 'desc' });
   const notes = useCollection(familyId, 'notes', { order: 'at', dir: 'desc', limit: 20 });
+  const tasks = useCollection(familyId, 'tasks', { order: 'createdAt' });
+  const blocks = useCollection(familyId, 'plan');
+  const money = useCollection(familyId, 'money', { order: 'date', dir: 'desc' });
+  const snotes = useCollection(familyId, 'snotes', { order: 'at', dir: 'desc' });
+  const papers = useCollection(familyId, 'papers', { order: 'date', dir: 'desc' });
   const settings = { ...DEFAULT_SETTINGS, ...(family?.settings || {}), rewards: { ...DEFAULT_SETTINGS.rewards, ...(family?.settings?.rewards || {}) } };
   return {
     family, settings,
     days: Object.fromEntries(days.map((d) => [d.id, d])),
     chapters: Object.fromEntries(chapters.map((c) => [c.id, c])),
-    mistakes, events, wallet, attempts, tests, notes
+    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers
   };
 }
 
@@ -127,3 +132,10 @@ export async function questionsById(ids) {
   const map = Object.fromEntries(pool.map((q) => [q.id, q]));
   return ids.map((id) => map[id]).filter(Boolean);
 }
+
+// ---------- generic docs (tasks, plan, money, notes, papers) ----------
+export const saveItem = (fid, name, item) => {
+  const { id, ...data } = item;
+  return id ? setDoc(dref(fid, name, id), data, { merge: true }) : addDoc(col(fid, name), { ...data, createdAt: Date.now() });
+};
+export const deleteItem = (fid, name, id) => deleteDoc(dref(fid, name, id));

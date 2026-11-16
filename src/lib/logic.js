@@ -275,3 +275,171 @@ export function testWeights(events, today, days = 7) {
   }
   return w;
 }
+
+// ---------- tasks (daily / weekly / monthly) ----------
+// ISO week key like 2026-W47
+export function weekKey(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  const day = dt.getUTCDay() || 7;
+  dt.setUTCDate(dt.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(dt.getUTCFullYear(), 0, 1));
+  const wk = Math.ceil(((dt - yearStart) / 86400000 + 1) / 7);
+  return `${dt.getUTCFullYear()}-W${String(wk).padStart(2, '0')}`;
+}
+export function periodKey(freq, dateStr) {
+  if (freq === 'weekly') return weekKey(dateStr);
+  if (freq === 'monthly') return dateStr.slice(0, 7);
+  return dateStr;
+}
+// recent period keys, newest first
+export function recentPeriods(freq, today, n) {
+  const out = [];
+  let d = today;
+  while (out.length < n) {
+    const k = periodKey(freq, d);
+    if (!out.includes(k)) out.push(k);
+    d = addDays(d, freq === 'monthly' ? -28 : freq === 'weekly' ? -7 : -1);
+    if (freq === 'monthly' && out.length && periodKey('monthly', d) === out[out.length - 1]) d = addDays(d, -7);
+  }
+  return out;
+}
+export function taskAppliesOn(task, dateStr) {
+  if (task.freq !== 'daily' || !task.days?.length) return true;
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return task.days.includes(new Date(y, m - 1, d).getDay());
+}
+// completion rate of a set of tasks over recent periods
+export function taskStats(tasks, freq, today, n = 7) {
+  const list = tasks.filter((t) => t.freq === freq && t.active !== false);
+  return recentPeriods(freq, today, n).map((k) => {
+    const existed = list.filter((t) => !t.createdAt || periodKey(freq, ymd(t.createdAt)) <= k);
+    const applicable = freq === 'daily' ? existed.filter((t) => taskAppliesOn(t, k)) : existed;
+    const done = applicable.filter((t) => t.done?.[k]).length;
+    return { key: k, done, total: applicable.length, pct: applicable.length ? Math.round((done / applicable.length) * 100) : null };
+  });
+}
+
+// ---------- timetable plan ----------
+export function minutes(t) { const [h, m] = (t || '0:0').split(':').map(Number); return h * 60 + m; }
+// blocks: [{days:[0..6], start:'16:00', end:'17:00', kind, title}]
+export function blocksFor(blocks, dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const wd = new Date(y, m - 1, d).getDay();
+  return (blocks || []).filter((b) => (b.days || []).includes(wd)).sort((a, b) => minutes(a.start) - minutes(b.start));
+}
+export function currentBlock(blocks, dateStr, nowMin) {
+  return blocksFor(blocks, dateStr).find((b) => minutes(b.start) <= nowMin && nowMin < minutes(b.end)) || null;
+}
+export function plannedMinutesByKind(blocks) {
+  const out = {};
+  for (const b of blocks || []) out[b.kind] = (out[b.kind] || 0) + (minutes(b.end) - minutes(b.start)) * (b.days?.length || 0);
+  return out;
+}
+
+// ---------- finance ----------
+// entries: [{type:'in'|'out', amount, currency, account, paidBy:'self'|'dad'|'mom'|..., category}]
+// Only money that is his (received, or spent by himself) changes his balance.
+export function moneyBalances(entries) {
+  const bal = {};
+  for (const e of entries || []) {
+    const key = `${e.account || 'Cash'}|${e.currency || 'INR'}`;
+    if (e.type === 'in') bal[key] = (bal[key] || 0) + Number(e.amount || 0);
+    else if (e.type === 'out' && (e.paidBy || 'self') === 'self') bal[key] = (bal[key] || 0) - Number(e.amount || 0);
+    else if (e.type === 'transfer') {
+      bal[key] = (bal[key] || 0) - Number(e.amount || 0);
+      const to = `${e.toAccount || 'Cash'}|${e.currency || 'INR'}`;
+      bal[to] = (bal[to] || 0) + Number(e.amount || 0);
+    }
+  }
+  return Object.entries(bal).map(([k, v]) => { const [account, currency] = k.split('|'); return { account, currency, balance: Math.round(v * 100) / 100 }; });
+}
+export function spendSummary(entries, monthPrefix) {
+  const byCat = {}, byPayer = {};
+  for (const e of entries || []) {
+    if (e.type !== 'out' || (monthPrefix && !String(e.date).startsWith(monthPrefix))) continue;
+    const cur = e.currency || 'INR';
+    const c = `${e.category || 'Other'}|${cur}`;
+    byCat[c] = (byCat[c] || 0) + Number(e.amount || 0);
+    const p = `${e.paidBy || 'self'}|${cur}`;
+    byPayer[p] = (byPayer[p] || 0) + Number(e.amount || 0);
+  }
+  const split = (o) => Object.entries(o).map(([k, v]) => { const [name, currency] = k.split('|'); return { name, currency, amount: v }; }).sort((a, b) => b.amount - a.amount);
+  return { byCategory: split(byCat), byPayer: split(byPayer) };
+}
+export function formatMoney(n, currency = 'INR') {
+  try {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency, maximumFractionDigits: 2, minimumFractionDigits: 0 }).format(n);
+  } catch { return `${currency} ${n}`; }
+}
+
+// ---------- insights ----------
+const DAYNAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+// Returns [{tone:'good'|'warn'|'tip', title, text}] from usage history
+export function buildInsights({ days, attempts, tasks, blocks, mistakes, today }) {
+  const out = [];
+  const last28 = Array.from({ length: 28 }, (_, i) => addDays(today, -i - 1));
+  const tracked = last28.filter((d) => days[d]);
+  // completion
+  const done = last28.filter((d) => days[d]?.completed).length;
+  if (tracked.length >= 5) {
+    const pct = Math.round((done / 28) * 100);
+    out.push(pct >= 70
+      ? { tone: 'good', title: `Routine done ${done} of the last 28 days`, text: 'Great consistency. Small daily effort beats last-minute cramming.' }
+      : { tone: 'warn', title: `Routine done only ${done} of the last 28 days`, text: 'Aim for at least 5 days a week. Start with the shortest step (homework or log) to get going.' });
+    // weakest weekday
+    const byWd = Array(7).fill(0).map(() => ({ done: 0, n: 0 }));
+    for (const d of last28) { const [y, m, dd] = d.split('-').map(Number); const wd = new Date(y, m - 1, dd).getDay(); byWd[wd].n++; if (days[d]?.completed) byWd[wd].done++; }
+    const worst = byWd.map((v, i) => ({ i, r: v.n ? v.done / v.n : 1 })).sort((a, b) => a.r - b.r)[0];
+    if (worst.r < 0.5) out.push({ tone: 'tip', title: `${DAYNAMES[worst.i]}s are your toughest day`, text: `Plan a lighter, fixed study slot on ${DAYNAMES[worst.i]}s — even 30 minutes keeps the streak alive.` });
+  }
+  // time of day the routine gets finished
+  const times = last28.map((d) => days[d]?.completedAt).filter(Boolean).map((t) => new Date(t).getHours());
+  if (times.length >= 4) {
+    const avg = times.reduce((a, b) => a + b, 0) / times.length;
+    if (avg >= 21) out.push({ tone: 'warn', title: 'You usually finish after 9 pm', text: 'Late study hurts sleep and memory. Try starting your routine right after a snack break after school.' });
+    else out.push({ tone: 'good', title: `You usually finish around ${Math.round(avg) > 12 ? Math.round(avg) - 12 + ' pm' : Math.round(avg) + ' am'}`, text: 'Good timing — keep the evening free for rest and play.' });
+  }
+  // accuracy trend
+  const recent = attempts.filter((a) => a.total && daysBetween(a.date, today) <= 14);
+  const older = attempts.filter((a) => a.total && daysBetween(a.date, today) > 14 && daysBetween(a.date, today) <= 42);
+  const acc = (list) => { const s = list.reduce((a, x) => a + x.score, 0), t = list.reduce((a, x) => a + x.total, 0); return t ? Math.round((s / t) * 100) : null; };
+  const ra = acc(recent), oa = acc(older);
+  if (ra !== null && oa !== null) {
+    out.push(ra >= oa
+      ? { tone: 'good', title: `Accuracy up: ${oa}% → ${ra}%`, text: 'Your revision is working. Keep clearing the Mistake Book.' }
+      : { tone: 'warn', title: `Accuracy down: ${oa}% → ${ra}%`, text: 'Slow down and read each question twice. Revisit the explainer before practising.' });
+  }
+  // subject balance
+  const bySub = {};
+  for (const a of recent) for (const it of a.items || []) { if (!it.chapterId) continue; const s = it.chapterId.replace(/\d.*$/, '').replace(/-$/, ''); bySub[s] = (bySub[s] || 0) + 1; }
+  const names = { m: 'Maths', sc: 'Science', ss: 'Social Science', en: 'English' };
+  const missing = Object.keys(names).filter((k) => !bySub[k]);
+  if (recent.length >= 3 && missing.length && missing.length < 4) out.push({ tone: 'tip', title: `No practice in ${missing.map((k) => names[k]).join(', ')} for 2 weeks`, text: 'Rotate subjects so nothing gets rusty before exams.' });
+  // mistakes
+  const open = (mistakes || []).filter((m) => !m.resolved).length;
+  if (open >= 10) out.push({ tone: 'warn', title: `${open} mistakes waiting`, text: 'Fix 3–4 a day in Revise. Old mistakes are the fastest way to gain marks.' });
+  // tasks
+  const daily = taskStats(tasks || [], 'daily', today, 7).filter((x) => x.pct !== null);
+  if (daily.length >= 3) { const avg = Math.round(daily.reduce((a, x) => a + x.pct, 0) / daily.length); out.push(avg >= 75 ? { tone: 'good', title: `Daily tasks: ${avg}% done this week`, text: 'Nice! You are building strong habits.' } : { tone: 'tip', title: `Daily tasks: ${avg}% done this week`, text: 'Too many tasks? Keep 3–5 important ones and tick them at the same time each day.' }); }
+  // plan
+  const planned = plannedMinutesByKind(blocks);
+  const play = planned.play || 0, study = (planned.study || 0) + (planned.homework || 0) + (planned.reading || 0);
+  if (!blocks?.length) out.push({ tone: 'tip', title: 'Make your weekly timetable', text: 'Students who plan their week finish more with less stress. Add study, homework, play and sleep blocks in Planner.' });
+  else {
+    if (study / 7 < 60) out.push({ tone: 'tip', title: `Only ${Math.round(study / 7)} min/day of study planned`, text: 'For Class 7, 1–2 hours a day of focused study (including homework) is a good target.' });
+    if (!play) out.push({ tone: 'tip', title: 'No play time planned', text: 'Breaks and outdoor play improve focus. Add at least 45 minutes a day.' });
+  }
+  return out;
+}
+
+// Static best-practice tips shown alongside personal insights
+export const BEST_PRACTICES = [
+  { title: 'Study in 25–30 minute blocks', text: 'Work for 25–30 minutes, then take a 5-minute break. After 4 blocks, take a longer break.' },
+  { title: 'Hardest subject first', text: 'Do the toughest work when your mind is fresh — usually the first study block of the day.' },
+  { title: 'Revise within 24 hours', text: 'A quick 10-minute review the same day helps you remember much more of what was taught.' },
+  { title: 'Test yourself, don’t just re-read', text: 'Answering questions from memory is far more effective than reading notes again.' },
+  { title: 'Phone away while studying', text: 'Keep the phone in another room or on Do Not Disturb during study blocks.' },
+  { title: 'Sleep 9–10 hours', text: 'Teens need lots of sleep. Memory is strengthened while you sleep.' },
+  { title: 'Plan the week on Sunday', text: 'Check upcoming tests and events, and adjust your timetable for the week ahead.' }
+];

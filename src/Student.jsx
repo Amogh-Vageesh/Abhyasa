@@ -2,6 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { set as idbSet, get as idbGet } from 'idb-keyval';
 import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees, PageHead } from './components';
 import { Icon, Tile, Avatar, HeroArt } from './icons';
+import { TodayPlanCard } from './Planner';
+import { useInsights, InsightRow } from './Insights';
+import { SubjectGrid, SubjectDetail } from './Subjects';
+import { saveItem } from './lib/data';
+import { periodKey, taskAppliesOn } from './lib/logic';
+import { SUBJECTS } from './lib/syllabus';
 import { STEPS, markStep, logClass, recordQuiz } from './lib/actions';
 import { loadChapter, questionPool, questionsById, setChapter, setMistake, saveTest } from './lib/data';
 import {
@@ -77,6 +83,10 @@ export function StudentToday({ F, go }) {
   const greet = new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 17 ? 'Good afternoon' : 'Good evening';
   const due = dueChapters(F.chapters, today);
   const openMistakes = F.mistakes.filter((m) => !m.resolved).length;
+  const loggedSubjects = new Set((day.logs || []).map((l) => l.subject || CHAPTERS[l.chapterId]?.subject).filter(Boolean));
+  const insights = useInsights(F);
+  const todayTasks = F.tasks.filter((t) => t.active !== false && taskAppliesOn(t, today))
+    .sort((a, b) => ['daily', 'weekly', 'monthly'].indexOf(a.freq) - ['daily', 'weekly', 'monthly'].indexOf(b.freq));
   const routine = [
     { ...STEPS[0], icon: 'edit', tone: 'blue', done: day.logDone,
       sub: (day.logs || []).length ? (day.logs || []).map((l) => l.chapterId ? chapterLabel(l.chapterId) : l.subjectName).join(' · ') : 'Subject, chapter, pages — speak or snap a photo',
@@ -116,14 +126,14 @@ export function StudentToday({ F, go }) {
 
       {latestNote && <div className="note"><Avatar name={latestNote.from} tone="purple" size={34} /><div><b>{latestNote.from}</b><div className="small-text">{latestNote.text}</div></div></div>}
 
-      <div className="sec-h"><h2>Quick Actions</h2></div>
-      <div className="quick">
-        <button onClick={() => setModal({ type: 'log' })}><Tile icon="edit" tone="blue" round />Log class</button>
-        <button onClick={() => setModal({ type: 'learn', chapters: todaysChapters })}><Tile icon="bulb" tone="amber" round />Learn</button>
-        <button onClick={startPractice}><Tile icon="target" tone="green" round />Practice</button>
-        {isWeekend(today)
-          ? <button onClick={startWeekly}><Tile icon="trophy" tone="purple" round />Weekly test</button>
-          : <button onClick={startRevise}><Tile icon="repeat" tone="teal" round />Revise</button>}
+      <div className="sec-h"><h2>Today’s Classes</h2><span className="muted small-text">{loggedSubjects.size} logged</span></div>
+      <div className="classes">
+        {SUBJECTS.map((sj) => (
+          <button key={sj.id} className={loggedSubjects.has(sj.id) ? 'logged' : ''} onClick={() => setModal({ type: 'log', subject: sj.id })}>
+            {loggedSubjects.has(sj.id) && <span className="tick"><Icon name="check" size={12} /></span>}
+            <Tile icon="book" tone={sj.color} />{sj.name.replace('Social Science', 'Social').replace('Other / 2nd Language', '2nd Lang')}
+          </button>
+        ))}
       </div>
 
       <div className="sec-h" id="routine"><h2>Today’s Routine</h2><span className="muted small-text">{doneCount}/5</span></div>
@@ -138,9 +148,25 @@ export function StudentToday({ F, go }) {
         {!day.logDone && <button className="lrow" onClick={() => markStep(F, 'logDone')}><Tile icon="calendar" tone="gray" /><div className="lt"><b>No school today</b><small>Holiday or weekend — skip logging</small></div><Icon name="chevR" className="chev" /></button>}
       </div>
 
-      {assigned.length > 0 && <>
+      <div className="sec-h"><h2>My Plan</h2><button className="link" onClick={() => go('planner', 'timetable')}>Timetable <Icon name="chevR" size={16} /></button></div>
+      <TodayPlanCard F={F} go={go} />
+
+      <div className="sec-h"><h2>Today’s Tasks</h2><button className="link" onClick={() => go('planner', 'tasks')}>All tasks <Icon name="chevR" size={16} /></button></div>
+      <div className="card list">
+        {!todayTasks.length && <div className="muted small-text" style={{ padding: '12px 0' }}>No tasks for today. Add daily, weekly and monthly tasks in Planner.</div>}
+        {todayTasks.slice(0, 5).map((t) => { const k = periodKey(t.freq, today); const d = !!t.done?.[k]; return (
+          <button key={t.id} className={`lrow ${d ? 'done' : ''}`} onClick={() => saveItem(F.family.id, 'tasks', { id: t.id, done: { ...(t.done || {}), [k]: d ? null : Date.now() } })}>
+            <span className={`check-circle ${d ? 'on' : ''}`}>{d && <Icon name="check" size={16} />}</span>
+            <div className="lt"><b>{t.title}</b><small>{t.freq === 'daily' ? 'Today' : t.freq === 'weekly' ? 'This week' : 'This month'}{t.byRole === 'parent' ? ` · from ${t.byName || 'parent'}` : ''}</small></div>
+          </button>
+        ); })}
+      </div>
+
+
+      {(assigned.length > 0 || isWeekend(today)) && <>
         <div className="sec-h"><h2>Tests for you</h2></div>
         <div className="card list">
+          {isWeekend(today) && <button className="lrow" onClick={startWeekly}><Tile icon="trophy" tone="amber" /><div className="lt"><b>Weekly test</b><small>{F.settings.weeklyTestCount} questions · this week’s chapters + mistakes</small></div><Icon name="chevR" className="chev" /></button>}
           {assigned.map((t) => (
             <button key={t.id} className="lrow" onClick={() => startAssigned(t)}>
               <Tile icon="file" tone="purple" />
@@ -166,7 +192,12 @@ export function StudentToday({ F, go }) {
         })}
       </div>
 
-      {modal?.type === 'log' && <LogModal F={F} onClose={() => setModal(null)} />}
+      {insights[0] && <>
+        <div className="sec-h"><h2>Insight</h2><button className="link" onClick={() => go('insights')}>More tips <Icon name="chevR" size={16} /></button></div>
+        <div className="card list"><InsightRow i={insights[0]} onClick={() => go('insights')} /></div>
+      </>}
+
+      {modal?.type === 'log' && <LogModal F={F} initialSubject={modal.subject || ''} onClose={() => setModal(null)} />}
       {modal?.type === 'learn' && <LearnModal F={F} chapters={modal.chapters} onClose={() => setModal(null)} />}
       {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
     </div>
@@ -183,8 +214,8 @@ function Step({ s, done, detail, action }) {
   );
 }
 
-export function LogModal({ F, onClose }) {
-  const [subject, setSubject] = useState('');
+export function LogModal({ F, onClose, initialSubject = '' }) {
+  const [subject, setSubject] = useState(initialSubject);
   const [chapterId, setChapterId] = useState('');
   const [pages, setPages] = useState('');
   const [note, setNote] = useState('');
@@ -197,7 +228,7 @@ export function LogModal({ F, onClose }) {
       await idbSet(key, f);
       photoKeys.push(key);
     }
-    await logClass(F, { subject, subjectName: CHAPTERS[chapterId]?.subjectName || subject, chapterId: chapterId || null, pages, note, doubt, photoKeys });
+    await logClass(F, { subject, subjectName: SUBJECTS.find((x) => x.id === subject)?.name || subject, chapterId: chapterId || null, pages, note, doubt, photoKeys });
     onClose();
   };
   return (
@@ -339,17 +370,19 @@ export function StudyLibrary({ F }) {
   );
 }
 
-export function StudyPage({ F, sub = 'chapters', setSub }) {
+export function StudyPage({ F, me, sub = 'subjects', setSub }) {
+  const [open, setOpen] = useState(null);
   const tests = F.attempts.slice(0, 12);
+  if (open) return <SubjectDetail F={F} me={me} subjectId={open} onBack={() => setOpen(null)} />;
   return (
     <div>
       <PageHead title="Study" />
       <div className="seg">
-        {[['chapters', 'Chapters'], ['mistakes', 'Mistakes'], ['progress', 'Progress']].map(([k, l]) => (
+        {[['subjects', 'Subjects'], ['mistakes', 'Mistakes'], ['progress', 'Progress']].map(([k, l]) => (
           <button key={k} className={sub === k ? 'on' : ''} onClick={() => setSub(k)}>{l}</button>
         ))}
       </div>
-      {sub === 'chapters' && <StudyLibrary F={F} />}
+      {sub === 'subjects' && <SubjectGrid F={F} open={setOpen} />}
       {sub === 'mistakes' && <MistakeBook F={F} />}
       {sub === 'progress' && <div className="stack">
         <Card title="Last 14 days"><Progress7 F={F} /></Card>

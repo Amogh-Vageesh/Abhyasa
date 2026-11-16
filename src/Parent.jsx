@@ -3,7 +3,8 @@ import { Card, ChapterPicker, Modal, rupees, PageHead, Progress } from './compon
 import { Icon, Tile, Avatar, HeroArt } from './icons';
 import { STEPS } from './lib/actions';
 import { addNote, deleteTest, saveTest, updateSettings } from './lib/data';
-import { currentStreak, dueChapters, parseTestText, walletSummary, ymd } from './lib/logic';
+import { currentStreak, dueChapters, parseTestText, taskStats, walletSummary, ymd } from './lib/logic';
+import { useInsights, InsightRow } from './Insights';
 import { chapterLabel, CHAPTERS } from './lib/syllabus';
 import { Progress7 } from './Student';
 
@@ -29,6 +30,7 @@ export function ParentDashboard({ F, me, go }) {
   const last7 = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - i); return ymd(d); });
   const doneDays = last7.filter((d) => F.days[d]?.completed).length;
 
+  const insights = useInsights(F);
   const greet = new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 17 ? 'Good afternoon' : 'Good evening';
   const doneToday = STEPS.filter((s) => day[s.key]).length;
   const kid = F.family.studentName?.split(' ')[0] || 'Student';
@@ -65,7 +67,7 @@ export function ParentDashboard({ F, me, go }) {
         <button onClick={() => go('fab', 'import')}><Tile icon="file" tone="purple" round />Import test</button>
         <button onClick={() => go('fab', 'event')}><Tile icon="calendar" tone="blue" round />Add event</button>
         <button onClick={() => go('fab', 'note')}><Tile icon="send" tone="amber" round />Send note</button>
-        <button onClick={() => go('fab', 'payout')}><Tile icon="gift" tone="green" round />Payout</button>
+        <button onClick={() => go('fab', 'task')}><Tile icon="check" tone="teal" round />Add task</button>
       </div>
 
       <div className="sec-h"><h2>Today</h2></div>
@@ -84,6 +86,22 @@ export function ParentDashboard({ F, me, go }) {
           </div>
         ))}
       </div>
+
+      <div className="sec-h"><h2>Tasks</h2><button className="link" onClick={() => go('planner', 'tasks')}>Manage <Icon name="chevR" size={16} /></button></div>
+      <div className="card list">
+        {['daily', 'weekly', 'monthly'].map((fq) => { const st = taskStats(F.tasks, fq, today, 1)[0]; return (
+          <div key={fq} className="lrow">
+            <Tile icon="check" tone={st.pct === null ? 'gray' : st.pct >= 80 ? 'green' : st.pct >= 50 ? 'amber' : 'red'} />
+            <div className="lt"><b>{fq === 'daily' ? 'Today' : fq === 'weekly' ? 'This week' : 'This month'}</b><small>{st.total ? `${st.done} of ${st.total} done` : `No ${fq} tasks yet`}</small></div>
+            {st.pct !== null && <b>{st.pct}%</b>}
+          </div>
+        ); })}
+      </div>
+
+      {insights.length > 0 && <>
+        <div className="sec-h"><h2>Insights</h2><button className="link" onClick={() => go('insights')}>All <Icon name="chevR" size={16} /></button></div>
+        <div className="card list">{insights.slice(0, 3).map((i, n) => <InsightRow key={n} i={i} />)}</div>
+      </>}
 
       <div className="sec-h"><h2>Last 14 days</h2></div>
       <div className="card"><Progress7 F={F} /></div>

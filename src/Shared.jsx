@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Card, Modal, MultiChapterPicker, Progress, rupees, PageHead } from './components';
 import { Icon, Tile } from './icons';
-import { addWallet, deleteEvent, deleteWallet, saveEvent } from './lib/data';
+import { addWallet, deleteEvent, deleteWallet, saveEvent, saveItem } from './lib/data';
 import { daysBetween, walletSummary, ymd } from './lib/logic';
 import { chapterLabel } from './lib/syllabus';
 import { downloadICS } from './lib/notify';
+import { HOLIDAYS, parseSchoolCalendar } from './lib/content';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -13,8 +14,17 @@ const TYPES = {
   function: { label: 'School function', icon: '🎭' },
   ptm: { label: 'PTM', icon: '👨‍👩‍👦' },
   homework: { label: 'Homework / project due', icon: '📒' },
-  personal: { label: 'Personal', icon: '⭐' }
+  personal: { label: 'Personal', icon: '⭐' },
+  school: { label: 'School event', icon: '🏫' },
+  holiday: { label: 'Holiday', icon: '🎉' }
 };
+
+// All calendar items: family events + built-in Karnataka holidays (unless hidden)
+export function allEvents(F) {
+  const hidden = new Set(F.family?.hiddenHolidays || []);
+  const hol = F.family?.showHolidays === false ? [] : HOLIDAYS.filter((h) => !hidden.has(h.id) && !F.events.some((e) => e.date === h.date && e.type === 'holiday'));
+  return [...F.events, ...hol].sort((a, b) => a.date.localeCompare(b.date));
+}
 
 function gcalLink(ev) {
   const d = ev.date.replace(/-/g, '');
@@ -31,23 +41,59 @@ function gcalLink(ev) {
   return `https://calendar.google.com/calendar/render?${p}`;
 }
 
-export function CalendarPage({ F, me }) {
+export function CalendarPage({ F, me, embedded = false }) {
   const today = ymd();
   const [edit, setEdit] = useState(null);
   const [showPast, setShowPast] = useState(false);
-  const upcoming = F.events.filter((e) => e.date >= today);
-  const past = F.events.filter((e) => e.date < today).reverse();
+  const [importing, setImporting] = useState(false);
+  const [filter, setFilter] = useState('all');
+  const events = allEvents(F).filter((e) => filter === 'all' || (filter === 'tests' ? e.type === 'test' : filter === 'holidays' ? e.type === 'holiday' : !['test', 'holiday'].includes(e.type)));
+  const upcoming = events.filter((e) => (e.endDate || e.date) >= today);
+  const past = events.filter((e) => (e.endDate || e.date) < today).reverse();
+  const addBtn = <div className="row"><button className="small" onClick={() => setImporting(true)}>Import school dates</button><button className="primary small" onClick={() => setEdit({ type: 'test', date: today, title: '', remind: [1, 0], chapters: [] })}><Icon name="plus" size={16} /> Add</button></div>;
+  // group upcoming by month
+  const groups = [];
+  for (const e of upcoming) { const m = e.date.slice(0, 7); if (!groups.length || groups[groups.length - 1].m !== m) groups.push({ m, items: [] }); groups[groups.length - 1].items.push(e); }
   return (
     <div className="stack">
-      <PageHead title="Calendar" right={<button className="primary small" onClick={() => setEdit({ type: 'test', date: today, title: '', remind: [1, 0], chapters: [] })}><Icon name="plus" size={16} /> Add</button>} />
-      <Card>
-        {!upcoming.length && <p className="muted">Nothing coming up. Add tests, PTMs, functions or anything to remember.</p>}
-        {upcoming.map((e) => <EventRow key={e.id} e={e} today={today} onClick={() => setEdit(e)} />)}
-        {past.length > 0 && <button className="ghost small" onClick={() => setShowPast(!showPast)}>{showPast ? 'Hide' : 'Show'} past events ({past.length})</button>}
-        {showPast && past.map((e) => <EventRow key={e.id} e={e} today={today} onClick={() => setEdit(e)} />)}
-      </Card>
+      {embedded ? <div className="row between"><span className="muted small-text">Tests, holidays, PTMs & events</span>{addBtn}</div> : <PageHead title="Calendar" right={addBtn} />}
+      <div className="chips">{[['all', 'All'], ['tests', 'Tests'], ['holidays', 'Holidays'], ['events', 'Events']].map(([k, l]) => <button key={k} className={`small ${filter === k ? 'primary' : ''}`} onClick={() => setFilter(k)}>{l}</button>)}</div>
+      {!upcoming.length && <Card><p className="muted">Nothing coming up.</p></Card>}
+      {groups.map((g) => (
+        <div key={g.m}>
+          <div className="sec-h" style={{ marginTop: 6 }}><h2>{new Date(g.m + '-01').toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}</h2></div>
+          <div className="card list">{g.items.map((e) => <EventRow key={e.id} e={e} today={today} onClick={() => !e.builtin && setEdit(e)} />)}</div>
+        </div>
+      ))}
+      {past.length > 0 && <button className="ghost small" onClick={() => setShowPast(!showPast)}>{showPast ? 'Hide' : 'Show'} past ({past.length})</button>}
+      {showPast && <div className="card list">{past.map((e) => <EventRow key={e.id} e={e} today={today} onClick={() => !e.builtin && setEdit(e)} />)}</div>}
+      <p className="muted small-text">🎉 Karnataka Government general holidays 2026 are built in. CBSE schools follow their own calendar — import it with “Import school dates”.</p>
       {edit && <EventModal F={F} me={me} ev={edit} onClose={() => setEdit(null)} />}
+      {importing && <ImportCalendarModal F={F} me={me} onClose={() => setImporting(false)} />}
     </div>
+  );
+}
+
+function ImportCalendarModal({ F, me, onClose }) {
+  const [text, setText] = useState('');
+  const parsed = text.trim() ? parseSchoolCalendar(text) : null;
+  const save = async () => {
+    for (const e of parsed.events) await saveEvent(F.family.id, { ...e, remind: e.type === 'test' ? [2, 1, 0] : [1], chapters: [], byRole: me.role, byName: me.name, source: 'school' });
+    onClose();
+  };
+  return (
+    <Modal title="Import school calendar" onClose={onClose}>
+      <div className="stack">
+        <p className="muted small-text">Paste dates from the school diary or circular, one per line. Ranges work too. Tip: ask Claude to “convert this school calendar into lines of date and title” and paste the result.</p>
+        <textarea rows={8} placeholder={'2026-12-05 Annual Day\n15/12/2026 to 19/12/2026 Periodic Test 2\n2026-12-24 to 2027-01-01 Winter vacation\n10/01/2027 PTM'} value={text} onChange={(e) => setText(e.target.value)} />
+        {parsed && <div className={parsed.errors.length ? 'feedback bad' : 'feedback good'}>
+          <b>{parsed.events.length} date(s) found</b>
+          {parsed.events.slice(0, 6).map((e, i) => <div key={i} className="small-text">{TYPES[e.type]?.icon} {e.date}{e.endDate ? ' → ' + e.endDate : ''} · {e.title}</div>)}
+          {parsed.errors.map((er, i) => <div key={i} className="small-text">⚠️ {er}</div>)}
+        </div>}
+        <button className="primary" disabled={!parsed?.events.length} onClick={save}>Add to calendar</button>
+      </div>
+    </Modal>
   );
 }
 
@@ -55,10 +101,10 @@ function EventRow({ e, today, onClick }) {
   const gap = daysBetween(today, e.date);
   return (
     <div className={`event-row ${e.type}`} onClick={onClick}>
-      <div className="event-date"><b>{new Date(e.date).getDate()}</b><span>{new Date(e.date).toLocaleString('en-IN', { month: 'short' })}</span></div>
+      <div className="event-date"><b>{Number(e.date.slice(8))}</b><span>{new Date(e.date).toLocaleString('en-IN', { weekday: 'short' })}</span></div>
       <div className="grow">
         <b>{TYPES[e.type]?.icon} {e.title}</b>
-        <div className="muted small-text">{e.time || 'All day'}{gap >= 0 ? ` · ${gap === 0 ? 'today' : gap === 1 ? 'tomorrow' : `in ${gap} days`}` : ''}{e.byRole === 'parent' ? ' · from parent' : ''}</div>
+        <div className="muted small-text">{e.endDate ? `till ${e.endDate.slice(8)} ${new Date(e.endDate).toLocaleString('en-IN', { month: 'short' })}` : e.time || 'All day'}{gap >= 0 ? ` · ${gap === 0 ? 'today' : gap === 1 ? 'tomorrow' : `in ${gap} days`}` : ''}{e.byRole === 'parent' ? ' · from parent' : ''}</div>
         {e.chapters?.length > 0 && <div className="muted small-text">{e.chapters.map(chapterLabel).join(' · ')}</div>}
       </div>
     </div>
@@ -163,6 +209,7 @@ export function WalletModal({ F, kind, me, onClose }) {
       await updateDoc(doc(db, 'families', F.family.id), { goal: { name: reason, amount: amt, startedAt: s.earned + s.bonus } });
     } else {
       await addWallet(F.family.id, `${kind}-${Date.now()}`, { type: kind, amount: amt, reason: reason || (kind === 'bonus' ? 'Bonus' : 'Paid'), by: me.name });
+      if (kind === 'payout') await saveItem(F.family.id, 'money', { type: 'in', amount: amt, currency: 'INR', account: 'Cash', category: 'Reward (Abhyasa)', from: me.name, note: 'Reward payout', date: ymd(), byRole: me.role });
     }
     onClose();
   };

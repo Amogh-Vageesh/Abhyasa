@@ -15,7 +15,7 @@ function at(dateStr, time) {
 }
 
 // Re-schedules everything; safe to call whenever events/settings change.
-export async function syncReminders({ events, settings, role }) {
+export async function syncReminders({ events, blocks = [], settings, role }) {
   if (!isNative) return;
   const { LocalNotifications } = await import('@capacitor/local-notifications');
   const perm = await LocalNotifications.checkPermissions();
@@ -32,7 +32,15 @@ export async function syncReminders({ events, settings, role }) {
     const [h, m] = settings.reminderTime.split(':').map(Number);
     list.push({ id: 1, title: 'Abhyasa time 📚', body: "Log today's classes and finish your routine.", schedule: { on: { hour: h, minute: m }, allowWhileIdle: true } });
   }
-  for (const ev of events) {
+  if (role === 'student') {
+    for (const b of blocks.filter((x) => x.remind)) {
+      const [h, m] = b.start.split(':').map(Number);
+      for (const d of b.days || []) {
+        list.push({ id: hashId(`blk:${b.id}:${d}`), title: `⏰ ${b.title || b.kind}`, body: `${b.start}–${b.end} · from your timetable`, schedule: { on: { weekday: d + 1, hour: h, minute: m }, allowWhileIdle: true } });
+      }
+    }
+  }
+  for (const ev of events.filter((e) => e.type !== 'holiday' || e.date >= new Date().toISOString().slice(0, 10))) {
     for (const before of ev.remind || [1, 0]) {
       const when = at(addDays(ev.date, -before), before === 0 ? (ev.time ? null : '07:00') : '19:00');
       const fire = before === 0 && ev.time ? new Date(at(ev.date, ev.time).getTime() - 60 * 60000) : when;

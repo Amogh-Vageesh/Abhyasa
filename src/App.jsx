@@ -11,7 +11,10 @@ import { Icon, Tile, Avatar } from './icons';
 import { walletSummary } from './lib/logic';
 import { StudentToday, StudyPage, LogModal, LearnModal } from './Student';
 import { ParentDashboard, ParentTests, ParentSettings, ImportModal, NoteModal } from './Parent';
-import { CalendarPage, WalletPage, EventModal, WalletModal } from './Shared';
+import { WalletPage, EventModal, WalletModal, allEvents } from './Shared';
+import { PlannerPage, TaskModal } from './Planner';
+import { FinancePage, MoneyModal } from './Finance';
+import { InsightsPage } from './Insights';
 
 export default function App() {
   const [user, setUser] = useState(undefined);
@@ -90,15 +93,16 @@ function Onboarding({ user, onDone }) {
   );
 }
 
-const STUDENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['calendar', 'calendar', 'Calendar'], ['more', 'menu', 'More']];
-const PARENT_NAV = [['home', 'home', 'Home'], ['tests', 'file', 'Tests'], ['fab'], ['calendar', 'calendar', 'Calendar'], ['more', 'menu', 'More']];
+const STUDENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['planner', 'calendar', 'Planner'], ['more', 'menu', 'More']];
+const PARENT_NAV = [['home', 'home', 'Home'], ['tests', 'file', 'Tests'], ['fab'], ['planner', 'calendar', 'Planner'], ['more', 'menu', 'More']];
 
 function Main({ me }) {
   const F = useFamily(me.familyId);
   const isParent = me.role === 'parent';
   const nav = isParent ? PARENT_NAV : STUDENT_NAV;
   const [tab, setTab] = useState('home');
-  const [sub, setSub] = useState('chapters');
+  const [sub, setSub] = useState('subjects');
+  const [psub, setPsub] = useState('tasks');
   const [sheet, setSheet] = useState(null); // 'fab' | action key
 
   useEffect(() => {
@@ -110,14 +114,18 @@ function Main({ me }) {
   const go = (t, extra) => {
     if (t === 'fab') { setSheet(extra || 'fab'); return; }
     if (t === 'study' && extra) setSub(extra);
+    if (t === 'planner' && extra) setPsub(extra);
+    if (t === 'calendar') { setPsub('calendar'); t = 'planner'; }
     setTab(t); window.scrollTo(0, 0);
   };
   const hasNote = !isParent && F.notes[0] && Date.now() - F.notes[0].at < 86400000;
 
   let page;
   if (tab === 'home') page = isParent ? <ParentDashboard F={F} me={me} go={go} /> : <StudentToday F={F} go={go} />;
-  else if (tab === 'study') page = <StudyPage F={F} sub={sub} setSub={setSub} />;
-  else if (tab === 'calendar') page = <CalendarPage F={F} me={me} />;
+  else if (tab === 'study') page = <StudyPage F={F} me={me} sub={sub} setSub={setSub} />;
+  else if (tab === 'planner') page = <PlannerPage F={F} me={me} sub={psub} setSub={setPsub} />;
+  else if (tab === 'finance') page = <FinancePage F={F} me={me} />;
+  else if (tab === 'insights') page = <InsightsPage F={F} />;
   else if (tab === 'wallet') page = <WalletPage F={F} me={me} />;
   else if (tab === 'tests') page = <ParentTests F={F} />;
   else if (tab === 'settings') page = <ParentSettings F={F} />;
@@ -130,7 +138,7 @@ function Main({ me }) {
         <img src="/icon.svg" alt="" width="30" style={{ borderRadius: 9 }} />
         <span className="brand">Abhyasa</span>
         <span className="sp" />
-        <button className="icon-btn" aria-label="Calendar" onClick={() => go('calendar')}><Icon name="bell" />{(hasNote || F.events.some((e) => e.date === today)) && <span className="dot" />}</button>
+        <button className="icon-btn" aria-label="Calendar" onClick={() => go('calendar')}><Icon name="bell" />{(hasNote || allEvents(F).some((e) => e.date === today)) && <span className="dot" />}</button>
         <button className="icon-btn" aria-label="More" onClick={() => go('more')}><Avatar name={me.name} tone={isParent ? 'purple' : 'blue'} size={38} /></button>
       </header>
       <main key={tab}><UpdateBanner />{page}</main>
@@ -141,6 +149,8 @@ function Main({ me }) {
       </nav>
       {sheet === 'fab' && <FabSheet isParent={isParent} onPick={setSheet} onClose={() => setSheet(null)} />}
       {sheet === 'log' && <LogModal F={F} onClose={() => setSheet(null)} />}
+      {sheet === 'task' && <TaskModal F={F} me={me} task={{ freq: 'daily', title: '', days: [] }} onClose={() => setSheet(null)} />}
+      {sheet === 'money' && <MoneyModal F={F} me={me} entry={{ type: 'out' }} onClose={() => setSheet(null)} />}
       {sheet === 'learn' && <LearnModal F={F} chapters={[]} onClose={() => setSheet(null)} />}
       {sheet === 'event' && <EventModal F={F} me={me} ev={{ type: 'test', date: today, title: '', remind: [1, 0], chapters: [] }} onClose={() => setSheet(null)} />}
       {sheet === 'import' && <ImportModal F={F} onClose={() => setSheet(null)} />}
@@ -153,13 +163,16 @@ function Main({ me }) {
 function FabSheet({ isParent, onPick, onClose }) {
   const items = isParent
     ? [['import', 'file', 'purple', 'Import a test', 'Paste a test made in your Claude project'],
+       ['task', 'check', 'teal', 'Add a task', 'Daily, weekly or monthly task for him'],
        ['event', 'calendar', 'blue', 'Add to calendar', 'Test, PTM, function or reminder'],
        ['note', 'send', 'amber', 'Send a note', 'Shows on his home screen'],
        ['bonus', 'gift', 'green', 'Add a bonus', 'Reward something special'],
        ['payout', 'wallet', 'teal', 'Record a payout', 'Money given in cash / UPI']]
     : [['log', 'edit', 'blue', 'Log a class', 'What was taught today'],
-       ['learn', 'bulb', 'amber', 'Learn a chapter', 'Open study material'],
-       ['event', 'calendar', 'purple', 'Add to calendar', 'Test, function, PTM or anything to remember']];
+       ['task', 'check', 'teal', 'Add a task', 'Daily, weekly or monthly'],
+       ['money', 'rupee', 'green', 'Add money / expense', 'Received, spent, who paid'],
+       ['event', 'calendar', 'purple', 'Add to calendar', 'Test, function, PTM or anything to remember'],
+       ['learn', 'bulb', 'amber', 'Learn a chapter', 'Open study material']];
   return (
     <Modal title="Add" onClose={onClose}>
       <div className="list" style={{ padding: 0 }}>
@@ -179,8 +192,8 @@ function MorePage({ F, me, go }) {
   const isParent = me.role === 'parent';
   const { balance } = walletSummary(F.wallet);
   const rows = isParent
-    ? [['wallet', 'wallet', 'green', 'Wallet', `${rupees(balance)} to pay`], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
-    : [['wallet', 'wallet', 'green', 'Wallet', `${rupees(balance)} earned, unpaid`], ['study:mistakes', 'mistake', 'red', 'Mistake Book', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['study:progress', 'chart', 'blue', 'My progress', 'Last 14 days and scores']];
+    ? [['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} to pay`], ['finance', 'rupee', 'teal', 'His money', 'Received, spent, who paid'], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'How he is doing and how to improve'], ['study', 'book', 'blue', 'Subjects', 'Books, notes, test papers, progress'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
+    : [['finance', 'rupee', 'teal', 'My money', 'Cash, account, spending'], ['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} earned, unpaid`], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'Time management and how to score high'], ['study:mistakes', 'mistake', 'red', 'Mistake Book', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['study:progress', 'chart', 'blue', 'My progress', 'Last 14 days and scores']];
   return (
     <div>
       <PageHead title="More" />
