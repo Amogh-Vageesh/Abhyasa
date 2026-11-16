@@ -26,7 +26,7 @@ const SHORT = { logDone: 'Log classes', homework: 'Homework', learnDone: 'Learn'
 const DONE_WORD = { logDone: 'logged your classes', homework: 'finished homework', learnDone: 'done your learning', practiceDone: 'practised', reviseDone: 'revised' };
 const fmtMin = (m) => (m >= 60 ? `${Math.floor(m / 60)}h ${m % 60}m` : `${m}m`);
 
-export function DeskHome({ F, go, routine, doneCount, streak, greet, openMistakes, balance, onLog }) {
+export function DeskHome({ F, go, routine, doneCount, streak, greet, openMistakes, balance, onLog, onNoSchool }) {
   const today = ymd();
   const upcoming = allEvents(F).filter((e) => e.date >= today && daysBetween(today, e.date) <= 14).sort((a, b) => a.date.localeCompare(b.date));
   const name = F.family.studentName?.split(' ')[0] || '';
@@ -61,7 +61,9 @@ export function DeskHome({ F, go, routine, doneCount, streak, greet, openMistake
           <p className="w-lead">{intro}</p>
           <div className="w-ctas">
             {next && <button className="w-btn dark" onClick={next.run}>{next.key === 'logDone' ? 'Log classes' : next.key === 'homework' ? 'Mark homework done' : `Start ${nextName.toLowerCase()}`}<Icon name="chevR" size={18} /></button>}
-            <button className="w-btn" onClick={onLog}>Log a class</button>
+            {next?.key === 'logDone'
+              ? <button className="w-btn" onClick={onNoSchool}>No school today</button>
+              : <button className="w-btn" onClick={onLog}>Log another class</button>}
           </div>
         </div>
         <div className="w-card w-missions">

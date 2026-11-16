@@ -119,7 +119,7 @@ export function StudentToday({ F, go }) {
       {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
       {modal?.type === 'money' && <MoneyModal F={F} me={{ role: 'student', name: F.family.studentName }} entry={modal.entry} onClose={() => setModal(null)} />}
   </>;
-  if (desktop) return <><DeskHome F={F} go={go} routine={routine} doneCount={doneCount} streak={streak} greet={greet} openMistakes={openMistakes} balance={balance} onLog={() => setModal({ type: 'log' })} />{modals}</>;
+  if (desktop) return <><DeskHome F={F} go={go} routine={routine} doneCount={doneCount} streak={streak} greet={greet} openMistakes={openMistakes} balance={balance} onLog={() => setModal({ type: 'log' })} onNoSchool={() => markStep(F, 'logDone')} />{modals}</>;
 
   return (
     <div>
