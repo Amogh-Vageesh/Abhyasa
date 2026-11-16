@@ -1,0 +1,75 @@
+name: Build & deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build web app
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+        run: npm run build
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Add google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -z "$GOOGLE_SERVICES_JSON" ]; then echo "::error::Missing GOOGLE_SERVICES_JSON secret"; exit 1; fi
+          printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      - name: Build APK
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Put APK on the website
+        run: |
+          mkdir -p dist/download
+          cp android/app/build/outputs/apk/release/app-release.apk dist/download/abhyasa.apk
+          echo "{\"version\": ${{ github.run_number }}, \"built\": \"$(date -u +%FT%TZ)\"}" > dist/download/version.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: abhyasa-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Deploy website, APK and database rules
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then echo "::error::Missing FIREBASE_SERVICE_ACCOUNT secret"; exit 1; fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
+          npx --yes firebase-tools@latest deploy --only hosting,firestore:rules --project abhyasa-3fe1d --non-interactive

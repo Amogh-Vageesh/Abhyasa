@@ -1,0 +1,178 @@
+{
+ "id": "sc-7",
+ "sample": true,
+ "explainer": [
+  {
+   "heading": "Heat always flows from hot to cold",
+   "body": "Heat moves from a hotter object to a colder one until both reach the same temperature.",
+   "example": "A hot cup of chai cools down on the table because heat flows into the cooler air around it.",
+   "hook": "Heat is a traveller that always goes downhill: hot ➜ cold."
+  },
+  {
+   "heading": "Conduction",
+   "body": "In solids, heat passes from particle to particle without the particles moving from their place. Metals are good conductors; wood, plastic and air are poor conductors (insulators).",
+   "example": "A steel spoon in hot dal gets hot at the handle; a wooden ladle doesn't.",
+   "hook": "Conduction = Contact."
+  },
+  {
+   "heading": "Convection",
+   "body": "In liquids and gases, warmer parts become lighter and rise while cooler parts sink, setting up currents that carry heat.",
+   "example": "Sea breeze: by day land heats faster, warm air over land rises and cooler air from the sea moves in.",
+   "hook": "Convection = Current (warm up, cool down)."
+  },
+  {
+   "heading": "Radiation",
+   "body": "Heat can travel as waves without any medium, even through empty space. Dark surfaces absorb more radiant heat; light surfaces reflect more.",
+   "example": "We feel the Sun's warmth though space between us is empty. White clothes keep you cooler in summer.",
+   "hook": "Radiation = Rays, no medium needed."
+  }
+ ],
+ "questions": [
+  {
+   "id": "sc-7-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Which mode of heat transfer does not need any medium?",
+   "options": [
+    "Conduction",
+    "Convection",
+    "Radiation",
+    "All of these"
+   ],
+   "ans": "Radiation",
+   "why": "Radiation travels as waves, even through empty space."
+  },
+  {
+   "id": "sc-7-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Heat moves in solids mainly by:",
+   "options": [
+    "Conduction",
+    "Convection",
+    "Radiation",
+    "Evaporation"
+   ],
+   "ans": "Conduction",
+   "why": "Particles in solids pass heat to neighbours without moving."
+  },
+  {
+   "id": "sc-7-q3",
+   "type": "tf",
+   "level": 1,
+   "q": "Wood is a good conductor of heat.",
+   "options": [
+    "True",
+    "False"
+   ],
+   "ans": "False",
+   "why": "Wood is a poor conductor (an insulator), which is why cooking spoons often have wooden handles."
+  },
+  {
+   "id": "sc-7-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "During the day, a sea breeze blows from:",
+   "options": [
+    "Land to sea",
+    "Sea to land",
+    "Mountains to sea",
+    "It doesn't blow by day"
+   ],
+   "ans": "Sea to land",
+   "why": "Land heats faster; warm air over land rises and cooler sea air moves in."
+  },
+  {
+   "id": "sc-7-q5",
+   "type": "fill",
+   "level": 2,
+   "q": "In a pot of water heated from below, hot water rises and cold water sinks. This is called ______.",
+   "ans": "convection",
+   "why": "Convection currents carry heat in liquids and gases."
+  },
+  {
+   "id": "sc-7-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why are we advised to wear light-coloured clothes in summer?",
+   "options": [
+    "They are cheaper",
+    "They reflect more heat",
+    "They absorb more heat",
+    "They conduct heat away"
+   ],
+   "ans": "They reflect more heat",
+   "why": "Light colours reflect radiant heat; dark colours absorb it."
+  },
+  {
+   "id": "sc-7-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "Which of these is the best insulator?",
+   "options": [
+    "Copper",
+    "Aluminium",
+    "Air",
+    "Iron"
+   ],
+   "ans": "Air",
+   "why": "Air is a poor conductor; trapped air in woollens and double windows keeps heat in."
+  },
+  {
+   "id": "sc-7-q8",
+   "type": "tf",
+   "level": 1,
+   "q": "Heat flows from a colder object to a hotter object.",
+   "options": [
+    "True",
+    "False"
+   ],
+   "ans": "False",
+   "why": "Heat always flows from hotter to colder."
+  },
+  {
+   "id": "sc-7-q9",
+   "type": "mcq",
+   "level": 3,
+   "q": "Woollen clothes keep us warm in winter mainly because:",
+   "options": [
+    "Wool produces heat",
+    "Wool traps air, a poor conductor",
+    "Wool reflects cold",
+    "Wool absorbs sunlight"
+   ],
+   "ans": "Wool traps air, a poor conductor",
+   "why": "Trapped air slows the flow of body heat to the surroundings."
+  },
+  {
+   "id": "sc-7-q10",
+   "type": "short",
+   "level": 3,
+   "q": "Explain the land breeze that blows at night near the coast.",
+   "ans": "At night land cools faster than the sea; air over the warmer sea rises and cooler air from land moves towards the sea.",
+   "why": "Reverse of the sea breeze, driven by convection."
+  },
+  {
+   "id": "sc-7-q11",
+   "type": "mcq",
+   "level": 3,
+   "q": "Ice is kept in a box lined with thermocol. Thermocol helps because it is:",
+   "options": [
+    "A good conductor",
+    "A poor conductor",
+    "A heat source",
+    "Shiny"
+   ],
+   "ans": "A poor conductor",
+   "why": "It slows heat from outside reaching the ice."
+  },
+  {
+   "id": "sc-7-q12",
+   "type": "short",
+   "level": 3,
+   "q": "Why are ventilators placed near the ceiling of a room?",
+   "ans": "Warm air is lighter and rises; ventilators near the ceiling let warm air escape while cooler fresh air enters from below.",
+   "why": "Convection in air."
+  }
+ ]
+}

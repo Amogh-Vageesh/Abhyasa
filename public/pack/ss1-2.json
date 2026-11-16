@@ -1,0 +1,156 @@
+{
+ "id": "ss1-2",
+ "sample": true,
+ "explainer": [
+  {
+   "heading": "Weather vs climate",
+   "body": "Weather is the condition of the atmosphere at a place for a short time (hours or days). Climate is the average weather pattern over many years.",
+   "example": "'It's raining in Bengaluru today' is weather; 'Bengaluru has pleasant summers' is climate.",
+   "hook": "Weather = today's mood; climate = personality."
+  },
+  {
+   "heading": "Elements of weather",
+   "body": "Temperature, rainfall (precipitation), humidity (moisture in air), wind speed and direction, and air pressure together describe the weather.",
+   "example": "A weather app shows 28°C, 70% humidity and winds from the west - those are weather elements.",
+   "hook": "T-R-H-W-P: 'The Rain Hits Windows, Pat!'"
+  },
+  {
+   "heading": "Measuring weather",
+   "body": "Thermometers measure temperature, rain gauges measure rainfall, wind vanes show wind direction, anemometers measure wind speed, barometers measure air pressure and hygrometers measure humidity.",
+   "example": "School weather stations often have a rain gauge and a wind vane on the roof.",
+   "hook": "Baro = pressure, Anemo = wind, Hygro = wet."
+  },
+  {
+   "heading": "Why weather matters",
+   "body": "Farmers, pilots, fishermen and planners rely on weather forecasts to decide sowing, flights, fishing trips and disaster warnings.",
+   "example": "Fishermen are warned not to go to sea before a cyclone.",
+   "hook": "Forecasts save crops, flights and lives."
+  }
+ ],
+ "questions": [
+  {
+   "id": "ss1-2-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "The condition of the atmosphere at a place for a short time is called:",
+   "options": [
+    "Climate",
+    "Weather",
+    "Season",
+    "Region"
+   ],
+   "ans": "Weather",
+   "why": "Weather is short-term; climate is the long-term average."
+  },
+  {
+   "id": "ss1-2-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Which instrument measures air pressure?",
+   "options": [
+    "Thermometer",
+    "Barometer",
+    "Anemometer",
+    "Rain gauge"
+   ],
+   "ans": "Barometer",
+   "why": "Baro = pressure."
+  },
+  {
+   "id": "ss1-2-q3",
+   "type": "mcq",
+   "level": 1,
+   "q": "Wind speed is measured with a:",
+   "options": [
+    "Wind vane",
+    "Hygrometer",
+    "Anemometer",
+    "Barometer"
+   ],
+   "ans": "Anemometer",
+   "why": "A wind vane shows direction; an anemometer measures speed."
+  },
+  {
+   "id": "ss1-2-q4",
+   "type": "fill",
+   "level": 2,
+   "q": "The amount of water vapour in the air is called ______.",
+   "ans": "humidity",
+   "why": "Humidity is measured with a hygrometer."
+  },
+  {
+   "id": "ss1-2-q5",
+   "type": "tf",
+   "level": 1,
+   "q": "Climate is the average weather of a place over many years.",
+   "options": [
+    "True",
+    "False"
+   ],
+   "ans": "True",
+   "why": "That is the definition of climate."
+  },
+  {
+   "id": "ss1-2-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "'Mumbai gets heavy rain every June to September.' This statement describes:",
+   "options": [
+    "Weather",
+    "Climate",
+    "Humidity",
+    "Air pressure"
+   ],
+   "ans": "Climate",
+   "why": "It describes a long-term pattern, not one day."
+  },
+  {
+   "id": "ss1-2-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "Rainfall is measured in:",
+   "options": [
+    "Degrees Celsius",
+    "Millimetres",
+    "Kilometres per hour",
+    "Kilograms"
+   ],
+   "ans": "Millimetres",
+   "why": "A rain gauge collects rain and measures its depth in mm."
+  },
+  {
+   "id": "ss1-2-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "Which group depends most on daily weather forecasts?",
+   "options": [
+    "Fishermen",
+    "Librarians",
+    "Shopkeepers",
+    "Students"
+   ],
+   "ans": "Fishermen",
+   "why": "Storms and high winds at sea are dangerous."
+  },
+  {
+   "id": "ss1-2-q9",
+   "type": "short",
+   "level": 3,
+   "q": "Give two ways in which weather forecasts help farmers.",
+   "ans": "Deciding when to sow or harvest; protecting crops before heavy rain, hail or frost; planning irrigation.",
+   "why": "Any two reasonable uses."
+  },
+  {
+   "id": "ss1-2-q10",
+   "type": "tf",
+   "level": 2,
+   "q": "A wind vane tells us how fast the wind is blowing.",
+   "options": [
+    "True",
+    "False"
+   ],
+   "ans": "False",
+   "why": "A wind vane shows direction; an anemometer measures speed."
+  }
+ ]
+}
