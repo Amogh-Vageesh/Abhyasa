@@ -107,7 +107,7 @@ export function StudentToday({ F, go }) {
     { ...STEPS[0], icon: 'edit', tone: 'blue', done: day.logDone,
       sub: (day.logs || []).length ? (day.logs || []).map((l) => l.chapterId ? chapterLabel(l.chapterId) : l.subjectName).join(' · ') : 'Subject, chapter, pages — speak or snap a photo',
       run: () => setModal({ type: 'log' }) },
-    { ...STEPS[1], icon: 'notebook', tone: 'purple', done: day.homework, sub: day.homework ? 'Tap to undo' : 'Tick when finished', run: () => markStep(F, 'homework', !day.homework) },
+    { ...STEPS[1], icon: 'notebook', tone: 'purple', done: day.homework, sub: day.homework ? 'Done — tap the tick to undo' : 'Tick the circle when finished', run: () => markStep(F, 'homework', !day.homework) },
     { ...STEPS[2], icon: 'bulb', tone: 'amber', done: day.learnDone, sub: todaysChapters.length ? `${todaysChapters.length} chapter(s) from today` : 'Pick any chapter', run: () => setModal({ type: 'learn', chapters: todaysChapters }) },
     { ...STEPS[3], icon: 'target', tone: 'green', done: day.practiceDone, sub: `${F.settings.practiceCount} questions on today’s lessons`, run: startPractice },
     { ...STEPS[4], icon: 'repeat', tone: 'teal', done: day.reviseDone, sub: `${due.length} chapter(s) due · ${openMistakes} fix-its`, run: startRevise }
@@ -172,7 +172,7 @@ export function StudentToday({ F, go }) {
           <button key={r.key} className={`lrow ${r.done ? 'done' : ''}`} onClick={r.run}>
             <Tile icon={r.icon} tone={r.tone} />
             <div className="lt"><b>{r.label}</b><small>{r.sub}</small></div>
-            <span className={`check-circle ${r.done ? 'on' : ''}`}>{r.done && <Icon name="check" size={16} />}</span>
+            <MissionCheck done={r.done} label={r.label} onToggle={() => markStep(F, r.key, !r.done)} />
           </button>
         ))}
         {!day.logDone && <button className="lrow" onClick={() => markStep(F, 'logDone')}><Tile icon="calendar" tone="gray" /><div className="lt"><b>No school today</b><small>Holiday or weekend — skip logging</small></div><Icon name="chevR" className="chev" /></button>}
@@ -242,6 +242,18 @@ export function StudentToday({ F, go }) {
       {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
       {modal?.type === 'money' && <MoneyModal F={F} me={{ role: 'student', name: F.family.studentName }} entry={modal.entry} onClose={() => setModal(null)} />}
     </div>
+  );
+}
+
+// Tick / untick a mission without opening it
+export function MissionCheck({ done, label, onToggle, className = 'check-circle' }) {
+  const toggle = (e) => { e.stopPropagation(); e.preventDefault(); onToggle(); };
+  return (
+    <span role="checkbox" aria-checked={!!done} aria-label={`${label}: ${done ? 'done' : 'not done'}`} tabIndex={0}
+      className={`${className} tappable ${done ? 'on' : ''}`} onClick={toggle}
+      onKeyDown={(e) => (e.key === ' ' || e.key === 'Enter') && toggle(e)}>
+      {done && <Icon name="check" size={className === 'w-dot' ? 13 : 16} />}
+    </span>
   );
 }
 

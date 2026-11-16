@@ -8,6 +8,8 @@ import { subjectChapters, subjectOfFactory } from './Study';
 import { daysBetween, studyStats, ymd } from './lib/logic';
 import { words } from './theme';
 import { allEvents } from './Shared';
+import { MissionCheck } from './Student';
+import { markStep } from './lib/actions';
 
 const SUBJ_COLORS = { maths: ['#2563eb', '#eff4ff'], science: ['#059669', '#ecfdf5'], social: ['#ea580c', '#fff4ed'], english: ['#7c3aed', '#f4f0ff'], other: ['#db2777', '#fdf0f6'] };
 
@@ -73,7 +75,7 @@ export function DeskHome({ F, go, routine, doneCount, streak, greet, openMistake
           </div>
           {routine.map((r) => (
             <button key={r.key} className={`w-mrow ${r.done ? 'done' : ''}`} onClick={r.run}>
-              <span className="w-dot">{r.done && <Icon name="check" size={13} />}</span>
+              <MissionCheck className="w-dot" done={r.done} label={r.label} onToggle={() => markStep(F, r.key, !r.done)} />
               <span className="w-mlabel">{SHORT[r.key] || r.label}</span>
               <span className="w-mmeta">{r.done ? 'Done' : r === next ? 'Next' : ''}</span>
             </button>

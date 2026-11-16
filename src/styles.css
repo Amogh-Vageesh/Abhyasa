@@ -866,3 +866,8 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
 .w-h1, .w-stats b, .w-big, .page-head h1, .hero-txt h1, .summary-main b { letter-spacing: -0.04em; }
 /* Manrope 400 reads thin on screens: nudge regular text to 450 */
 :root, body, input, select, textarea { font-weight: 450; }
+/* mission tick: its own tap target (tap the circle to tick/untick, tap the row to open) */
+.tappable { cursor: pointer; position: relative; }
+.tappable::before { content: ''; position: absolute; inset: -10px; }
+.tappable:hover { border-color: var(--good); }
+.tappable:focus-visible { outline: 2px solid var(--accent-b); outline-offset: 2px; }
