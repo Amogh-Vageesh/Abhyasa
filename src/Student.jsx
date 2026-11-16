@@ -131,7 +131,7 @@ export function StudentToday({ F, go }) {
         {SUBJECTS.map((sj) => (
           <button key={sj.id} className={loggedSubjects.has(sj.id) ? 'logged' : ''} onClick={() => setModal({ type: 'log', subject: sj.id })}>
             {loggedSubjects.has(sj.id) && <span className="tick"><Icon name="check" size={12} /></span>}
-            <Tile icon="book" tone={sj.color} />{sj.name.replace('Social Science', 'Social').replace('Other / 2nd Language', '2nd Lang')}
+            <Tile icon="book" tone={sj.color} />{sj.name.replace('Social Science', 'Social')}
           </button>
         ))}
       </div>

@@ -15,6 +15,7 @@ import { WalletPage, EventModal, WalletModal, allEvents } from './Shared';
 import { PlannerPage, TaskModal } from './Planner';
 import { FinancePage, MoneyModal } from './Finance';
 import { InsightsPage } from './Insights';
+import { ManageEbooks } from './Ebooks';
 
 export default function App() {
   const [user, setUser] = useState(undefined);
@@ -128,7 +129,8 @@ function Main({ me }) {
   else if (tab === 'insights') page = <InsightsPage F={F} />;
   else if (tab === 'wallet') page = <WalletPage F={F} me={me} />;
   else if (tab === 'tests') page = <ParentTests F={F} />;
-  else if (tab === 'settings') page = <ParentSettings F={F} />;
+  else if (tab === 'settings') page = <ParentSettings F={F} go={go} />;
+  else if (tab === 'ebooks') page = <ManageEbooks F={F} me={me} onBack={() => go(isParent ? 'settings' : 'more')} />;
   else if (tab === 'more') page = <MorePage F={F} me={me} go={go} />;
 
   const today = new Date().toISOString().slice(0, 10);
@@ -192,7 +194,7 @@ function MorePage({ F, me, go }) {
   const isParent = me.role === 'parent';
   const { balance } = walletSummary(F.wallet);
   const rows = isParent
-    ? [['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} to pay`], ['finance', 'rupee', 'teal', 'His money', 'Received, spent, who paid'], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'How he is doing and how to improve'], ['study', 'book', 'blue', 'Subjects', 'Books, notes, test papers, progress'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
+    ? [['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} to pay`], ['finance', 'rupee', 'teal', 'His money', 'Received, spent, who paid'], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'How he is doing and how to improve'], ['study', 'book', 'blue', 'Subjects', 'Books, notes, test papers, progress'], ['ebooks', 'file', 'red', 'Manage e-books', 'Links and offline PDFs per subject'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
     : [['finance', 'rupee', 'teal', 'My money', 'Cash, account, spending'], ['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} earned, unpaid`], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'Time management and how to score high'], ['study:mistakes', 'mistake', 'red', 'Mistake Book', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['study:progress', 'chart', 'blue', 'My progress', 'Last 14 days and scores']];
   return (
     <div>

@@ -7,6 +7,7 @@ import { recordQuiz } from './lib/actions';
 import { pickQuestions, ymd } from './lib/logic';
 import { CHAPTERS, SUBJECTS, chapterLabel } from './lib/syllabus';
 import { EXAM_GUIDES } from './lib/content';
+import { EbookButtons } from './Ebooks';
 
 const STATUS = [
   ['not-started', 'Not started', 'gray'], ['taught', 'Taught', 'blue'], ['revised', 'Revised', 'amber'], ['test-done', 'Test done', 'green']
@@ -52,12 +53,13 @@ export function SubjectDetail({ F, me, subjectId, onBack }) {
       <div className="summary" style={{ margin: '0 0 12px', cursor: 'default' }}>
         <Tile icon="book" tone={s.color} size={52} />
         <div className="summary-main">
-          <small>{s.chapters[0]?.book?.replace(/ I+$/, '') || 'Second language'}</small>
+          <small>{s.chapters[0]?.book?.replace(/ I+$/, '') || 'Second language · KTBS'}</small>
           <b>{s.chapters.length ? `${st.started} of ${st.count} chapters` : 'Notes & tests'}</b>
           {s.chapters.length > 0 && <Progress value={st.started} max={st.count} color={s.color} />}
         </div>
         <div className="delta" style={{ color: s.color }}>{st.acc !== null ? `${st.acc}%` : '—'}<span>accuracy</span></div>
       </div>
+      <EbookButtons F={F} subjectId={s.id} />
       <div className="seg">{[['book', 'Book'], ['notes', 'Notes'], ['papers', 'Papers'], ['progress', 'Progress']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
       {tab === 'book' && <BookTab F={F} s={s} />}
       {tab === 'notes' && <NotesTab F={F} me={me} s={s} />}

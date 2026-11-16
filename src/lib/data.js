@@ -69,12 +69,13 @@ export function useFamily(familyId) {
   const money = useCollection(familyId, 'money', { order: 'date', dir: 'desc' });
   const snotes = useCollection(familyId, 'snotes', { order: 'at', dir: 'desc' });
   const papers = useCollection(familyId, 'papers', { order: 'date', dir: 'desc' });
+  const ebooks = useCollection(familyId, 'ebooks', { order: 'order' });
   const settings = { ...DEFAULT_SETTINGS, ...(family?.settings || {}), rewards: { ...DEFAULT_SETTINGS.rewards, ...(family?.settings?.rewards || {}) } };
   return {
     family, settings,
     days: Object.fromEntries(days.map((d) => [d.id, d])),
     chapters: Object.fromEntries(chapters.map((c) => [c.id, c])),
-    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers
+    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks
   };
 }
 

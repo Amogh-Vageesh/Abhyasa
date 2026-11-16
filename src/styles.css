@@ -236,3 +236,18 @@ main { padding: 0 16px 16px; }
 .pill.blue { --tc: var(--inc); } .pill.green { --tc: var(--good); } .pill.amber { --tc: var(--accent-b); } .pill.red { --tc: var(--bad); } .pill.gray { --tc: var(--muted); }
 .tips { margin: 6px 0 0; padding-left: 20px; line-height: 1.6; font-size: 14.5px; }
 .tips li { margin: 4px 0; }
+
+/* e-book reader */
+.reader { position: fixed; inset: 0; z-index: 20; background: var(--bg); display: flex; flex-direction: column; }
+.reader-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px; padding-top: max(8px, env(safe-area-inset-top)); border-bottom: 1px solid var(--rule); background: var(--panel); }
+.reader-body { flex: 1; position: relative; overflow: auto; }
+.reader-body iframe { width: 100%; height: 100%; border: 0; background: #fff; display: block; }
+.reader-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: var(--bg); padding: 20px; text-align: center; }
+.reader-msg { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; max-width: 420px; margin: 0 auto; }
+.reader-hint { position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 12px; padding-bottom: max(6px, env(safe-area-inset-bottom)); font-size: 12.5px; background: var(--panel); border-top: 1px solid var(--rule); display: flex; gap: 6px; align-items: center; justify-content: center; }
+.spinner { width: 36px; height: 36px; border-radius: 50%; border: 4px solid var(--rule); border-top-color: var(--accent-b); animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.pdf-scroll { background: var(--raise); padding: 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.pdf-page { background: #fff; box-shadow: var(--shadow); flex: 0 0 auto; }
+.pdf-page canvas { display: block; }
+.page-pill { position: fixed; bottom: max(16px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); background: rgba(15,18,25,.75); color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; }

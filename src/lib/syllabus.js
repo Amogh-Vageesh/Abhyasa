@@ -16,7 +16,7 @@ export const SUBJECTS = [
   { id: 'english', name: 'English', color: '#8b5cf6', chapters: mk('en', 'Poorvi', [
     'The Day the River Spoke', 'Try Again', 'Three Days to See', 'Animals, Birds, and Dr. Dolittle', 'A Funny Man', 'Say the Right Thing', "My Brother's Great Invention", 'Paper Boats', 'North, South, East, West', 'The Tunnel', 'Travel', 'Conquering the Summit', 'A Homage to Our Brave Soldiers', 'My Dear Soldiers', 'Rani Abbakka'
   ])},
-  { id: 'other', name: 'Other / 2nd Language', color: '#ec4899', chapters: [] }
+  { id: 'other', name: 'Kannada', color: '#ec4899', chapters: [] }
 ];
 
 export const CHAPTERS = Object.fromEntries(

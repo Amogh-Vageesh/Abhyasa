@@ -237,7 +237,7 @@ function PaperModal({ F, onClose }) {
   );
 }
 
-export function ParentSettings({ F }) {
+export function ParentSettings({ F, go }) {
   const [s, setS] = useState(F.settings);
   const [saved, setSaved] = useState(false);
   const setR = (k, v) => setS({ ...s, rewards: { ...s.rewards, [k]: Number(v) || 0 } });
@@ -246,6 +246,9 @@ export function ParentSettings({ F }) {
   return (
     <div className="stack">
       <PageHead title="Settings" />
+      <div className="card list">
+        <button className="lrow" onClick={() => go('ebooks')}><Tile icon="file" tone="red" /><div className="lt"><b>Manage e-books</b><small>{F.ebooks.length} e-book(s) · links and offline PDFs per subject</small></div><Icon name="chevR" className="chev" /></button>
+      </div>
       <Card title="Routine">
         <Field label="Practice questions per day"><input inputMode="numeric" value={s.practiceCount} onChange={(e) => num('practiceCount', e.target.value)} /></Field>
         <Field label="Revision questions per day"><input inputMode="numeric" value={s.reviseCount} onChange={(e) => num('reviseCount', e.target.value)} /></Field>

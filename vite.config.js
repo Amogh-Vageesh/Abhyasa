@@ -24,8 +24,16 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png}'],
+        globPatterns: ['**/*.{js,mjs,css,html,svg,png}'],
+        globIgnores: ['pdfjs/**'],
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
+        navigateFallbackDenylist: process.env.DEMO ? [/demo/] : [],
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/pdfjs/'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'pdfjs-assets' }
+          },
           {
             urlPattern: ({ url }) => url.pathname.startsWith('/pack/'),
             handler: 'StaleWhileRevalidate',

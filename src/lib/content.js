@@ -101,7 +101,7 @@ export const EXAM_GUIDES = {
     inExam: ['Follow the word limit in writing tasks', 'Quote the text briefly for literature answers', 'Leave time to check spelling and punctuation']
   },
   other: {
-    name: '2nd Language', color: '#d6457a',
+    name: 'Kannada', color: '#d6457a',
     pattern: 'Reading, grammar, vocabulary, writing and lessons/poems from the textbook.',
     tips: [
       'Read the lesson aloud daily — it improves fluency and spelling.',

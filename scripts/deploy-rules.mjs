@@ -20,3 +20,21 @@ try {
   await client.request({ url: `${base}/releases`, method: 'POST', data: { name: releaseName, rulesetName } });
 }
 console.log('Firestore rules released');
+
+// ---- Storage rules + CORS (only once a Storage bucket exists; needs the Blaze plan) ----
+const bucket = `${project}.firebasestorage.app`;
+try {
+  await client.request({ url: `https://storage.googleapis.com/storage/v1/b/${bucket}?fields=cors`, method: 'PATCH',
+    data: { cors: [{ origin: ['*'], method: ['GET', 'HEAD'], responseHeader: ['Content-Type', 'Content-Length'], maxAgeSeconds: 3600 }] } });
+  const srs = await client.request({ url: `${base}/rulesets`, method: 'POST', data: { source: { files: [{ name: 'storage.rules', content: readFileSync('storage.rules', 'utf8') }] } } });
+  const relName = `projects/${project}/releases/firebase.storage/${bucket}`;
+  try {
+    await client.request({ url: `${base}/releases/firebase.storage/${bucket}`, method: 'PATCH', data: { release: { name: relName, rulesetName: srs.data.name } } });
+  } catch (e) {
+    if (e.response?.status !== 404) throw e;
+    await client.request({ url: `${base}/releases`, method: 'POST', data: { name: relName, rulesetName: srs.data.name } });
+  }
+  console.log('Storage CORS + rules released');
+} catch (e) {
+  console.log(`Storage not set up yet (${e.response?.status || e.message}) — skipping storage rules/CORS. Enable Storage in Firebase to allow PDF uploads.`);
+}

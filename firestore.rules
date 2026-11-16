@@ -45,9 +45,15 @@ service cloud.firestore {
         allow update, delete: if signedIn() && isParent(fid);
       }
 
+      // E-books: only parents manage the list; the student can read it
+      match /ebooks/{id} {
+        allow read: if signedIn() && isMember(fid);
+        allow write: if signedIn() && isParent(fid);
+      }
+
       match /{sub}/{id} {
         allow read: if signedIn() && isMember(fid);
-        allow write: if signedIn() && isMember(fid) && sub != 'wallet';
+        allow write: if signedIn() && isMember(fid) && !(sub in ['wallet', 'ebooks']);
       }
     }
   }

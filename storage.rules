@@ -1,0 +1,14 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Parent-uploaded free textbook PDFs. The e-book list itself (Firestore) is parent-only,
+    // and file paths are only discoverable through that list.
+    match /families/{fid}/ebooks/{file} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null
+        && request.resource.contentType == 'application/pdf'
+        && request.resource.size < 80 * 1024 * 1024;
+      allow delete: if request.auth != null;
+    }
+  }
+}

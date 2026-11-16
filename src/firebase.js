@@ -5,6 +5,7 @@ import {
 } from 'firebase/auth';
 import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
 import { Capacitor } from '@capacitor/core';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBshtpPacLZWAqe93CbS_UG8Wf3oPeXmng',
@@ -23,6 +24,8 @@ export const auth = isNative
 export const db = initializeFirestore(app, {
   localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
 });
+
+export const storage = getStorage(app);
 
 export async function signIn() {
   if (isNative) {
