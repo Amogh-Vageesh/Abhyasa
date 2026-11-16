@@ -77,4 +77,5 @@ jobs:
             console.log("Service account:", j.client_email, "project:", j.project_id);
           ' "$RUNNER_TEMP/sa.json"
           export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
-          npx --yes firebase-tools@latest deploy --only hosting,firestore:rules --project abhyasa-3fe1d --non-interactive
+          node scripts/deploy-rules.mjs abhyasa-3fe1d
+          npx --yes firebase-tools@latest deploy --only hosting --project abhyasa-3fe1d --non-interactive
