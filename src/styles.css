@@ -421,3 +421,5 @@ button.primary, .button.primary, .nav .fab-in, .xp-chip, .level-ring, .seg butto
   .sec-h h2::before { content: ''; display: inline-block; width: 8px; height: 22px; border-radius: 4px; margin-right: 8px; vertical-align: -3px; background: linear-gradient(180deg, var(--accent-a), var(--accent-b)); }
   .appbar { background: transparent; }
 }
+.empty-state { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 28px 20px; }
+.empty-state p { max-width: 460px; }

@@ -8,6 +8,13 @@ import { chapterTitle, subjectOfFactory } from './Study';
 import { SUBJECTS } from './lib/syllabus';
 
 const FACES = ['😣', '😕', '😐', '🙂', '😎'];
+const KID_TIPS = {
+  'concept-gap': 'Read the chapter explainer again and ask your teacher or Appa/Amma about the part that’s confusing.',
+  memory: 'Write facts and formulas on small cards and read them for 5 minutes a day.',
+  careless: 'Before moving on: re-read the question, check your working, check your answer.',
+  reading: 'Underline what is given and circle what is asked before you answer.',
+  time: 'Practise with a timer, skip hard questions and come back to them.'
+};
 const FACE_TEXT = ['Totally lost', 'Confused', 'Okay-ish', 'Mostly get it', 'I can teach it!'];
 
 // ---------- the probe: understand WHY a mistake happened ----------
@@ -131,7 +138,8 @@ export function MistakeProbe({ F, mistake, onClose }) {
 }
 
 // ---------- parent summary ----------
-export function MistakeReport({ F, compact = false, go }) {
+export function MistakeReport({ F, compact = false, go, me }) {
+  const kid = me?.role !== 'parent';
   const subjectOf = subjectOfFactory(F);
   const a = mistakeAnalysis(F.mistakes, subjectOf);
   const recent = F.mistakes.filter((m) => m.probe).sort((x, y) => (y.probe.date || '').localeCompare(x.probe.date || ''));
@@ -151,6 +159,18 @@ export function MistakeReport({ F, compact = false, go }) {
       </div>
     );
   }
+  if (!a.probed) {
+    return (
+      <div className="card empty-state">
+        <span style={{ fontSize: 44 }}>🕵️</span>
+        <h3>{kid ? 'No mistakes checked yet' : 'Nothing to report yet'}</h3>
+        <p className="muted small-text">{kid
+          ? 'Open your Mistake Book and tap “Find out why” on a mistake. A few quick questions show whether it was a slip, something you forgot, or a topic to learn again.'
+          : `This report fills in when he taps “Find out why” on his mistakes.${a.unprobed ? ` ${a.unprobed} mistake${a.unprobed > 1 ? 's are' : ' is'} waiting.` : ''}`}</p>
+        {go && <button className="primary" onClick={() => go('mistakes')}>{kid ? 'Open Mistake Book' : 'See his mistakes'}</button>}
+      </div>
+    );
+  }
   return (
     <div className="stack">
       <Card>
@@ -160,20 +180,19 @@ export function MistakeReport({ F, compact = false, go }) {
           <div><small>Avg. confidence</small><b>{a.avgConfidence ? FACES[Math.round(a.avgConfidence) - 1] + ' ' + a.avgConfidence : '—'}</b></div>
         </div>
       </Card>
-      <Card title="Why the mistakes happen">
-        {!a.probed && <p className="muted small-text">When he taps “Find out why” on a mistake, the app asks him to retry, say what happened, rate his understanding, answer 2 related questions and explain the idea in his own words. The results show up here.</p>}
+      <Card title={kid ? 'Why my mistakes happen' : 'Why the mistakes happen'}>
         {Object.entries(DIAGNOSES).filter(([k]) => a.byDiag[k]).sort((x, y) => a.byDiag[y[0]] - a.byDiag[x[0]]).map(([k, d]) => (
           <div key={k} className="diag-row">
             <div className="row between"><b>{d.label}</b><span className={`pill ${d.tone}`}>{a.byDiag[k]} · {Math.round((a.byDiag[k] / totalP) * 100)}%</span></div>
             <div className="progress"><div className={`bg-${d.tone}`} style={{ width: `${(a.byDiag[k] / totalP) * 100}%` }} /></div>
-            <p className="small-text muted">What you can do: {d.parent}</p>
+            <p className="small-text muted">{kid ? 'Tip: ' : 'What you can do: '}{kid ? KID_TIPS[k] : d.parent}</p>
           </div>
         ))}
       </Card>
       {a.gapChapters.length > 0 && <Card title="Chapters with concept gaps">
         {a.gapChapters.map((c) => <div key={c.id} className="row between" style={{ padding: '6px 0' }}><span>{chapterTitle(F, c.id)} <span className="muted small-text">· {SUBJECTS.find((s) => s.id === subjectOf(c.id))?.name}</span></span><b className="bad-text">{c.gaps}</b></div>)}
       </Card>}
-      <div className="sec-h"><h2>His answers</h2></div>
+      <div className="sec-h"><h2>{kid ? 'My answers' : 'His answers'}</h2></div>
       <div className="card list">
         {!recent.length && <div className="muted small-text" style={{ padding: '12px 0' }}>Nothing yet.</div>}
         {recent.slice(0, 20).map((m) => { const d = DIAGNOSES[m.probe.diagnosis]; return (

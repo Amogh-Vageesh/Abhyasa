@@ -51,7 +51,7 @@ export function InsightsPage({ F, initial = 'insights', go, me }) {
         <div className="sec-h"><h2>How {me?.role === 'parent' ? 'he is' : 'you are'} doing</h2></div>
         <div className="card list">{insights.map((i, n) => <InsightRow key={n} i={i} />)}</div>
       </div>}
-      {tab === 'mistakes' && <MistakeReport F={F} />}
+      {tab === 'mistakes' && <MistakeReport F={F} me={me} go={go} />}
       {tab === 'habits' && <div className="card list">
         {BEST_PRACTICES.map((b) => <div key={b.title} className="lrow"><Tile icon="bulb" tone="amber" /><div className="lt"><b>{b.title}</b><small style={{ whiteSpace: 'normal' }}>{b.text}</small></div></div>)}
       </div>}
