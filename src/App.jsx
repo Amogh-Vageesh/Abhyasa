@@ -108,6 +108,8 @@ const STUDENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab
 const PARENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
 // Desktop sidebar shows every destination
 const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['goals', 'target', 'My goals'], ['insights', 'bulb', 'My next steps'], ['ebooks', 'file', 'My books'], ['badges', 'trophy', 'Badges'], ['theme', 'settings', 'Theme'], ['more', 'menu', 'More']];
+const TOP_STUDENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice'], ['planner', 'Planner'], ['finance', 'Money'], ['ebooks', 'Books']];
+const TOP_PARENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice'], ['planner', 'Planner'], ['finance', 'Money'], ['ebooks', 'E-books'], ['settings', 'Settings']];
 const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'Money & rewards'], ['goals', 'target', 'His goals'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
 
 export function Main({ me }) {
@@ -177,6 +179,20 @@ export function Main({ me }) {
   const xp = isParent ? null : levelInfo(F);
   return (
     <div className="shell">
+      <header className="topnav">
+        <div className="topnav-in">
+          <button className="topnav-brand" onClick={() => go('home')}><img src="/icon.svg" alt="" width="32" height="32" style={{ borderRadius: 9 }} />Abhyasa</button>
+          <nav className="topnav-links" aria-label="Main">
+            {(isParent ? TOP_PARENT : TOP_STUDENT).map(([id, label]) => <button key={id} className={tab === id ? 'on' : ''} onClick={() => go(id)}>{label}</button>)}
+          </nav>
+          <div className="topnav-right">
+            <button className="topnav-add" onClick={() => setSheet('fab')}><Icon name="plus" size={18} /> Add</button>
+            {xp && <button className="topnav-level" onClick={() => go('badges')}><Icon name="trophy" size={16} />Level {xp.level} · {xp.name}</button>}
+            <button className="topnav-icon" aria-label="Calendar" onClick={() => go('calendar')}><Icon name="bell" size={19} />{(hasNote || allEvents(F).some((e) => e.date === today)) && <span className="dot" />}</button>
+            <button className="topnav-me" aria-label="More" onClick={() => go('more')}><Avatar name={me.name} tone={isParent ? 'purple' : 'blue'} size={38} /></button>
+          </div>
+        </div>
+      </header>
       <aside className="side">
         <div className="side-brand"><img src="/icon.svg" alt="" width="36" style={{ borderRadius: 11 }} /><b>Abhyasa</b></div>
         <button className="primary side-add" onClick={() => setSheet('fab')}><Icon name="plus" size={20} /> Add</button>

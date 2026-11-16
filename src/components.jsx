@@ -176,3 +176,11 @@ export function QuizRunner({ title, questions, onFinish, onCancel, timed = false
     </Card>
   );
 }
+
+// true on wide screens (web/desktop layout)
+export function useDesktop() {
+  const q = '(min-width: 960px)';
+  const [d, setD] = useState(() => typeof window !== 'undefined' && window.matchMedia?.(q).matches);
+  useEffect(() => { const m = window.matchMedia(q); const f = () => setD(m.matches); m.addEventListener?.('change', f); return () => m.removeEventListener?.('change', f); }, []);
+  return d;
+}

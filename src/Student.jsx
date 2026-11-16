@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { set as idbSet, get as idbGet } from 'idb-keyval';
-import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees, PageHead } from './components';
+import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees, PageHead, useDesktop } from './components';
+import { DeskHome } from './DeskHome';
 import { Icon, Tile, Avatar, HeroArt } from './icons';
 import { TodayPlanCard } from './Planner';
 import { useInsights, InsightRow, ActionList } from './Insights';
@@ -29,6 +30,7 @@ export function StudentToday({ F, go }) {
   const day = F.days[today] || {};
   const [modal, setModal] = useState(null);
   const [quiz, setQuiz] = useState(null);
+  const desktop = useDesktop();
   const streak = currentStreak(F.days, today);
   const doneCount = STEPS.filter((s) => day[s.key]).length;
   const todaysChapters = [...new Set((day.logs || []).map((l) => l.chapterId).filter(Boolean))];
@@ -110,6 +112,14 @@ export function StudentToday({ F, go }) {
     { ...STEPS[3], icon: 'target', tone: 'green', done: day.practiceDone, sub: `${F.settings.practiceCount} questions on today’s lessons`, run: startPractice },
     { ...STEPS[4], icon: 'repeat', tone: 'teal', done: day.reviseDone, sub: `${due.length} chapter(s) due · ${openMistakes} fix-its`, run: startRevise }
   ];
+
+  const modals = <>
+      {modal?.type === 'log' && <LogModal F={F} initialSubject={modal.subject || ''} onClose={() => setModal(null)} />}
+      {modal?.type === 'learn' && <LearnModal F={F} chapters={modal.chapters} onClose={() => setModal(null)} />}
+      {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
+      {modal?.type === 'money' && <MoneyModal F={F} me={{ role: 'student', name: F.family.studentName }} entry={modal.entry} onClose={() => setModal(null)} />}
+  </>;
+  if (desktop) return <><DeskHome F={F} go={go} routine={routine} doneCount={doneCount} streak={streak} greet={greet} openMistakes={openMistakes} balance={balance} onLog={() => setModal({ type: 'log' })} />{modals}</>;
 
   return (
     <div>
