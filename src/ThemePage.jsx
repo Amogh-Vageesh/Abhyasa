@@ -8,20 +8,22 @@ export function ThemePage() {
   return (
     <div>
       <PageHead title="Theme" />
-      <Card title="Choose your game theme">
-        <div className="palettes">
+      <Card title="Theme">
+        <div className="themes">
           {Object.entries(THEMES).map(([k, t]) => (
-            <button key={k} className={`palette ${key === k ? 'sel' : ''}`} style={{ '--pa': t.a, '--pb': t.b }} onClick={() => { setKey(k); setTheme({ palette: k }); }}>
-              <span className="swatch">{t.emoji}</span><b>{t.name}</b>
-              <small className="muted">{t.levels[0]} → {t.levels[t.levels.length - 1]}</small>
+            <button key={k} className={`theme-tile ${key === k ? 'sel' : ''}`} style={{ '--pa': t.a, '--pb': t.b }} onClick={() => { setKey(k); setTheme({ palette: k }); }}>
+              <span className="theme-bar" />
+              <span className="theme-name">{t.name}</span>
+              <small>{t.tag}</small>
+              <span className="theme-rank">LVL 4 · {t.levels[3].toUpperCase()}</span>
             </button>
           ))}
         </div>
-        <p className="muted small-text" style={{ marginTop: 10 }}>Game themes change colours, heading style and level names, and turn your routine into Daily Quests and the weekly test into a Boss Battle.</p>
+        <p className="muted small-text" style={{ marginTop: 10 }}>Game themes use ranked levels (Iron → Legend), Daily Missions and a weekly Boss Fight.</p>
       </Card>
-      <Card title="Light or dark" className="mt">
+      <Card title="Appearance" className="mt">
         <div className="seg" style={{ marginBottom: 0 }}>
-          {[['light', '☀️ Light'], ['dark', '🌙 Dark'], ['system', '📱 Like my phone']].map(([k, l]) => <button key={k} className={mode === k ? 'on' : ''} onClick={() => { setMode(k); setTheme({ mode: k }); }}>{l}</button>)}
+          {[['light', 'Light'], ['dark', 'Dark'], ['system', 'System']].map(([k, l]) => <button key={k} className={mode === k ? 'on' : ''} onClick={() => { setMode(k); setTheme({ mode: k }); }}>{l}</button>)}
         </div>
       </Card>
     </div>

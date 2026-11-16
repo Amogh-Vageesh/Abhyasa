@@ -13,7 +13,7 @@ import { GoalsCard } from './Goals';
 import { MoneyModal } from './Finance';
 import { subjectChapters } from './Study';
 
-const CHEERS = ['Small steps every day make big results! 🚀', 'You’ve got this! 💪', 'Learn something cool today 🧠', 'Every fix-it makes you stronger 🌱', 'Be curious, ask questions ✨'];
+const CHEERS = ['Consistency beats cramming.', 'One chapter at a time.', 'Lock in for 30 minutes — then take a break.', 'Every fix-it is easy marks later.', 'Small wins every day add up.'];
 import { SUBJECTS } from './lib/syllabus';
 import { MistakeProbe } from './Probe';
 import { DIAGNOSES } from './lib/logic';
@@ -97,7 +97,7 @@ export function StudentToday({ F, go }) {
   const todayTasks = F.tasks.filter((t) => t.active !== false && taskAppliesOn(t, today))
     .sort((a, b) => ['daily', 'weekly', 'monthly'].indexOf(a.freq) - ['daily', 'weekly', 'monthly'].indexOf(b.freq));
   const lv = levelInfo(F);
-  const cheer = doneCount === 5 ? 'Superstar! Routine complete 🌟' : streak >= 3 ? `${streak} days in a row — keep it going! 🔥` : doneCount ? `Nice start — ${5 - doneCount} more to go 💪` : CHEERS[new Date().getDate() % CHEERS.length];
+  const cheer = doneCount === 5 ? 'All done for today. Nice work.' : streak >= 3 ? `${streak}-day streak — don’t break it.` : doneCount ? `${5 - doneCount} more to go today.` : CHEERS[new Date().getDate() % CHEERS.length];
   const bal = moneyBalances(F.money).filter((b) => b.currency === 'INR').reduce((a, b) => a + b.balance, 0);
   const moneyLabel = formatMoney(bal);
   const spentMonth = F.money.filter((e) => e.type === 'out' && (e.paidBy || 'self') === 'self' && (e.currency || 'INR') === 'INR' && String(e.date).startsWith(today.slice(0, 7))).reduce((a, e) => a + Number(e.amount || 0), 0);
@@ -116,7 +116,7 @@ export function StudentToday({ F, go }) {
       <div className="hero">
         <div className="hero-txt">
           <span>{greet}</span>
-          <h1>{F.family.studentName?.split(' ')[0]} 👋</h1>
+          <h1>{F.family.studentName?.split(' ')[0]}</h1>
           <small>{new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</small>
           <div className="mascot">{cheer}</div>
         </div>
@@ -128,7 +128,7 @@ export function StudentToday({ F, go }) {
         <Tile icon="target" tone="amber" size={52} />
         <div className="summary-main">
           <small>{words().routine}</small>
-          <b>{doneCount === 5 ? 'All done! 🎉' : `${doneCount} of 5 done`}</b>
+          <b>{doneCount === 5 ? 'All done' : `${doneCount} of 5 done`}</b>
           <Progress value={doneCount} max={5} color="linear-gradient(90deg, var(--accent-a), var(--accent-b))" />
         </div>
         <div className="delta">🔥 {streak}<span>day streak</span><span className="xp-mini" onClick={(e) => { e.stopPropagation(); go('badges'); }}>⭐ Lv {lv.level} · {lv.xp} XP</span></div>

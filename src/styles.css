@@ -1,9 +1,5 @@
-@import '@fontsource-variable/nunito';
-@import '@fontsource-variable/fredoka';
-@import '@fontsource-variable/pixelify-sans';
-@import '@fontsource-variable/orbitron';
-@import '@fontsource/russo-one';
-@import '@fontsource-variable/baloo-tamma-2';
+@import '@fontsource-variable/figtree';
+@import '@fontsource-variable/noto-sans-kannada';
 
 /* ===== Kid-friendly theme on Kosha's structure: rounded font, brighter colours, bigger touch targets ===== */
 :root, :root[data-theme="light"] {
@@ -17,7 +13,7 @@
   --hero-a: #ffe9c7; --hero-b: #d9f2ff;
   --card: var(--panel);
   --radius: 22px;
-  font-family: 'Nunito Variable', 'Baloo Tamma 2 Variable', 'Noto Sans Kannada', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', 'Noto Sans Kannada', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-size: 16px; font-weight: 500;
   color: var(--text); background: var(--bg);
 }
@@ -30,7 +26,7 @@
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body { margin: 0; background: var(--bg); }
-h1, h2, h3, h4 { margin: 0 0 6px; letter-spacing: 0; font-weight: 800; font-family: var(--font-head), 'Baloo Tamma 2 Variable', 'Nunito Variable', sans-serif; line-height: 1.15; }
+h1, h2, h3, h4 { margin: 0 0 6px; letter-spacing: 0; font-weight: 800; font-family: var(--font-head), 'Noto Sans Kannada Variable', 'Figtree Variable', sans-serif; line-height: 1.15; }
 b, strong { font-weight: 800; }
 p { margin: 6px 0; }
 button, .button, input, select, textarea { font: inherit; }
@@ -338,7 +334,7 @@ main { padding: 0 16px 16px; }
 .back-btn { background: var(--panel); border: 1px solid var(--rule2); box-shadow: var(--shadow); margin-right: 4px; }
 
 /* ===== playful display font for headings & numbers ===== */
-.brand, .side-brand b, .big-score, .summary-main b, .stat b, .kpis b, .hero-txt h1, .page-head h1, .sec-h h2, .question, .level-ring b, .card-head h3 { font-family: var(--font-head), 'Baloo Tamma 2 Variable', 'Nunito Variable', sans-serif; letter-spacing: 0; }
+.brand, .side-brand b, .big-score, .summary-main b, .stat b, .kpis b, .hero-txt h1, .page-head h1, .sec-h h2, .question, .level-ring b, .card-head h3 { font-family: var(--font-head), 'Noto Sans Kannada Variable', 'Figtree Variable', sans-serif; letter-spacing: 0; }
 .page-head h1 { font-size: 28px; font-weight: 800; }
 .sec-h h2 { font-size: 20px; font-weight: 800; }
 .hero-txt h1 { font-size: 34px; font-weight: 800; }
@@ -433,7 +429,7 @@ button.primary, .button.primary, .nav .fab-in, .xp-chip, .level-ring, .seg butto
   --shadow: 0 1px 2px rgba(16,24,40,.04), 0 2px 8px rgba(16,24,40,.04);
   --tile-a: .12; --nav-bg: rgba(255,255,255,.98);
   --radius: 18px;
-  --font-head: 'Nunito Variable', 'Baloo Tamma 2 Variable', sans-serif;
+  --font-head: 'Figtree Variable', 'Noto Sans Kannada Variable', sans-serif;
   font-weight: 400;
 }
 :root[data-theme="dark"] {
@@ -441,11 +437,6 @@ button.primary, .button.primary, .nav .fab-in, .xp-chip, .level-ring, .seg butto
   --text: #eceef2; --muted: #9aa1ad; --accent-soft: #2b2218; --accent-ink: #fdba74; --hero-a: #121418; --hero-b: #121418;
 }
 /* theme accents + heading fonts */
-:root[data-color="pixel"] { --accent-a: #4ade80; --accent-b: #16a34a; --accent-soft: #ecfdf3; --accent-ink: #15803d; --font-head: 'Pixelify Sans Variable', 'Nunito Variable', sans-serif; }
-:root[data-color="space"] { --accent-a: #818cf8; --accent-b: #6d28d9; --accent-soft: #f3efff; --accent-ink: #5b21b6; --font-head: 'Orbitron Variable', 'Nunito Variable', sans-serif; }
-:root[data-color="racer"] { --accent-a: #f87171; --accent-b: #dc2626; --accent-soft: #fef1f1; --accent-ink: #b91c1c; --font-head: 'Russo One', 'Nunito Variable', sans-serif; }
-:root[data-color="ocean"] { --accent-a: #38bdf8; --accent-b: #0369a1; --accent-soft: #eef8fd; --accent-ink: #075985; --font-head: 'Fredoka Variable', 'Nunito Variable', sans-serif; }
-:root[data-color="candy"] { --accent-a: #f9a8d4; --accent-b: #db2777; --accent-soft: #fdf0f6; --accent-ink: #be185d; --font-head: 'Fredoka Variable', 'Nunito Variable', sans-serif; }
 :root[data-theme="dark"][data-color] { --accent-soft: color-mix(in srgb, var(--accent-b) 18%, #1a1d23); --accent-ink: color-mix(in srgb, var(--accent-a) 80%, white); }
 
 body { background: var(--bg) !important; }
@@ -494,11 +485,6 @@ h1, h2, h3, h4 { font-weight: 700; color: var(--text); }
 .cell.c5 { background: var(--good); }
 
 /* gaming touch: accent bar under headings in game themes */
-:root[data-color="pixel"] .page-head h1, :root[data-color="space"] .page-head h1, :root[data-color="racer"] .page-head h1, :root[data-color="ocean"] .page-head h1, :root[data-color="candy"] .page-head h1 { letter-spacing: .01em; }
-:root[data-color="pixel"] .card, :root[data-color="pixel"] .path-item, :root[data-color="pixel"] .stat, :root[data-color="pixel"] button { border-radius: 6px; }
-:root[data-color="pixel"] .progress, :root[data-color="pixel"] .progress div { border-radius: 2px; }
-:root[data-color="racer"] .progress div { background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.25) 0 6px, transparent 6px 12px) !important; }
-:root[data-color="space"] .xp-chip, :root[data-color="space"] .level-ring { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-a) 30%, transparent), 0 6px 18px color-mix(in srgb, var(--accent-b) 35%, transparent); }
 .xp-head { display: flex; align-items: center; gap: 8px; min-width: 150px; cursor: pointer; }
 .xp-head .progress { width: 90px; margin: 0; height: 7px; }
 .xp-head small { font-size: 12px; color: var(--muted); font-weight: 600; white-space: nowrap; }
@@ -535,10 +521,77 @@ h1, h2, h3, h4 { font-weight: 700; color: var(--text); }
 .xp-stack .progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); border-radius: 6px; }
 @media (max-width: 420px) { .xp-stack { display: none; } }
 /* theme fonts only on headings; numbers stay in the readable body font */
-.big-score, .summary-main b, .stat b, .kpis b, .level-ring b, .diag b, .ring b, .question, .card-head h3, .side-brand b, .brand { font-family: 'Nunito Variable', 'Baloo Tamma 2 Variable', sans-serif !important; }
+.big-score, .summary-main b, .stat b, .kpis b, .level-ring b, .diag b, .ring b, .question, .card-head h3, .side-brand b, .brand { font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', sans-serif !important; }
 .summary-main b { font-size: 24px; }
 @media (min-width: 960px) {
   .hero { padding-bottom: 16px; }
   .hero-art { width: 190px; bottom: auto; top: 50px; }
   .top-row { margin-top: 8px; }
 }
+
+
+/* =====================================================================
+   v15: Kosha typography (Figtree, Kosha sizes & weights) + teen themes
+   ===================================================================== */
+:root {
+  --font-head: 'Figtree Variable', 'Noto Sans Kannada Variable', system-ui, sans-serif;
+  font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 15px; line-height: 1.42; letter-spacing: -.005em; font-weight: 400;
+}
+body, button, input, select, textarea, .big-score, .summary-main b, .stat b, .kpis b, .level-ring b, .diag b, .ring b, .question, .card-head h3, .side-brand b, .brand, h1, h2, h3, h4 {
+  font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', system-ui, sans-serif !important;
+}
+button, .button { font-size: 15px; font-weight: 600; }
+button.small, .button.small { font-size: 13.5px; }
+input, select, textarea { font-size: 15px; border-radius: 12px; }
+h1, h2, h3, h4 { letter-spacing: -.015em; }
+.page-head h1 { font-size: 22px; font-weight: 700; }
+.sec-h h2 { font-size: 17px; font-weight: 700; }
+.card-head h3 { font-size: 16px; font-weight: 700; }
+.hero-txt span { font-size: 15px; font-weight: 500; }
+.hero-txt h1 { font-size: 27px; font-weight: 800; letter-spacing: -.025em; }
+.hero-txt small { font-size: 13.5px; }
+.summary-main small { font-size: 13.5px; font-weight: 600; }
+.summary-main b { font-size: 27px; font-weight: 800; letter-spacing: -.02em; }
+.stat small { font-size: 12.5px; font-weight: 600; }
+.stat b { font-size: 14.5px; font-weight: 800; }
+.lrow .lt b, .action .lt b, .path-item .lt b { font-size: 15px; font-weight: 600; }
+.lrow .lt small, .action .lt small { font-size: 12.5px; }
+.path-meta, .chap-meta { font-size: 12px; font-weight: 600; }
+.kpis b { font-size: 20px; font-weight: 800; }
+.kpis small { font-size: 12px; font-weight: 600; }
+.big-score { font-weight: 800; letter-spacing: -.02em; }
+.quick button, .classes button { font-size: 12px; font-weight: 600; }
+.nav button { font-size: 11.5px; font-weight: 600; }
+.question { font-size: 18px; font-weight: 700; }
+.link { font-size: 13.5px; font-weight: 600; }
+.small-text { font-size: 13px; }
+.card { padding: 16px; border-radius: 18px; }
+.mascot { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+/* accents follow the selected theme (set by theme.js) */
+:root[data-color] { --accent-soft: color-mix(in srgb, var(--accent-b) 9%, #ffffff); --accent-ink: color-mix(in srgb, var(--accent-b) 85%, #000000); }
+:root[data-theme="dark"][data-color] { --accent-soft: color-mix(in srgb, var(--accent-b) 20%, #1a1d23); --accent-ink: color-mix(in srgb, var(--accent-a) 85%, #ffffff); }
+:root[data-color="stealth"] { --accent-soft: #f1f2f4; --accent-ink: #111827; }
+:root[data-theme="dark"][data-color="stealth"] { --accent-a: #9ca3af; --accent-b: #e5e7eb; --accent-soft: #262a33; --accent-ink: #f3f4f6; }
+:root[data-theme="dark"][data-color="stealth"] button.primary, :root[data-theme="dark"][data-color="stealth"] .nav .fab-in, :root[data-theme="dark"][data-color="stealth"] .seg button.on { color: #111827; }
+
+/* theme picker */
+.themes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.theme-tile { flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px; border-radius: 16px; border: 1px solid var(--rule); background: var(--panel); text-align: left; font-weight: 400; }
+.theme-tile.sel { border: 2px solid var(--pb); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pb) 18%, transparent); }
+.theme-bar { width: 100%; height: 34px; border-radius: 10px; background: linear-gradient(120deg, var(--pa), var(--pb)); margin-bottom: 4px; }
+.theme-name { font-size: 15px; font-weight: 700; }
+.theme-tile small { color: var(--muted); font-size: 12px; }
+.theme-rank { margin-top: 4px; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; color: var(--pb); }
+
+/* game themes: sharper, esports-style details */
+:root[data-color]:not([data-color="clean"]) .card, :root[data-color]:not([data-color="clean"]) .stat, :root[data-color]:not([data-color="clean"]) .path-item { border-radius: 14px; }
+:root[data-color]:not([data-color="clean"]) .xp-chip { border-radius: 8px; letter-spacing: .04em; }
+:root[data-color]:not([data-color="clean"]) .xp-stack small { text-transform: uppercase; letter-spacing: .08em; font-size: 10.5px; font-weight: 700; color: var(--accent-ink); }
+:root[data-color]:not([data-color="clean"]) .sec-h h2 { text-transform: uppercase; letter-spacing: .06em; font-size: 14px; }
+:root[data-color]:not([data-color="clean"]) .level-ring { border-radius: 18px; transform: rotate(0); }
+:root[data-color="esports"] .progress div, :root[data-color="esports"] .xp-stack .progress span { position: relative; }
+:root[data-color="esports"] .progress div::after, :root[data-color="esports"] .xp-stack .progress span::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, rgba(255,255,255,.25) 0 5px, transparent 5px 10px); }
+:root[data-color="neon"] button.primary, :root[data-color="neon"] .nav .fab-in, :root[data-color="neon"] .xp-chip { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-a) 60%, transparent), 0 6px 18px color-mix(in srgb, var(--accent-a) 40%, transparent); }
+:root[data-color="synthwave"] .xp-chip, :root[data-color="synthwave"] .side-item.on { background: linear-gradient(120deg, var(--accent-a), var(--accent-b)); color: #fff; }
