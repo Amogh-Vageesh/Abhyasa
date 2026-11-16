@@ -16,7 +16,26 @@ export const SUBJECTS = [
   { id: 'english', name: 'English', color: '#8b5cf6', chapters: mk('en', 'Poorvi', [
     'The Day the River Spoke', 'Try Again', 'Three Days to See', 'Animals, Birds, and Dr. Dolittle', 'A Funny Man', 'Say the Right Thing', "My Brother's Great Invention", 'Paper Boats', 'North, South, East, West', 'The Tunnel', 'Travel', 'Conquering the Summit', 'A Homage to Our Brave Soldiers', 'My Dear Soldiers', 'Rani Abbakka'
   ])},
-  { id: 'other', name: 'Kannada', color: '#ec4899', chapters: [] }
+  { id: 'other', name: 'Kannada', color: '#ec4899', chapters: [
+    // Karnataka state Kannada (Second Language) Class 7, 2026-27 — Tili Kannada Part 1 & 2
+    { id: 'kn-1', no: 1, title: 'ನಿತ್ಯೋತ್ಸವ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },
+    { id: 'kn-2', no: 2, title: 'ಅನ್ನದಾನ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },
+    { id: 'kn-3', no: 3, title: 'ಭರತ ಭೂಮಿ ನನ್ನ ತಾಯಿ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },
+    { id: 'kn-4', no: 4, title: 'ಕೈ ಬರೆಹ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },
+    { id: 'kn-5', no: 5, title: 'ಅನ್ನದಾತ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },
+    { id: 'kn-6', no: 6, title: 'ಮಿತ್ರರ ಸಮಾಗಮ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },
+    { id: 'kn-7', no: 7, title: 'ನಸಿರುದ್ದೀನನ ಕತೆಗಳು', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },
+    { id: 'kn-8', no: 8, title: 'ಶ್ರಾವಣ ಬಂತು ಕಾಡಿಗೆ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },
+    { id: 'kn-9', no: 9, title: 'ಕೊಳಲ ಜೋಗಿ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' },
+    { id: 'kn-10', no: 10, title: 'ದಾನಚಿಂತಾಮಣಿ ಅತ್ತಿಮಬ್ಬೆ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' },
+    { id: 'kn-11', no: 11, title: 'ಈ ನೆಲ ಈ ಜಲ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' },
+    { id: 'kn-12', no: 12, title: 'ಜಾತ್ರೆಯಲ್ಲಿ ಒಂದು ಸುತ್ತು', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' },
+    { id: 'kn-13', no: 13, title: 'ಅಂತಿಮ ವಿದಾಯ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' },
+    { id: 'kn-14', no: 14, title: 'ಜಾಣ ಆಮೆ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' },
+    { id: 'kn-15', no: 15, title: 'ತರಕಾರಿಗಳ ಮೇಳ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' },
+    { id: 'kn-16', no: 16, title: 'ಬಂಡೆದ್ದ ಮುಂಡರಗಿ ಭೀಮರಾಯ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' },
+    { id: 'kn-17', no: 17, title: 'ಸರ್ವಜ್ಞನ ವಚನಗಳು', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-2' }
+  ] }
 ];
 
 export const CHAPTERS = Object.fromEntries(
