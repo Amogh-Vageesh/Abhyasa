@@ -44,9 +44,9 @@ export function InsightsPage({ F, initial = 'insights', go, me }) {
   return (
     <div>
       <PageHead title="Insights & Tips" />
-      <div className="seg scroll">{[['insights', me?.role === 'parent' ? 'What to do' : 'My next steps'], ['mistakes', 'Mistakes'], ['habits', 'Habits'], ['exams', 'Exam prep']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
+      <div className="seg scroll">{[['insights', me?.role === 'parent' ? 'What to do' : 'My next steps'], ['mistakes', 'Fix-its'], ['habits', 'Habits'], ['exams', 'Exam prep']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
       {tab === 'insights' && <div className="stack">
-        <p className="muted small-text" style={{ margin: 0 }}>Made from {me?.role === 'parent' ? 'his' : 'your'} classes, practice, tests, mistakes, upcoming exams and timetable — most important first.</p>
+        <p className="muted small-text" style={{ margin: 0 }}>Made from {me?.role === 'parent' ? 'his' : 'your'} classes, practice, tests, fix-its, upcoming exams and timetable — most important first.</p>
         <ActionList F={F} go={go} parent={me?.role === 'parent'} />
         <div className="sec-h"><h2>How {me?.role === 'parent' ? 'he is' : 'you are'} doing</h2></div>
         <div className="card list">{insights.map((i, n) => <InsightRow key={n} i={i} />)}</div>

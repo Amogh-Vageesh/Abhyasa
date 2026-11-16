@@ -51,7 +51,7 @@ export const EXAM_GUIDES = {
       'Practise daily, not just before the test: 20–30 minutes of problems beats 3 hours on the last day.',
       'Write every step neatly. Even if the final answer is wrong, correct steps earn marks.',
       'Keep a formula & rules page (divisibility, angle sum, fraction rules) and read it before each test.',
-      'Redo every wrong question from your Mistake Book without looking at the answer.',
+      'Redo every question in your Fix-it list without looking at the answer.',
       'For word problems: underline what is given, circle what is asked, then decide the operation.',
       'Check answers by estimating (is the answer sensible?) and by substituting back for equations.'
     ],

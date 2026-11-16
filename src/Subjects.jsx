@@ -35,7 +35,7 @@ export function SubjectGrid({ F, open }) {
             <b>{s.name}</b>
             <small>{s.chapters.length ? `${st.started}/${st.count} chapters` : 'Your notes & tests'}{st.acc !== null ? ` · ${st.acc}%` : ''}</small>
             {s.chapters.length > 0 && <div className="meter"><div style={{ width: `${(st.started / st.count) * 100}%` }} /></div>}
-            <small>{st.mistakes ? `${st.mistakes} mistakes · ` : ''}{st.papers} test paper(s)</small>
+            <small>{st.mistakes ? `${st.mistakes} fix-its · ` : ''}{st.papers} test paper(s)</small>
           </button>
         );
       })}

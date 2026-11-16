@@ -56,13 +56,13 @@ export function MistakeProbe({ F, mistake, onClose }) {
     probe.diagnosis = diagnose(probe);
     const updated = retryCorrect ? updateMistake(mistake, true, ymd()) : mistake;
     await setMistake(F.family.id, mistake.id, { ...updated, probe, probes: [...(mistake.probes || []), probe] });
-    if (updated.resolved && !mistake.resolved) await reward(F, `mistake-${mistake.id}-${ymd()}`, F.settings.rewards.mistakeCleared, 'Mistake cleared');
+    if (updated.resolved && !mistake.resolved) await reward(F, `mistake-${mistake.id}-${ymd()}`, F.settings.rewards.mistakeCleared, 'Fix-it cleared');
     setSaved(probe);
   };
 
   const steps = ['Try again', 'What happened?', 'How well do you get it?', 'Quick check', 'Connect it'];
   const total = steps.length;
-  if (mistake.manual) return <Modal title="Test paper mistake" onClose={onClose}><p>{mistake.text}</p><p className="muted small-text">Look at your answer sheet with Appa/Amma and write what went wrong in the paper’s reflection.</p></Modal>;
+  if (mistake.manual) return <Modal title="Test paper fix-it" onClose={onClose}><p>{mistake.text}</p><p className="muted small-text">Look at your answer sheet with Appa/Amma and write what went wrong in the paper’s reflection.</p></Modal>;
 
   if (saved) {
     const d = DIAGNOSES[saved.diagnosis];
@@ -147,14 +147,14 @@ export function MistakeReport({ F, compact = false, go, me }) {
   if (compact) {
     return (
       <div className="card list">
-        {!a.probed && <div className="lrow"><Tile icon="mistake" tone="gray" /><div className="lt"><b>No mistakes analysed yet</b><small>{a.unprobed ? `${a.unprobed} mistakes waiting for “Find out why”` : 'They appear when he checks his mistakes'}</small></div></div>}
+        {!a.probed && <div className="lrow"><Tile icon="mistake" tone="gray" /><div className="lt"><b>No fix-its checked yet</b><small>{a.unprobed ? `${a.unprobed} fix-its waiting for “Find out why”` : 'They appear when he checks his fix-its'}</small></div></div>}
         {a.probed > 0 && <>
           <div className="diag-bars">{Object.entries(DIAGNOSES).map(([k, d]) => a.byDiag[k] ? (
             <div key={k} className={`diag-bar ${d.tone}`} style={{ flex: a.byDiag[k] }} title={`${d.label}: ${a.byDiag[k]}`} />
           ) : null)}</div>
           {a.top && <div className="lrow"><Tile icon="bulb" tone={DIAGNOSES[a.top].tone} /><div className="lt"><b>Main cause: {DIAGNOSES[a.top].label} ({Math.round((a.byDiag[a.top] / totalP) * 100)}%)</b><small style={{ whiteSpace: 'normal' }}>{DIAGNOSES[a.top].parent}</small></div></div>}
           {a.gapChapters.slice(0, 2).map((c) => <div key={c.id} className="lrow"><Tile icon="alert" tone="red" /><div className="lt"><b>{chapterTitle(F, c.id)}</b><small>{c.gaps} concept gap{c.gaps > 1 ? 's' : ''} — help him with this chapter</small></div></div>)}
-          {go && <button className="lrow" onClick={() => go('insights', 'mistakes')}><Tile icon="chart" tone="blue" /><div className="lt"><b>Full mistake report</b><small>{a.probed} analysed · {a.unprobed} waiting</small></div><Icon name="chevR" className="chev" /></button>}
+          {go && <button className="lrow" onClick={() => go('insights', 'mistakes')}><Tile icon="chart" tone="blue" /><div className="lt"><b>Full fix-it report</b><small>{a.probed} analysed · {a.unprobed} waiting</small></div><Icon name="chevR" className="chev" /></button>}
         </>}
       </div>
     );
@@ -163,11 +163,11 @@ export function MistakeReport({ F, compact = false, go, me }) {
     return (
       <div className="card empty-state">
         <span style={{ fontSize: 44 }}>🕵️</span>
-        <h3>{kid ? 'No mistakes checked yet' : 'Nothing to report yet'}</h3>
+        <h3>{kid ? 'No fix-its checked yet' : 'Nothing to report yet'}</h3>
         <p className="muted small-text">{kid
-          ? 'Open your Mistake Book and tap “Find out why” on a mistake. A few quick questions show whether it was a slip, something you forgot, or a topic to learn again.'
-          : `This report fills in when he taps “Find out why” on his mistakes.${a.unprobed ? ` ${a.unprobed} mistake${a.unprobed > 1 ? 's are' : ' is'} waiting.` : ''}`}</p>
-        {go && <button className="primary" onClick={() => go('mistakes')}>{kid ? 'Open Mistake Book' : 'See his mistakes'}</button>}
+          ? 'Open your Fix-it list and tap “Find out why”. A few quick questions show whether it was a slip, something you forgot, or a topic to learn again.'
+          : `This report fills in when he taps “Find out why” on his fix-its.${a.unprobed ? ` ${a.unprobed} fix-it${a.unprobed > 1 ? 's are' : ' is'} waiting.` : ''}`}</p>
+        {go && <button className="primary" onClick={() => go('mistakes')}>{kid ? 'Open Fix-it list' : 'See his fix-its'}</button>}
       </div>
     );
   }
@@ -180,7 +180,7 @@ export function MistakeReport({ F, compact = false, go, me }) {
           <div><small>Avg. confidence</small><b>{a.avgConfidence ? FACES[Math.round(a.avgConfidence) - 1] + ' ' + a.avgConfidence : '—'}</b></div>
         </div>
       </Card>
-      <Card title={kid ? 'Why my mistakes happen' : 'Why the mistakes happen'}>
+      <Card title={kid ? 'Why my wrong answers happen' : 'Why wrong answers happen'}>
         {Object.entries(DIAGNOSES).filter(([k]) => a.byDiag[k]).sort((x, y) => a.byDiag[y[0]] - a.byDiag[x[0]]).map(([k, d]) => (
           <div key={k} className="diag-row">
             <div className="row between"><b>{d.label}</b><span className={`pill ${d.tone}`}>{a.byDiag[k]} · {Math.round((a.byDiag[k] / totalP) * 100)}%</span></div>

@@ -407,7 +407,7 @@ export function buildInsights({ days, attempts, tasks, blocks, mistakes, today }
   const ra = acc(recent), oa = acc(older);
   if (ra !== null && oa !== null) {
     out.push(ra >= oa
-      ? { tone: 'good', title: `Accuracy up: ${oa}% → ${ra}%`, text: 'Your revision is working. Keep clearing the Mistake Book.' }
+      ? { tone: 'good', title: `Accuracy up: ${oa}% → ${ra}%`, text: 'Your revision is working. Keep clearing your Fix-it list.' }
       : { tone: 'warn', title: `Accuracy down: ${oa}% → ${ra}%`, text: 'Slow down and read each question twice. Revisit the explainer before practising.' });
   }
   // subject balance
@@ -418,7 +418,7 @@ export function buildInsights({ days, attempts, tasks, blocks, mistakes, today }
   if (recent.length >= 3 && missing.length && missing.length < 4) out.push({ tone: 'tip', title: `No practice in ${missing.map((k) => names[k]).join(', ')} for 2 weeks`, text: 'Rotate subjects so nothing gets rusty before exams.' });
   // mistakes
   const open = (mistakes || []).filter((m) => !m.resolved).length;
-  if (open >= 10) out.push({ tone: 'warn', title: `${open} mistakes waiting`, text: 'Fix 3–4 a day in Revise. Old mistakes are the fastest way to gain marks.' });
+  if (open >= 10) out.push({ tone: 'warn', title: `${open} fix-its waiting`, text: 'Fix 3–4 a day in Revise. Old fix-its are the fastest way to gain marks.' });
   // tasks
   const daily = taskStats(tasks || [], 'daily', today, 7).filter((x) => x.pct !== null);
   if (daily.length >= 3) { const avg = Math.round(daily.reduce((a, x) => a + x.pct, 0) / daily.length); out.push(avg >= 75 ? { tone: 'good', title: `Daily tasks: ${avg}% done this week`, text: 'Nice! You are building strong habits.' } : { tone: 'tip', title: `Daily tasks: ${avg}% done this week`, text: 'Too many tasks? Keep 3–5 important ones and tick them at the same time each day.' }); }
@@ -514,7 +514,7 @@ export function subjectInsights({ subjectId, subjectName, chapterIds, F, today, 
   const weak = Object.entries(byCh).filter(([, v]) => v.t >= 4).map(([id, v]) => ({ id, pct: Math.round((v.r / v.t) * 100) })).sort((x, y) => x.pct - y.pct)[0];
   if (weak && weak.pct < 70) out.push({ tone: 'warn', title: 'Weakest chapter needs revision', text: `Chapter ${weak.id.split('-').pop()} is at ${weak.pct}%. Revise it this week.`, chapterId: weak.id });
   // mistakes
-  if (mine.mistakesOpen >= 3) out.push({ tone: 'warn', title: `${mine.mistakesOpen} open mistakes`, text: 'Clear 2–3 a day in Revise — the quickest marks you can win back.' });
+  if (mine.mistakesOpen >= 3) out.push({ tone: 'warn', title: `${mine.mistakesOpen} fix-its open`, text: 'Clear 2–3 a day in Revise — the quickest marks you can win back.' });
   // taught but not revised
   const stale = chapterIds.filter((id) => { const c = F.chapters?.[id]; return c?.taughtOn && c.status === 'taught' && daysBetween(c.lastTaught || c.taughtOn, today) > 7; });
   if (stale.length) out.push({ tone: 'tip', title: `${stale.length} chapter(s) taught but not revised`, text: 'Revise within a week of class so it sticks before tests.' });
@@ -532,7 +532,7 @@ export const REASONS = {
   concept: { label: 'I didn’t understand the topic', icon: '🤔' },
   forgot: { label: 'I forgot the fact / formula', icon: '🧠' },
   misread: { label: 'I misread the question', icon: '👀' },
-  careless: { label: 'Silly mistake / calculation slip', icon: '✏️' },
+  careless: { label: 'Silly slip / calculation slip', icon: '✏️' },
   guess: { label: 'I guessed', icon: '🎲' },
   time: { label: 'I was rushing', icon: '⏱️' }
 };
@@ -594,13 +594,13 @@ export function actionPlan(F, today, { subjectOf, chapterName = (id) => id, subj
       .sort((x, y) => (x.a ?? -1) - (y.a ?? -1));
     if (weak.length) {
       const w = weak[0];
-      const detail = weak.slice(0, 3).map((c) => `${chapterName(c.id)}${c.a !== null ? ` (${c.a}%)` : ' (not practised)'}${c.m ? `, ${c.m} mistake${c.m > 1 ? 's' : ''}` : ''}`).join('; ');
-      push(100 - gap * 3, 'warn', 'alert', `${e.title} in ${gap === 0 ? 'today!' : gap + ' day' + (gap > 1 ? 's' : '')} — ${weak.length} chapter(s) need work`, `Start with ${detail}. Do the explainer, 10 practice questions and fix the mistakes.`, { label: 'Practise these chapters', to: 'practice-chapters', extra: weak.map((c) => c.id) });
+      const detail = weak.slice(0, 3).map((c) => `${chapterName(c.id)}${c.a !== null ? ` (${c.a}%)` : ' (not practised)'}${c.m ? `, ${c.m} fix-it${c.m > 1 ? 's' : ''}` : ''}`).join('; ');
+      push(100 - gap * 3, 'warn', 'alert', `${e.title} in ${gap === 0 ? 'today!' : gap + ' day' + (gap > 1 ? 's' : '')} — ${weak.length} chapter(s) need work`, `Start with ${detail}. Do the explainer, 10 practice questions and clear the fix-its.`, { label: 'Practise these chapters', to: 'practice-chapters', extra: weak.map((c) => c.id) });
     } else push(60 - gap, 'good', 'trophy', `${e.title} in ${gap} days — you look ready`, 'All test chapters are above 75%. Take one mixed test to be sure.', { label: 'Mixed test', to: 'practice-chapters', extra: chs });
   }
   // 2. mistakes
   const ma = mistakeAnalysis(F.mistakes, subjectOf || (() => null));
-  if (ma.unprobed > 0) push(80, 'tip', 'mistake', `Find out why: ${ma.unprobed} mistake${ma.unprobed > 1 ? 's' : ''} not checked yet`, 'Answer a few quick questions on each mistake so we know what to fix — understanding, memory or a slip.', { label: 'Check my mistakes', to: 'mistakes' });
+  if (ma.unprobed > 0) push(80, 'tip', 'mistake', `Find out why: ${ma.unprobed} fix-it${ma.unprobed > 1 ? 's' : ''} not checked yet`, 'Answer a few quick questions on each one so we know what to fix — understanding, memory or a slip.', { label: 'Check my fix-its', to: 'mistakes' });
   if (ma.probed >= 3 && ma.top) {
     const n = ma.byDiag[ma.top], pct = Math.round((n / ma.probed) * 100);
     const tips = {
@@ -610,13 +610,13 @@ export function actionPlan(F, today, { subjectOf, chapterName = (id) => id, subj
       'concept-gap': `Re-learn ${ma.gapChapters[0] ? chapterName(ma.gapChapters[0].id) : 'the weak chapters'} using the explainer and ask your teacher about the part you don’t get.`,
       time: 'Practise with a timer and skip hard questions, coming back to them at the end.'
     };
-    push(75, 'warn', 'bulb', `${pct}% of your mistakes are ${DIAGNOSES[ma.top].label.toLowerCase()}`, tips[ma.top], ma.top === 'concept-gap' && ma.gapChapters[0] ? { label: 'Open chapter', to: 'chapter', extra: ma.gapChapters[0].id } : { label: 'Practise', to: 'practice' });
+    push(75, 'warn', 'bulb', `${pct}% of your wrong answers are ${DIAGNOSES[ma.top].label.toLowerCase()}`, tips[ma.top], ma.top === 'concept-gap' && ma.gapChapters[0] ? { label: 'Open chapter', to: 'chapter', extra: ma.gapChapters[0].id } : { label: 'Practise', to: 'practice' });
   }
   // 3. weekend test
   const wk = weekKey(today);
   const tookWeekly = (F.attempts || []).some((a) => a.kind === 'test' && weekKey(a.date) === wk);
   const [y, m, d] = today.split('-').map(Number); const wd = new Date(y, m - 1, d).getDay();
-  if ((wd === 0 || wd === 6) && !tookWeekly) push(72, 'tip', 'trophy', 'Weekly test not taken yet', 'Take this week’s test — it mixes this week’s chapters with older ones and your mistakes.', { label: 'Take weekly test', to: 'weekly' });
+  if ((wd === 0 || wd === 6) && !tookWeekly) push(72, 'tip', 'trophy', 'Weekly test not taken yet', 'Take this week’s test — it mixes this week’s chapters with older ones and your fix-its.', { label: 'Take weekly test', to: 'weekly' });
   // 4. class logging
   const schoolDays = [1, 2, 3].map((i) => addDays(today, -i)).filter((x) => { const [a, b, c] = x.split('-').map(Number); const w = new Date(a, b - 1, c).getDay(); return w >= 1 && w <= 5; });
   const unlogged = schoolDays.filter((x) => !(F.days?.[x]?.logs || []).length && !F.days?.[x]?.logDone);

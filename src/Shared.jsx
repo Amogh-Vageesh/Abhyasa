@@ -180,7 +180,7 @@ export function WalletPage({ F, me, embedded = false }) {
           <li>Full routine done: <b>{rupees(F.settings.rewards.dayComplete)}</b></li>
           <li>7-day streak: <b>{rupees(F.settings.rewards.streak7)}</b></li>
           <li>Test 80%+: <b>{rupees(F.settings.rewards.test80)}</b> · 90%+: <b>{rupees(F.settings.rewards.test90)}</b></li>
-          <li>Each mistake cleared: <b>{rupees(F.settings.rewards.mistakeCleared)}</b></li>
+          <li>Each fix-it cleared: <b>{rupees(F.settings.rewards.mistakeCleared)}</b></li>
         </ul>
       </Card>
       <Card title="History">

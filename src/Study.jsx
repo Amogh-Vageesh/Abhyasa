@@ -226,7 +226,7 @@ function ChapterPage({ F, me, id, onBack }) {
     <div>
       <PageHead title={chapterTitle(F, id)} onBack={onBack} />
       <Card>
-        <div className="row between"><span className="muted small-text">{s?.name} · {CHAPTERS[id]?.book || F.chapters[id]?.book}</span><span className="small-text">{acc !== null ? `🎯 ${acc}%` : ''}{mistakes ? ` · ${mistakes} mistakes` : ''}</span></div>
+        <div className="row between"><span className="muted small-text">{s?.name} · {CHAPTERS[id]?.book || F.chapters[id]?.book}</span><span className="small-text">{acc !== null ? `🎯 ${acc}%` : ''}{mistakes ? ` · ${mistakes} fix-its` : ''}</span></div>
         <div className="row wrap" style={{ marginTop: 10 }}>
           {Object.entries(STATUS).map(([k, v]) => <button key={k} className={`small ${cur === k ? 'primary' : ''}`} onClick={() => setChapter(F.family.id, id, { status: k, ...(k !== 'not-started' && !F.chapters[id]?.taughtOn ? { taughtOn: ymd(), lastTaught: ymd() } : {}) })}>{v.label}</button>)}
         </div>

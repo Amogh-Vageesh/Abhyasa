@@ -8,10 +8,12 @@ import { SubjectGrid, SubjectDetail } from './Subjects';
 import { saveItem } from './lib/data';
 import { periodKey, taskAppliesOn, moneyBalances, formatMoney } from './lib/logic';
 import { levelInfo } from './lib/xp';
+import { words } from './theme';
+import { GoalsCard } from './Goals';
 import { MoneyModal } from './Finance';
 import { subjectChapters } from './Study';
 
-const CHEERS = ['Small steps every day make big results! 🚀', 'You’ve got this! 💪', 'Learn something cool today 🧠', 'Every mistake is a lesson 🌱', 'Be curious, ask questions ✨'];
+const CHEERS = ['Small steps every day make big results! 🚀', 'You’ve got this! 💪', 'Learn something cool today 🧠', 'Every fix-it makes you stronger 🌱', 'Be curious, ask questions ✨'];
 import { SUBJECTS } from './lib/syllabus';
 import { MistakeProbe } from './Probe';
 import { DIAGNOSES } from './lib/logic';
@@ -63,7 +65,7 @@ export function StudentToday({ F, go }) {
       await markStep(F, 'reviseDone');
     };
     if (!all.length) { await finish(); return; }
-    setQuiz({ kind: 'revise', title: 'Revise + Mistakes', questions: all, onDone: finish });
+    setQuiz({ kind: 'revise', title: 'Revise + Fix-its', questions: all, onDone: finish });
   };
 
   const startWeekly = async () => {
@@ -106,7 +108,7 @@ export function StudentToday({ F, go }) {
     { ...STEPS[1], icon: 'notebook', tone: 'purple', done: day.homework, sub: day.homework ? 'Tap to undo' : 'Tick when finished', run: () => markStep(F, 'homework', !day.homework) },
     { ...STEPS[2], icon: 'bulb', tone: 'amber', done: day.learnDone, sub: todaysChapters.length ? `${todaysChapters.length} chapter(s) from today` : 'Pick any chapter', run: () => setModal({ type: 'learn', chapters: todaysChapters }) },
     { ...STEPS[3], icon: 'target', tone: 'green', done: day.practiceDone, sub: `${F.settings.practiceCount} questions on today’s lessons`, run: startPractice },
-    { ...STEPS[4], icon: 'repeat', tone: 'teal', done: day.reviseDone, sub: `${due.length} chapter(s) due · ${openMistakes} mistakes open`, run: startRevise }
+    { ...STEPS[4], icon: 'repeat', tone: 'teal', done: day.reviseDone, sub: `${due.length} chapter(s) due · ${openMistakes} fix-its`, run: startRevise }
   ];
 
   return (
@@ -121,10 +123,11 @@ export function StudentToday({ F, go }) {
         <HeroArt />
       </div>
 
+      <div className="top-row">
       <button className="summary" onClick={() => document.getElementById('routine')?.scrollIntoView({ behavior: 'smooth' })}>
         <Tile icon="target" tone="amber" size={52} />
         <div className="summary-main">
-          <small>Today’s routine</small>
+          <small>{words().routine}</small>
           <b>{doneCount === 5 ? 'All done! 🎉' : `${doneCount} of 5 done`}</b>
           <Progress value={doneCount} max={5} color="linear-gradient(90deg, var(--accent-a), var(--accent-b))" />
         </div>
@@ -134,16 +137,14 @@ export function StudentToday({ F, go }) {
       <div className="stats four">
         <button className="stat" style={{ '--tc': '#22b35e' }} onClick={() => go('finance')}><Tile icon="rupee" tone="green" /><small>My money</small><b>{moneyLabel}</b></button>
         <button className="stat" style={{ '--tc': '#ff8a1f' }} onClick={() => go('wallet')}><Tile icon="gift" tone="amber" /><small>Rewards</small><b>{rupees(balance)}</b></button>
-        <button className="stat" style={{ '--tc': '#ef4f5a' }} onClick={() => go('mistakes')}><Tile icon="mistake" tone="red" /><small>Mistakes</small><b>{openMistakes} open</b></button>
+        <button className="stat" style={{ '--tc': '#ef4f5a' }} onClick={() => go('mistakes')}><Tile icon="mistake" tone="red" /><small>Fix-its</small><b>{openMistakes} open</b></button>
         <button className="stat" style={{ '--tc': '#3b82f6' }} onClick={startRevise}><Tile icon="repeat" tone="blue" /><small>Revision</small><b>{due.length} due</b></button>
+      </div>
       </div>
 
       {latestNote && <div className="note"><Avatar name={latestNote.from} tone="purple" size={34} /><div><b>{latestNote.from}</b><div className="small-text">{latestNote.text}</div></div></div>}
 
-      <div className="sec-h"><h2>My next steps</h2><button className="link" onClick={() => go('insights')}>All <Icon name="chevR" size={16} /></button></div>
-      <ActionList F={F} go={go} limit={3} />
-
-      <div className="home-grid">
+      <div className="home-grid three">
         <div className="col">
       <div className="sec-h"><h2>Today’s Classes</h2><span className="muted small-text">{loggedSubjects.size} logged</span></div>
       <div className="classes">
@@ -155,7 +156,7 @@ export function StudentToday({ F, go }) {
         ))}
       </div>
 
-      <div className="sec-h" id="routine"><h2>Today’s Routine</h2><span className="muted small-text">{doneCount}/5</span></div>
+      <div className="sec-h" id="routine"><h2>{words().routine}</h2><span className="muted small-text">{doneCount}/5</span></div>
       <div className="card list">
         {routine.map((r) => (
           <button key={r.key} className={`lrow ${r.done ? 'done' : ''}`} onClick={r.run}>
@@ -166,11 +167,17 @@ export function StudentToday({ F, go }) {
         ))}
         {!day.logDone && <button className="lrow" onClick={() => markStep(F, 'logDone')}><Tile icon="calendar" tone="gray" /><div className="lt"><b>No school today</b><small>Holiday or weekend — skip logging</small></div><Icon name="chevR" className="chev" /></button>}
       </div>
+        </div>
+        <div className="col">
+      <div className="sec-h"><h2>My next steps</h2><button className="link" onClick={() => go('insights')}>All <Icon name="chevR" size={16} /></button></div>
+      <ActionList F={F} go={go} limit={3} />
+
+      <GoalsCard F={F} me={{ role: 'student', name: F.family.studentName }} go={go} />
 
       {(assigned.length > 0 || isWeekend(today)) && <>
         <div className="sec-h"><h2>Tests for you</h2></div>
         <div className="card list">
-          {isWeekend(today) && <button className="lrow" onClick={startWeekly}><Tile icon="trophy" tone="amber" /><div className="lt"><b>Weekly test</b><small>{F.settings.weeklyTestCount} questions · this week’s chapters + mistakes</small></div><Icon name="chevR" className="chev" /></button>}
+          {isWeekend(today) && <button className="lrow" onClick={startWeekly}><Tile icon="trophy" tone="amber" /><div className="lt"><b>{words().weekly}</b><small>{F.settings.weeklyTestCount} questions · this week’s chapters + mistakes</small></div><Icon name="chevR" className="chev" /></button>}
           {assigned.map((t) => (
             <button key={t.id} className="lrow" onClick={() => startAssigned(t)}>
               <Tile icon="file" tone="purple" />
@@ -341,12 +348,12 @@ export function MistakeBook({ F }) {
   return (
     <div className="stack">
       <Card>
-        <div className="row between"><div><div className="muted small-text">Mistake Book</div><div className="big-score" style={{ fontSize: 24 }}>{open.length} open · {fixed} fixed</div></div><span style={{ fontSize: 34 }}>🕵️</span></div>
-        <p className="muted small-text">Tap <b>Find out why</b> on a mistake: a few quick questions help you and your parents fix the real cause. Each mistake comes back in Revise until you get it right on two different days.</p>
+        <div className="row between"><div><div className="muted small-text">Fix-it list</div><div className="big-score" style={{ fontSize: 24 }}>{open.length} open · {fixed} fixed</div></div><span style={{ fontSize: 34 }}>🕵️</span></div>
+        <p className="muted small-text">Tap <b>Find out why</b> on a fix-it: a few quick questions help you and your parents fix the real cause. Each fix-it comes back in Revise until you get it right on two different days.</p>
         {waiting > 0 && <div className="pill red">{waiting} waiting for “Find out why”</div>}
       </Card>
       <div className="card list">
-        {!open.length && <div style={{ padding: '14px 0' }}>No open mistakes. 🎉</div>}
+        {!open.length && <div style={{ padding: '14px 0' }}>Nothing to fix right now. 🎉</div>}
         {open.map((m) => {
           const q = m.q || qs[m.id];
           const d = m.probe && DIAGNOSES[m.probe.diagnosis];
@@ -414,7 +421,7 @@ export function StudyPage({ F, me, sub = 'subjects', setSub }) {
     <div>
       <PageHead title="Study" />
       <div className="seg">
-        {[['subjects', 'Subjects'], ['mistakes', 'Mistakes'], ['progress', 'Progress']].map(([k, l]) => (
+        {[['subjects', 'Subjects'], ['mistakes', 'Fix-its'], ['progress', 'Progress']].map(([k, l]) => (
           <button key={k} className={sub === k ? 'on' : ''} onClick={() => setSub(k)}>{l}</button>
         ))}
       </div>

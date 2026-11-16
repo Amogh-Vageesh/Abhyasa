@@ -6,6 +6,7 @@ import { addNote, deleteTest, saveTest, updateSettings } from './lib/data';
 import { currentStreak, dueChapters, parseTestText, taskStats, walletSummary, ymd, moneyBalances, formatMoney } from './lib/logic';
 import { useInsights, InsightRow, ActionList } from './Insights';
 import { MistakeReport } from './Probe';
+import { GoalsCard } from './Goals';
 import { chapterLabel, CHAPTERS } from './lib/syllabus';
 import { Progress7 } from './Student';
 
@@ -47,6 +48,7 @@ export function ParentDashboard({ F, me, go }) {
         <HeroArt />
       </div>
 
+      <div className="top-row">
       <div className="summary">
         <Avatar name={kid} tone="blue" size={52} />
         <div className="summary-main">
@@ -60,7 +62,8 @@ export function ParentDashboard({ F, me, go }) {
       <div className="stats">
         <button className="stat" style={{ '--tc': '#2f7fe0' }}><Tile icon="calendar" tone="blue" /><small>This week</small><b>{doneDays}/7 days</b></button>
         <button className="stat" style={{ '--tc': '#1f9d55' }} onClick={() => go('wallet')}><Tile icon="wallet" tone="green" /><small>To pay</small><b>{rupees(balance)}</b></button>
-        <button className="stat" style={{ '--tc': '#e5484d' }} onClick={() => go('mistakes')}><Tile icon="mistake" tone="red" /><small>Mistakes</small><b>{openMistakes.length} open</b></button>
+        <button className="stat" style={{ '--tc': '#e5484d' }} onClick={() => go('mistakes')}><Tile icon="mistake" tone="red" /><small>Fix-its</small><b>{openMistakes.length} open</b></button>
+      </div>
       </div>
 
       <div className="sec-h"><h2>Quick Actions</h2></div>
@@ -108,7 +111,8 @@ export function ParentDashboard({ F, me, go }) {
         <div className="row between"><div><div className="muted small-text">He has</div><div className="big-score" style={{ fontSize: 24 }}>{formatMoney(moneyBalances(F.money).filter((b) => b.currency === 'INR').reduce((a, b) => a + b.balance, 0))}</div></div>
           <div style={{ textAlign: 'right' }}><div className="muted small-text">Spent this month (all payers)</div><b className="money-out">{formatMoney(F.money.filter((e) => e.type === 'out' && (e.currency || 'INR') === 'INR' && String(e.date).startsWith(today.slice(0, 7))).reduce((a, e) => a + Number(e.amount || 0), 0))}</b></div></div>
       </div>
-      <div className="sec-h"><h2>Why mistakes happen</h2><button className="link" onClick={() => go('insights', 'mistakes')}>Report <Icon name="chevR" size={16} /></button></div>
+      <GoalsCard F={F} me={me} go={go} />
+      <div className="sec-h"><h2>Why wrong answers happen</h2><button className="link" onClick={() => go('insights', 'mistakes')}>Report <Icon name="chevR" size={16} /></button></div>
       <MistakeReport F={F} compact go={go} />
       <div className="sec-h"><h2>What to do</h2><button className="link" onClick={() => go('insights')}>All <Icon name="chevR" size={16} /></button></div>
       <ActionList F={F} limit={3} parent />
@@ -174,7 +178,7 @@ export function ParentTests({ F }) {
     <div className="stack">
       <PageHead title="Tests" right={<div className="row"><button className="primary small" onClick={() => setModal('import')}><Icon name="plus" size={16} /> Import</button><button className="small" onClick={() => setModal('paper')}>Paper</button></div>} />
       <Card>
-        <p className="muted small-text">Paste tests made anywhere (e.g. in your Claude project) using the Abhyasa format. They’re auto-marked, and mistakes go into his Mistake Book.</p>
+        <p className="muted small-text">Paste tests made anywhere (e.g. in your Claude project) using the Abhyasa format. They’re auto-marked, and wrong answers go into his Fix-it list.</p>
         <button className="small" onClick={() => { navigator.clipboard.writeText(PROMPT); setCopied(true); setTimeout(() => setCopied(false), 2000); }}>{copied ? 'Copied ✓' : 'Copy prompt template'}</button>
       </Card>
       <Card title="Library">
@@ -260,7 +264,7 @@ export function ParentSettings({ F, go }) {
       <Card title="Routine">
         <Field label="Practice questions per day"><input inputMode="numeric" value={s.practiceCount} onChange={(e) => num('practiceCount', e.target.value)} /></Field>
         <Field label="Revision questions per day"><input inputMode="numeric" value={s.reviseCount} onChange={(e) => num('reviseCount', e.target.value)} /></Field>
-        <Field label="Mistakes per revision"><input inputMode="numeric" value={s.mistakesPerRevise} onChange={(e) => num('mistakesPerRevise', e.target.value)} /></Field>
+        <Field label="Fix-its per revision"><input inputMode="numeric" value={s.mistakesPerRevise} onChange={(e) => num('mistakesPerRevise', e.target.value)} /></Field>
         <Field label="Weekly test questions"><input inputMode="numeric" value={s.weeklyTestCount} onChange={(e) => num('weeklyTestCount', e.target.value)} /></Field>
         <Field label="Daily study reminder (his phone)"><input type="time" value={s.reminderTime} onChange={(e) => setS({ ...s, reminderTime: e.target.value })} /></Field>
       </Card>
@@ -269,7 +273,7 @@ export function ParentSettings({ F, go }) {
         <Field label="7-day streak bonus"><input inputMode="numeric" value={s.rewards.streak7} onChange={(e) => setR('streak7', e.target.value)} /></Field>
         <Field label="Test 80%+"><input inputMode="numeric" value={s.rewards.test80} onChange={(e) => setR('test80', e.target.value)} /></Field>
         <Field label="Test 90%+"><input inputMode="numeric" value={s.rewards.test90} onChange={(e) => setR('test90', e.target.value)} /></Field>
-        <Field label="Each mistake cleared"><input inputMode="numeric" value={s.rewards.mistakeCleared} onChange={(e) => setR('mistakeCleared', e.target.value)} /></Field>
+        <Field label="Each fix-it cleared"><input inputMode="numeric" value={s.rewards.mistakeCleared} onChange={(e) => setR('mistakeCleared', e.target.value)} /></Field>
         <Field label="Monthly cap"><input inputMode="numeric" value={s.rewards.monthlyCap} onChange={(e) => setR('monthlyCap', e.target.value)} /></Field>
       </Card>
       <button className="primary" onClick={save}>{saved ? 'Saved ✓' : 'Save settings'}</button>

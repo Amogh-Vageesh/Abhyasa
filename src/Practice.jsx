@@ -45,7 +45,7 @@ export function PracticePage({ F, me, tab, setTab, launch, clearLaunch }) {
   }, [launch]);
   if (quiz) return <QuizRunner title={quiz.title} questions={quiz.questions} onCancel={() => setQuiz(null)} onFinish={async (r) => { await recordQuiz(F, quiz.kind, r, quiz.extra); if (quiz.onDone) await quiz.onDone(); setQuiz(null); }} />;
 
-  const tabs = [['practice', 'Practice'], ['papers', 'Papers'], ['mistakes', 'Mistakes'], ['history', 'Progress'], ...(isParent ? [['library', 'Test library']] : [])];
+  const tabs = [['practice', 'Practice'], ['papers', 'Papers'], ['mistakes', 'Fix-its'], ['history', 'Progress'], ...(isParent ? [['library', 'Test library']] : [])];
   return (
     <div>
       <PageHead title="Practice" />
@@ -55,7 +55,7 @@ export function PracticePage({ F, me, tab, setTab, launch, clearLaunch }) {
           <div><Tile icon="trophy" tone="amber" /><small>Tests & papers</small><b>{tests.length + papers.length}</b></div>
           <div><Tile icon="chart" tone="green" /><small>Average score</small><b>{avg ?? '—'}{avg !== null ? '%' : ''}</b></div>
           <div><Tile icon="target" tone="blue" /><small>Questions</small><b>{qs}</b></div>
-          <div><Tile icon="mistake" tone="red" /><small>Mistakes</small><b>{open} open</b><em>{cleared} cleared</em></div>
+          <div><Tile icon="mistake" tone="red" /><small>Fix-its</small><b>{open} open</b><em>{cleared} cleared</em></div>
         </div>
       </Card>
       <div className="seg scroll" style={{ marginTop: 12 }}>{tabs.map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>

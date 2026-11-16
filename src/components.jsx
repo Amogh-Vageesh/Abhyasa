@@ -128,8 +128,8 @@ export function QuizRunner({ title, questions, onFinish, onCancel, timed = false
     return (
       <Card title={`${title} — done!`}>
         <div className="big-score">{result.score}/{result.total} <span>{pct}%</span></div>
-        <p>{pct >= 90 ? 'Outstanding! 🌟' : pct >= 70 ? 'Good work! 👍' : 'Keep going — your mistakes are now in the Mistake Book to fix. 💪'}</p>
-        {wrong.length > 0 && <details><summary>Review {wrong.length} mistake(s)</summary>
+        <p>{pct >= 90 ? 'Outstanding! 🌟' : pct >= 70 ? 'Good work! 👍' : 'Keep going — wrong answers are now in your Fix-it list. 💪'}</p>
+        {wrong.length > 0 && <details><summary>Review {wrong.length} wrong answer(s)</summary>
           {wrong.map((w) => { const qq = questions.find((x) => x.id === w.qid); return (
             <div key={w.qid} className="review"><b>{qq.q}</b><div>Your answer: {w.given || '—'}</div><div className="ok">Answer: {qq.ans}</div>{qq.why && <div className="muted">{qq.why}</div>}</div>
           ); })}

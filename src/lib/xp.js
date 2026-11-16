@@ -1,5 +1,6 @@
 // XP, levels and badges — computed from existing data (no extra storage)
 import { currentStreak, ymd, addDays } from './logic';
+import { levelNames } from '../theme';
 
 export const LEVELS = ['Explorer', 'Learner', 'Achiever', 'Scholar', 'Champion', 'Genius', 'Legend', 'Master'];
 
@@ -14,6 +15,7 @@ export function xpOf(F) {
   xp += (F.mistakes || []).filter((m) => m.resolved).length * 5;
   for (const t of F.tasks || []) xp += Object.values(t.done || {}).filter(Boolean).length * 5;
   xp += (F.papers || []).length * 10;
+  for (const g of F.goals || []) { xp += (g.checkins || []).length * 3; if (g.status === 'done') xp += 50; }
   return xp;
 }
 
@@ -23,7 +25,8 @@ export function levelInfo(F) {
   let level = 1;
   while (xp >= need(level + 1)) level++;
   const cur = need(level), next = need(level + 1);
-  return { xp, level, name: LEVELS[Math.min(level - 1, LEVELS.length - 1)], into: xp - cur, span: next - cur, next };
+  const names = levelNames() || LEVELS;
+  return { xp, level, name: names[Math.min(level - 1, names.length - 1)], nextName: names[Math.min(level, names.length - 1)], into: xp - cur, span: next - cur, next };
 }
 function need(level) { return 50 * (level - 1) * level; } // 0, 100, 300, 600, 1000, ...
 
@@ -48,11 +51,12 @@ export function badges(F) {
     ['streak-30', '👑', '30-day streak', 'A whole month!', best >= 30],
     ['q-100', '🎯', '100 correct answers', 'Keep practising', correct >= 100],
     ['q-500', '🏹', '500 correct answers', 'Sharpshooter', correct >= 500],
-    ['fix-10', '🛠️', 'Mistake fixer', 'Clear 10 mistakes', cleared >= 10],
+    ['fix-10', '🛠️', 'Fix-it hero', 'Clear 10 fix-its', cleared >= 10],
     ['test-90', '🏆', 'Top scorer', 'Score 90%+ in a test', topTest >= 90],
     ['plan', '🗓️', 'Planner', 'Make your timetable', (F.blocks || []).length >= 3],
     ['money', '💰', 'Money smart', 'Track 10 money entries', (F.money || []).length >= 10],
-    ['papers', '🧾', 'Paper pro', 'Add 5 test papers', (F.papers || []).length >= 5]
+    ['papers', '🧾', 'Paper pro', 'Add 5 test papers', (F.papers || []).length >= 5],
+    ['goal', '🎯', 'Goal getter', 'Achieve a goal you set', (F.goals || []).some((g) => g.status === 'done')]
   ];
   return { best, current: currentStreak(days, today), list: list.map(([id, icon, title, how, got]) => ({ id, icon, title, how, got })) };
 }

@@ -18,6 +18,8 @@ import { BadgesPage } from './Badges';
 import { levelInfo } from './lib/xp';
 import { subjectOfFactory } from './Study';
 import { ThemePage } from './ThemePage';
+import { GoalsPage, GoalModal } from './Goals';
+import { words } from './theme';
 import { ParentDashboard, ParentSettings, ImportModal, NoteModal } from './Parent';
 import { WalletPage, EventModal, WalletModal, allEvents } from './Shared';
 import { PlannerPage, TaskModal } from './Planner';
@@ -105,8 +107,8 @@ function Onboarding({ user, onDone }) {
 const STUDENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
 const PARENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
 // Desktop sidebar shows every destination
-const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['insights', 'bulb', 'My next steps'], ['badges', 'trophy', 'Badges'], ['theme', 'settings', 'Theme'], ['more', 'menu', 'More']];
-const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'Money & rewards'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
+const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['goals', 'target', 'My goals'], ['insights', 'bulb', 'My next steps'], ['badges', 'trophy', 'Badges'], ['theme', 'settings', 'Theme'], ['more', 'menu', 'More']];
+const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'Money & rewards'], ['goals', 'target', 'His goals'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
 
 export function Main({ me }) {
   const F = useFamily(me.familyId);
@@ -121,6 +123,8 @@ export function Main({ me }) {
   const [launch, setLaunch] = useState(null);
   const [finTab, setFinTab] = useState('overview');
   const [insTab, setInsTab] = useState('insights');
+  const [, setThemeTick] = useState(0);
+  useEffect(() => { const f = () => setThemeTick((x) => x + 1); window.addEventListener('abhyasa-theme', f); return () => window.removeEventListener('abhyasa-theme', f); }, []);
 
   useEffect(() => {
     if (F.family) syncReminders({ events: allEvents(F), blocks: F.blocks, settings: F.settings, role: me.role }).catch(console.error);
@@ -167,6 +171,7 @@ export function Main({ me }) {
   else if (tab === 'ebooks') page = <ManageEbooks F={F} me={me} onBack={() => go(isParent ? 'settings' : 'more')} />;
   else if (tab === 'more') page = <MorePage F={F} me={me} go={go} />;
   else if (tab === 'theme') page = <ThemePage />;
+  else if (tab === 'goals') page = <GoalsPage F={F} me={me} />;
 
   const today = new Date().toISOString().slice(0, 10);
   const xp = isParent ? null : levelInfo(F);
@@ -183,7 +188,7 @@ export function Main({ me }) {
           <img src="/icon.svg" alt="" width="32" style={{ borderRadius: 10 }} className="mobile-only" />
           <span className="brand mobile-only">Abhyasa</span>
           <span className="sp" />
-          {xp && <button className="xp-chip" onClick={() => go('badges')}>⭐ Lv {xp.level}</button>}
+          {xp && <button className="xp-head" onClick={() => go('badges')} aria-label="Level"><span className="xp-chip">⭐ {xp.level}</span><span className="xp-stack"><small>{xp.name}</small><span className="progress"><span style={{ width: `${Math.round((xp.into / xp.span) * 100)}%` }} /></span></span></button>}
           <button className="icon-btn" aria-label="Calendar" onClick={() => go('calendar')}><Icon name="bell" />{(hasNote || allEvents(F).some((e) => e.date === today)) && <span className="dot" />}</button>
           <button className="icon-btn mobile-only" aria-label="More" onClick={() => go('more')}><Avatar name={me.name} tone={isParent ? 'purple' : 'blue'} size={38} /></button>
         </header>
@@ -196,6 +201,7 @@ export function Main({ me }) {
       </div>
       {sheet === 'fab' && <FabSheet isParent={isParent} onPick={setSheet} onClose={() => setSheet(null)} />}
       {sheet === 'log' && <LogModal F={F} onClose={() => setSheet(null)} />}
+      {sheet === 'goal' && <GoalsQuickAdd F={F} me={me} onClose={() => setSheet(null)} />}
       {sheet === 'task' && <TaskModal F={F} me={me} task={{ freq: 'daily', title: '', days: [] }} onClose={() => setSheet(null)} />}
       {sheet === 'money' && <MoneyModal F={F} me={me} entry={{ type: 'out' }} onClose={() => setSheet(null)} />}
       {sheet === 'learn' && <LearnModal F={F} chapters={[]} onClose={() => setSheet(null)} />}
@@ -217,6 +223,7 @@ function FabSheet({ isParent, onPick, onClose }) {
        ['bonus', 'gift', 'green', 'Add a bonus', 'Reward something special'],
        ['payout', 'wallet', 'teal', 'Record a payout', 'Money given in cash / UPI']]
     : [['log', 'edit', 'blue', 'Log a class', 'What was taught today'],
+       ['goal', 'target', 'amber', 'Something I want to improve', 'Set a goal with small steps'],
        ['task', 'check', 'teal', 'Add a task', 'Daily, weekly or monthly'],
        ['money', 'rupee', 'green', 'Add money / expense', 'Received, spent, who paid'],
        ['paper', 'file', 'red', 'Add a test paper', 'Question paper, answer sheet, marks'],
@@ -249,8 +256,8 @@ function MorePage({ F, me, go }) {
   const isParent = me.role === 'parent';
   const { balance } = walletSummary(F.wallet);
   const rows = isParent
-    ? [['finance', 'rupee', 'teal', 'Money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, mistake report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'Manage e-books', 'Links and offline PDFs per subject'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
-    : [['finance', 'rupee', 'teal', 'My money & rewards', `${rupees(balance)} rewards to collect`], ['insights', 'bulb', 'amber', 'My next steps', 'What to do next, mistakes, exam tips'], ['badges', 'trophy', 'amber', 'Badges & level', 'Your achievements'], ['mistakes', 'mistake', 'red', 'Mistake Book', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
+    ? [['finance', 'rupee', 'teal', 'Money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, fix-it report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'Manage e-books', 'Links and offline PDFs per subject'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
+    : [['finance', 'rupee', 'teal', 'My money & rewards', `${rupees(balance)} rewards to collect`], ['insights', 'bulb', 'amber', 'My next steps', 'What to do next, fix-its, exam tips'], ['goals', 'target', 'amber', 'My goals', 'What I want to improve'], ['badges', 'trophy', 'amber', 'Badges & level', 'Your achievements'], ['mistakes', 'mistake', 'red', 'Fix-it list', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
   return (
     <div>
       <PageHead title="More" />
@@ -275,4 +282,10 @@ function MorePage({ F, me, go }) {
       </div>
     </div>
   );
+}
+
+function GoalsQuickAdd({ F, me, onClose }) {
+  // Reuse the goals page modal through a tiny wrapper
+  const [open] = useState(true);
+  return open ? <GoalModal F={F} me={me} goal={{}} onClose={onClose} /> : null;
 }

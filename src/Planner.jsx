@@ -117,7 +117,7 @@ const TEMPLATE = [
   { days: [1, 2, 3, 4, 5], start: '19:00', end: '19:45', kind: 'study', title: 'Abhyasa: learn, practice, revise' },
   { days: [1, 2, 3, 4, 5], start: '20:30', end: '21:00', kind: 'reading', title: 'Reading' },
   { days: [0, 1, 2, 3, 4, 5, 6], start: '21:30', end: '06:30', kind: 'sleep', title: 'Sleep' },
-  { days: [0, 6], start: '10:00', end: '11:30', kind: 'study', title: 'Weekend test + fix mistakes' },
+  { days: [0, 6], start: '10:00', end: '11:30', kind: 'study', title: 'Weekend test + fix-its' },
   { days: [0, 6], start: '16:00', end: '18:00', kind: 'play', title: 'Sports / outing' }
 ];
 

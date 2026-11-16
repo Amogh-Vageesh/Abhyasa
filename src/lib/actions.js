@@ -28,7 +28,7 @@ export async function recordQuiz(F, kind, result, extra = {}) {
       const updated = updateMistake(existing, it.correct, today);
       await setMistake(fid, it.qid, { ...updated, qid: it.qid, chapterId: it.chapterId || null, ...(it.q ? { q: it.q } : {}), ...(!it.correct && it.given ? { given: it.given } : {}) });
       if (updated.resolved && existing && !existing.resolved) {
-        await reward(F, `mistake-${it.qid}-${today}`, F.settings.rewards.mistakeCleared, 'Mistake cleared');
+        await reward(F, `mistake-${it.qid}-${today}`, F.settings.rewards.mistakeCleared, 'Fix-it cleared');
       }
     }
   }
@@ -44,7 +44,7 @@ export const STEPS = [
   { key: 'homework', label: 'Homework done', icon: '📒' },
   { key: 'learnDone', label: 'Learn (10 min)', icon: '💡' },
   { key: 'practiceDone', label: 'Practice', icon: '🎯' },
-  { key: 'reviseDone', label: 'Revise + mistakes', icon: '🔁' }
+  { key: 'reviseDone', label: 'Revise + fix-its', icon: '🔁' }
 ];
 
 export async function markStep(F, key, value = true) {
