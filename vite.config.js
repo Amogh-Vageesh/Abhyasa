@@ -13,8 +13,8 @@ export default defineConfig({
         name: 'Abhyasa',
         short_name: 'Abhyasa',
         description: 'Daily study routine, practice, tests and revision',
-        theme_color: '#f59e0b',
-        background_color: '#fffbf2',
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
         icons: [

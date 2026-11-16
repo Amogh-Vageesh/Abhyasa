@@ -35,6 +35,10 @@ export function applyTheme() {
   r.dataset.color = getThemeKey();
   r.style.setProperty('--accent-a', th.a);
   r.style.setProperty('--accent-b', th.b);
+  // window / status bar colour follows the page background, not the accent
+  let m = document.querySelector('meta[name="theme-color"]');
+  if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); }
+  m.content = dark ? '#121418' : '#ffffff';
 }
 applyTheme();
 window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener?.('change', applyTheme);
