@@ -865,4 +865,4 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
 /* Manrope runs a little wide: tighten big numbers and headings slightly */
 .w-h1, .w-stats b, .w-big, .page-head h1, .hero-txt h1, .summary-main b { letter-spacing: -0.04em; }
 /* Manrope 400 reads thin on screens: nudge regular text to 450 */
-:root, body, button, input, select, textarea { font-weight: 450; }
+:root, body, input, select, textarea { font-weight: 450; }
