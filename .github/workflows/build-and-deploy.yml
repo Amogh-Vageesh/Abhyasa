@@ -13,9 +13,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -31,7 +31,7 @@ jobs:
           VERSION_CODE: ${{ github.run_number }}
         run: npm run build
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -60,7 +60,7 @@ jobs:
           cp android/app/build/outputs/apk/release/app-release.apk dist/download/abhyasa.apk
           echo "{\"version\": ${{ github.run_number }}, \"built\": \"$(date -u +%FT%TZ)\"}" > dist/download/version.json
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: abhyasa-apk
           path: android/app/build/outputs/apk/release/app-release.apk
