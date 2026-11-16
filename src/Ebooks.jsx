@@ -5,13 +5,14 @@ import { ref as sref, uploadBytesResumable, getDownloadURL, getBlob, deleteObjec
 import { Capacitor, CapacitorHttp } from '@capacitor/core';
 import { Card, Modal, PageHead } from './components';
 import { Icon, Tile } from './icons';
-import { storage, isNative } from './firebase';
+import { storage, isNative, db } from './firebase';
+import { doc, getDoc, setDoc, deleteDoc, Bytes } from 'firebase/firestore';
 import { deleteItem, saveItem } from './lib/data';
 import { SUBJECTS } from './lib/syllabus';
 
 // ===================== offline PDF store =====================
 // Only parent-uploaded (or parent-linked) free PDFs are stored. Link e-books are never cached.
-const pdfKey = (e) => `ebook-pdf:${e.id}:${e.storagePath || e.url}`;
+const pdfKey = (e) => `ebook-pdf:${e.id}:${e.fileId || e.storagePath || e.url}`;
 export async function isPdfOffline(e) { return !!(await idbGet(pdfKey(e))); }
 export async function removePdfOffline(e) {
   for (const k of await idbKeys()) if (String(k).startsWith(`ebook-pdf:${e.id}:`)) await idbDel(k);
@@ -24,7 +25,34 @@ function b64ToBlob(b64, type = 'application/pdf') {
   return new Blob([arr], { type });
 }
 
+// PDFs imported into the app are kept in Firestore as ~700 KB chunks (works on the free plan, no Storage bucket needed)
+const CHUNK = 700 * 1024;
+const chunkRef = (fid, fileId, i) => doc(db, 'families', fid, 'ebookfiles', `${fileId}_${i}`);
+export async function importPdfChunks(fid, file, onProgress) {
+  const buf = new Uint8Array(await file.arrayBuffer());
+  const fileId = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+  const n = Math.ceil(buf.length / CHUNK);
+  for (let i = 0; i < n; i++) {
+    await setDoc(chunkRef(fid, fileId, i), { data: Bytes.fromUint8Array(buf.subarray(i * CHUNK, (i + 1) * CHUNK)), i, n });
+    onProgress?.(Math.round(((i + 1) / n) * 100));
+  }
+  return { fileId, chunks: n };
+}
+async function deleteChunks(fid, e) {
+  if (!e.fileId) return;
+  await Promise.all(Array.from({ length: e.chunks || 0 }, (_, i) => deleteDoc(chunkRef(fid, e.fileId, i)).catch(() => {})));
+}
+async function downloadChunks(e) {
+  const parts = await Promise.all(Array.from({ length: e.chunks }, async (_, i) => {
+    const s = await getDoc(chunkRef(e.fid, e.fileId, i));
+    if (!s.exists()) throw new Error('Part of this book is missing — ask a parent to import it again.');
+    return s.data().data.toUint8Array();
+  }));
+  return new Blob(parts, { type: 'application/pdf' });
+}
+
 async function downloadPdf(e) {
+  if (e.fileId) return downloadChunks(e);
   if (e.storagePath) {
     if (isNative) {
       // Native: fetch through the native HTTP stack (no browser CORS limits)
@@ -69,7 +97,7 @@ export function EbookButtons({ F, subjectId }) {
     <>
       <div className="card list" style={{ marginBottom: 12 }}>
         {books.map((b) => (
-          <button key={b.id} className="lrow" onClick={() => setOpen(b)}>
+          <button key={b.id} className="lrow" onClick={() => setOpen({ ...b, fid: F.family.id })}>
             <Tile icon={b.type === 'pdf' ? 'file' : 'book'} tone={b.type === 'pdf' ? 'red' : 'blue'} />
             <div className="lt"><b>Open e-book{b.part ? ` · ${b.part}` : ''}</b>
               <small>{b.title} · {b.type === 'pdf' ? (offline[b.id] ? 'PDF · available offline' : 'PDF · downloads once') : 'Online · needs internet'}</small></div>
@@ -300,30 +328,38 @@ function PdfPage({ doc, n, width, root }) {
 // ===================== parent: manage e-books =====================
 export function ManageEbooks({ F, me, onBack }) {
   const [edit, setEdit] = useState(null);
+  const [open, setOpen] = useState(null);
   const isParent = me.role === 'parent';
   return (
     <div>
-      <PageHead title="E-books" onBack={onBack} />
-      <p className="muted small-text">E-books appear as “Open e-book” buttons on each subject screen. Links always load live from the publisher; uploaded PDFs (free KTBS/NCERT books) download once and work offline.</p>
+      <PageHead title={isParent ? 'E-books' : 'My books'} onBack={onBack} right={isParent && <button className="primary small" onClick={() => setEdit({ subject: SUBJECTS[0].id, type: 'pdf', title: '', part: '', url: '' })}><Icon name="plus" size={16} /> Import book</button>} />
+      <p className="muted small-text">{isParent
+        ? 'Import a free textbook PDF (NCERT / KTBS) or add a publisher web link. PDFs download once to each device and then open offline; links always load live.'
+        : 'Your textbooks, by subject. Tap to open. Books are added by Appa/Amma from their login (E-books → Import book).'}</p>
       {SUBJECTS.map((s) => {
         const list = F.ebooks.filter((b) => b.subject === s.id);
+        if (!isParent && !list.length) return null;
         return (
           <div key={s.id}>
             <div className="sec-h"><h2>{s.name}</h2>{isParent && <button className="link" onClick={() => setEdit({ subject: s.id, type: 'link', title: '', part: '', url: '' })}><Icon name="plus" size={16} /> Add</button>}</div>
             <div className="card list">
-              {!list.length && <div className="muted small-text" style={{ padding: '12px 0' }}>No e-books.</div>}
+              {!list.length && <div className="muted small-text" style={{ padding: '12px 0' }}>No books yet.</div>}
               {list.map((b) => (
-                <button key={b.id} className="lrow" onClick={() => isParent && setEdit(b)}>
+                <div key={b.id} role="button" className="lrow" onClick={() => isParent ? setEdit(b) : setOpen({ ...b, fid: F.family.id })}>
                   <Tile icon={b.type === 'pdf' ? 'file' : 'book'} tone={b.type === 'pdf' ? 'red' : 'blue'} />
-                  <div className="lt"><b>{b.title}{b.part ? ` · ${b.part}` : ''}</b><small>{b.type === 'pdf' ? (b.storagePath ? `Uploaded PDF${b.fileName ? ' · ' + b.fileName : ''}` : 'PDF link') : b.url}</small></div>
-                  {isParent && <Icon name="chevR" className="chev" />}
-                </button>
+                  <div className="lt"><b>{b.title}{b.part ? ` · ${b.part}` : ''}</b><small>{b.type === 'pdf' ? (b.fileId || b.storagePath ? `PDF · works offline${b.fileName ? ' · ' + b.fileName : ''}` : 'PDF link') : 'Online e-book'}</small></div>
+                  {isParent ? <button className="small" onClick={(x) => { x.stopPropagation(); setOpen({ ...b, fid: F.family.id }); }}>Open</button> : <Icon name="chevR" className="chev" />}
+                </div>
               ))}
             </div>
           </div>
         );
       })}
+      {!isParent && !F.ebooks.length && <div className="card muted small-text">No books yet. Ask Appa/Amma to import your textbooks from their login.</div>}
       {edit && <EbookModal F={F} me={me} ebook={edit} onClose={() => setEdit(null)} />}
+      {open && createPortal(open.type === 'pdf'
+        ? <PdfScreen ebook={open} onClose={() => setOpen(null)} />
+        : <LinkScreen ebook={open} onClose={() => setOpen(null)} />, document.body)}
     </div>
   );
 }
@@ -331,27 +367,26 @@ export function ManageEbooks({ F, me, onBack }) {
 function EbookModal({ F, me, ebook, onClose }) {
   const [e, setE] = useState({ part: '', ...ebook });
   const [file, setFile] = useState(null);
-  const [pdfSource, setPdfSource] = useState(ebook.storagePath ? 'upload' : ebook.url && ebook.type === 'pdf' ? 'url' : 'upload');
+  const [pdfSource, setPdfSource] = useState(ebook.url && ebook.type === 'pdf' && !ebook.fileId && !ebook.storagePath ? 'url' : 'upload');
   const [progress, setProgress] = useState(null);
   const [err, setErr] = useState('');
   const set = (k, v) => setE({ ...e, [k]: v });
-  const valid = e.title && (e.type === 'link' ? /^https?:\/\//i.test(e.url || '') : pdfSource === 'url' ? /^https?:\/\//i.test(e.url || '') : (file || e.storagePath));
+  const valid = (e.title || file) && (e.type === 'link' ? /^https?:\/\//i.test(e.url || '') : pdfSource === 'url' ? /^https?:\/\//i.test(e.url || '') : (file || e.storagePath || e.fileId));
 
   const save = async () => {
     setErr('');
     try {
       let data = { ...e, order: e.order ?? Date.now(), by: me.name };
-      if (e.type === 'link') { data.storagePath = null; }
-      else if (pdfSource === 'url') { data.storagePath = null; }
+      const dropOld = async () => { await deleteChunks(F.family.id, e); if (e.storagePath) await deleteObject(sref(storage, e.storagePath)).catch(() => {}); };
+      if (e.type === 'link' || pdfSource === 'url') { if (e.fileId || e.storagePath) await dropOld(); data = { ...data, storagePath: null, fileId: null, chunks: null }; }
       else if (file) {
         if (file.type && file.type !== 'application/pdf') throw new Error('Please choose a PDF file.');
-        const path = `families/${F.family.id}/ebooks/${Date.now()}-${file.name.replace(/[^\w.-]+/g, '_')}`;
-        await new Promise((resolve, reject) => {
-          const task = uploadBytesResumable(sref(storage, path), file, { contentType: 'application/pdf' });
-          task.on('state_changed', (snap) => setProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)), reject, resolve);
-        });
-        if (e.storagePath) await deleteObject(sref(storage, e.storagePath)).catch(() => {});
-        data = { ...data, storagePath: path, url: null, fileName: file.name, size: file.size };
+        if (file.size > 60 * 1048576) throw new Error('That PDF is over 60 MB — import it chapter-wise instead.');
+        setProgress(0);
+        const { fileId, chunks } = await importPdfChunks(F.family.id, file, setProgress);
+        await dropOld();
+        data = { ...data, fileId, chunks, storagePath: null, url: null, fileName: file.name, size: file.size };
+        if (!data.title) data.title = file.name.replace(/\.pdf$/i, '');
       }
       await saveItem(F.family.id, 'ebooks', data);
       onClose();
@@ -366,11 +401,12 @@ function EbookModal({ F, me, ebook, onClose }) {
   const remove = async () => {
     if (!confirm('Remove this e-book?')) return;
     if (e.storagePath) await deleteObject(sref(storage, e.storagePath)).catch(() => {});
+    await deleteChunks(F.family.id, e);
     await deleteItem(F.family.id, 'ebooks', ebook.id);
     onClose();
   };
   return (
-    <Modal title={ebook.id ? 'Edit e-book' : 'Add e-book'} onClose={onClose}>
+    <Modal title={ebook.id ? 'Edit book' : 'Import book'} onClose={onClose}>
       <div className="stack">
         <select value={e.subject} onChange={(x) => set('subject', x.target.value)}>{SUBJECTS.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}</select>
         <div className="seg" style={{ marginBottom: 0 }}>{[['link', 'Web link'], ['pdf', 'PDF (offline)']].map(([k, l]) => <button key={k} className={e.type === k ? 'on' : ''} onClick={() => set('type', k)}>{l}</button>)}</div>
@@ -381,15 +417,15 @@ function EbookModal({ F, me, ebook, onClose }) {
           <p className="muted small-text">Opens inside the app and always loads live from the publisher — never saved on the device.</p>
         </>}
         {e.type === 'pdf' && <>
-          <div className="row wrap">{[['upload', 'Upload a PDF'], ['url', 'Direct PDF link']].map(([k, l]) => <button key={k} className={`small ${pdfSource === k ? 'primary' : ''}`} onClick={() => setPdfSource(k)}>{l}</button>)}</div>
-          {pdfSource === 'upload' && <label className="file-btn">{file ? `📄 ${file.name} (${(file.size / 1048576).toFixed(1)} MB)` : e.storagePath ? `📄 ${e.fileName || 'Uploaded PDF'} — tap to replace` : '📄 Choose PDF file'}
+          <div className="row wrap">{[['upload', 'PDF from this device'], ['url', 'Direct PDF link']].map(([k, l]) => <button key={k} className={`small ${pdfSource === k ? 'primary' : ''}`} onClick={() => setPdfSource(k)}>{l}</button>)}</div>
+          {pdfSource === 'upload' && <label className="file-btn">{file ? `📄 ${file.name} (${(file.size / 1048576).toFixed(1)} MB)` : (e.storagePath || e.fileId) ? `📄 ${e.fileName || 'Imported PDF'} — tap to replace` : '📄 Choose PDF file'}
             <input type="file" accept="application/pdf" hidden onChange={(x) => setFile(x.target.files[0] || null)} /></label>}
           {pdfSource === 'url' && <input inputMode="url" placeholder="https://…/book.pdf" value={e.url || ''} onChange={(x) => set('url', x.target.value.trim())} />}
           <p className="muted small-text">Only for free books (KTBS / NCERT). Downloads once to each device and then opens offline.</p>
         </>}
         {progress !== null && <div className="progress"><div style={{ width: `${progress}%`, background: 'var(--accent-b)' }} /></div>}
         {err && <div className="feedback bad small-text">{err}</div>}
-        <button className="primary" disabled={!valid || progress !== null} onClick={save}>{progress !== null ? `Uploading ${progress}%` : 'Save'}</button>
+        <button className="primary" disabled={!valid || progress !== null} onClick={save}>{progress !== null ? `Importing ${progress}%` : 'Save'}</button>
         {ebook.id && <button className="danger" onClick={remove}>Remove e-book</button>}
       </div>
     </Modal>

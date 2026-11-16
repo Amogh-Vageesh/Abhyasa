@@ -145,7 +145,7 @@ function SubjectPage({ F, me, subjectId, onBack, openChapter }) {
       </div>
 
       <div className="sec-h"><h2>E-books</h2></div>
-      {F.ebooks.some((b) => b.subject === subjectId) ? <EbookButtons F={F} subjectId={subjectId} /> : <p className="muted small-text">No e-books yet{me.role === 'parent' ? ' — add them in Settings → Manage e-books.' : '.'}</p>}
+      {F.ebooks.some((b) => b.subject === subjectId) ? <EbookButtons F={F} subjectId={subjectId} /> : <p className="muted small-text">No books yet{me.role === 'parent' ? ' — import one from E-books → Import book.' : ' — Appa/Amma can add them from their login.'}</p>}
 
       {!chs.length && <Card><p className="muted small-text">No lessons yet. Tap “+ Lesson” to add the lessons from the textbook.</p></Card>}
       {books.map((b) => (

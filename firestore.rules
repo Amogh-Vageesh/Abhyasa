@@ -51,9 +51,15 @@ service cloud.firestore {
         allow write: if signedIn() && isParent(fid);
       }
 
+      // Imported PDF chunks: parents write, everyone in the family reads
+      match /ebookfiles/{id} {
+        allow read: if signedIn() && isMember(fid);
+        allow write: if signedIn() && isParent(fid);
+      }
+
       match /{sub}/{id} {
         allow read: if signedIn() && isMember(fid);
-        allow write: if signedIn() && isMember(fid) && !(sub in ['wallet', 'ebooks']);
+        allow write: if signedIn() && isMember(fid) && !(sub in ['wallet', 'ebooks', 'ebookfiles']);
       }
     }
   }

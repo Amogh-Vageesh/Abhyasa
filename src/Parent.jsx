@@ -259,7 +259,7 @@ export function ParentSettings({ F, go }) {
     <div className="stack">
       <PageHead title="Settings" />
       <div className="card list">
-        <button className="lrow" onClick={() => go('ebooks')}><Tile icon="file" tone="red" /><div className="lt"><b>Manage e-books</b><small>{F.ebooks.length} e-book(s) · links and offline PDFs per subject</small></div><Icon name="chevR" className="chev" /></button>
+        <button className="lrow" onClick={() => go('ebooks')}><Tile icon="file" tone="red" /><div className="lt"><b>E-books</b><small>{F.ebooks.length} book(s) · import textbook PDFs and links</small></div><Icon name="chevR" className="chev" /></button>
       </div>
       <Card title="Routine">
         <Field label="Practice questions per day"><input inputMode="numeric" value={s.practiceCount} onChange={(e) => num('practiceCount', e.target.value)} /></Field>
