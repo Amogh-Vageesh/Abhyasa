@@ -41,8 +41,8 @@ export function ParentDashboard({ F, me, go }) {
     <div>
       <div className="hero">
         <div className="hero-txt">
-          <span>{greet}</span>
-          <h1>{me.name?.split(' ')[0]} 👋</h1>
+          <span className="mobile-only">{greet}</span>
+          <h1><span className="desk-only">{greet}, </span>{me.name?.split(' ')[0]}</h1>
           <small>{new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</small>
         </div>
         <HeroArt />

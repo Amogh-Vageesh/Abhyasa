@@ -115,10 +115,10 @@ export function StudentToday({ F, go }) {
     <div>
       <div className="hero">
         <div className="hero-txt">
-          <span>{greet}</span>
-          <h1>{F.family.studentName?.split(' ')[0]}</h1>
-          <small>{new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</small>
-          <div className="mascot">{cheer}</div>
+          <span className="mobile-only">{greet}</span>
+          <h1><span className="desk-only">{greet}, </span>{F.family.studentName?.split(' ')[0]}</h1>
+          <small>{new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}<span className="desk-only"> · {cheer}</span></small>
+          <div className="mascot mobile-only">{cheer}</div>
         </div>
         <HeroArt />
       </div>
