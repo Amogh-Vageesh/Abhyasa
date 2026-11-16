@@ -1,4 +1,4 @@
-@import '@fontsource-variable/figtree';
+@import '@fontsource-variable/manrope';
 @import '@fontsource-variable/noto-sans-kannada';
 
 /* ===== Kid-friendly theme on Kosha's structure: rounded font, brighter colours, bigger touch targets ===== */
@@ -13,7 +13,7 @@
   --hero-a: #ffe9c7; --hero-b: #d9f2ff;
   --card: var(--panel);
   --radius: 22px;
-  font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', 'Noto Sans Kannada', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Manrope Variable', 'Noto Sans Kannada Variable', 'Noto Sans Kannada', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-size: 16px; font-weight: 500;
   color: var(--text); background: var(--bg);
 }
@@ -26,7 +26,7 @@
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body { margin: 0; background: var(--bg); }
-h1, h2, h3, h4 { margin: 0 0 6px; letter-spacing: 0; font-weight: 800; font-family: var(--font-head), 'Noto Sans Kannada Variable', 'Figtree Variable', sans-serif; line-height: 1.15; }
+h1, h2, h3, h4 { margin: 0 0 6px; letter-spacing: 0; font-weight: 800; font-family: var(--font-head), 'Noto Sans Kannada Variable', 'Manrope Variable', sans-serif; line-height: 1.15; }
 b, strong { font-weight: 800; }
 p { margin: 6px 0; }
 button, .button, input, select, textarea { font: inherit; }
@@ -334,7 +334,7 @@ main { padding: 0 16px 16px; }
 .back-btn { background: var(--panel); border: 1px solid var(--rule2); box-shadow: var(--shadow); margin-right: 4px; }
 
 /* ===== playful display font for headings & numbers ===== */
-.brand, .side-brand b, .big-score, .summary-main b, .stat b, .kpis b, .hero-txt h1, .page-head h1, .sec-h h2, .question, .level-ring b, .card-head h3 { font-family: var(--font-head), 'Noto Sans Kannada Variable', 'Figtree Variable', sans-serif; letter-spacing: 0; }
+.brand, .side-brand b, .big-score, .summary-main b, .stat b, .kpis b, .hero-txt h1, .page-head h1, .sec-h h2, .question, .level-ring b, .card-head h3 { font-family: var(--font-head), 'Noto Sans Kannada Variable', 'Manrope Variable', sans-serif; letter-spacing: 0; }
 .page-head h1 { font-size: 28px; font-weight: 800; }
 .sec-h h2 { font-size: 20px; font-weight: 800; }
 .hero-txt h1 { font-size: 34px; font-weight: 800; }
@@ -429,7 +429,7 @@ button.primary, .button.primary, .nav .fab-in, .xp-chip, .level-ring, .seg butto
   --shadow: 0 1px 2px rgba(16,24,40,.04), 0 2px 8px rgba(16,24,40,.04);
   --tile-a: .12; --nav-bg: rgba(255,255,255,.98);
   --radius: 18px;
-  --font-head: 'Figtree Variable', 'Noto Sans Kannada Variable', sans-serif;
+  --font-head: 'Manrope Variable', 'Noto Sans Kannada Variable', sans-serif;
   font-weight: 400;
 }
 :root[data-theme="dark"] {
@@ -521,7 +521,7 @@ h1, h2, h3, h4 { font-weight: 700; color: var(--text); }
 .xp-stack .progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); border-radius: 6px; }
 @media (max-width: 420px) { .xp-stack { display: none; } }
 /* theme fonts only on headings; numbers stay in the readable body font */
-.big-score, .summary-main b, .stat b, .kpis b, .level-ring b, .diag b, .ring b, .question, .card-head h3, .side-brand b, .brand { font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', sans-serif !important; }
+.big-score, .summary-main b, .stat b, .kpis b, .level-ring b, .diag b, .ring b, .question, .card-head h3, .side-brand b, .brand { font-family: 'Manrope Variable', 'Noto Sans Kannada Variable', sans-serif !important; }
 .summary-main b { font-size: 24px; }
 @media (min-width: 960px) {
   .hero { padding-bottom: 16px; }
@@ -531,15 +531,15 @@ h1, h2, h3, h4 { font-weight: 700; color: var(--text); }
 
 
 /* =====================================================================
-   v15: Kosha typography (Figtree, Kosha sizes & weights) + teen themes
+   v15: Kosha typography (Manrope, Kosha sizes & weights) + teen themes
    ===================================================================== */
 :root {
-  --font-head: 'Figtree Variable', 'Noto Sans Kannada Variable', system-ui, sans-serif;
-  font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+  --font-head: 'Manrope Variable', 'Noto Sans Kannada Variable', system-ui, sans-serif;
+  font-family: 'Manrope Variable', 'Noto Sans Kannada Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
   font-size: 15px; line-height: 1.42; letter-spacing: -.005em; font-weight: 400;
 }
 body, button, input, select, textarea, .big-score, .summary-main b, .stat b, .kpis b, .level-ring b, .diag b, .ring b, .question, .card-head h3, .side-brand b, .brand, h1, h2, h3, h4 {
-  font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', system-ui, sans-serif !important;
+  font-family: 'Manrope Variable', 'Noto Sans Kannada Variable', system-ui, sans-serif !important;
 }
 button, .button { font-size: 15px; font-weight: 600; }
 button.small, .button.small { font-size: 13.5px; }
@@ -862,3 +862,7 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
   .lrow + .lrow, .card.list > * + * { border-top-color: var(--w-line2); }
 }
 @media (min-width: 960px) { .card .kpis > div, .card .stat { background: var(--w-page) !important; border: 0 !important; border-radius: 14px !important; } }
+/* Manrope runs a little wide: tighten big numbers and headings slightly */
+.w-h1, .w-stats b, .w-big, .page-head h1, .hero-txt h1, .summary-main b { letter-spacing: -0.04em; }
+/* Manrope 400 reads thin on screens: nudge regular text to 450 */
+:root, body, button, input, select, textarea { font-weight: 450; }
