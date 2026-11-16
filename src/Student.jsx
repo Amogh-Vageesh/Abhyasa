@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { set as idbSet, get as idbGet } from 'idb-keyval';
-import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees } from './components';
+import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees, PageHead } from './components';
+import { Icon, Tile, Avatar, HeroArt } from './icons';
 import { STEPS, markStep, logClass, recordQuiz } from './lib/actions';
 import { loadChapter, questionPool, questionsById, setChapter, setMistake, saveTest } from './lib/data';
 import {
@@ -73,58 +74,97 @@ export function StudentToday({ F, go }) {
       onFinish={async (res) => { await recordQuiz(F, quiz.kind, res, quiz.extra); if (quiz.onDone) await quiz.onDone(); setQuiz(null); }} />;
   }
 
+  const greet = new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 17 ? 'Good afternoon' : 'Good evening';
+  const due = dueChapters(F.chapters, today);
+  const openMistakes = F.mistakes.filter((m) => !m.resolved).length;
+  const routine = [
+    { ...STEPS[0], icon: 'edit', tone: 'blue', done: day.logDone,
+      sub: (day.logs || []).length ? (day.logs || []).map((l) => l.chapterId ? chapterLabel(l.chapterId) : l.subjectName).join(' · ') : 'Subject, chapter, pages — speak or snap a photo',
+      run: () => setModal({ type: 'log' }) },
+    { ...STEPS[1], icon: 'notebook', tone: 'purple', done: day.homework, sub: day.homework ? 'Tap to undo' : 'Tick when finished', run: () => markStep(F, 'homework', !day.homework) },
+    { ...STEPS[2], icon: 'bulb', tone: 'amber', done: day.learnDone, sub: todaysChapters.length ? `${todaysChapters.length} chapter(s) from today` : 'Pick any chapter', run: () => setModal({ type: 'learn', chapters: todaysChapters }) },
+    { ...STEPS[3], icon: 'target', tone: 'green', done: day.practiceDone, sub: `${F.settings.practiceCount} questions on today’s lessons`, run: startPractice },
+    { ...STEPS[4], icon: 'repeat', tone: 'teal', done: day.reviseDone, sub: `${due.length} chapter(s) due · ${openMistakes} mistakes open`, run: startRevise }
+  ];
+
   return (
-    <div className="stack">
+    <div>
       <div className="hero">
-        <div>
-          <div className="muted">Hi {F.family.studentName?.split(' ')[0]} 👋</div>
-          <h2>{doneCount === 5 ? 'All done today! 🎉' : `${doneCount}/5 done today`}</h2>
+        <div className="hero-txt">
+          <span>{greet}</span>
+          <h1>{F.family.studentName?.split(' ')[0]} 👋</h1>
+          <small>{new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</small>
         </div>
-        <div className="hero-stats">
-          <div><b>🔥 {streak}</b><span>streak</span></div>
-          <div onClick={() => go('wallet')}><b>{rupees(balance)}</b><span>wallet</span></div>
-        </div>
+        <HeroArt />
       </div>
-      <Progress value={doneCount} max={5} />
 
-      {latestNote && <div className="note">💬 <b>{latestNote.from}:</b> {latestNote.text}</div>}
-
-      {upcoming.length > 0 && (
-        <Card title="Coming up">
-          {upcoming.map((e) => <div key={e.id} className={`event-line ${e.type}`} onClick={() => go('calendar')}>
-            <b>{daysBetween(today, e.date) === 0 ? 'Today' : daysBetween(today, e.date) === 1 ? 'Tomorrow' : `In ${daysBetween(today, e.date)} days`}</b> · {e.title}
-          </div>)}
-        </Card>
-      )}
-
-      {assigned.length > 0 && (
-        <Card title="Tests for you">
-          {assigned.map((t) => <div key={t.id} className="row between"><span>📄 {t.title}</span><button className="primary small" onClick={() => startAssigned(t)}>Start</button></div>)}
-        </Card>
-      )}
-
-      <Card title="Today’s routine">
-        <div className="steps">
-          <Step s={STEPS[0]} done={day.logDone} detail={(day.logs || []).map((l) => l.chapterId ? chapterLabel(l.chapterId) : l.subjectName).join(' · ')}
-            action={<div className="row"><button className="small" onClick={() => setModal({ type: 'log' })}>+ Add class</button>{!day.logDone && <button className="ghost small" onClick={() => markStep(F, 'logDone')}>No school today</button>}</div>} />
-          <Step s={STEPS[1]} done={day.homework}
-            action={<button className="small" onClick={() => markStep(F, 'homework', !day.homework)}>{day.homework ? 'Undo' : 'Mark done'}</button>} />
-          <Step s={STEPS[2]} done={day.learnDone}
-            action={<button className="small" onClick={() => setModal({ type: 'learn', chapters: todaysChapters })}>Open</button>} />
-          <Step s={STEPS[3]} done={day.practiceDone}
-            action={<button className="small" onClick={startPractice}>{day.practiceDone ? 'Practice more' : 'Start'}</button>} />
-          <Step s={STEPS[4]} done={day.reviseDone}
-            detail={`${dueChapters(F.chapters, today).length} chapter(s) due · ${F.mistakes.filter((m) => !m.resolved).length} mistakes open`}
-            action={<button className="small" onClick={startRevise}>Start</button>} />
+      <button className="summary" onClick={() => document.getElementById('routine')?.scrollIntoView({ behavior: 'smooth' })}>
+        <Tile icon="target" tone="amber" size={52} />
+        <div className="summary-main">
+          <small>Today’s routine</small>
+          <b>{doneCount === 5 ? 'All done! 🎉' : `${doneCount} of 5 done`}</b>
+          <Progress value={doneCount} max={5} color="linear-gradient(90deg, var(--accent-a), var(--accent-b))" />
         </div>
-      </Card>
+        <div className="delta">🔥 {streak}<span>day streak</span></div>
+      </button>
 
-      {isWeekend(today) && (
-        <Card title="🏆 Weekend test">
-          <p>Questions from this week’s chapters, older topics and your mistakes.</p>
-          <button className="primary" onClick={startWeekly}>Take weekly test</button>
-        </Card>
-      )}
+      <div className="stats">
+        <button className="stat" style={{ '--tc': '#e5484d' }} onClick={() => go('study', 'mistakes')}><Tile icon="mistake" tone="red" /><small>Mistakes</small><b>{openMistakes} open</b></button>
+        <button className="stat" style={{ '--tc': '#1f9d55' }} onClick={() => go('wallet')}><Tile icon="wallet" tone="green" /><small>Wallet</small><b>{rupees(balance)}</b></button>
+        <button className="stat" style={{ '--tc': '#2f7fe0' }} onClick={startRevise}><Tile icon="repeat" tone="blue" /><small>Revision</small><b>{due.length} due</b></button>
+      </div>
+
+      {latestNote && <div className="note"><Avatar name={latestNote.from} tone="purple" size={34} /><div><b>{latestNote.from}</b><div className="small-text">{latestNote.text}</div></div></div>}
+
+      <div className="sec-h"><h2>Quick Actions</h2></div>
+      <div className="quick">
+        <button onClick={() => setModal({ type: 'log' })}><Tile icon="edit" tone="blue" round />Log class</button>
+        <button onClick={() => setModal({ type: 'learn', chapters: todaysChapters })}><Tile icon="bulb" tone="amber" round />Learn</button>
+        <button onClick={startPractice}><Tile icon="target" tone="green" round />Practice</button>
+        {isWeekend(today)
+          ? <button onClick={startWeekly}><Tile icon="trophy" tone="purple" round />Weekly test</button>
+          : <button onClick={startRevise}><Tile icon="repeat" tone="teal" round />Revise</button>}
+      </div>
+
+      <div className="sec-h" id="routine"><h2>Today’s Routine</h2><span className="muted small-text">{doneCount}/5</span></div>
+      <div className="card list">
+        {routine.map((r) => (
+          <button key={r.key} className={`lrow ${r.done ? 'done' : ''}`} onClick={r.run}>
+            <Tile icon={r.icon} tone={r.tone} />
+            <div className="lt"><b>{r.label}</b><small>{r.sub}</small></div>
+            <span className={`check-circle ${r.done ? 'on' : ''}`}>{r.done && <Icon name="check" size={16} />}</span>
+          </button>
+        ))}
+        {!day.logDone && <button className="lrow" onClick={() => markStep(F, 'logDone')}><Tile icon="calendar" tone="gray" /><div className="lt"><b>No school today</b><small>Holiday or weekend — skip logging</small></div><Icon name="chevR" className="chev" /></button>}
+      </div>
+
+      {assigned.length > 0 && <>
+        <div className="sec-h"><h2>Tests for you</h2></div>
+        <div className="card list">
+          {assigned.map((t) => (
+            <button key={t.id} className="lrow" onClick={() => startAssigned(t)}>
+              <Tile icon="file" tone="purple" />
+              <div className="lt"><b>{t.title}</b><small>{t.kind === 'paper' ? `Paper test · ${t.totalMarks || '?'} marks` : `${t.questions?.length || 0} questions`}</small></div>
+              <Icon name="chevR" className="chev" />
+            </button>
+          ))}
+        </div>
+      </>}
+
+      <div className="sec-h"><h2>Coming up</h2><button className="link" onClick={() => go('calendar')}>See all <Icon name="chevR" size={16} /></button></div>
+      <div className="card list">
+        {!upcoming.length && <div className="muted small-text" style={{ padding: '12px 0' }}>Nothing in the next 7 days.</div>}
+        {upcoming.map((e) => {
+          const gap = daysBetween(today, e.date);
+          return (
+            <button key={e.id} className="lrow" onClick={() => go('calendar')}>
+              <div className={`event-date ${e.type === 'test' ? 'test' : ''}`} style={e.type === 'test' ? { background: 'color-mix(in srgb, var(--bad) 15%, transparent)', color: 'var(--bad)' } : {}}><b>{Number(e.date.slice(8))}</b><span>{new Date(e.date).toLocaleString('en-IN', { month: 'short' })}</span></div>
+              <div className="lt"><b>{e.title}</b><small>{gap === 0 ? 'Today' : gap === 1 ? 'Tomorrow' : `In ${gap} days`}{e.time ? ` · ${e.time}` : ''}</small></div>
+              <Icon name="chevR" className="chev" />
+            </button>
+          );
+        })}
+      </div>
 
       {modal?.type === 'log' && <LogModal F={F} onClose={() => setModal(null)} />}
       {modal?.type === 'learn' && <LearnModal F={F} chapters={modal.chapters} onClose={() => setModal(null)} />}
@@ -143,7 +183,7 @@ function Step({ s, done, detail, action }) {
   );
 }
 
-function LogModal({ F, onClose }) {
+export function LogModal({ F, onClose }) {
   const [subject, setSubject] = useState('');
   const [chapterId, setChapterId] = useState('');
   const [pages, setPages] = useState('');
@@ -177,7 +217,7 @@ function LogModal({ F, onClose }) {
   );
 }
 
-function LearnModal({ F, chapters, onClose }) {
+export function LearnModal({ F, chapters, onClose }) {
   const [subject, setSubject] = useState('');
   const [pick, setPick] = useState('');
   const [list, setList] = useState(chapters);
@@ -243,7 +283,7 @@ export function MistakeBook({ F }) {
   const fixed = F.mistakes.length - open.length;
   return (
     <div className="stack">
-      <Card title="📕 Mistake Book" right={<span className="muted">{open.length} open · {fixed} fixed</span>}>
+      <Card title="Mistake Book" right={<span className="muted">{open.length} open · {fixed} fixed</span>}>
         <p className="muted">Each mistake comes back in “Revise” until you get it right on two different days.</p>
         {!open.length && <p>No open mistakes. 🎉</p>}
         {open.map((m) => {
@@ -286,7 +326,7 @@ export function StudyLibrary({ F }) {
   const status = F.chapters[ch];
   return (
     <div className="stack">
-      <Card title="📚 Study any chapter">
+      <Card title="Study any chapter">
         <ChapterPicker subject={subject} onSubject={setSubject} value={ch} onChange={setCh} />
         {ch && <div className="muted small-text">Status: {status?.status || 'not started'}{status?.taughtOn ? ` · taught ${status.taughtOn}` : ''}</div>}
         {pack === null && <p className="muted">Not in the study pack yet.</p>}
@@ -295,6 +335,35 @@ export function StudyLibrary({ F }) {
           <button className="primary" onClick={() => setQuiz({ title: chapterLabel(ch), questions: pickQuestions(pack.questions.map((q) => ({ ...q, chapterId: ch })), 10) })}>Practice 10 questions</button>
         </>}
       </Card>
+    </div>
+  );
+}
+
+export function StudyPage({ F, sub = 'chapters', setSub }) {
+  const tests = F.attempts.slice(0, 12);
+  return (
+    <div>
+      <PageHead title="Study" />
+      <div className="seg">
+        {[['chapters', 'Chapters'], ['mistakes', 'Mistakes'], ['progress', 'Progress']].map(([k, l]) => (
+          <button key={k} className={sub === k ? 'on' : ''} onClick={() => setSub(k)}>{l}</button>
+        ))}
+      </div>
+      {sub === 'chapters' && <StudyLibrary F={F} />}
+      {sub === 'mistakes' && <MistakeBook F={F} />}
+      {sub === 'progress' && <div className="stack">
+        <Card title="Last 14 days"><Progress7 F={F} /></Card>
+        <Card title="Recent scores">
+          {!tests.length && <p className="muted small-text">No practice or tests yet.</p>}
+          {tests.map((a) => (
+            <div key={a.id} className="lrow">
+              <Tile icon={a.kind === 'test' || a.kind === 'imported' ? 'trophy' : a.kind === 'revise' ? 'repeat' : 'target'} tone={a.pct >= 80 ? 'green' : a.pct >= 50 ? 'amber' : 'red'} />
+              <div className="lt"><b>{a.title || ({ practice: 'Practice', revise: 'Revision', test: 'Weekly test', imported: 'Test' }[a.kind])}</b><small>{a.date}</small></div>
+              <b>{a.score}/{a.total}</b>
+            </div>
+          ))}
+        </Card>
+      </div>}
     </div>
   );
 }

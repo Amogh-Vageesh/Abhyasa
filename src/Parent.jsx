@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Card, ChapterPicker, Modal, rupees } from './components';
+import { Card, ChapterPicker, Modal, rupees, PageHead, Progress } from './components';
+import { Icon, Tile, Avatar, HeroArt } from './icons';
 import { STEPS } from './lib/actions';
 import { addNote, deleteTest, saveTest, updateSettings } from './lib/data';
 import { currentStreak, dueChapters, parseTestText, walletSummary, ymd } from './lib/logic';
@@ -28,52 +29,102 @@ export function ParentDashboard({ F, me, go }) {
   const last7 = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - i); return ymd(d); });
   const doneDays = last7.filter((d) => F.days[d]?.completed).length;
 
+  const greet = new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 17 ? 'Good afternoon' : 'Good evening';
+  const doneToday = STEPS.filter((s) => day[s.key]).length;
+  const kid = F.family.studentName?.split(' ')[0] || 'Student';
+
   return (
-    <div className="stack">
+    <div>
       <div className="hero">
-        <div><div className="muted">{F.family.studentName}’s progress</div><h2>{STEPS.filter((s) => day[s.key]).length}/5 today</h2></div>
-        <div className="hero-stats">
-          <div><b>🔥 {streak}</b><span>streak</span></div>
-          <div><b>{doneDays}/7</b><span>days done</span></div>
-          <div onClick={() => go('wallet')}><b>{rupees(balance)}</b><span>to pay</span></div>
+        <div className="hero-txt">
+          <span>{greet}</span>
+          <h1>{me.name?.split(' ')[0]} 👋</h1>
+          <small>{new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</small>
         </div>
+        <HeroArt />
       </div>
 
-      <Card title="Today">
-        {STEPS.map((s) => <div key={s.key} className="row between"><span>{day[s.key] ? '✅' : '⬜'} {s.label}</span></div>)}
-        {(day.logs || []).length > 0 && <div className="logs">
-          {(day.logs || []).map((l, i) => <div key={i} className="log">
-            <b>{l.chapterId ? chapterLabel(l.chapterId) : l.subjectName}</b>{l.pages ? ` · p. ${l.pages}` : ''}
-            {l.note && <div>{l.note}</div>}
-            {l.doubt && <div className="bad-text small-text">⚠️ Had a doubt</div>}
-          </div>)}
-        </div>}
-      </Card>
-
-      <Card title="Last 14 days"><Progress7 F={F} /></Card>
-
-      <Card title="Test scores">
-        {!tests.length && <p className="muted">No tests yet.</p>}
-        {tests.map((t) => <div key={t.id} className="row between"><span>{t.date} · {t.title || (t.kind === 'test' ? 'Weekly test' : 'Test')}</span><b className={t.pct >= 80 ? 'ok' : t.pct < 50 ? 'bad-text' : ''}>{t.score}/{t.total} ({t.pct}%)</b></div>)}
-      </Card>
-
-      <Card title="Weakest chapters">
-        {!chapterStats.length && <p className="muted">Shows once he has answered enough questions.</p>}
-        {chapterStats.slice(0, 5).map((c) => <div key={c.id} className="row between"><span>{chapterLabel(c.id)}</span><b className={c.pct < 60 ? 'bad-text' : ''}>{c.pct}% ({c.total} Qs)</b></div>)}
-      </Card>
-
-      <Card title={`Mistake book · ${openMistakes.length} open`}>
-        {openMistakes.slice(0, 5).map((m) => <div key={m.id} className="small-text">• {m.manual ? m.text : chapterLabel(m.chapterId) || 'Imported test'} — wrong {m.wrongCount || 1}×</div>)}
-        <div className="muted small-text">{dueChapters(F.chapters, today).length} chapter(s) due for revision today</div>
-      </Card>
-
-      <Card title="Send a note">
-        <div className="row">
-          <input placeholder="e.g. Great streak! Proud of you 💪" value={note} onChange={(e) => setNote(e.target.value)} />
-          <button className="primary" disabled={!note} onClick={async () => { await addNote(F.family.id, { text: note, from: me.name }); setNote(''); }}>Send</button>
+      <div className="summary">
+        <Avatar name={kid} tone="blue" size={52} />
+        <div className="summary-main">
+          <small>{kid}’s routine today</small>
+          <b>{doneToday === 5 ? 'All done 🎉' : `${doneToday} of 5 done`}</b>
+          <Progress value={doneToday} max={5} color="linear-gradient(90deg, var(--accent-a), var(--accent-b))" />
         </div>
-      </Card>
+        <div className="delta">🔥 {streak}<span>day streak</span></div>
+      </div>
+
+      <div className="stats">
+        <button className="stat" style={{ '--tc': '#2f7fe0' }}><Tile icon="calendar" tone="blue" /><small>This week</small><b>{doneDays}/7 days</b></button>
+        <button className="stat" style={{ '--tc': '#1f9d55' }} onClick={() => go('wallet')}><Tile icon="wallet" tone="green" /><small>To pay</small><b>{rupees(balance)}</b></button>
+        <button className="stat" style={{ '--tc': '#e5484d' }}><Tile icon="mistake" tone="red" /><small>Mistakes</small><b>{openMistakes.length} open</b></button>
+      </div>
+
+      <div className="sec-h"><h2>Quick Actions</h2></div>
+      <div className="quick">
+        <button onClick={() => go('fab', 'import')}><Tile icon="file" tone="purple" round />Import test</button>
+        <button onClick={() => go('fab', 'event')}><Tile icon="calendar" tone="blue" round />Add event</button>
+        <button onClick={() => go('fab', 'note')}><Tile icon="send" tone="amber" round />Send note</button>
+        <button onClick={() => go('fab', 'payout')}><Tile icon="gift" tone="green" round />Payout</button>
+      </div>
+
+      <div className="sec-h"><h2>Today</h2></div>
+      <div className="card list">
+        {STEPS.map((s) => (
+          <div key={s.key} className={`lrow ${day[s.key] ? 'done' : ''}`}>
+            <span className={`check-circle ${day[s.key] ? 'on' : ''}`}>{day[s.key] && <Icon name="check" size={16} />}</span>
+            <div className="lt"><b>{s.label}</b></div>
+          </div>
+        ))}
+        {(day.logs || []).map((l, i) => (
+          <div key={i} className="lrow">
+            <Tile icon="edit" tone={l.doubt ? 'red' : 'blue'} />
+            <div className="lt"><b>{l.chapterId ? chapterLabel(l.chapterId) : l.subjectName}{l.pages ? ` · p. ${l.pages}` : ''}</b>
+              <small>{l.note || 'No note'}{l.doubt ? ' · ⚠️ had a doubt' : ''}</small></div>
+          </div>
+        ))}
+      </div>
+
+      <div className="sec-h"><h2>Last 14 days</h2></div>
+      <div className="card"><Progress7 F={F} /></div>
+
+      <div className="sec-h"><h2>Test scores</h2><button className="link" onClick={() => go('tests')}>Tests <Icon name="chevR" size={16} /></button></div>
+      <div className="card list">
+        {!tests.length && <div className="muted small-text" style={{ padding: '12px 0' }}>No tests yet.</div>}
+        {tests.map((t) => (
+          <div key={t.id} className="lrow">
+            <Tile icon="trophy" tone={t.pct >= 80 ? 'green' : t.pct >= 50 ? 'amber' : 'red'} />
+            <div className="lt"><b>{t.title || (t.kind === 'test' ? 'Weekly test' : 'Test')}</b><small>{t.date}</small></div>
+            <b>{t.score}/{t.total} · {t.pct}%</b>
+          </div>
+        ))}
+      </div>
+
+      <div className="sec-h"><h2>Weakest chapters</h2></div>
+      <div className="card list">
+        {!chapterStats.length && <div className="muted small-text" style={{ padding: '12px 0' }}>Shows once he has answered enough questions.</div>}
+        {chapterStats.slice(0, 5).map((c) => (
+          <div key={c.id} className="lrow">
+            <Tile icon="chart" tone={c.pct < 60 ? 'red' : 'amber'} />
+            <div className="lt"><b>{chapterLabel(c.id)}</b><small>{c.total} questions answered</small></div>
+            <b className={c.pct < 60 ? 'bad-text' : ''}>{c.pct}%</b>
+          </div>
+        ))}
+        <div className="muted small-text" style={{ padding: '10px 0' }}>{dueChapters(F.chapters, today).length} chapter(s) due for revision today</div>
+      </div>
     </div>
+  );
+}
+
+export function NoteModal({ F, me, onClose }) {
+  const [note, setNote] = useState('');
+  return (
+    <Modal title="Send a note" onClose={onClose}>
+      <div className="stack">
+        <textarea rows={3} placeholder="e.g. Great streak! Proud of you 💪" value={note} onChange={(e) => setNote(e.target.value)} />
+        <button className="primary" disabled={!note} onClick={async () => { await addNote(F.family.id, { text: note, from: me.name }); onClose(); }}>Send</button>
+      </div>
+    </Modal>
   );
 }
 
@@ -95,7 +146,8 @@ export function ParentTests({ F }) {
   const [copied, setCopied] = useState(false);
   return (
     <div className="stack">
-      <Card title="📄 Tests" right={<div className="row"><button className="primary small" onClick={() => setModal('import')}>Import test</button><button className="small" onClick={() => setModal('paper')}>Paper test</button></div>}>
+      <PageHead title="Tests" right={<div className="row"><button className="primary small" onClick={() => setModal('import')}><Icon name="plus" size={16} /> Import</button><button className="small" onClick={() => setModal('paper')}>Paper</button></div>} />
+      <Card>
         <p className="muted small-text">Paste tests made anywhere (e.g. in your Claude project) using the Abhyasa format. They’re auto-marked, and mistakes go into his Mistake Book.</p>
         <button className="small" onClick={() => { navigator.clipboard.writeText(PROMPT); setCopied(true); setTimeout(() => setCopied(false), 2000); }}>{copied ? 'Copied ✓' : 'Copy prompt template'}</button>
       </Card>
@@ -122,7 +174,7 @@ export function ParentTests({ F }) {
   );
 }
 
-function ImportModal({ F, onClose }) {
+export function ImportModal({ F, onClose }) {
   const [text, setText] = useState('');
   const [subject, setSubject] = useState('');
   const [chapterId, setChapterId] = useState('');
@@ -175,14 +227,15 @@ export function ParentSettings({ F }) {
   const save = async () => { await updateSettings(F.family.id, s); setSaved(true); setTimeout(() => setSaved(false), 2000); };
   return (
     <div className="stack">
-      <Card title="⚙️ Routine">
+      <PageHead title="Settings" />
+      <Card title="Routine">
         <Field label="Practice questions per day"><input inputMode="numeric" value={s.practiceCount} onChange={(e) => num('practiceCount', e.target.value)} /></Field>
         <Field label="Revision questions per day"><input inputMode="numeric" value={s.reviseCount} onChange={(e) => num('reviseCount', e.target.value)} /></Field>
         <Field label="Mistakes per revision"><input inputMode="numeric" value={s.mistakesPerRevise} onChange={(e) => num('mistakesPerRevise', e.target.value)} /></Field>
         <Field label="Weekly test questions"><input inputMode="numeric" value={s.weeklyTestCount} onChange={(e) => num('weeklyTestCount', e.target.value)} /></Field>
         <Field label="Daily study reminder (his phone)"><input type="time" value={s.reminderTime} onChange={(e) => setS({ ...s, reminderTime: e.target.value })} /></Field>
       </Card>
-      <Card title="💰 Rewards (₹)">
+      <Card title="Rewards (₹)">
         <Field label="Full routine day"><input inputMode="numeric" value={s.rewards.dayComplete} onChange={(e) => setR('dayComplete', e.target.value)} /></Field>
         <Field label="7-day streak bonus"><input inputMode="numeric" value={s.rewards.streak7} onChange={(e) => setR('streak7', e.target.value)} /></Field>
         <Field label="Test 80%+"><input inputMode="numeric" value={s.rewards.test80} onChange={(e) => setR('test80', e.target.value)} /></Field>

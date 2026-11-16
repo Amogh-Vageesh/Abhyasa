@@ -11,11 +11,20 @@ export function Card({ title, right, children, className = '' }) {
   );
 }
 
+export function PageHead({ title, right, onBack }) {
+  return (
+    <div className="page-head">
+      {onBack && <button className="icon-btn" onClick={onBack} aria-label="Back">‹</button>}
+      <h1>{title}</h1><span className="sp" />{right}
+    </div>
+  );
+}
+
 export function Modal({ title, onClose, children }) {
   return (
     <div className="modal-bg" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <div className="card-head"><h3>{title}</h3><button className="ghost" onClick={onClose}>✕</button></div>
+        <div className="card-head"><h3 style={{ fontSize: 19 }}>{title}</h3><button className="ghost small" onClick={onClose}>✕</button></div>
         {children}
       </div>
     </div>

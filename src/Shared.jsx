@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Card, Modal, MultiChapterPicker, Progress, rupees } from './components';
+import { Card, Modal, MultiChapterPicker, Progress, rupees, PageHead } from './components';
+import { Icon, Tile } from './icons';
 import { addWallet, deleteEvent, deleteWallet, saveEvent } from './lib/data';
 import { daysBetween, walletSummary, ymd } from './lib/logic';
 import { chapterLabel } from './lib/syllabus';
@@ -38,7 +39,8 @@ export function CalendarPage({ F, me }) {
   const past = F.events.filter((e) => e.date < today).reverse();
   return (
     <div className="stack">
-      <Card title="📅 Calendar" right={<button className="primary small" onClick={() => setEdit({ type: 'test', date: today, title: '', remind: [1, 0], chapters: [] })}>+ Add</button>}>
+      <PageHead title="Calendar" right={<button className="primary small" onClick={() => setEdit({ type: 'test', date: today, title: '', remind: [1, 0], chapters: [] })}><Icon name="plus" size={16} /> Add</button>} />
+      <Card>
         {!upcoming.length && <p className="muted">Nothing coming up. Add tests, PTMs, functions or anything to remember.</p>}
         {upcoming.map((e) => <EventRow key={e.id} e={e} today={today} onClick={() => setEdit(e)} />)}
         {past.length > 0 && <button className="ghost small" onClick={() => setShowPast(!showPast)}>{showPast ? 'Hide' : 'Show'} past events ({past.length})</button>}
@@ -63,7 +65,7 @@ function EventRow({ e, today, onClick }) {
   );
 }
 
-function EventModal({ F, me, ev, onClose }) {
+export function EventModal({ F, me, ev, onClose }) {
   const [e, setE] = useState(ev);
   const set = (k, v) => setE({ ...e, [k]: v });
   const toggleRemind = (n) => set('remind', (e.remind || []).includes(n) ? e.remind.filter((x) => x !== n) : [...(e.remind || []), n]);
@@ -113,8 +115,9 @@ export function WalletPage({ F, me }) {
   const monthEarn = F.wallet.filter((w) => w.type === 'earn' && w.date?.startsWith(month)).reduce((a, w) => a + w.amount, 0);
   return (
     <div className="stack">
-      <Card title="💰 Wallet">
-        <div className="big-score">{rupees(s.balance)} <span>to be paid</span></div>
+      <PageHead title="Wallet" />
+      <Card>
+        <div className="row"><Tile icon="wallet" tone="green" /><div className="grow"><div className="muted small-text">To be paid</div><div className="big-score" style={{ fontSize: 30 }}>{rupees(s.balance)}</div></div></div>
         <div className="row between muted small-text"><span>Earned {rupees(s.earned + s.bonus)} total</span><span>Paid {rupees(s.paid)}</span><span>This month {rupees(monthEarn)} / {rupees(F.settings.rewards.monthlyCap)}</span></div>
         {goal?.amount > 0 && <div className="goal">
           <div className="row between"><b>🎯 {goal.name}</b><span>{rupees(Math.min(s.earned + s.bonus - (goal.startedAt || 0), goal.amount))} / {rupees(goal.amount)}</span></div>
@@ -149,7 +152,7 @@ export function WalletPage({ F, me }) {
   );
 }
 
-function WalletModal({ F, kind, me, onClose }) {
+export function WalletModal({ F, kind, me, onClose }) {
   const [amount, setAmount] = useState('');
   const [reason, setReason] = useState(kind === 'payout' ? 'Paid' : '');
   const save = async () => {
