@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, signIn, signOut, isNative } from './firebase';
+import { applyTheme } from './theme';
 
 const SITE = 'https://abhyasa-3fe1d.web.app';
 const APK_URL = 'https://github.com/Amogh-Vageesh/Abhyasa/releases/latest';
@@ -9,8 +10,13 @@ import { syncReminders } from './lib/notify';
 import { Card, Modal, PageHead, rupees } from './components';
 import { Icon, Tile, Avatar } from './icons';
 import { walletSummary } from './lib/logic';
-import { StudentToday, StudyPage, LogModal, LearnModal } from './Student';
-import { ParentDashboard, ParentTests, ParentSettings, ImportModal, NoteModal } from './Parent';
+import { StudentToday, LogModal, LearnModal } from './Student';
+import { StudyPage } from './Study';
+import { PracticePage } from './Practice';
+import { PaperModal } from './Subjects';
+import { BadgesPage } from './Badges';
+import { levelInfo } from './lib/xp';
+import { ParentDashboard, ParentSettings, ImportModal, NoteModal } from './Parent';
 import { WalletPage, EventModal, WalletModal, allEvents } from './Shared';
 import { PlannerPage, TaskModal } from './Planner';
 import { FinancePage, MoneyModal } from './Finance';
@@ -94,27 +100,35 @@ function Onboarding({ user, onDone }) {
   );
 }
 
-const STUDENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['planner', 'calendar', 'Planner'], ['more', 'menu', 'More']];
-const PARENT_NAV = [['home', 'home', 'Home'], ['tests', 'file', 'Tests'], ['fab'], ['planner', 'calendar', 'Planner'], ['more', 'menu', 'More']];
+const STUDENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
+const PARENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
+// Desktop sidebar shows every destination
+const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['wallet', 'gift', 'Rewards'], ['insights', 'bulb', 'Insights & tips'], ['badges', 'trophy', 'Badges'], ['more', 'menu', 'More']];
+const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'His money'], ['wallet', 'gift', 'Rewards'], ['insights', 'bulb', 'Insights & tips'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
 
-function Main({ me }) {
+export function Main({ me }) {
   const F = useFamily(me.familyId);
   const isParent = me.role === 'parent';
   const nav = isParent ? PARENT_NAV : STUDENT_NAV;
+  const side = isParent ? SIDE_PARENT : SIDE_STUDENT;
   const [tab, setTab] = useState('home');
-  const [sub, setSub] = useState('subjects');
+  const [studyNav, setStudyNav] = useState({});
+  const [ptab, setPtab] = useState('practice');
   const [psub, setPsub] = useState('tasks');
   const [sheet, setSheet] = useState(null); // 'fab' | action key
 
   useEffect(() => {
-    if (F.family) syncReminders({ events: F.events, settings: F.settings, role: me.role }).catch(console.error);
-  }, [F.family?.id, F.settings.reminderTime, JSON.stringify(F.events.map((e) => [e.id, e.date, e.time, e.remind]))]);
+    if (F.family) syncReminders({ events: allEvents(F), blocks: F.blocks, settings: F.settings, role: me.role }).catch(console.error);
+  }, [F.family?.id, F.settings.reminderTime, JSON.stringify(F.events.map((e) => [e.id, e.date, e.time, e.remind])), JSON.stringify(F.blocks.map((b) => [b.id, b.start, b.days, b.remind]))]);
 
   if (!F.family) return <Splash text="Loading your family…" />;
 
   const go = (t, extra) => {
     if (t === 'fab') { setSheet(extra || 'fab'); return; }
-    if (t === 'study' && extra) setSub(extra);
+    if (t === 'study') setStudyNav(typeof extra === 'object' && extra ? extra : {});
+    if (t === 'practice' && extra) setPtab(extra);
+    if (t === 'mistakes') { setPtab('mistakes'); t = 'practice'; }
+    if (t === 'tests') { setPtab('library'); t = 'practice'; }
     if (t === 'planner' && extra) setPsub(extra);
     if (t === 'calendar') { setPsub('calendar'); t = 'planner'; }
     setTab(t); window.scrollTo(0, 0);
@@ -123,37 +137,49 @@ function Main({ me }) {
 
   let page;
   if (tab === 'home') page = isParent ? <ParentDashboard F={F} me={me} go={go} /> : <StudentToday F={F} go={go} />;
-  else if (tab === 'study') page = <StudyPage F={F} me={me} sub={sub} setSub={setSub} />;
+  else if (tab === 'study') page = <StudyPage F={F} me={me} nav={studyNav} setNav={(n) => { setStudyNav(n); window.scrollTo(0, 0); }} />;
+  else if (tab === 'practice') page = <PracticePage F={F} me={me} tab={ptab} setTab={setPtab} />;
   else if (tab === 'planner') page = <PlannerPage F={F} me={me} sub={psub} setSub={setPsub} />;
   else if (tab === 'finance') page = <FinancePage F={F} me={me} />;
   else if (tab === 'insights') page = <InsightsPage F={F} />;
   else if (tab === 'wallet') page = <WalletPage F={F} me={me} />;
-  else if (tab === 'tests') page = <ParentTests F={F} />;
+  else if (tab === 'badges') page = <BadgesPage F={F} />;
   else if (tab === 'settings') page = <ParentSettings F={F} go={go} />;
   else if (tab === 'ebooks') page = <ManageEbooks F={F} me={me} onBack={() => go(isParent ? 'settings' : 'more')} />;
   else if (tab === 'more') page = <MorePage F={F} me={me} go={go} />;
 
   const today = new Date().toISOString().slice(0, 10);
+  const xp = isParent ? null : levelInfo(F);
   return (
-    <div className="app">
-      <header className="appbar">
-        <img src="/icon.svg" alt="" width="30" style={{ borderRadius: 9 }} />
-        <span className="brand">Abhyasa</span>
-        <span className="sp" />
-        <button className="icon-btn" aria-label="Calendar" onClick={() => go('calendar')}><Icon name="bell" />{(hasNote || allEvents(F).some((e) => e.date === today)) && <span className="dot" />}</button>
-        <button className="icon-btn" aria-label="More" onClick={() => go('more')}><Avatar name={me.name} tone={isParent ? 'purple' : 'blue'} size={38} /></button>
-      </header>
-      <main key={tab}><UpdateBanner />{page}</main>
-      <nav className="nav">
-        {nav.map(([id, icon, label]) => id === 'fab'
-          ? <button key="fab" className="fab" aria-label="Add" onClick={() => setSheet('fab')}><span className="fab-in"><Icon name="plus" size={28} /></span></button>
-          : <button key={id} className={tab === id ? 'on' : ''} onClick={() => go(id)}><Icon name={icon} size={23} />{label}</button>)}
-      </nav>
+    <div className="shell">
+      <aside className="side">
+        <div className="side-brand"><img src="/icon.svg" alt="" width="36" style={{ borderRadius: 11 }} /><b>Abhyasa</b></div>
+        <button className="primary side-add" onClick={() => setSheet('fab')}><Icon name="plus" size={20} /> Add</button>
+        {side.map(([id, icon, label]) => <button key={id} className={`side-item ${tab === id ? 'on' : ''}`} onClick={() => go(id)}><Icon name={icon} size={22} />{label}</button>)}
+        <div className="side-me"><Avatar name={me.name} tone={isParent ? 'purple' : 'blue'} size={36} /><div className="lt"><b>{me.name}</b><small>{xp ? `Level ${xp.level} · ${xp.name}` : 'Parent'}</small></div></div>
+      </aside>
+      <div className="app">
+        <header className="appbar">
+          <img src="/icon.svg" alt="" width="32" style={{ borderRadius: 10 }} className="mobile-only" />
+          <span className="brand mobile-only">Abhyasa</span>
+          <span className="sp" />
+          {xp && <button className="xp-chip" onClick={() => go('badges')}>⭐ Lv {xp.level}</button>}
+          <button className="icon-btn" aria-label="Calendar" onClick={() => go('calendar')}><Icon name="bell" />{(hasNote || allEvents(F).some((e) => e.date === today)) && <span className="dot" />}</button>
+          <button className="icon-btn mobile-only" aria-label="More" onClick={() => go('more')}><Avatar name={me.name} tone={isParent ? 'purple' : 'blue'} size={38} /></button>
+        </header>
+        <main key={tab}><UpdateBanner />{page}</main>
+        <nav className="nav">
+          {nav.map(([id, icon, label]) => id === 'fab'
+            ? <button key="fab" className="fab" aria-label="Add" onClick={() => setSheet('fab')}><span className="fab-in"><Icon name="plus" size={28} /></span></button>
+            : <button key={id} className={tab === id ? 'on' : ''} onClick={() => go(id)}><Icon name={icon} size={23} />{label}</button>)}
+        </nav>
+      </div>
       {sheet === 'fab' && <FabSheet isParent={isParent} onPick={setSheet} onClose={() => setSheet(null)} />}
       {sheet === 'log' && <LogModal F={F} onClose={() => setSheet(null)} />}
       {sheet === 'task' && <TaskModal F={F} me={me} task={{ freq: 'daily', title: '', days: [] }} onClose={() => setSheet(null)} />}
       {sheet === 'money' && <MoneyModal F={F} me={me} entry={{ type: 'out' }} onClose={() => setSheet(null)} />}
       {sheet === 'learn' && <LearnModal F={F} chapters={[]} onClose={() => setSheet(null)} />}
+      {sheet === 'paper' && <PaperModal F={F} me={me} paper={{}} onClose={() => setSheet(null)} />}
       {sheet === 'event' && <EventModal F={F} me={me} ev={{ type: 'test', date: today, title: '', remind: [1, 0], chapters: [] }} onClose={() => setSheet(null)} />}
       {sheet === 'import' && <ImportModal F={F} onClose={() => setSheet(null)} />}
       {sheet === 'note' && <NoteModal F={F} me={me} onClose={() => setSheet(null)} />}
@@ -173,6 +199,7 @@ function FabSheet({ isParent, onPick, onClose }) {
     : [['log', 'edit', 'blue', 'Log a class', 'What was taught today'],
        ['task', 'check', 'teal', 'Add a task', 'Daily, weekly or monthly'],
        ['money', 'rupee', 'green', 'Add money / expense', 'Received, spent, who paid'],
+       ['paper', 'file', 'red', 'Add a test paper', 'Question paper, answer sheet, marks'],
        ['event', 'calendar', 'purple', 'Add to calendar', 'Test, function, PTM or anything to remember'],
        ['learn', 'bulb', 'amber', 'Learn a chapter', 'Open study material']];
   return (
@@ -190,18 +217,26 @@ function FabSheet({ isParent, onPick, onClose }) {
   );
 }
 
+function cycleTheme() {
+  const order = ['system', 'light', 'dark'];
+  const cur = localStorage.getItem('abhyasa-theme') || 'system';
+  const next = order[(order.indexOf(cur) + 1) % 3];
+  localStorage.setItem('abhyasa-theme', next);
+  applyTheme();
+}
+
 function MorePage({ F, me, go }) {
   const isParent = me.role === 'parent';
   const { balance } = walletSummary(F.wallet);
   const rows = isParent
-    ? [['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} to pay`], ['finance', 'rupee', 'teal', 'His money', 'Received, spent, who paid'], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'How he is doing and how to improve'], ['study', 'book', 'blue', 'Subjects', 'Books, notes, test papers, progress'], ['ebooks', 'file', 'red', 'Manage e-books', 'Links and offline PDFs per subject'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
-    : [['finance', 'rupee', 'teal', 'My money', 'Cash, account, spending'], ['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} earned, unpaid`], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'Time management and how to score high'], ['study:mistakes', 'mistake', 'red', 'Mistake Book', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['study:progress', 'chart', 'blue', 'My progress', 'Last 14 days and scores']];
+    ? [['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} to pay`], ['finance', 'rupee', 'teal', 'His money', 'Received, spent, who paid'], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'How he is doing and how to improve'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'Manage e-books', 'Links and offline PDFs per subject'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
+    : [['finance', 'rupee', 'teal', 'My money', 'Cash, account, spending'], ['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} earned, unpaid`], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'Time management and how to score high'], ['badges', 'trophy', 'amber', 'Badges & level', 'Your achievements'], ['mistakes', 'mistake', 'red', 'Mistake Book', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
   return (
     <div>
       <PageHead title="More" />
       <div className="card list">
         {rows.map(([k, icon, tone, label, sub]) => (
-          <button key={k} className="lrow" onClick={() => { const [t, x] = k.split(':'); go(t, x); }}>
+          <button key={k} className="lrow" onClick={() => { if (k === 'theme') { cycleTheme(); return; } const [t, x] = k.split(':'); go(t, x); }}>
             <Tile icon={icon} tone={tone} /><div className="lt"><b>{label}</b><small>{sub}</small></div><Icon name="chevR" className="chev" />
           </button>
         ))}

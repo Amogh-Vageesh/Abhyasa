@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   doc, getDoc, setDoc, updateDoc, collection, onSnapshot, query, orderBy, limit,
-  addDoc, deleteDoc, serverTimestamp, arrayUnion, writeBatch
+  addDoc, deleteDoc, serverTimestamp, arrayUnion, writeBatch, increment
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { DEFAULT_SETTINGS, makeCode, ymd } from './logic';
@@ -140,3 +140,9 @@ export const saveItem = (fid, name, item) => {
   return id ? setDoc(dref(fid, name, id), data, { merge: true }) : addDoc(col(fid, name), { ...data, createdAt: Date.now() });
 };
 export const deleteItem = (fid, name, id) => deleteDoc(dref(fid, name, id));
+
+// Study time per subject per day (seconds), used for insights
+export const addStudyTime = (fid, date, subject, seconds) => {
+  if (!subject || seconds < 15) return Promise.resolve();
+  return setDoc(dref(fid, 'days', date), { time: { [subject]: increment(Math.min(seconds, 3 * 3600)) } }, { merge: true });
+};

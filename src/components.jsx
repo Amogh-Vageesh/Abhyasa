@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { markAnswer } from './lib/logic';
+import { celebrate } from './lib/celebrate';
 import { CHAPTERS, SUBJECTS, chapterLabel } from './lib/syllabus';
 
 export function Card({ title, right, children, className = '' }) {
@@ -14,7 +16,7 @@ export function Card({ title, right, children, className = '' }) {
 export function PageHead({ title, right, onBack }) {
   return (
     <div className="page-head">
-      {onBack && <button className="icon-btn" onClick={onBack} aria-label="Back">‹</button>}
+      {onBack && <button className="icon-btn back-btn" onClick={onBack} aria-label="Back"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6l-6 6 6 6" /></svg></button>}
       <h1>{title}</h1><span className="sp" />{right}
     </div>
   );
@@ -31,8 +33,9 @@ export function Modal({ title, onClose, children }) {
   );
 }
 
-export function ChapterPicker({ value, onChange, subject, onSubject, allowAny = false }) {
-  const subj = SUBJECTS.find((s) => s.id === subject);
+export function ChapterPicker({ value, onChange, subject, onSubject, allowAny = false, chaptersFor }) {
+  const base = SUBJECTS.find((s) => s.id === subject);
+  const subj = base && { ...base, chapters: chaptersFor ? chaptersFor(subject) : base.chapters };
   return (
     <div className="row wrap">
       <select value={subject || ''} onChange={(e) => { onSubject(e.target.value); onChange(''); }}>
@@ -42,7 +45,7 @@ export function ChapterPicker({ value, onChange, subject, onSubject, allowAny = 
       {subj && subj.chapters.length > 0 && (
         <select value={value || ''} onChange={(e) => onChange(e.target.value)}>
           <option value="">{allowAny ? 'Any chapter' : 'Chapter…'}</option>
-          {subj.chapters.map((c) => <option key={c.id} value={c.id}>{c.book.includes('II') ? 'II-' : c.book.includes(' I') ? 'I-' : ''}{c.no}. {c.title}</option>)}
+          {subj.chapters.map((c) => <option key={c.id} value={c.id}>{c.book?.includes('II') ? 'II-' : c.book?.includes(' I') ? 'I-' : ''}{c.no}. {c.title}</option>)}
         </select>
       )}
     </div>
@@ -118,6 +121,7 @@ export function QuizRunner({ title, questions, onFinish, onCancel, timed = false
     return <Card title={title}><p>No questions available for this yet.</p><button onClick={onCancel}>Back</button></Card>;
   }
 
+  useEffect(() => { if (done && result && result.total && result.score / result.total >= 0.8) celebrate(); }, [done]);
   if (done) {
     const pct = Math.round((result.score / result.total) * 100);
     const wrong = result.items.filter((x) => !x.correct);

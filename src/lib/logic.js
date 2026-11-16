@@ -443,3 +443,86 @@ export const BEST_PRACTICES = [
   { title: 'Sleep 9–10 hours', text: 'Teens need lots of sleep. Memory is strengthened while you sleep.' },
   { title: 'Plan the week on Sunday', text: 'Check upcoming tests and events, and adjust your timetable for the week ahead.' }
 ];
+
+// ---------- study progress by period ----------
+export function periodStart(period, today) {
+  if (period === 'week') return addDays(today, -6);
+  if (period === 'month') return addDays(today, -29);
+  return '0000-00-00';
+}
+// subjectOf: chapterId -> subject id
+export function studyStats({ days, attempts, chapters, papers, mistakes }, period, today, subjectOf) {
+  const from = periodStart(period, today);
+  const inP = (d) => d && d >= from && d <= today;
+  const per = {};
+  const S = (s) => (per[s] ||= { questions: 0, correct: 0, seconds: 0, logs: 0, taught: 0, papers: [], mistakesOpen: 0 });
+  let questions = 0, correct = 0, seconds = 0, logs = 0, routineDays = 0, trackedDays = 0;
+  for (const [d, day] of Object.entries(days || {})) {
+    if (!inP(d)) continue;
+    trackedDays++; if (day.completed) routineDays++;
+    for (const l of day.logs || []) { logs++; const s = l.subject || subjectOf(l.chapterId); if (s) S(s).logs++; }
+    for (const [s, sec] of Object.entries(day.time || {})) { S(s).seconds += sec; seconds += sec; }
+  }
+  for (const a of attempts || []) {
+    if (!inP(a.date)) continue;
+    const items = a.items || [];
+    const share = items.length ? (a.seconds || 0) / items.length : 0;
+    for (const it of items) {
+      questions++; if (it.correct) correct++;
+      const s = subjectOf(it.chapterId);
+      if (s) { const x = S(s); x.questions++; if (it.correct) x.correct++; x.seconds += share; }
+      seconds += share;
+    }
+  }
+  let taught = 0;
+  for (const [id, c] of Object.entries(chapters || {})) {
+    if (c.taughtOn && inP(c.lastTaught || c.taughtOn)) { taught++; const s = subjectOf(id); if (s) S(s).taught++; }
+  }
+  for (const p of papers || []) if (inP(p.date) && p.total) S(p.subject).papers.push(Math.round((p.marks / p.total) * 100));
+  for (const m of mistakes || []) if (!m.resolved) { const s = subjectOf(m.chapterId); if (s) S(s).mistakesOpen++; }
+  return {
+    questions, correct, accuracy: questions ? Math.round((correct / questions) * 100) : null,
+    minutes: Math.round(seconds / 60), logs, taught, routineDays, trackedDays, perSubject: per
+  };
+}
+
+// Subject-level insights from progress, mistakes and time spent
+export function subjectInsights({ subjectId, subjectName, chapterIds, F, today, subjectOf }) {
+  const out = [];
+  const week = studyStats(F, 'week', today, subjectOf).perSubject[subjectId] || {};
+  const month = studyStats(F, 'month', today, subjectOf).perSubject[subjectId] || {};
+  const all = studyStats(F, 'all', today, subjectOf);
+  const mine = all.perSubject[subjectId] || {};
+  const acc = (x) => (x.questions ? Math.round((x.correct / x.questions) * 100) : null);
+  // time spent vs other subjects this month
+  const totals = Object.values(studyStats(F, 'month', today, subjectOf).perSubject).map((x) => x.seconds || 0);
+  const avg = totals.length ? totals.reduce((a, b) => a + b, 0) / totals.length : 0;
+  const mins = Math.round((month.seconds || 0) / 60);
+  if (mins === 0) out.push({ tone: 'warn', title: 'No study time this month', text: `Add a ${subjectName} block to your timetable — even 20 minutes, 3 days a week.` });
+  else if (avg && month.seconds < avg * 0.6) out.push({ tone: 'tip', title: `${mins} min this month — less than other subjects`, text: `Give ${subjectName} one more practice slot each week.` });
+  else out.push({ tone: 'good', title: `${mins} min studied this month`, text: 'Good, steady time on this subject.' });
+  // accuracy
+  const a = acc(mine), w = acc(week);
+  if (a !== null) {
+    if (a < 60) out.push({ tone: 'warn', title: `Accuracy ${a}% — needs work`, text: 'Re-read the explainer before practising, then redo wrong questions next day.' });
+    else if (w !== null && w < a - 10) out.push({ tone: 'warn', title: `This week ${w}% vs usual ${a}%`, text: 'Slow down and read each question twice.' });
+    else out.push({ tone: 'good', title: `Accuracy ${a}%`, text: a >= 85 ? 'Excellent — try harder questions and full test papers.' : 'Keep practising daily to cross 85%.' });
+  } else out.push({ tone: 'tip', title: 'No practice yet', text: 'Practise 8–10 questions after each class to lock in the lesson.' });
+  // weakest chapter
+  const byCh = {};
+  for (const at of F.attempts || []) for (const it of at.items || []) if (chapterIds.includes(it.chapterId)) { const x = (byCh[it.chapterId] ||= { r: 0, t: 0 }); x.t++; if (it.correct) x.r++; }
+  const weak = Object.entries(byCh).filter(([, v]) => v.t >= 4).map(([id, v]) => ({ id, pct: Math.round((v.r / v.t) * 100) })).sort((x, y) => x.pct - y.pct)[0];
+  if (weak && weak.pct < 70) out.push({ tone: 'warn', title: 'Weakest chapter needs revision', text: `Chapter ${weak.id.split('-').pop()} is at ${weak.pct}%. Revise it this week.`, chapterId: weak.id });
+  // mistakes
+  if (mine.mistakesOpen >= 3) out.push({ tone: 'warn', title: `${mine.mistakesOpen} open mistakes`, text: 'Clear 2–3 a day in Revise — the quickest marks you can win back.' });
+  // taught but not revised
+  const stale = chapterIds.filter((id) => { const c = F.chapters?.[id]; return c?.taughtOn && c.status === 'taught' && daysBetween(c.lastTaught || c.taughtOn, today) > 7; });
+  if (stale.length) out.push({ tone: 'tip', title: `${stale.length} chapter(s) taught but not revised`, text: 'Revise within a week of class so it sticks before tests.' });
+  // papers trend
+  const pp = (F.papers || []).filter((p) => p.subject === subjectId && p.total).sort((x, y) => x.date.localeCompare(y.date));
+  if (pp.length >= 2) {
+    const last = Math.round((pp[pp.length - 1].marks / pp[pp.length - 1].total) * 100), prev = Math.round((pp[pp.length - 2].marks / pp[pp.length - 2].total) * 100);
+    out.push(last >= prev ? { tone: 'good', title: `Test marks up: ${prev}% → ${last}%`, text: 'Your preparation is working.' } : { tone: 'warn', title: `Test marks down: ${prev}% → ${last}%`, text: 'Look at the answer sheet and note where marks were lost.' });
+  }
+  return out;
+}

@@ -6,7 +6,12 @@ import { TodayPlanCard } from './Planner';
 import { useInsights, InsightRow } from './Insights';
 import { SubjectGrid, SubjectDetail } from './Subjects';
 import { saveItem } from './lib/data';
-import { periodKey, taskAppliesOn } from './lib/logic';
+import { periodKey, taskAppliesOn, moneyBalances, formatMoney } from './lib/logic';
+import { levelInfo } from './lib/xp';
+import { MoneyModal } from './Finance';
+import { subjectChapters } from './Study';
+
+const CHEERS = ['Small steps every day make big results! 🚀', 'You’ve got this! 💪', 'Learn something cool today 🧠', 'Every mistake is a lesson 🌱', 'Be curious, ask questions ✨'];
 import { SUBJECTS } from './lib/syllabus';
 import { STEPS, markStep, logClass, recordQuiz } from './lib/actions';
 import { loadChapter, questionPool, questionsById, setChapter, setMistake, saveTest } from './lib/data';
@@ -87,6 +92,11 @@ export function StudentToday({ F, go }) {
   const insights = useInsights(F);
   const todayTasks = F.tasks.filter((t) => t.active !== false && taskAppliesOn(t, today))
     .sort((a, b) => ['daily', 'weekly', 'monthly'].indexOf(a.freq) - ['daily', 'weekly', 'monthly'].indexOf(b.freq));
+  const lv = levelInfo(F);
+  const cheer = doneCount === 5 ? 'Superstar! Routine complete 🌟' : streak >= 3 ? `${streak} days in a row — keep it going! 🔥` : doneCount ? `Nice start — ${5 - doneCount} more to go 💪` : CHEERS[new Date().getDate() % CHEERS.length];
+  const bal = moneyBalances(F.money).filter((b) => b.currency === 'INR').reduce((a, b) => a + b.balance, 0);
+  const moneyLabel = formatMoney(bal);
+  const spentMonth = F.money.filter((e) => e.type === 'out' && (e.paidBy || 'self') === 'self' && (e.currency || 'INR') === 'INR' && String(e.date).startsWith(today.slice(0, 7))).reduce((a, e) => a + Number(e.amount || 0), 0);
   const routine = [
     { ...STEPS[0], icon: 'edit', tone: 'blue', done: day.logDone,
       sub: (day.logs || []).length ? (day.logs || []).map((l) => l.chapterId ? chapterLabel(l.chapterId) : l.subjectName).join(' · ') : 'Subject, chapter, pages — speak or snap a photo',
@@ -104,6 +114,7 @@ export function StudentToday({ F, go }) {
           <span>{greet}</span>
           <h1>{F.family.studentName?.split(' ')[0]} 👋</h1>
           <small>{new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</small>
+          <div className="mascot">{cheer}</div>
         </div>
         <HeroArt />
       </div>
@@ -115,17 +126,20 @@ export function StudentToday({ F, go }) {
           <b>{doneCount === 5 ? 'All done! 🎉' : `${doneCount} of 5 done`}</b>
           <Progress value={doneCount} max={5} color="linear-gradient(90deg, var(--accent-a), var(--accent-b))" />
         </div>
-        <div className="delta">🔥 {streak}<span>day streak</span></div>
+        <div className="delta">🔥 {streak}<span>day streak</span><span className="xp-mini" onClick={(e) => { e.stopPropagation(); go('badges'); }}>⭐ Lv {lv.level} · {lv.xp} XP</span></div>
       </button>
 
-      <div className="stats">
-        <button className="stat" style={{ '--tc': '#e5484d' }} onClick={() => go('study', 'mistakes')}><Tile icon="mistake" tone="red" /><small>Mistakes</small><b>{openMistakes} open</b></button>
-        <button className="stat" style={{ '--tc': '#1f9d55' }} onClick={() => go('wallet')}><Tile icon="wallet" tone="green" /><small>Wallet</small><b>{rupees(balance)}</b></button>
-        <button className="stat" style={{ '--tc': '#2f7fe0' }} onClick={startRevise}><Tile icon="repeat" tone="blue" /><small>Revision</small><b>{due.length} due</b></button>
+      <div className="stats four">
+        <button className="stat" style={{ '--tc': '#22b35e' }} onClick={() => go('finance')}><Tile icon="rupee" tone="green" /><small>My money</small><b>{moneyLabel}</b></button>
+        <button className="stat" style={{ '--tc': '#ff8a1f' }} onClick={() => go('wallet')}><Tile icon="gift" tone="amber" /><small>Rewards</small><b>{rupees(balance)}</b></button>
+        <button className="stat" style={{ '--tc': '#ef4f5a' }} onClick={() => go('mistakes')}><Tile icon="mistake" tone="red" /><small>Mistakes</small><b>{openMistakes} open</b></button>
+        <button className="stat" style={{ '--tc': '#3b82f6' }} onClick={startRevise}><Tile icon="repeat" tone="blue" /><small>Revision</small><b>{due.length} due</b></button>
       </div>
 
       {latestNote && <div className="note"><Avatar name={latestNote.from} tone="purple" size={34} /><div><b>{latestNote.from}</b><div className="small-text">{latestNote.text}</div></div></div>}
 
+      <div className="home-grid">
+        <div className="col">
       <div className="sec-h"><h2>Today’s Classes</h2><span className="muted small-text">{loggedSubjects.size} logged</span></div>
       <div className="classes">
         {SUBJECTS.map((sj) => (
@@ -148,21 +162,6 @@ export function StudentToday({ F, go }) {
         {!day.logDone && <button className="lrow" onClick={() => markStep(F, 'logDone')}><Tile icon="calendar" tone="gray" /><div className="lt"><b>No school today</b><small>Holiday or weekend — skip logging</small></div><Icon name="chevR" className="chev" /></button>}
       </div>
 
-      <div className="sec-h"><h2>My Plan</h2><button className="link" onClick={() => go('planner', 'timetable')}>Timetable <Icon name="chevR" size={16} /></button></div>
-      <TodayPlanCard F={F} go={go} />
-
-      <div className="sec-h"><h2>Today’s Tasks</h2><button className="link" onClick={() => go('planner', 'tasks')}>All tasks <Icon name="chevR" size={16} /></button></div>
-      <div className="card list">
-        {!todayTasks.length && <div className="muted small-text" style={{ padding: '12px 0' }}>No tasks for today. Add daily, weekly and monthly tasks in Planner.</div>}
-        {todayTasks.slice(0, 5).map((t) => { const k = periodKey(t.freq, today); const d = !!t.done?.[k]; return (
-          <button key={t.id} className={`lrow ${d ? 'done' : ''}`} onClick={() => saveItem(F.family.id, 'tasks', { id: t.id, done: { ...(t.done || {}), [k]: d ? null : Date.now() } })}>
-            <span className={`check-circle ${d ? 'on' : ''}`}>{d && <Icon name="check" size={16} />}</span>
-            <div className="lt"><b>{t.title}</b><small>{t.freq === 'daily' ? 'Today' : t.freq === 'weekly' ? 'This week' : 'This month'}{t.byRole === 'parent' ? ` · from ${t.byName || 'parent'}` : ''}</small></div>
-          </button>
-        ); })}
-      </div>
-
-
       {(assigned.length > 0 || isWeekend(today)) && <>
         <div className="sec-h"><h2>Tests for you</h2></div>
         <div className="card list">
@@ -176,6 +175,21 @@ export function StudentToday({ F, go }) {
           ))}
         </div>
       </>}
+
+      <div className="sec-h"><h2>Today’s Tasks</h2><button className="link" onClick={() => go('planner', 'tasks')}>All tasks <Icon name="chevR" size={16} /></button></div>
+      <div className="card list">
+        {!todayTasks.length && <div className="muted small-text" style={{ padding: '12px 0' }}>No tasks for today. Add daily, weekly and monthly tasks in Planner.</div>}
+        {todayTasks.slice(0, 5).map((t) => { const k = periodKey(t.freq, today); const d = !!t.done?.[k]; return (
+          <button key={t.id} className={`lrow ${d ? 'done' : ''}`} onClick={() => saveItem(F.family.id, 'tasks', { id: t.id, done: { ...(t.done || {}), [k]: d ? null : Date.now() } })}>
+            <span className={`check-circle ${d ? 'on' : ''}`}>{d && <Icon name="check" size={16} />}</span>
+            <div className="lt"><b>{t.title}</b><small>{t.freq === 'daily' ? 'Today' : t.freq === 'weekly' ? 'This week' : 'This month'}{t.byRole === 'parent' ? ` · from ${t.byName || 'parent'}` : ''}</small></div>
+          </button>
+        ); })}
+      </div>
+        </div>
+        <div className="col">
+      <div className="sec-h"><h2>My Plan</h2><button className="link" onClick={() => go('planner', 'timetable')}>Timetable <Icon name="chevR" size={16} /></button></div>
+      <TodayPlanCard F={F} go={go} />
 
       <div className="sec-h"><h2>Coming up</h2><button className="link" onClick={() => go('calendar')}>See all <Icon name="chevR" size={16} /></button></div>
       <div className="card list">
@@ -192,14 +206,23 @@ export function StudentToday({ F, go }) {
         })}
       </div>
 
+      <div className="sec-h"><h2>My Money</h2><button className="link" onClick={() => go('finance')}>Open <Icon name="chevR" size={16} /></button></div>
+      <div className="card money-card">
+        <div className="row between"><div><div className="muted small-text">I have</div><div className="big-score" style={{ fontSize: 26 }}>{moneyLabel}</div></div>
+          <div style={{ textAlign: 'right' }}><div className="muted small-text">Spent this month</div><b className="money-out">{formatMoney(spentMonth)}</b></div></div>
+        <div className="row"><button className="small" onClick={() => setModal({ type: 'money', entry: { type: 'in' } })}><Icon name="download" size={16} /> Got money</button><button className="small" onClick={() => setModal({ type: 'money', entry: { type: 'out' } })}><Icon name="rupee" size={16} /> Spent</button></div>
+      </div>
+
       {insights[0] && <>
         <div className="sec-h"><h2>Insight</h2><button className="link" onClick={() => go('insights')}>More tips <Icon name="chevR" size={16} /></button></div>
         <div className="card list"><InsightRow i={insights[0]} onClick={() => go('insights')} /></div>
       </>}
-
+        </div>
+      </div>
       {modal?.type === 'log' && <LogModal F={F} initialSubject={modal.subject || ''} onClose={() => setModal(null)} />}
       {modal?.type === 'learn' && <LearnModal F={F} chapters={modal.chapters} onClose={() => setModal(null)} />}
       {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
+      {modal?.type === 'money' && <MoneyModal F={F} me={{ role: 'student', name: F.family.studentName }} entry={modal.entry} onClose={() => setModal(null)} />}
     </div>
   );
 }
@@ -234,7 +257,7 @@ export function LogModal({ F, onClose, initialSubject = '' }) {
   return (
     <Modal title="What was taught today?" onClose={onClose}>
       <div className="stack">
-        <ChapterPicker subject={subject} onSubject={setSubject} value={chapterId} onChange={setChapterId} />
+        <ChapterPicker subject={subject} onSubject={setSubject} value={chapterId} onChange={setChapterId} chaptersFor={(sid) => subjectChapters(F, sid)} />
         <input placeholder="Pages (e.g. 45–52)" value={pages} onChange={(e) => setPages(e.target.value)} />
         <textarea rows={3} placeholder="What did the teacher explain? Tip: tap the 🎤 mic on your keyboard and just speak." value={note} onChange={(e) => setNote(e.target.value)} />
         <label className="check"><input type="checkbox" checked={doubt} onChange={(e) => setDoubt(e.target.checked)} /> I didn’t understand something</label>

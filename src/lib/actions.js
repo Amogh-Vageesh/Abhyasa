@@ -1,3 +1,4 @@
+import { celebrate } from './celebrate';
 import { addAttempt, addWallet, setChapter, setDay, setMistake } from './data';
 import { cappedAmount, currentStreak, testReward, updateMistake, ymd } from './logic';
 
@@ -53,6 +54,7 @@ export async function markStep(F, key, value = true) {
   const completed = STEPS.every((s) => day[s.key]);
   await setDay(fid, today, { [key]: value, [key + 'At']: Date.now(), completed, ...(completed && !F.days[today]?.completed ? { completedAt: Date.now() } : {}) });
   if (completed && !F.days[today]?.completed) {
+    celebrate(true);
     await reward(F, `day-${today}`, F.settings.rewards.dayComplete, 'Full routine done');
     const streak = currentStreak({ ...F.days, [today]: { completed: true } }, today);
     if (streak > 0 && streak % 7 === 0) await reward(F, `streak-${today}`, F.settings.rewards.streak7, `${streak}-day streak!`);

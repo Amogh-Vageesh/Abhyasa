@@ -158,7 +158,7 @@ export function LocalPhotos({ keys = [] }) {
   return <div className="thumbs">{urls.map((u) => <a key={u} href={u} target="_blank" rel="noreferrer"><img src={u} alt="" /></a>)}</div>;
 }
 
-async function storePhotos(files) {
+export async function storePhotos(files) {
   const keys = [];
   for (const f of files) { const k = `photo-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`; await idbSet(k, f); keys.push(k); }
   return keys;
@@ -186,19 +186,21 @@ function PapersTab({ F, me, s }) {
           );
         })}
       </div>
-      {edit && <PaperModal F={F} me={me} s={s} paper={edit} onClose={() => setEdit(null)} />}
+      {edit && <PaperModal F={F} me={me} paper={edit} onClose={() => setEdit(null)} />}
     </div>
   );
 }
 
-function PaperModal({ F, me, s, paper, onClose }) {
-  const [p, setP] = useState({ paperPhotos: [], answerPhotos: [], ...paper });
+export function PaperModal({ F, me, paper, onClose }) {
+  const [p, setP] = useState({ paperPhotos: [], answerPhotos: [], chapters: [], subject: 'maths', date: ymd(), title: '', ...paper });
+  const s = SUBJECTS.find((x) => x.id === p.subject) || SUBJECTS[0];
   const set = (k, v) => setP({ ...p, [k]: v });
   const addPhotos = async (field, files) => set(field, [...(p[field] || []), ...(await storePhotos(files))]);
   const toggleCh = (id) => set('chapters', p.chapters.includes(id) ? p.chapters.filter((x) => x !== id) : [...p.chapters, id]);
   return (
     <Modal title={paper.id ? p.title : 'Add test paper'} onClose={onClose}>
       <div className="stack">
+        <select value={p.subject} onChange={(e) => setP({ ...p, subject: e.target.value, chapters: [] })}>{SUBJECTS.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</select>
         <input placeholder="Title (e.g. Periodic Test 1, Worksheet 3)" value={p.title} onChange={(e) => set('title', e.target.value)} />
         <div className="row">
           <input type="date" value={p.date} onChange={(e) => set('date', e.target.value)} />

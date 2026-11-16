@@ -153,3 +153,19 @@ test('school calendar import', () => {
   assert.equal(errors.length, 1);
   assert.ok(HOLIDAYS.find((h) => h.date === '2026-11-27'));
 });
+
+import { studyStats, subjectInsights } from '../src/lib/logic.js';
+test('study stats by period', () => {
+  const sub = (id) => (id || '').startsWith('sc') ? 'science' : (id || '').startsWith('m') ? 'maths' : null;
+  const F = {
+    days: { '2026-11-16': { completed: true, logs: [{ subject: 'science', chapterId: 'sc-7' }], time: { science: 600 } }, '2026-09-01': { logs: [{ subject: 'maths' }] } },
+    attempts: [{ date: '2026-11-15', seconds: 120, items: [{ chapterId: 'sc-7', correct: true }, { chapterId: 'm1-1', correct: false }] }],
+    chapters: { 'sc-7': { taughtOn: '2026-11-16', status: 'taught' } }, papers: [], mistakes: [{ chapterId: 'm1-1', resolved: false }]
+  };
+  const w = studyStats(F, 'week', '2026-11-16', sub);
+  assert.equal(w.questions, 2); assert.equal(w.accuracy, 50); assert.equal(w.logs, 1); assert.equal(w.minutes, 12);
+  assert.equal(w.perSubject.science.seconds, 660);
+  assert.equal(studyStats(F, 'all', '2026-11-16', sub).logs, 2);
+  const ins = subjectInsights({ subjectId: 'science', subjectName: 'Science', chapterIds: ['sc-7'], F, today: '2026-11-16', subjectOf: sub });
+  assert.ok(ins.length >= 2);
+});
