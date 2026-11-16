@@ -9,6 +9,9 @@ concurrency:
   group: deploy
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,16 +57,19 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleRelease --no-daemon
 
-      - name: Put APK on the website
+      - name: Version info for update check
         run: |
           mkdir -p dist/download
-          cp android/app/build/outputs/apk/release/app-release.apk dist/download/abhyasa.apk
+          cp android/app/build/outputs/apk/release/app-release.apk abhyasa.apk
           echo "{\"version\": ${{ github.run_number }}, \"built\": \"$(date -u +%FT%TZ)\"}" > dist/download/version.json
 
-      - uses: actions/upload-artifact@v5
+      - name: Publish APK as a GitHub release
+        uses: softprops/action-gh-release@v2
         with:
-          name: abhyasa-apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          tag_name: v1.0.${{ github.run_number }}
+          name: Abhyasa 1.0.${{ github.run_number }}
+          make_latest: true
+          files: abhyasa.apk
 
       - name: Deploy website, APK and database rules
         env:

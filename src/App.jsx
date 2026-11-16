@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, signIn, signOut, isNative } from './firebase';
+
+const SITE = 'https://abhyasa-3fe1d.web.app';
+const APK_URL = 'https://github.com/Amogh-Vageesh/Abhyasa/releases/latest';
 import { createFamily, getProfile, joinFamily, useFamily } from './lib/data';
 import { syncReminders } from './lib/notify';
 import { Card } from './components';
@@ -35,12 +38,12 @@ function Login() {
       <p className="muted">Daily routine · Practice · Tests · Revision</p>
       <button className="primary big" onClick={() => signIn().catch((e) => setErr(e.message))}>Sign in with Google</button>
       {err && <p className="bad-text small-text">{err}</p>}
-      {!isNative && /Android/i.test(navigator.userAgent) && <a className="button small" href="/download/abhyasa.apk">⬇️ Get the Android app</a>}
+      {!isNative && /Android/i.test(navigator.userAgent) && <a className="button small" href={APK_URL}>⬇️ Get the Android app</a>}
     </div>
   );
 }
 
-const SITE = 'https://abhyasa-3fe1d.web.app';
+
 function UpdateBanner() {
   const [v, setV] = useState(null);
   useEffect(() => {
@@ -48,7 +51,7 @@ function UpdateBanner() {
     fetch(`${SITE}/download/version.json`, { cache: 'no-store' }).then((r) => r.json()).then((j) => { if (j.version > __BUILD__) setV(j.version); }).catch(() => {});
   }, []);
   if (!v) return null;
-  return <a className="note update" href={`${SITE}/download/abhyasa.apk`}>⬆️ A new version of Abhyasa is ready — tap to download</a>;
+  return <a className="note update" href={APK_URL}>⬆️ A new version of Abhyasa is ready — tap to download</a>;
 }
 
 function Onboarding({ user, onDone }) {
