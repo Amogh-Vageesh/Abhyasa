@@ -113,6 +113,8 @@ function SubjectPage({ F, me, subjectId, onBack, openChapter }) {
   const acc = st.questions ? Math.round((st.correct / st.questions) * 100) : null;
   const started = chs.filter((c) => (F.chapters[c.id]?.status || 'not-started') !== 'not-started').length;
   const books = [...new Set(chs.map((c) => c.book))];
+  const lastTaught = chs.filter((c) => F.chapters[c.id]?.taughtOn).sort((x, y) => (F.chapters[y.id].lastTaught || F.chapters[y.id].taughtOn).localeCompare(F.chapters[x.id].lastTaught || F.chapters[x.id].taughtOn))[0];
+  const nextId = (lastTaught && (F.chapters[lastTaught.id].status === 'taught' ? lastTaught.id : null)) || chs.find((c) => (F.chapters[c.id]?.status || 'not-started') === 'not-started')?.id;
   const accBy = useMemo(() => {
     const m = {};
     for (const a of F.attempts) for (const it of a.items || []) { const x = (m[it.chapterId] ||= { r: 0, t: 0 }); x.t++; if (it.correct) x.r++; }
@@ -149,21 +151,33 @@ function SubjectPage({ F, me, subjectId, onBack, openChapter }) {
       {books.map((b) => (
         <div key={b}>
           <div className="sec-h"><h2>{b}</h2></div>
-          <div className="chapter-grid">
-            {chs.filter((c) => c.book === b).map((c) => {
-              const stt = STATUS[F.chapters[c.id]?.status || 'not-started'];
+          <div className="path">
+            {chs.filter((c) => c.book === b).map((c, i, arr) => {
+              const key = F.chapters[c.id]?.status || 'not-started';
+              const stt = STATUS[key];
               const a = accBy[c.id];
               const pct = a ? Math.round((a.r / a.t) * 100) : null;
               const notes = F.snotes.filter((n) => n.chapterId === c.id).length;
+              const mis = F.mistakes.filter((m) => m.chapterId === c.id && !m.resolved).length;
+              const isNext = c.id === nextId;
+              // mastery: status gives a base, practice accuracy fills the rest
+              const mastery = key === 'not-started' ? 0 : Math.round(({ taught: 25, revised: 50, 'test-done': 75 }[key] || 0) + (pct !== null ? pct * 0.25 : 0));
               return (
-                <button key={c.id} className={`chap ${stt.tone}`} style={{ '--tc': s.color }} onClick={() => openChapter(c.id)}>
-                  <div className="row between" style={{ width: '100%' }}><span className="chap-no">{c.no}</span><span className={`pill ${stt.tone}`}>{stt.label}</span></div>
-                  <b>{c.title}</b>
-                  <div className="chap-meta">
-                    {pct !== null && <span>🎯 {pct}%</span>}
-                    {logsBy[c.id] ? <span>📝 {logsBy[c.id]}</span> : null}
-                    {notes ? <span>🗒️ {notes}</span> : null}
+                <button key={c.id} className={`path-item ${key} ${isNext ? 'next' : ''}`} style={{ '--tc': s.color }} onClick={() => openChapter(c.id)}>
+                  <span className="path-line" aria-hidden="true" />
+                  <Ring pct={mastery} color={s.color} label={key === 'test-done' ? '★' : c.no} />
+                  <div className="lt">
+                    {isNext && <span className="up-next">Up next</span>}
+                    <b>{c.title}</b>
+                    <div className="path-meta">
+                      <span className={`pill ${stt.tone}`}>{stt.label}</span>
+                      {pct !== null && <span>🎯 {pct}%</span>}
+                      {logsBy[c.id] ? <span>📝 {logsBy[c.id]}</span> : null}
+                      {notes ? <span>🗒️ {notes}</span> : null}
+                      {mis ? <span className="bad-text">⚠️ {mis}</span> : null}
+                    </div>
                   </div>
+                  <Icon name="chevR" className="chev" />
                 </button>
               );
             })}
@@ -268,5 +282,18 @@ function ChapterNotes({ F, me, id, subject }) {
         ))}
       </div>
     </div>
+  );
+}
+
+export function Ring({ pct = 0, color = 'var(--accent-b)', label, size = 46 }) {
+  const r = 18, c = 2 * Math.PI * r;
+  return (
+    <span className="ring" style={{ width: size, height: size }}>
+      <svg viewBox="0 0 44 44" width={size} height={size}>
+        <circle cx="22" cy="22" r={r} fill="none" stroke="var(--raise)" strokeWidth="5" />
+        <circle cx="22" cy="22" r={r} fill="none" stroke={color} strokeWidth="5" strokeLinecap="round" strokeDasharray={`${(pct / 100) * c} ${c}`} transform="rotate(-90 22 22)" />
+      </svg>
+      <b style={{ color }}>{label}</b>
+    </span>
   );
 }

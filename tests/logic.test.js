@@ -169,3 +169,24 @@ test('study stats by period', () => {
   const ins = subjectInsights({ subjectId: 'science', subjectName: 'Science', chapterIds: ['sc-7'], F, today: '2026-11-16', subjectOf: sub });
   assert.ok(ins.length >= 2);
 });
+
+import { diagnose, mistakeAnalysis, actionPlan } from '../src/lib/logic.js';
+test('mistake diagnosis', () => {
+  assert.equal(diagnose({ reason: 'careless', retryCorrect: true, confidence: 4 }), 'careless');
+  assert.equal(diagnose({ reason: 'careless', retryCorrect: false, checksRight: 0, checksTotal: 2, confidence: 2 }), 'concept-gap');
+  assert.equal(diagnose({ reason: 'forgot', confidence: 4, checksRight: 2, checksTotal: 2 }), 'memory');
+  assert.equal(diagnose({ reason: 'misread', confidence: 4, retryCorrect: true }), 'reading');
+  assert.equal(diagnose({ reason: 'guess' }), 'concept-gap');
+  const a = mistakeAnalysis([{ chapterId: 'sc-7', probe: { diagnosis: 'concept-gap', confidence: 2 } }, { chapterId: 'm1-1', probe: { diagnosis: 'careless', confidence: 4 } }, { chapterId: 'sc-7', probe: { diagnosis: 'concept-gap' } }, { chapterId: 'sc-7' }],
+    (id) => (id.startsWith('sc') ? 'science' : 'maths'));
+  assert.equal(a.top, 'concept-gap'); assert.equal(a.gapChapters[0].id, 'sc-7'); assert.equal(a.unprobed, 1);
+});
+test('action plan', () => {
+  const F = { days: {}, attempts: [{ date: '2026-11-15', items: [{ chapterId: 'sc-7', correct: false }, { chapterId: 'sc-7', correct: true }] }],
+    chapters: { 'sc-7': { taughtOn: '2026-11-10', status: 'taught' } }, mistakes: [{ chapterId: 'sc-7', resolved: false }],
+    events: [{ type: 'test', title: 'Science test', date: '2026-11-19', chapters: ['sc-7'] }], papers: [], tasks: [], blocks: [] };
+  const plan = actionPlan(F, '2026-11-16', { subjectOf: (id) => 'science', chapterName: (id) => id, subjectName: (s) => s });
+  assert.match(plan[0].title, /Science test in 3 days/);
+  assert.equal(plan[0].action.to, 'practice-chapters');
+  assert.ok(plan.some((p) => p.title.startsWith('Find out why')));
+});

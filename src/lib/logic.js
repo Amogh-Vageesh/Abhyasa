@@ -526,3 +526,135 @@ export function subjectInsights({ subjectId, subjectName, chapterIds, F, today, 
   }
   return out;
 }
+
+// ---------- mistake root cause ----------
+export const REASONS = {
+  concept: { label: 'I didn’t understand the topic', icon: '🤔' },
+  forgot: { label: 'I forgot the fact / formula', icon: '🧠' },
+  misread: { label: 'I misread the question', icon: '👀' },
+  careless: { label: 'Silly mistake / calculation slip', icon: '✏️' },
+  guess: { label: 'I guessed', icon: '🎲' },
+  time: { label: 'I was rushing', icon: '⏱️' }
+};
+export const DIAGNOSES = {
+  'concept-gap': { label: 'Concept gap', tone: 'red', parent: 'He hasn’t understood the idea yet. Sit with him for 15 minutes on this topic, use an everyday example, and ask him to explain it back. Consider asking the teacher to re-explain.' },
+  memory: { label: 'Memory / recall', tone: 'amber', parent: 'He understands but doesn’t remember facts or formulas. Make a one-page formula/fact sheet and quiz him for 5 minutes a day.' },
+  careless: { label: 'Careless slip', tone: 'blue', parent: 'He knows it but rushes. Encourage a 3-step check: re-read the question, check the working, check units/answer.' },
+  reading: { label: 'Reading the question', tone: 'purple', parent: 'He misreads questions. Ask him to underline what is given and circle what is asked before answering.' },
+  time: { label: 'Time pressure', tone: 'teal', parent: 'He rushes under time. Do short timed practice at home and teach him to skip and return to hard questions.' }
+};
+// probe: { reason, confidence(1-5), retryCorrect, checksRight, checksTotal, ownWords }
+export function diagnose(probe) {
+  const { reason, confidence = 3, retryCorrect, checksRight = 0, checksTotal = 0, ownWords = '' } = probe || {};
+  const checkPct = checksTotal ? checksRight / checksTotal : null;
+  const weakUnderstanding = confidence <= 2 || (checkPct !== null && checkPct < 0.5) || (ownWords.trim().length > 0 && ownWords.trim().split(/\s+/).length < 4 && confidence <= 3);
+  if (reason === 'concept' || reason === 'guess') return 'concept-gap';
+  if (weakUnderstanding && !retryCorrect) return 'concept-gap';
+  if (reason === 'forgot') return weakUnderstanding ? 'concept-gap' : 'memory';
+  if (reason === 'misread') return 'reading';
+  if (reason === 'time') return weakUnderstanding ? 'concept-gap' : 'time';
+  if (reason === 'careless') return retryCorrect || checkPct === null || checkPct >= 0.5 ? 'careless' : 'concept-gap';
+  return retryCorrect ? 'careless' : 'concept-gap';
+}
+export function mistakeAnalysis(mistakes, subjectOf) {
+  const probed = (mistakes || []).filter((m) => m.probe?.diagnosis);
+  const byDiag = {}, byChapter = {}, bySubject = {};
+  for (const m of probed) {
+    const d = m.probe.diagnosis;
+    byDiag[d] = (byDiag[d] || 0) + 1;
+    if (m.chapterId) {
+      const c = (byChapter[m.chapterId] ||= { total: 0, gaps: 0 }); c.total++; if (d === 'concept-gap') c.gaps++;
+      const s = subjectOf(m.chapterId); if (s) { const x = (bySubject[s] ||= {}); x[d] = (x[d] || 0) + 1; }
+    }
+  }
+  const top = Object.entries(byDiag).sort((a, b) => b[1] - a[1])[0];
+  const gapChapters = Object.entries(byChapter).filter(([, v]) => v.gaps).sort((a, b) => b[1].gaps - a[1].gaps).map(([id, v]) => ({ id, ...v }));
+  const avgConfidence = probed.length ? Math.round((probed.reduce((a, m) => a + (m.probe.confidence || 3), 0) / probed.length) * 10) / 10 : null;
+  return { probed: probed.length, open: (mistakes || []).filter((m) => !m.resolved).length, unprobed: (mistakes || []).filter((m) => !m.resolved && !m.probe && !m.manual).length, byDiag, top: top ? top[0] : null, gapChapters, bySubject, avgConfidence };
+}
+
+// ---------- personal action plan ----------
+// Returns prioritised, specific next steps: [{prio, tone, icon, title, text, action:{label, to, extra}}]
+export function actionPlan(F, today, { subjectOf, chapterName = (id) => id, subjectName = (s) => s } = {}) {
+  const out = [];
+  const push = (prio, tone, icon, title, text, action) => out.push({ prio, tone, icon, title, text, action });
+  const acc = {};
+  for (const a of F.attempts || []) for (const it of a.items || []) { if (!it.chapterId) continue; const x = (acc[it.chapterId] ||= { r: 0, t: 0 }); x.t++; if (it.correct) x.r++; }
+  const accPct = (id) => (acc[id]?.t ? Math.round((acc[id].r / acc[id].t) * 100) : null);
+  const openBy = {};
+  for (const m of F.mistakes || []) if (!m.resolved && m.chapterId) openBy[m.chapterId] = (openBy[m.chapterId] || 0) + 1;
+
+  // 1. upcoming tests
+  for (const e of (F.events || []).filter((x) => x.type === 'test' && x.date >= today && daysBetween(today, x.date) <= 10)) {
+    const gap = daysBetween(today, e.date);
+    const chs = e.chapters || [];
+    if (!chs.length) { push(gap <= 3 ? 95 : 70, 'warn', 'alert', `${e.title} in ${gap === 0 ? 'today' : gap + ' day' + (gap > 1 ? 's' : '')}`, 'Add the chapters in the calendar so your practice focuses on them.', { label: 'Open calendar', to: 'calendar' }); continue; }
+    const weak = chs.map((id) => ({ id, a: accPct(id), m: openBy[id] || 0, st: F.chapters?.[id]?.status || 'not-started' }))
+      .filter((c) => c.a === null || c.a < 75 || c.m > 0 || c.st === 'taught' || c.st === 'not-started')
+      .sort((x, y) => (x.a ?? -1) - (y.a ?? -1));
+    if (weak.length) {
+      const w = weak[0];
+      const detail = weak.slice(0, 3).map((c) => `${chapterName(c.id)}${c.a !== null ? ` (${c.a}%)` : ' (not practised)'}${c.m ? `, ${c.m} mistake${c.m > 1 ? 's' : ''}` : ''}`).join('; ');
+      push(100 - gap * 3, 'warn', 'alert', `${e.title} in ${gap === 0 ? 'today!' : gap + ' day' + (gap > 1 ? 's' : '')} — ${weak.length} chapter(s) need work`, `Start with ${detail}. Do the explainer, 10 practice questions and fix the mistakes.`, { label: 'Practise these chapters', to: 'practice-chapters', extra: weak.map((c) => c.id) });
+    } else push(60 - gap, 'good', 'trophy', `${e.title} in ${gap} days — you look ready`, 'All test chapters are above 75%. Take one mixed test to be sure.', { label: 'Mixed test', to: 'practice-chapters', extra: chs });
+  }
+  // 2. mistakes
+  const ma = mistakeAnalysis(F.mistakes, subjectOf || (() => null));
+  if (ma.unprobed > 0) push(80, 'tip', 'mistake', `Find out why: ${ma.unprobed} mistake${ma.unprobed > 1 ? 's' : ''} not checked yet`, 'Answer a few quick questions on each mistake so we know what to fix — understanding, memory or a slip.', { label: 'Check my mistakes', to: 'mistakes' });
+  if (ma.probed >= 3 && ma.top) {
+    const n = ma.byDiag[ma.top], pct = Math.round((n / ma.probed) * 100);
+    const tips = {
+      careless: 'Use the 3-check rule before moving on: re-read the question, check the working, check the answer.',
+      reading: 'Underline what is given and circle what is asked before you start.',
+      memory: 'Make a one-page fact/formula sheet for each chapter and read it before practice.',
+      'concept-gap': `Re-learn ${ma.gapChapters[0] ? chapterName(ma.gapChapters[0].id) : 'the weak chapters'} using the explainer and ask your teacher about the part you don’t get.`,
+      time: 'Practise with a timer and skip hard questions, coming back to them at the end.'
+    };
+    push(75, 'warn', 'bulb', `${pct}% of your mistakes are ${DIAGNOSES[ma.top].label.toLowerCase()}`, tips[ma.top], ma.top === 'concept-gap' && ma.gapChapters[0] ? { label: 'Open chapter', to: 'chapter', extra: ma.gapChapters[0].id } : { label: 'Practise', to: 'practice' });
+  }
+  // 3. weekend test
+  const wk = weekKey(today);
+  const tookWeekly = (F.attempts || []).some((a) => a.kind === 'test' && weekKey(a.date) === wk);
+  const [y, m, d] = today.split('-').map(Number); const wd = new Date(y, m - 1, d).getDay();
+  if ((wd === 0 || wd === 6) && !tookWeekly) push(72, 'tip', 'trophy', 'Weekly test not taken yet', 'Take this week’s test — it mixes this week’s chapters with older ones and your mistakes.', { label: 'Take weekly test', to: 'weekly' });
+  // 4. class logging
+  const schoolDays = [1, 2, 3].map((i) => addDays(today, -i)).filter((x) => { const [a, b, c] = x.split('-').map(Number); const w = new Date(a, b - 1, c).getDay(); return w >= 1 && w <= 5; });
+  const unlogged = schoolDays.filter((x) => !(F.days?.[x]?.logs || []).length && !F.days?.[x]?.logDone);
+  if (unlogged.length >= 2) push(65, 'warn', 'edit', `Classes not logged on ${unlogged.length} school days`, 'Logging what was taught keeps your revision and tests matched to class.', { label: 'Log today’s classes', to: 'log' });
+  // 5. subject accuracy dropping / neglected
+  if (subjectOf) {
+    const week = {}, before = {};
+    for (const a of F.attempts || []) for (const it of a.items || []) {
+      const s = subjectOf(it.chapterId); if (!s) continue;
+      const age = daysBetween(a.date, today);
+      const tgt = age <= 7 ? week : age <= 35 ? before : null; if (!tgt) continue;
+      const x = (tgt[s] ||= { r: 0, t: 0 }); x.t++; if (it.correct) x.r++;
+    }
+    for (const s of Object.keys(week)) {
+      if (!before[s] || week[s].t < 5 || before[s].t < 5) continue;
+      const w = Math.round((week[s].r / week[s].t) * 100), b = Math.round((before[s].r / before[s].t) * 100);
+      if (w <= b - 12) push(62, 'warn', 'chart', `${subjectName(s)} accuracy dropped: ${b}% → ${w}%`, 'Go back to the last chapter’s explainer before practising more.', { label: `Practise ${subjectName(s)}`, to: 'practice' });
+    }
+    const taughtSubjects = new Set(Object.entries(F.chapters || {}).filter(([, c]) => c.taughtOn).map(([id]) => subjectOf(id)).filter(Boolean));
+    for (const s of taughtSubjects) {
+      const recent = (F.attempts || []).some((a) => daysBetween(a.date, today) <= 14 && (a.items || []).some((it) => subjectOf(it.chapterId) === s));
+      if (!recent) push(50, 'tip', 'target', `No ${subjectName(s)} practice for 2 weeks`, 'Do 10 quick questions so it stays fresh before tests.', { label: `Practise ${subjectName(s)}`, to: 'practice' });
+    }
+  }
+  // 6. test paper reflection
+  const lastPaper = (F.papers || []).filter((p) => p.total).sort((a, b) => b.date.localeCompare(a.date))[0];
+  if (lastPaper && daysBetween(lastPaper.date, today) <= 21) {
+    const pct = Math.round((lastPaper.marks / lastPaper.total) * 100);
+    if (pct < 75) push(58, 'warn', 'file', `${lastPaper.title}: ${pct}%`, lastPaper.reflection ? `You noted: “${lastPaper.reflection.slice(0, 90)}”. Practise exactly that this week.` : 'Look at your answer sheet and write where you lost marks — then practise that.', { label: 'Open papers', to: 'papers' });
+  }
+  // 7. routine today
+  const hour = new Date().getHours();
+  const day = F.days?.[today] || {};
+  const doneN = ['logDone', 'homework', 'learnDone', 'practiceDone', 'reviseDone'].filter((k) => day[k]).length;
+  if (hour >= 18 && doneN < 5) push(68, 'tip', 'flame', `${5 - doneN} routine step${5 - doneN > 1 ? 's' : ''} left today`, currentStreak(F.days || {}, today) ? `Finish to keep your ${currentStreak(F.days, today)}-day streak!` : 'Finish today to start a new streak.', { label: 'Go to routine', to: 'home' });
+  // 8. late finishing
+  const late = Object.entries(F.days || {}).filter(([dd, v]) => daysBetween(dd, today) <= 14 && v.completedAt && new Date(v.completedAt).getHours() >= 21).length;
+  if (late >= 4) push(45, 'tip', 'calendar', `You finished after 9 pm on ${late} of the last 14 days`, 'Move your study block earlier in the timetable — straight after snack time works well.', { label: 'Edit timetable', to: 'timetable' });
+  if (!out.length) push(10, 'good', 'check', 'You’re on track!', 'Keep doing your daily routine. Try a harder chapter test this week for extra XP.', { label: 'Practise', to: 'practice' });
+  return out.sort((a, b) => b.prio - a.prio);
+}

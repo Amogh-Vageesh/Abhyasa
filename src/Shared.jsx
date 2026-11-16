@@ -152,7 +152,7 @@ export function EventModal({ F, me, ev, onClose }) {
   );
 }
 
-export function WalletPage({ F, me }) {
+export function WalletPage({ F, me, embedded = false }) {
   const s = walletSummary(F.wallet);
   const goal = F.family.goal;
   const [modal, setModal] = useState(null);
@@ -161,7 +161,7 @@ export function WalletPage({ F, me }) {
   const monthEarn = F.wallet.filter((w) => w.type === 'earn' && w.date?.startsWith(month)).reduce((a, w) => a + w.amount, 0);
   return (
     <div className="stack">
-      <PageHead title="Wallet" />
+      {!embedded && <PageHead title="Rewards" />}
       <Card>
         <div className="row"><Tile icon="wallet" tone="green" /><div className="grow"><div className="muted small-text">To be paid</div><div className="big-score" style={{ fontSize: 30 }}>{rupees(s.balance)}</div></div></div>
         <div className="row between muted small-text"><span>Earned {rupees(s.earned + s.bonus)} total</span><span>Paid {rupees(s.paid)}</span><span>This month {rupees(monthEarn)} / {rupees(F.settings.rewards.monthlyCap)}</span></div>

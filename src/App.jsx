@@ -16,6 +16,8 @@ import { PracticePage } from './Practice';
 import { PaperModal } from './Subjects';
 import { BadgesPage } from './Badges';
 import { levelInfo } from './lib/xp';
+import { subjectOfFactory } from './Study';
+import { ThemePage } from './ThemePage';
 import { ParentDashboard, ParentSettings, ImportModal, NoteModal } from './Parent';
 import { WalletPage, EventModal, WalletModal, allEvents } from './Shared';
 import { PlannerPage, TaskModal } from './Planner';
@@ -103,8 +105,8 @@ function Onboarding({ user, onDone }) {
 const STUDENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
 const PARENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
 // Desktop sidebar shows every destination
-const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['wallet', 'gift', 'Rewards'], ['insights', 'bulb', 'Insights & tips'], ['badges', 'trophy', 'Badges'], ['more', 'menu', 'More']];
-const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'His money'], ['wallet', 'gift', 'Rewards'], ['insights', 'bulb', 'Insights & tips'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
+const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['insights', 'bulb', 'My next steps'], ['badges', 'trophy', 'Badges'], ['theme', 'settings', 'Theme'], ['more', 'menu', 'More']];
+const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'Money & rewards'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
 
 export function Main({ me }) {
   const F = useFamily(me.familyId);
@@ -116,6 +118,9 @@ export function Main({ me }) {
   const [ptab, setPtab] = useState('practice');
   const [psub, setPsub] = useState('tasks');
   const [sheet, setSheet] = useState(null); // 'fab' | action key
+  const [launch, setLaunch] = useState(null);
+  const [finTab, setFinTab] = useState('overview');
+  const [insTab, setInsTab] = useState('insights');
 
   useEffect(() => {
     if (F.family) syncReminders({ events: allEvents(F), blocks: F.blocks, settings: F.settings, role: me.role }).catch(console.error);
@@ -125,6 +130,21 @@ export function Main({ me }) {
 
   const go = (t, extra) => {
     if (t === 'fab') { setSheet(extra || 'fab'); return; }
+    if (t === 'act') {
+      const a = extra || {};
+      if (a.to === 'practice-chapters') { setLaunch({ type: 'chapters', ids: a.extra, title: a.label }); setPtab('practice'); t = 'practice'; }
+      else if (a.to === 'weekly') { setLaunch({ type: 'weekly' }); setPtab('practice'); t = 'practice'; }
+      else if (a.to === 'chapter') { const sid = subjectOfFactory(F)(a.extra); setStudyNav({ subject: sid, chapter: a.extra }); t = 'study'; }
+      else if (a.to === 'log') { setSheet('log'); return; }
+      else if (a.to === 'timetable') { setPsub('timetable'); t = 'planner'; }
+      else if (a.to === 'papers') { setPtab('papers'); t = 'practice'; }
+      else if (a.to === 'mistakes') { setPtab('mistakes'); t = 'practice'; }
+      else t = a.to || 'home';
+      setTab(t === 'calendar' ? 'planner' : t); if (t === 'calendar') setPsub('calendar'); window.scrollTo(0, 0); return;
+    }
+    if (t === 'wallet') { setFinTab('rewards'); t = 'finance'; }
+    if (t === 'finance' && extra) setFinTab(extra);
+    if (t === 'insights') setInsTab(extra || 'insights');
     if (t === 'study') setStudyNav(typeof extra === 'object' && extra ? extra : {});
     if (t === 'practice' && extra) setPtab(extra);
     if (t === 'mistakes') { setPtab('mistakes'); t = 'practice'; }
@@ -138,15 +158,15 @@ export function Main({ me }) {
   let page;
   if (tab === 'home') page = isParent ? <ParentDashboard F={F} me={me} go={go} /> : <StudentToday F={F} go={go} />;
   else if (tab === 'study') page = <StudyPage F={F} me={me} nav={studyNav} setNav={(n) => { setStudyNav(n); window.scrollTo(0, 0); }} />;
-  else if (tab === 'practice') page = <PracticePage F={F} me={me} tab={ptab} setTab={setPtab} />;
+  else if (tab === 'practice') page = <PracticePage F={F} me={me} tab={ptab} setTab={setPtab} launch={launch} clearLaunch={() => setLaunch(null)} />;
   else if (tab === 'planner') page = <PlannerPage F={F} me={me} sub={psub} setSub={setPsub} />;
-  else if (tab === 'finance') page = <FinancePage F={F} me={me} />;
-  else if (tab === 'insights') page = <InsightsPage F={F} />;
-  else if (tab === 'wallet') page = <WalletPage F={F} me={me} />;
+  else if (tab === 'finance') page = <FinancePage F={F} me={me} tab={finTab} setTab={setFinTab} />;
+  else if (tab === 'insights') page = <InsightsPage key={insTab} F={F} me={me} go={go} initial={insTab} />;
   else if (tab === 'badges') page = <BadgesPage F={F} />;
   else if (tab === 'settings') page = <ParentSettings F={F} go={go} />;
   else if (tab === 'ebooks') page = <ManageEbooks F={F} me={me} onBack={() => go(isParent ? 'settings' : 'more')} />;
   else if (tab === 'more') page = <MorePage F={F} me={me} go={go} />;
+  else if (tab === 'theme') page = <ThemePage />;
 
   const today = new Date().toISOString().slice(0, 10);
   const xp = isParent ? null : levelInfo(F);
@@ -229,14 +249,14 @@ function MorePage({ F, me, go }) {
   const isParent = me.role === 'parent';
   const { balance } = walletSummary(F.wallet);
   const rows = isParent
-    ? [['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} to pay`], ['finance', 'rupee', 'teal', 'His money', 'Received, spent, who paid'], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'How he is doing and how to improve'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'Manage e-books', 'Links and offline PDFs per subject'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
-    : [['finance', 'rupee', 'teal', 'My money', 'Cash, account, spending'], ['wallet', 'gift', 'green', 'Rewards wallet', `${rupees(balance)} earned, unpaid`], ['insights', 'bulb', 'amber', 'Insights & exam tips', 'Time management and how to score high'], ['badges', 'trophy', 'amber', 'Badges & level', 'Your achievements'], ['mistakes', 'mistake', 'red', 'Mistake Book', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
+    ? [['finance', 'rupee', 'teal', 'Money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, mistake report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'Manage e-books', 'Links and offline PDFs per subject'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
+    : [['finance', 'rupee', 'teal', 'My money & rewards', `${rupees(balance)} rewards to collect`], ['insights', 'bulb', 'amber', 'My next steps', 'What to do next, mistakes, exam tips'], ['badges', 'trophy', 'amber', 'Badges & level', 'Your achievements'], ['mistakes', 'mistake', 'red', 'Mistake Book', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
   return (
     <div>
       <PageHead title="More" />
       <div className="card list">
         {rows.map(([k, icon, tone, label, sub]) => (
-          <button key={k} className="lrow" onClick={() => { if (k === 'theme') { cycleTheme(); return; } const [t, x] = k.split(':'); go(t, x); }}>
+          <button key={k} className="lrow" onClick={() => { const [t, x] = k.split(':'); go(t, x); }}>
             <Tile icon={icon} tone={tone} /><div className="lt"><b>{label}</b><small>{sub}</small></div><Icon name="chevR" className="chev" />
           </button>
         ))}

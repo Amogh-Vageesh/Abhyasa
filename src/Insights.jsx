@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Card, PageHead } from './components';
 import { Icon, Tile } from './icons';
-import { BEST_PRACTICES, buildInsights, ymd } from './lib/logic';
+import { BEST_PRACTICES, buildInsights, actionPlan, ymd } from './lib/logic';
+import { MistakeReport } from './Probe';
+import { subjectOfFactory, chapterTitle } from './Study';
+import { SUBJECTS } from './lib/syllabus';
 import { EXAM_GUIDES, GENERAL_EXAM_TIPS } from './lib/content';
 
 const TONE = { good: ['check', 'green'], warn: ['alert', 'red'], tip: ['bulb', 'amber'] };
@@ -10,19 +13,45 @@ export function useInsights(F) {
   return buildInsights({ days: F.days, attempts: F.attempts, tasks: F.tasks, blocks: F.blocks, mistakes: F.mistakes, today: ymd() });
 }
 
-export function InsightsPage({ F, initial = 'insights' }) {
-  const [tab, setTab] = useState(initial);
+export function usePlan(F) {
+  return actionPlan(F, ymd(), { subjectOf: subjectOfFactory(F), chapterName: (id) => chapterTitle(F, id), subjectName: (s) => SUBJECTS.find((x) => x.id === s)?.name || s });
+}
+
+const ACT_TONE = { warn: 'red', tip: 'amber', good: 'green' };
+export function ActionList({ F, go, limit = 20, parent = false }) {
+  const plan = usePlan(F).slice(0, limit);
+  return (
+    <div className="card list">
+      {plan.map((p, i) => (
+        <div key={i} className={`action ${p.tone}`}>
+          <Tile icon={p.icon} tone={ACT_TONE[p.tone] || 'amber'} />
+          <div className="lt">
+            <b>{p.title}</b>
+            <small style={{ whiteSpace: 'normal' }}>{p.text}</small>
+            {p.action && go && !parent && <button className="small primary act-btn" onClick={() => go('act', p.action)}>{p.action.label} →</button>}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function InsightsPage({ F, initial = 'insights', go, me }) {
+  const [tab, setTab] = useState(initial === 'mistakes' ? 'mistakes' : initial);
   const [subject, setSubject] = useState('maths');
   const insights = useInsights(F);
   const g = EXAM_GUIDES[subject];
   return (
     <div>
       <PageHead title="Insights & Tips" />
-      <div className="seg">{[['insights', 'For you'], ['habits', 'Habits'], ['exams', 'Exam prep']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
-      {tab === 'insights' && <div className="card list">
-        <p className="muted small-text" style={{ margin: '10px 0 4px' }}>Based on the last 4 weeks of routine, practice, tasks and timetable.</p>
-        {insights.map((i, n) => <InsightRow key={n} i={i} />)}
+      <div className="seg scroll">{[['insights', me?.role === 'parent' ? 'What to do' : 'My next steps'], ['mistakes', 'Mistakes'], ['habits', 'Habits'], ['exams', 'Exam prep']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
+      {tab === 'insights' && <div className="stack">
+        <p className="muted small-text" style={{ margin: 0 }}>Made from {me?.role === 'parent' ? 'his' : 'your'} classes, practice, tests, mistakes, upcoming exams and timetable — most important first.</p>
+        <ActionList F={F} go={go} parent={me?.role === 'parent'} />
+        <div className="sec-h"><h2>How {me?.role === 'parent' ? 'he is' : 'you are'} doing</h2></div>
+        <div className="card list">{insights.map((i, n) => <InsightRow key={n} i={i} />)}</div>
       </div>}
+      {tab === 'mistakes' && <MistakeReport F={F} />}
       {tab === 'habits' && <div className="card list">
         {BEST_PRACTICES.map((b) => <div key={b.title} className="lrow"><Tile icon="bulb" tone="amber" /><div className="lt"><b>{b.title}</b><small style={{ whiteSpace: 'normal' }}>{b.text}</small></div></div>)}
       </div>}

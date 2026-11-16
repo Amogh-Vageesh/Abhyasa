@@ -3,7 +3,7 @@ import { set as idbSet, get as idbGet } from 'idb-keyval';
 import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees, PageHead } from './components';
 import { Icon, Tile, Avatar, HeroArt } from './icons';
 import { TodayPlanCard } from './Planner';
-import { useInsights, InsightRow } from './Insights';
+import { useInsights, InsightRow, ActionList } from './Insights';
 import { SubjectGrid, SubjectDetail } from './Subjects';
 import { saveItem } from './lib/data';
 import { periodKey, taskAppliesOn, moneyBalances, formatMoney } from './lib/logic';
@@ -13,6 +13,8 @@ import { subjectChapters } from './Study';
 
 const CHEERS = ['Small steps every day make big results! 🚀', 'You’ve got this! 💪', 'Learn something cool today 🧠', 'Every mistake is a lesson 🌱', 'Be curious, ask questions ✨'];
 import { SUBJECTS } from './lib/syllabus';
+import { MistakeProbe } from './Probe';
+import { DIAGNOSES } from './lib/logic';
 import { STEPS, markStep, logClass, recordQuiz } from './lib/actions';
 import { loadChapter, questionPool, questionsById, setChapter, setMistake, saveTest } from './lib/data';
 import {
@@ -138,6 +140,9 @@ export function StudentToday({ F, go }) {
 
       {latestNote && <div className="note"><Avatar name={latestNote.from} tone="purple" size={34} /><div><b>{latestNote.from}</b><div className="small-text">{latestNote.text}</div></div></div>}
 
+      <div className="sec-h"><h2>My next steps</h2><button className="link" onClick={() => go('insights')}>All <Icon name="chevR" size={16} /></button></div>
+      <ActionList F={F} go={go} limit={3} />
+
       <div className="home-grid">
         <div className="col">
       <div className="sec-h"><h2>Today’s Classes</h2><span className="muted small-text">{loggedSubjects.size} logged</span></div>
@@ -213,10 +218,6 @@ export function StudentToday({ F, go }) {
         <div className="row"><button className="small" onClick={() => setModal({ type: 'money', entry: { type: 'in' } })}><Icon name="download" size={16} /> Got money</button><button className="small" onClick={() => setModal({ type: 'money', entry: { type: 'out' } })}><Icon name="rupee" size={16} /> Spent</button></div>
       </div>
 
-      {insights[0] && <>
-        <div className="sec-h"><h2>Insight</h2><button className="link" onClick={() => go('insights')}>More tips <Icon name="chevR" size={16} /></button></div>
-        <div className="card list"><InsightRow i={insights[0]} onClick={() => go('insights')} /></div>
-      </>}
         </div>
       </div>
       {modal?.type === 'log' && <LogModal F={F} initialSubject={modal.subject || ''} onClose={() => setModal(null)} />}
@@ -331,27 +332,39 @@ function PaperTestModal({ F, test, onClose }) {
 }
 
 export function MistakeBook({ F }) {
-  const open = F.mistakes.filter((m) => !m.resolved).sort((a, b) => (b.wrongCount || 0) - (a.wrongCount || 0));
+  const open = F.mistakes.filter((m) => !m.resolved).sort((a, b) => (a.probe ? 1 : 0) - (b.probe ? 1 : 0) || (b.wrongCount || 0) - (a.wrongCount || 0));
   const [qs, setQs] = useState({});
+  const [probe, setProbe] = useState(null);
   useEffect(() => { questionsById(open.filter((m) => !m.q && !m.manual).map((m) => m.id)).then((list) => setQs(Object.fromEntries(list.map((q) => [q.id, q])))); }, [open.length]);
   const fixed = F.mistakes.length - open.length;
+  const waiting = open.filter((m) => !m.probe && !m.manual).length;
   return (
     <div className="stack">
-      <Card title="Mistake Book" right={<span className="muted">{open.length} open · {fixed} fixed</span>}>
-        <p className="muted">Each mistake comes back in “Revise” until you get it right on two different days.</p>
-        {!open.length && <p>No open mistakes. 🎉</p>}
+      <Card>
+        <div className="row between"><div><div className="muted small-text">Mistake Book</div><div className="big-score" style={{ fontSize: 24 }}>{open.length} open · {fixed} fixed</div></div><span style={{ fontSize: 34 }}>🕵️</span></div>
+        <p className="muted small-text">Tap <b>Find out why</b> on a mistake: a few quick questions help you and your parents fix the real cause. Each mistake comes back in Revise until you get it right on two different days.</p>
+        {waiting > 0 && <div className="pill red">{waiting} waiting for “Find out why”</div>}
+      </Card>
+      <div className="card list">
+        {!open.length && <div style={{ padding: '14px 0' }}>No open mistakes. 🎉</div>}
         {open.map((m) => {
           const q = m.q || qs[m.id];
+          const d = m.probe && DIAGNOSES[m.probe.diagnosis];
           return (
             <div key={m.id} className="mistake">
-              <div className="muted small-text">{m.chapterId ? chapterLabel(m.chapterId) : 'Imported test'} · wrong {m.wrongCount || 1}× · right streak {m.rightStreak || 0}/2</div>
-              <b>{m.manual ? m.text : q?.q || 'Loading…'}</b>
-              {!m.manual && q && <details><summary>Show answer</summary><div className="ok">{q.ans}</div>{q.why && <div className="muted">{q.why}</div>}</details>}
-              {m.manual && <button className="small" onClick={() => setMistake(F.family.id, m.id, { resolved: true, lastRightDate: ymd() })}>I’ve fixed this ✓</button>}
+              <div className="row between"><span className="muted small-text">{m.chapterId ? chapterLabel(m.chapterId) : 'Imported test'} · wrong {m.wrongCount || 1}×</span>{d && <span className={`pill ${d.tone}`}>{d.label}</span>}</div>
+              <b style={{ display: 'block', margin: '4px 0' }}>{m.manual ? m.text : q?.q || 'Loading…'}</b>
+              {m.given && <div className="small-text bad-text">You answered: {m.given}</div>}
+              <div className="row wrap" style={{ marginTop: 6 }}>
+                {!m.manual && <button className={m.probe ? 'small' : 'primary small'} onClick={() => setProbe({ ...m, q: m.q || (q ? { ...q, chapterId: m.chapterId } : null) })}>🕵️ {m.probe ? 'Check again' : 'Find out why'}</button>}
+                {!m.manual && q && <details><summary className="small-text">Show answer</summary><div className="ok">{q.ans}</div>{q.why && <div className="muted small-text">{q.why}</div>}</details>}
+                {m.manual && <button className="small" onClick={() => setMistake(F.family.id, m.id, { resolved: true, lastRightDate: ymd() })}>I’ve fixed this ✓</button>}
+              </div>
             </div>
           );
         })}
-      </Card>
+      </div>
+      {probe && <MistakeProbe F={F} mistake={probe} onClose={() => setProbe(null)} />}
     </div>
   );
 }

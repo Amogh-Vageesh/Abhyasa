@@ -26,7 +26,7 @@ export async function recordQuiz(F, kind, result, extra = {}) {
     const existing = mistakes[it.qid];
     if (!it.correct || (existing && !existing.resolved)) {
       const updated = updateMistake(existing, it.correct, today);
-      await setMistake(fid, it.qid, { ...updated, qid: it.qid, chapterId: it.chapterId || null, ...(it.q ? { q: it.q } : {}) });
+      await setMistake(fid, it.qid, { ...updated, qid: it.qid, chapterId: it.chapterId || null, ...(it.q ? { q: it.q } : {}), ...(!it.correct && it.given ? { given: it.given } : {}) });
       if (updated.resolved && existing && !existing.resolved) {
         await reward(F, `mistake-${it.qid}-${today}`, F.settings.rewards.mistakeCleared, 'Mistake cleared');
       }

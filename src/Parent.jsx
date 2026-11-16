@@ -4,7 +4,8 @@ import { Icon, Tile, Avatar, HeroArt } from './icons';
 import { STEPS } from './lib/actions';
 import { addNote, deleteTest, saveTest, updateSettings } from './lib/data';
 import { currentStreak, dueChapters, parseTestText, taskStats, walletSummary, ymd, moneyBalances, formatMoney } from './lib/logic';
-import { useInsights, InsightRow } from './Insights';
+import { useInsights, InsightRow, ActionList } from './Insights';
+import { MistakeReport } from './Probe';
 import { chapterLabel, CHAPTERS } from './lib/syllabus';
 import { Progress7 } from './Student';
 
@@ -107,10 +108,10 @@ export function ParentDashboard({ F, me, go }) {
         <div className="row between"><div><div className="muted small-text">He has</div><div className="big-score" style={{ fontSize: 24 }}>{formatMoney(moneyBalances(F.money).filter((b) => b.currency === 'INR').reduce((a, b) => a + b.balance, 0))}</div></div>
           <div style={{ textAlign: 'right' }}><div className="muted small-text">Spent this month (all payers)</div><b className="money-out">{formatMoney(F.money.filter((e) => e.type === 'out' && (e.currency || 'INR') === 'INR' && String(e.date).startsWith(today.slice(0, 7))).reduce((a, e) => a + Number(e.amount || 0), 0))}</b></div></div>
       </div>
-      {insights.length > 0 && <>
-        <div className="sec-h"><h2>Insights</h2><button className="link" onClick={() => go('insights')}>All <Icon name="chevR" size={16} /></button></div>
-        <div className="card list">{insights.slice(0, 3).map((i, n) => <InsightRow key={n} i={i} />)}</div>
-      </>}
+      <div className="sec-h"><h2>Why mistakes happen</h2><button className="link" onClick={() => go('insights', 'mistakes')}>Report <Icon name="chevR" size={16} /></button></div>
+      <MistakeReport F={F} compact go={go} />
+      <div className="sec-h"><h2>What to do</h2><button className="link" onClick={() => go('insights')}>All <Icon name="chevR" size={16} /></button></div>
+      <ActionList F={F} limit={3} parent />
 
       <div className="sec-h"><h2>Test scores</h2><button className="link" onClick={() => go('tests')}>Tests <Icon name="chevR" size={16} /></button></div>
       <div className="card list">

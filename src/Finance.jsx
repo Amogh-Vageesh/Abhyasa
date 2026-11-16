@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Card, Modal, PageHead } from './components';
 import { Icon, Tile } from './icons';
 import { deleteItem, saveItem } from './lib/data';
-import { formatMoney, moneyBalances, spendSummary, ymd } from './lib/logic';
+import { formatMoney, moneyBalances, spendSummary, walletSummary, ymd } from './lib/logic';
+import { WalletPage } from './Shared';
 
 export const CURRENCIES = ['INR', 'USD', 'AED', 'EUR', 'GBP', 'SGD', 'SAR', 'QAR', 'OMR', 'KWD', 'BHD', 'MYR', 'THB', 'AUD', 'CAD', 'JPY'];
 const IN_CATS = ['Pocket money', 'Gift', 'Reward (Abhyasa)', 'Birthday', 'Festival', 'Prize', 'Savings interest', 'Other'];
@@ -16,9 +17,9 @@ function payerLabel(p, F) {
   return p;
 }
 
-export function FinancePage({ F, me }) {
+export function FinancePage({ F, me, tab = 'overview', setTab = () => {} }) {
   const [edit, setEdit] = useState(null);
-  const [tab, setTab] = useState('overview');
+  const rewardBal = walletSummary(F.wallet).balance;
   const month = ymd().slice(0, 7);
   const balances = moneyBalances(F.money).filter((b) => b.balance !== 0);
   const byCur = {};
@@ -27,9 +28,11 @@ export function FinancePage({ F, me }) {
   const monthIn = F.money.filter((e) => e.type === 'in' && e.date?.startsWith(month));
   return (
     <div>
-      <PageHead title="My Money" right={<button className="primary small" onClick={() => setEdit({ type: 'out' })}><Icon name="plus" size={16} /> Add</button>} />
-      <div className="seg">{[['overview', 'Overview'], ['history', 'History']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
+      <PageHead title={me.role === 'parent' ? 'Money & rewards' : 'My Money'} right={<button className="primary small" onClick={() => setEdit({ type: 'out' })}><Icon name="plus" size={16} /> Add</button>} />
+      <div className="seg">{[['overview', 'Overview'], ['rewards', `Rewards${rewardBal ? ' · ₹' + rewardBal : ''}`], ['history', 'History']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
+      {tab === 'rewards' && <WalletPage F={F} me={me} embedded />}
       {tab === 'overview' && <div className="stack">
+        {rewardBal > 0 && <button className="note" style={{ border: 0, width: '100%', marginTop: 0 }} onClick={() => setTab('rewards')}><span style={{ fontSize: 26 }}>🎁</span><div style={{ textAlign: 'left' }}><b>₹{rewardBal} in rewards {me.role === 'parent' ? 'to pay' : 'to collect'}</b><div className="small-text muted">{me.role === 'parent' ? 'Record a payout and it moves into his cash' : 'When Appa/Amma pay you, it moves into your cash'}</div></div></button>}
         <Card>
           <div className="muted small-text">My money</div>
           {!Object.keys(byCur).length && <div className="big-score" style={{ fontSize: 28 }}>{formatMoney(0)}</div>}

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Card, Modal, PageHead, QuizRunner } from './components';
 import { Icon, Tile } from './icons';
 import { questionPool, saveTest } from './lib/data';
@@ -12,7 +12,7 @@ import { subjectChapters, subjectOfFactory, chapterTitle } from './Study';
 
 const KIND = { practice: 'Practice', revise: 'Revision', test: 'Weekly test', imported: 'Test' };
 
-export function PracticePage({ F, me, tab, setTab }) {
+export function PracticePage({ F, me, tab, setTab, launch, clearLaunch }) {
   const [period, setPeriod] = useState('month');
   const [quiz, setQuiz] = useState(null);
   const [paper, setPaper] = useState(null);
@@ -30,6 +30,19 @@ export function PracticePage({ F, me, tab, setTab }) {
   const isParent = me.role === 'parent';
 
   const run = (title, questions, kind = 'practice', extra = {}) => setQuiz({ title, questions, kind, extra });
+  useEffect(() => {
+    if (!launch) return;
+    (async () => {
+      if (launch.type === 'chapters') { const pool = await questionPool(launch.ids); run('Focused practice', pickQuestions(pool, 12, { weights: Object.fromEntries(launch.ids.map((id) => [id, 1])) })); }
+      if (launch.type === 'weekly') {
+        const taught = Object.entries(F.chapters).filter(([, c]) => c.taughtOn).map(([id, c]) => ({ id, ...c }));
+        const week = taught.filter((c) => daysBetween(c.lastTaught || c.taughtOn, today) <= 7).map((c) => c.id);
+        const pool = await questionPool(taught.map((c) => c.id));
+        run('Weekly test', pickQuestions(pool, F.settings.weeklyTestCount, { weights: Object.fromEntries(week.map((id) => [id, 3])) }), 'test', { title: `Weekly test ${today}` });
+      }
+      clearLaunch?.();
+    })();
+  }, [launch]);
   if (quiz) return <QuizRunner title={quiz.title} questions={quiz.questions} onCancel={() => setQuiz(null)} onFinish={async (r) => { await recordQuiz(F, quiz.kind, r, quiz.extra); if (quiz.onDone) await quiz.onDone(); setQuiz(null); }} />;
 
   const tabs = [['practice', 'Practice'], ['papers', 'Papers'], ['mistakes', 'Mistakes'], ['history', 'Progress'], ...(isParent ? [['library', 'Test library']] : [])];
