@@ -827,3 +827,38 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
   .hero-txt h1 { font-size: 44px !important; font-weight: 800; letter-spacing: -0.035em; }
   .hero-txt small { font-size: 15px; }
 }
+
+/* v19: soft page tint + white bordered surfaces on the web version */
+@media (min-width: 960px) {
+  :root { --w-page: #f6f7f9; --w-line: #e6e8ec; --w-line2: #eef0f3; }
+  :root[data-theme="dark"] { --w-page: #0f1115; --w-line: #2a2f38; --w-line2: #232730; }
+  body, .app { background: var(--w-page) !important; }
+  .topnav { background: color-mix(in srgb, var(--panel) 96%, transparent); border-bottom: 1px solid var(--w-line); }
+  .card, .stat, .summary, .subj, .path-item, .chap, .w-card, .quick button, .classes button, .kpis > div { background: var(--panel) !important; border: 1px solid var(--w-line) !important; }
+  .card:hover, .stat:hover, .subj:hover, .path-item:hover, .w-subj:hover { border-color: #d3d7de !important; }
+  .seg { background: #eceef2; }
+  :root[data-theme="dark"] .seg { background: var(--raise); }
+
+  /* home: hero sits on the tint; stats become one white strip with dividers */
+  .w-hero { padding: 48px 0 40px; }
+  .w-missions { box-shadow: 0 1px 2px rgba(16,24,40,.04); }
+  .w-stats { background: var(--panel); border: 1px solid var(--w-line); border-radius: 18px; padding: 0; gap: 0; }
+  .w-stats button { padding: 22px 24px; border-left: 1px solid var(--w-line2) !important; border-radius: 0; }
+  .w-stats button:first-child { border-left: 0 !important; }
+  .w-stats button:hover { background: #fafbfc; }
+  .w-sec, .w-two { padding-top: 44px; }
+  .w-subj-ico { border: 1px solid color-mix(in srgb, currentColor 18%, transparent); }
+  .w-list { padding: 0; overflow: hidden; }
+  .w-event { padding: 16px 22px !important; }
+  .w-event:hover { background: #fafbfc !important; }
+  .w-steps { padding: 0; gap: 0; overflow: hidden; }
+  .w-step { padding: 20px 22px; }
+  .w-step + .w-step { padding-top: 20px; }
+  .w-btn { background: var(--panel) !important; }
+  .w-btn.dark { background: var(--w-ink) !important; }
+
+  /* section headers get a hairline under them on inner pages */
+  .page-head { padding-bottom: 20px; border-bottom: 1px solid var(--w-line); margin-bottom: 28px; }
+  .lrow + .lrow, .card.list > * + * { border-top-color: var(--w-line2); }
+}
+@media (min-width: 960px) { .card .kpis > div, .card .stat { background: var(--w-page) !important; border: 0 !important; border-radius: 14px !important; } }
