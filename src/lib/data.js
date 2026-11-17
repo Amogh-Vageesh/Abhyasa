@@ -73,13 +73,14 @@ export function useFamily(familyId) {
   const ebooks = useCollection(familyId, 'ebooks', { order: 'order' });
   const goals = useCollection(familyId, 'goals', { order: 'createdAt' });
   const answers = useCollection(familyId, 'answers', { order: 'at', dir: 'desc', limit: 60 });
+  const explore = useCollection(familyId, 'explore');
   const settings = { ...DEFAULT_SETTINGS, ...(family?.settings || {}), rewards: { ...DEFAULT_SETTINGS.rewards, ...(family?.settings?.rewards || {}) } };
   setHiddenBooks(settings.hiddenBooks);
   return {
     family, settings,
     days: Object.fromEntries(days.map((d) => [d.id, d])),
     chapters: Object.fromEntries(chapters.map((c) => [c.id, c])),
-    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks, goals, answers
+    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks, goals, answers, explore
   };
 }
 
@@ -165,6 +166,12 @@ export async function questionPool(chapterIds) {
   const packs = await Promise.all(chapterIds.map(loadChapter));
   return packs.filter(Boolean).flatMap((p) => p.questions.map((q) => ({ ...q, chapterId: p.id })));
 }
+// ---------- Explore (beyond-school discovery track) ----------
+let exploreCache = null;
+export async function loadExplore() { if (!exploreCache) exploreCache = await packJson('/pack/explore.json'); return exploreCache; }
+export const startExplore = (fid, date) => updateDoc(doc(db, 'families', fid), { exploreStart: date });
+export const saveExplore = (fid, id, data) => setDoc(dref(fid, 'explore', id), data, { merge: true });
+
 export async function writtenPool(chapterIds) {
   const packs = await Promise.all(chapterIds.map(loadChapter));
   return packs.filter(Boolean).flatMap((p) => (p.written || []).map((q) => ({ ...q, chapterId: p.id })));

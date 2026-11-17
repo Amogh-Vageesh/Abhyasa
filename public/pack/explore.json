@@ -1,0 +1,1694 @@
+{
+ "version": 1,
+ "tracks": [
+  {
+   "id": "maths",
+   "name": "Maths thinking",
+   "color": "#3b82f6",
+   "icon": "target",
+   "goal": "Olympiad-style problem solving (route: IOQM → RMO → INMO → IMO)",
+   "resources": [
+    {
+     "name": "Khan Academy — free maths practice",
+     "url": "https://www.khanacademy.org/math"
+    },
+    {
+     "name": "Art of Problem Solving — Alcumus (free problems)",
+     "url": "https://artofproblemsolving.com/alcumus"
+    },
+    {
+     "name": "HBCSE Olympiad site (past papers)",
+     "url": "https://olympiads.hbcse.tifr.res.in/"
+    }
+   ]
+  },
+  {
+   "id": "science",
+   "name": "Science thinking",
+   "color": "#10b981",
+   "icon": "bulb",
+   "goal": "Concept-based science (route: NSEJS → INJSO → IJSO; later NSEP/NSEC/NSEB)",
+   "resources": [
+    {
+     "name": "PhET interactive simulations",
+     "url": "https://phet.colorado.edu/"
+    },
+    {
+     "name": "NCERT textbooks (Class 8–10 for stretch reading)",
+     "url": "https://ncert.nic.in/textbook.php"
+    },
+    {
+     "name": "HBCSE Olympiad site",
+     "url": "https://olympiads.hbcse.tifr.res.in/"
+    }
+   ]
+  },
+  {
+   "id": "logic",
+   "name": "Logic & coding",
+   "color": "#8b5cf6",
+   "icon": "chart",
+   "goal": "Computational thinking (route: ZIO/ZCO → INOI → IOI)",
+   "resources": [
+    {
+     "name": "Bebras computational-thinking puzzles",
+     "url": "https://www.bebras.org/"
+    },
+    {
+     "name": "Scratch — learn coding by making games",
+     "url": "https://scratch.mit.edu/"
+    },
+    {
+     "name": "IARCS — Indian Computing Olympiad",
+     "url": "https://www.iarcs.org.in/inoi/"
+    }
+   ]
+  },
+  {
+   "id": "english",
+   "name": "English & reasoning",
+   "color": "#f97316",
+   "icon": "book",
+   "goal": "Reading, vocabulary and reasoning (useful for every exam, SAT and study abroad)",
+   "resources": [
+    {
+     "name": "CommonLit — free reading passages",
+     "url": "https://www.commonlit.org/"
+    },
+    {
+     "name": "British Council LearnEnglish Teens",
+     "url": "https://learnenglishteens.britishcouncil.org/"
+    }
+   ]
+  }
+ ],
+ "weeks": [
+  {
+   "no": 0,
+   "title": "Baseline check",
+   "intro": "A short check in each track so we know where you are starting. No preparation needed — just try your best.",
+   "tracks": {
+    "maths": {
+     "title": "Maths baseline",
+     "learn": "Think before you calculate — look for a pattern or a shortcut.",
+     "minutes": 0,
+     "questions": [
+      {
+       "q": "What is the sum of the first 20 odd numbers (1 + 3 + 5 + … )?",
+       "options": [
+        "200",
+        "400",
+        "210",
+        "441"
+       ],
+       "ans": "400",
+       "why": "The sum of the first n odd numbers is n². 20² = 400.",
+       "id": "x0-maths-1",
+       "type": "mcq"
+      },
+      {
+       "q": "How many two-digit numbers are divisible by 7?",
+       "options": [
+        "12",
+        "13",
+        "14",
+        "15"
+       ],
+       "ans": "13",
+       "why": "They run from 14 (7×2) to 98 (7×14): 14 − 2 + 1 = 13.",
+       "id": "x0-maths-2",
+       "type": "mcq"
+      },
+      {
+       "q": "What is the angle between the hands of a clock at 4:00?",
+       "options": [
+        "90°",
+        "100°",
+        "120°",
+        "150°"
+       ],
+       "ans": "120°",
+       "why": "Each hour mark is 30°; 4 × 30° = 120°.",
+       "id": "x0-maths-3",
+       "type": "mcq"
+      },
+      {
+       "q": "What is the last digit of 2²⁰?",
+       "options": [
+        "2",
+        "4",
+        "6",
+        "8"
+       ],
+       "ans": "6",
+       "why": "Last digits of powers of 2 repeat 2, 4, 8, 6. 20 is a multiple of 4, so the last digit is 6.",
+       "id": "x0-maths-4",
+       "type": "mcq"
+      },
+      {
+       "q": "In how many ways can 3 friends sit in a row of 3 chairs?",
+       "options": [
+        "3",
+        "6",
+        "9",
+        "27"
+       ],
+       "ans": "6",
+       "why": "3 × 2 × 1 = 6.",
+       "id": "x0-maths-5",
+       "type": "mcq"
+      },
+      {
+       "q": "Smallest number greater than 1 that leaves remainder 1 when divided by 2, 3 and 4?",
+       "options": [
+        "7",
+        "11",
+        "13",
+        "25"
+       ],
+       "ans": "13",
+       "why": "LCM(2,3,4) = 12, so 12 + 1 = 13.",
+       "id": "x0-maths-6",
+       "type": "mcq"
+      }
+     ]
+    },
+    "science": {
+     "title": "Science baseline",
+     "learn": "Science questions test ideas, not memory. Ask “why?”",
+     "minutes": 0,
+     "questions": [
+      {
+       "q": "Why does a huge steel ship float while a small steel nail sinks?",
+       "options": [
+        "Ships are made of lighter steel",
+        "The ship’s shape pushes aside (displaces) more water than its weight",
+        "Sea water is sticky",
+        "The nail is magnetic"
+       ],
+       "ans": "The ship’s shape pushes aside (displaces) more water than its weight",
+       "why": "Buoyancy: the hollow shape displaces a large volume of water.",
+       "id": "x0-science-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Ice floats on water because…",
+       "options": [
+        "ice is lighter in colour",
+        "ice is less dense than water",
+        "water pushes cold things up",
+        "ice has air bubbles only"
+       ],
+       "ans": "ice is less dense than water",
+       "why": "Water expands when it freezes, so ice is less dense.",
+       "id": "x0-science-2",
+       "type": "mcq"
+      },
+      {
+       "q": "A ball is thrown straight up. At its highest point its speed is…",
+       "options": [
+        "maximum",
+        "zero",
+        "the same as at the start",
+        "negative"
+       ],
+       "ans": "zero",
+       "why": "It stops for an instant before falling.",
+       "id": "x0-science-3",
+       "type": "mcq"
+      },
+      {
+       "q": "Which of these is a chemical change?",
+       "options": [
+        "Melting ice",
+        "Burning paper",
+        "Dissolving sugar",
+        "Breaking glass"
+       ],
+       "ans": "Burning paper",
+       "why": "Burning makes new substances (ash, gases).",
+       "id": "x0-science-4",
+       "type": "mcq"
+      },
+      {
+       "q": "Turmeric indicator turns red in…",
+       "options": [
+        "lemon juice",
+        "soap solution",
+        "sugar solution",
+        "plain water"
+       ],
+       "ans": "soap solution",
+       "why": "Soap solution is basic; turmeric turns red in a base.",
+       "id": "x0-science-5",
+       "type": "mcq"
+      },
+      {
+       "q": "You stand 2 m in front of a plane mirror. How far are you from your image?",
+       "options": [
+        "2 m",
+        "3 m",
+        "4 m",
+        "1 m"
+       ],
+       "ans": "4 m",
+       "why": "The image is 2 m behind the mirror: 2 + 2 = 4 m.",
+       "id": "x0-science-6",
+       "type": "mcq"
+      }
+     ]
+    },
+    "logic": {
+     "title": "Logic baseline",
+     "learn": "Work step by step and keep track carefully — that is what programmers do.",
+     "minutes": 0,
+     "questions": [
+      {
+       "q": "Find the next number: 2, 6, 12, 20, 30, ?",
+       "options": [
+        "36",
+        "40",
+        "42",
+        "48"
+       ],
+       "ans": "42",
+       "why": "Differences are 4, 6, 8, 10, 12 (or n×(n+1)): 6 × 7 = 42.",
+       "id": "x0-logic-1",
+       "type": "mcq"
+      },
+      {
+       "q": "A robot starts facing North. It goes forward 2, turns right, forward 3, turns right, forward 2. Where is it now?",
+       "options": [
+        "Back at the start",
+        "3 steps East of the start",
+        "3 steps East and 2 North",
+        "2 steps West"
+       ],
+       "ans": "3 steps East of the start",
+       "why": "North 2 → East 3 → South 2 leaves it 3 steps East of where it began.",
+       "id": "x0-logic-2",
+       "type": "mcq"
+      },
+      {
+       "q": "What is the binary number 1011 in our normal (decimal) numbers?",
+       "options": [
+        "9",
+        "10",
+        "11",
+        "13"
+       ],
+       "ans": "11",
+       "why": "8 + 0 + 2 + 1 = 11.",
+       "id": "x0-logic-3",
+       "type": "mcq"
+      },
+      {
+       "q": "To find the largest of 8 numbers by comparing two at a time, what is the fewest comparisons needed?",
+       "options": [
+        "4",
+        "7",
+        "8",
+        "16"
+       ],
+       "ans": "7",
+       "why": "Each comparison knocks out one number; 7 must be knocked out.",
+       "id": "x0-logic-4",
+       "type": "mcq"
+      },
+      {
+       "q": "x = 1. Repeat 5 times: x = x × 2. What is x at the end?",
+       "options": [
+        "10",
+        "16",
+        "32",
+        "64"
+       ],
+       "ans": "32",
+       "why": "1 → 2 → 4 → 8 → 16 → 32.",
+       "id": "x0-logic-5",
+       "type": "mcq"
+      },
+      {
+       "q": "All bloops are razzies. All razzies are lazzies. Which must be true?",
+       "options": [
+        "All lazzies are bloops",
+        "All bloops are lazzies",
+        "Some razzies are not bloops",
+        "No bloop is a lazzie"
+       ],
+       "ans": "All bloops are lazzies",
+       "why": "Bloops ⊂ razzies ⊂ lazzies.",
+       "id": "x0-logic-6",
+       "type": "mcq"
+      }
+     ]
+    },
+    "english": {
+     "title": "English baseline",
+     "learn": "Read every option before choosing.",
+     "minutes": 0,
+     "questions": [
+      {
+       "q": "“Meticulous” means…",
+       "options": [
+        "very careful about details",
+        "careless",
+        "very fast",
+        "lazy"
+       ],
+       "ans": "very careful about details",
+       "why": "A meticulous person checks every detail.",
+       "id": "x0-english-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Book : Library :: Painting : ?",
+       "options": [
+        "Artist",
+        "Gallery",
+        "Frame",
+        "Colour"
+       ],
+       "ans": "Gallery",
+       "why": "Books are kept in a library; paintings in a gallery.",
+       "id": "x0-english-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Which sentence is correctly punctuated?",
+       "options": [
+        "Its raining, so take you’re umbrella.",
+        "It’s raining, so take your umbrella.",
+        "Its’ raining so take your umbrella",
+        "It’s raining so, take you’re umbrella."
+       ],
+       "ans": "It’s raining, so take your umbrella.",
+       "why": "It’s = it is; your = belonging to you.",
+       "id": "x0-english-3",
+       "type": "mcq"
+      },
+      {
+       "q": "Odd one out:",
+       "options": [
+        "Mercury",
+        "Venus",
+        "Moon",
+        "Mars"
+       ],
+       "ans": "Moon",
+       "why": "The Moon is a satellite; the others are planets.",
+       "id": "x0-english-4",
+       "type": "mcq"
+      },
+      {
+       "q": "“Riya checked the sky, grabbed her umbrella and sighed.” What can we infer?",
+       "options": [
+        "She was going swimming",
+        "She expected rain and was not happy about it",
+        "She had lost her umbrella",
+        "It was a sunny day she loved"
+       ],
+       "ans": "She expected rain and was not happy about it",
+       "why": "Umbrella + sigh → expecting unwelcome rain.",
+       "id": "x0-english-5",
+       "type": "mcq"
+      },
+      {
+       "q": "The opposite of “scarce” is…",
+       "options": [
+        "rare",
+        "plentiful",
+        "small",
+        "expensive"
+       ],
+       "ans": "plentiful",
+       "why": "Scarce = in short supply.",
+       "id": "x0-english-6",
+       "type": "mcq"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "no": 1,
+   "title": "Patterns & starters",
+   "tracks": {
+    "maths": {
+     "title": "Divisibility & number patterns",
+     "learn": "Divisibility tricks: by 3 or 9 → add the digits; by 4 → last two digits; by 5 → ends in 0/5; by 11 → alternate sum. Look for patterns before calculating.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "Which number is divisible by 9?",
+       "options": [
+        "4528",
+        "4518",
+        "3712",
+        "2221"
+       ],
+       "ans": "4518",
+       "why": "4+5+1+8 = 18, a multiple of 9.",
+       "id": "x1-maths-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Next number: 1, 1, 2, 3, 5, 8, 13, ?",
+       "options": [
+        "18",
+        "20",
+        "21",
+        "26"
+       ],
+       "ans": "21",
+       "why": "Fibonacci: each term is the sum of the two before: 8 + 13 = 21.",
+       "id": "x1-maths-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Smallest number divisible by 2, 3, 4, 5 and 6?",
+       "options": [
+        "30",
+        "60",
+        "120",
+        "360"
+       ],
+       "ans": "60",
+       "why": "LCM = 2² × 3 × 5 = 60.",
+       "id": "x1-maths-3",
+       "type": "mcq"
+      },
+      {
+       "q": "How many factors does 36 have?",
+       "options": [
+        "6",
+        "8",
+        "9",
+        "12"
+       ],
+       "ans": "9",
+       "why": "1, 2, 3, 4, 6, 9, 12, 18, 36.",
+       "id": "x1-maths-4",
+       "type": "mcq"
+      },
+      {
+       "q": "1 + 2 + 3 + … + 50 = ?",
+       "options": [
+        "1225",
+        "1250",
+        "1275",
+        "2550"
+       ],
+       "ans": "1275",
+       "why": "n(n+1)/2 = 50 × 51 / 2 = 1275.",
+       "id": "x1-maths-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "science": {
+     "title": "Force & motion",
+     "learn": "Speed = distance ÷ time. Friction opposes motion. Inertia: things keep doing what they are doing unless a force acts. Pressure = force ÷ area.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "A car travels 100 km in 2 hours. Its average speed is…",
+       "options": [
+        "20 km/h",
+        "50 km/h",
+        "100 km/h",
+        "200 km/h"
+       ],
+       "ans": "50 km/h",
+       "why": "100 ÷ 2 = 50 km/h.",
+       "id": "x1-science-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Why do we slip easily on a wet floor?",
+       "options": [
+        "Water pulls us down",
+        "Friction is reduced",
+        "The floor becomes magnetic",
+        "Gravity increases"
+       ],
+       "ans": "Friction is reduced",
+       "why": "Water reduces friction between feet and floor.",
+       "id": "x1-science-2",
+       "type": "mcq"
+      },
+      {
+       "q": "When a bus starts suddenly, standing passengers fall backwards because of…",
+       "options": [
+        "friction",
+        "inertia",
+        "gravity",
+        "air pressure"
+       ],
+       "ans": "inertia",
+       "why": "Their bodies tend to stay at rest.",
+       "id": "x1-science-3",
+       "type": "mcq"
+      },
+      {
+       "q": "The SI unit of force is the…",
+       "options": [
+        "joule",
+        "watt",
+        "newton",
+        "pascal"
+       ],
+       "ans": "newton",
+       "why": "Named after Isaac Newton.",
+       "id": "x1-science-4",
+       "type": "mcq"
+      },
+      {
+       "q": "A sharp knife cuts better than a blunt one because…",
+       "options": [
+        "it is heavier",
+        "the force acts on a smaller area, giving more pressure",
+        "it is shinier",
+        "it has less friction with air"
+       ],
+       "ans": "the force acts on a smaller area, giving more pressure",
+       "why": "Pressure = force ÷ area.",
+       "id": "x1-science-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "logic": {
+     "title": "Patterns & sequences",
+     "learn": "Find the rule: look at differences, ratios, squares, or positions in the alphabet (A=1 … Z=26).",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "Next: 1, 4, 9, 16, 25, ?",
+       "options": [
+        "30",
+        "34",
+        "36",
+        "49"
+       ],
+       "ans": "36",
+       "why": "Square numbers: 6² = 36.",
+       "id": "x1-logic-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Next letter: A, C, F, J, O, ?",
+       "options": [
+        "S",
+        "T",
+        "U",
+        "V"
+       ],
+       "ans": "U",
+       "why": "Gaps grow 2, 3, 4, 5, 6: O(15) + 6 = 21 = U.",
+       "id": "x1-logic-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Next: 3, 6, 11, 18, 27, ?",
+       "options": [
+        "36",
+        "38",
+        "40",
+        "42"
+       ],
+       "ans": "38",
+       "why": "Differences 3, 5, 7, 9, 11 → 27 + 11 = 38.",
+       "id": "x1-logic-3",
+       "type": "mcq"
+      },
+      {
+       "q": "Row 1 has 1 dot and each row has double the dots of the row above. Total dots in the first 5 rows?",
+       "options": [
+        "16",
+        "25",
+        "31",
+        "32"
+       ],
+       "ans": "31",
+       "why": "1 + 2 + 4 + 8 + 16 = 31.",
+       "id": "x1-logic-4",
+       "type": "mcq"
+      },
+      {
+       "q": "Next: 1, 2, 6, 24, 120, ?",
+       "options": [
+        "240",
+        "600",
+        "720",
+        "840"
+       ],
+       "ans": "720",
+       "why": "Multiply by 2, 3, 4, 5, 6: 120 × 6 = 720.",
+       "id": "x1-logic-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "english": {
+     "title": "Vocabulary in context",
+     "learn": "Use the rest of the sentence to guess a new word’s meaning.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "“The teacher was lenient and let us submit late.” Lenient means…",
+       "options": [
+        "strict",
+        "not strict; tolerant",
+        "angry",
+        "absent"
+       ],
+       "ans": "not strict; tolerant",
+       "why": "She allowed late work → tolerant.",
+       "id": "x1-english-1",
+       "type": "mcq"
+      },
+      {
+       "q": "“His explanation was so lucid that everyone understood.” Lucid means…",
+       "options": [
+        "confusing",
+        "long",
+        "clear",
+        "loud"
+       ],
+       "ans": "clear",
+       "why": "Everyone understood → clear.",
+       "id": "x1-english-2",
+       "type": "mcq"
+      },
+      {
+       "q": "“She was reluctant to speak on stage.” Reluctant means…",
+       "options": [
+        "eager",
+        "unwilling",
+        "able",
+        "proud"
+       ],
+       "ans": "unwilling",
+       "why": "Reluctant = not wanting to.",
+       "id": "x1-english-3",
+       "type": "mcq"
+      },
+      {
+       "q": "“The ancient fort was dilapidated.” Dilapidated means…",
+       "options": [
+        "newly built",
+        "falling apart",
+        "decorated",
+        "crowded"
+       ],
+       "ans": "falling apart",
+       "why": "Old and in ruins.",
+       "id": "x1-english-4",
+       "type": "mcq"
+      },
+      {
+       "q": "“The crowd was jubilant after the win.” Jubilant means…",
+       "options": [
+        "joyful",
+        "silent",
+        "tired",
+        "angry"
+       ],
+       "ans": "joyful",
+       "why": "Very happy after winning.",
+       "id": "x1-english-5",
+       "type": "mcq"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "no": 2,
+   "title": "Counting & changes",
+   "tracks": {
+    "maths": {
+     "title": "Counting smartly",
+     "learn": "Multiplication principle: if one choice has a ways and another has b ways, together there are a × b ways. Pigeonhole: if n + 1 things go into n boxes, some box gets two.",
+     "minutes": 25,
+     "questions": [
+      {
+       "q": "6 people each shake hands once with every other person. How many handshakes?",
+       "options": [
+        "12",
+        "15",
+        "30",
+        "36"
+       ],
+       "ans": "15",
+       "why": "6 × 5 ÷ 2 = 15.",
+       "id": "x2-maths-1",
+       "type": "mcq"
+      },
+      {
+       "q": "How many 3-digit numbers can be made from 1, 2, 3 without repeating a digit?",
+       "options": [
+        "3",
+        "6",
+        "9",
+        "27"
+       ],
+       "ans": "6",
+       "why": "3 × 2 × 1 = 6.",
+       "id": "x2-maths-2",
+       "type": "mcq"
+      },
+      {
+       "q": "3 shirts and 4 trousers. How many different outfits?",
+       "options": [
+        "7",
+        "12",
+        "16",
+        "24"
+       ],
+       "ans": "12",
+       "why": "3 × 4 = 12.",
+       "id": "x2-maths-3",
+       "type": "mcq"
+      },
+      {
+       "q": "How many numbers from 1 to 100 contain the digit 7?",
+       "options": [
+        "10",
+        "18",
+        "19",
+        "20"
+       ],
+       "ans": "19",
+       "why": "10 ending in 7 + 10 in the 70s − 77 counted twice = 19.",
+       "id": "x2-maths-4",
+       "type": "mcq"
+      },
+      {
+       "q": "What is the fewest people needed to be sure two share a birth month?",
+       "options": [
+        "12",
+        "13",
+        "24",
+        "2"
+       ],
+       "ans": "13",
+       "why": "12 months = 12 boxes; 13 people guarantees a shared month.",
+       "id": "x2-maths-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "science": {
+     "title": "Matter & its changes",
+     "learn": "Physical change: no new substance (melting, dissolving). Chemical change: new substance (rusting, burning). Acid + base → salt + water (neutralisation).",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "Rusting of iron needs…",
+       "options": [
+        "only air",
+        "only water",
+        "both oxygen (air) and water",
+        "only heat"
+       ],
+       "ans": "both oxygen (air) and water",
+       "why": "Iron + oxygen + water → rust.",
+       "id": "x2-science-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Which is a physical change?",
+       "options": [
+        "Rusting",
+        "Burning wood",
+        "Melting ice",
+        "Cooking an egg"
+       ],
+       "ans": "Melting ice",
+       "why": "Ice → water is the same substance.",
+       "id": "x2-science-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Baking soda + vinegar fizzes because it gives off…",
+       "options": [
+        "oxygen",
+        "hydrogen",
+        "carbon dioxide",
+        "nitrogen"
+       ],
+       "ans": "carbon dioxide",
+       "why": "An acid–carbonate reaction releases CO₂.",
+       "id": "x2-science-3",
+       "type": "mcq"
+      },
+      {
+       "q": "A solid changing directly into a gas (like camphor) is called…",
+       "options": [
+        "evaporation",
+        "sublimation",
+        "condensation",
+        "melting"
+       ],
+       "ans": "sublimation",
+       "why": "Sublimation skips the liquid state.",
+       "id": "x2-science-4",
+       "type": "mcq"
+      },
+      {
+       "q": "Acid + base → ?",
+       "options": [
+        "only water",
+        "salt + water",
+        "gas + water",
+        "another acid"
+       ],
+       "ans": "salt + water",
+       "why": "Neutralisation.",
+       "id": "x2-science-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "logic": {
+     "title": "Step-by-step instructions (algorithms)",
+     "learn": "An algorithm is an exact list of steps. Trace it carefully, writing down the values after each step.",
+     "minutes": 25,
+     "questions": [
+      {
+       "q": "A robot faces East. Instructions: F, F, L, F, L, F, F (F = forward one square, L = turn left). Where does it end?",
+       "options": [
+        "At the start",
+        "1 square North of the start",
+        "2 squares East",
+        "1 square South"
+       ],
+       "ans": "1 square North of the start",
+       "why": "East 2, North 1, West 2 → 1 square North of the start.",
+       "id": "x2-logic-1",
+       "type": "mcq"
+      },
+      {
+       "q": "x = 10. While x > 1: x = x ÷ 2 (drop any remainder). How many times does the loop run?",
+       "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+       ],
+       "ans": "3",
+       "why": "10 → 5 → 2 → 1: three times.",
+       "id": "x2-logic-2",
+       "type": "mcq"
+      },
+      {
+       "q": "a = 3, b = 5. Then a = a + b; b = a − b; a = a − b. Final values?",
+       "options": [
+        "a = 3, b = 5",
+        "a = 5, b = 3",
+        "a = 8, b = 3",
+        "a = 5, b = 8"
+       ],
+       "ans": "a = 5, b = 3",
+       "why": "This trick swaps the two values.",
+       "id": "x2-logic-3",
+       "type": "mcq"
+      },
+      {
+       "q": "Searching a sorted list of 1000 words by always opening the middle, at most about how many looks are needed?",
+       "options": [
+        "10",
+        "50",
+        "100",
+        "500"
+       ],
+       "ans": "10",
+       "why": "Halving each time: 2¹⁰ = 1024 ≥ 1000.",
+       "id": "x2-logic-4",
+       "type": "mcq"
+      },
+      {
+       "q": "Rule: if even, halve it; if odd, × 3 + 1. Starting at 6, how many steps to reach 1?",
+       "options": [
+        "6",
+        "7",
+        "8",
+        "9"
+       ],
+       "ans": "8",
+       "why": "6→3→10→5→16→8→4→2→1 = 8 steps.",
+       "id": "x2-logic-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "english": {
+     "title": "Analogies",
+     "learn": "Find the relationship in the first pair, then apply the same one.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "Bird : Flock :: Fish : ?",
+       "options": [
+        "Herd",
+        "School",
+        "Pack",
+        "Swarm"
+       ],
+       "ans": "School",
+       "why": "A group of fish is a school.",
+       "id": "x2-english-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Pen : Write :: Knife : ?",
+       "options": [
+        "Kitchen",
+        "Sharp",
+        "Cut",
+        "Steel"
+       ],
+       "ans": "Cut",
+       "why": "Object : what it is used for.",
+       "id": "x2-english-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Hot : Cold :: Ancient : ?",
+       "options": [
+        "Old",
+        "Modern",
+        "Historic",
+        "Ruined"
+       ],
+       "ans": "Modern",
+       "why": "Opposites.",
+       "id": "x2-english-3",
+       "type": "mcq"
+      },
+      {
+       "q": "Doctor : Hospital :: Teacher : ?",
+       "options": [
+        "Student",
+        "School",
+        "Book",
+        "Lesson"
+       ],
+       "ans": "School",
+       "why": "Person : place of work.",
+       "id": "x2-english-4",
+       "type": "mcq"
+      },
+      {
+       "q": "Petal : Flower :: Page : ?",
+       "options": [
+        "Paper",
+        "Book",
+        "Word",
+        "Ink"
+       ],
+       "ans": "Book",
+       "why": "Part : whole.",
+       "id": "x2-english-5",
+       "type": "mcq"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "no": 3,
+   "title": "Shapes, life & codes",
+   "tracks": {
+    "maths": {
+     "title": "Geometry thinking",
+     "learn": "Triangle angles add to 180°. Exterior angle = sum of the two opposite interior angles. Pythagoras: a² + b² = c² in a right triangle.",
+     "minutes": 25,
+     "questions": [
+      {
+       "q": "Two angles of a triangle are 50° and 60°. The third is…",
+       "options": [
+        "60°",
+        "70°",
+        "80°",
+        "90°"
+       ],
+       "ans": "70°",
+       "why": "180 − 110 = 70.",
+       "id": "x3-maths-1",
+       "type": "mcq"
+      },
+      {
+       "q": "A square has area 49 cm². Its perimeter is…",
+       "options": [
+        "14 cm",
+        "28 cm",
+        "49 cm",
+        "196 cm"
+       ],
+       "ans": "28 cm",
+       "why": "Side 7 cm; 4 × 7 = 28.",
+       "id": "x3-maths-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Each interior angle of a regular hexagon is…",
+       "options": [
+        "108°",
+        "120°",
+        "135°",
+        "144°"
+       ],
+       "ans": "120°",
+       "why": "(6 − 2) × 180 ÷ 6 = 120°.",
+       "id": "x3-maths-3",
+       "type": "mcq"
+      },
+      {
+       "q": "An exterior angle of a triangle equals…",
+       "options": [
+        "180°",
+        "the angle next to it",
+        "the sum of the two opposite interior angles",
+        "90°"
+       ],
+       "ans": "the sum of the two opposite interior angles",
+       "why": "Exterior angle property.",
+       "id": "x3-maths-4",
+       "type": "mcq"
+      },
+      {
+       "q": "A right triangle has legs 6 cm and 8 cm. The longest side is…",
+       "options": [
+        "10 cm",
+        "12 cm",
+        "14 cm",
+        "48 cm"
+       ],
+       "ans": "10 cm",
+       "why": "6² + 8² = 100 → 10.",
+       "id": "x3-maths-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "science": {
+     "title": "The living world",
+     "learn": "Leaves make food (photosynthesis) through chlorophyll; stomata let gases in and out. Arteries carry blood away from the heart; veins bring it back.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "Which part of a plant mainly makes food?",
+       "options": [
+        "Root",
+        "Stem",
+        "Leaf",
+        "Flower"
+       ],
+       "ans": "Leaf",
+       "why": "Leaves contain chlorophyll.",
+       "id": "x3-science-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Blood vessels that carry blood away from the heart are…",
+       "options": [
+        "veins",
+        "arteries",
+        "capillaries only",
+        "nerves"
+       ],
+       "ans": "arteries",
+       "why": "A for Arteries, A for Away.",
+       "id": "x3-science-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Most digestion and absorption of food happens in the…",
+       "options": [
+        "stomach",
+        "small intestine",
+        "large intestine",
+        "food pipe"
+       ],
+       "ans": "small intestine",
+       "why": "Villi in the small intestine absorb nutrients.",
+       "id": "x3-science-3",
+       "type": "mcq"
+      },
+      {
+       "q": "Tiny pores for gas exchange on leaves are called…",
+       "options": [
+        "stomata",
+        "roots",
+        "veins",
+        "xylem"
+       ],
+       "ans": "stomata",
+       "why": "Mostly on the underside of leaves.",
+       "id": "x3-science-4",
+       "type": "mcq"
+      },
+      {
+       "q": "Which of these is NOT a mammal?",
+       "options": [
+        "Bat",
+        "Whale",
+        "Penguin",
+        "Dolphin"
+       ],
+       "ans": "Penguin",
+       "why": "A penguin is a bird.",
+       "id": "x3-science-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "logic": {
+     "title": "Binary & secret codes",
+     "learn": "Computers use binary (0 and 1). Place values: 8 4 2 1. Codes replace letters by a rule.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "5 written in binary is…",
+       "options": [
+        "100",
+        "101",
+        "110",
+        "111"
+       ],
+       "ans": "101",
+       "why": "4 + 1 = 101.",
+       "id": "x3-logic-1",
+       "type": "mcq"
+      },
+      {
+       "q": "The largest number you can write with 4 binary digits is…",
+       "options": [
+        "8",
+        "15",
+        "16",
+        "31"
+       ],
+       "ans": "15",
+       "why": "1111 = 8 + 4 + 2 + 1 = 15.",
+       "id": "x3-logic-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Each letter is shifted forward by 1 (A→B). The code “IBU” means…",
+       "options": [
+        "HAT",
+        "JCV",
+        "CAT",
+        "HIT"
+       ],
+       "ans": "HAT",
+       "why": "Shift back: I→H, B→A, U→T.",
+       "id": "x3-logic-3",
+       "type": "mcq"
+      },
+      {
+       "q": "How many different patterns can 3 bits (0/1) make?",
+       "options": [
+        "3",
+        "6",
+        "8",
+        "9"
+       ],
+       "ans": "8",
+       "why": "2 × 2 × 2 = 8.",
+       "id": "x3-logic-4",
+       "type": "mcq"
+      },
+      {
+       "q": "If A = 1, B = 2, C = 3 …, the total for “CAB” is…",
+       "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+       ],
+       "ans": "6",
+       "why": "3 + 1 + 2 = 6.",
+       "id": "x3-logic-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "english": {
+     "title": "Reading between the lines",
+     "learn": "Inference = what the writer suggests without saying it directly. Look for clues in actions and words.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "“Arjun’s shoes were caked with mud and left a trail on the clean floor.” What had he probably been doing?",
+       "options": [
+        "Sleeping",
+        "Playing or walking outside in wet ground",
+        "Reading",
+        "Cooking"
+       ],
+       "ans": "Playing or walking outside in wet ground",
+       "why": "Mud on shoes → wet ground outside.",
+       "id": "x3-english-1",
+       "type": "mcq"
+      },
+      {
+       "q": "“His mother raised an eyebrow and pointed silently at the door mat.” How did she feel?",
+       "options": [
+        "Delighted",
+        "Annoyed but calm",
+        "Frightened",
+        "Bored"
+       ],
+       "ans": "Annoyed but calm",
+       "why": "Raised eyebrow + silent pointing.",
+       "id": "x3-english-2",
+       "type": "mcq"
+      },
+      {
+       "q": "What did his mother want him to do?",
+       "options": [
+        "Go to bed",
+        "Wipe his shoes on the mat",
+        "Read a book",
+        "Leave the house"
+       ],
+       "ans": "Wipe his shoes on the mat",
+       "why": "She pointed at the door mat.",
+       "id": "x3-english-3",
+       "type": "mcq"
+      },
+      {
+       "q": "“Despite the heavy rain, the stadium was packed for the final.” What does this tell us?",
+       "options": [
+        "The match was very important to people",
+        "Nobody came",
+        "The rain stopped",
+        "The stadium was small"
+       ],
+       "ans": "The match was very important to people",
+       "why": "People came despite bad weather.",
+       "id": "x3-english-4",
+       "type": "mcq"
+      },
+      {
+       "q": "In that sentence, “despite” shows…",
+       "options": [
+        "reason",
+        "contrast",
+        "time",
+        "place"
+       ],
+       "ans": "contrast",
+       "why": "Rain vs a full stadium.",
+       "id": "x3-english-5",
+       "type": "mcq"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "no": 4,
+   "title": "Problems, light & reasoning",
+   "tracks": {
+    "maths": {
+     "title": "Word problems & logic",
+     "learn": "Turn words into equations; check your answer makes sense.",
+     "minutes": 25,
+     "questions": [
+      {
+       "q": "A father is 4 times as old as his son. In 20 years he will be twice as old. How old is the son now?",
+       "options": [
+        "5",
+        "8",
+        "10",
+        "12"
+       ],
+       "ans": "10",
+       "why": "4s + 20 = 2(s + 20) → s = 10.",
+       "id": "x4-maths-1",
+       "type": "mcq"
+      },
+      {
+       "q": "A train goes 60 km/h for 2½ hours. Distance?",
+       "options": [
+        "120 km",
+        "140 km",
+        "150 km",
+        "160 km"
+       ],
+       "ans": "150 km",
+       "why": "60 × 2.5 = 150.",
+       "id": "x4-maths-2",
+       "type": "mcq"
+      },
+      {
+       "q": "5 pencils cost ₹35. 8 pencils cost…",
+       "options": [
+        "₹48",
+        "₹56",
+        "₹64",
+        "₹40"
+       ],
+       "ans": "₹56",
+       "why": "₹7 each × 8 = ₹56.",
+       "id": "x4-maths-3",
+       "type": "mcq"
+      },
+      {
+       "q": "A snail climbs 3 m each day and slips 2 m each night in a 10 m well. On which day does it get out?",
+       "options": [
+        "7th",
+        "8th",
+        "9th",
+        "10th"
+       ],
+       "ans": "8th",
+       "why": "After 7 days and nights it is at 7 m; on day 8 it climbs 3 m to the top.",
+       "id": "x4-maths-4",
+       "type": "mcq"
+      },
+      {
+       "q": "A is taller than B. C is shorter than B. Who is tallest?",
+       "options": [
+        "A",
+        "B",
+        "C",
+        "Cannot tell"
+       ],
+       "ans": "A",
+       "why": "A > B > C.",
+       "id": "x4-maths-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "science": {
+     "title": "Light & electricity",
+     "learn": "Light travels in straight lines. A plane mirror image is upright, same size and laterally inverted. A fuse melts to break the circuit when current is too high.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "Light travels in…",
+       "options": [
+        "curves",
+        "straight lines",
+        "circles",
+        "zig-zags"
+       ],
+       "ans": "straight lines",
+       "why": "That is why shadows form.",
+       "id": "x4-science-1",
+       "type": "mcq"
+      },
+      {
+       "q": "An image in a plane mirror is…",
+       "options": [
+        "upside down and smaller",
+        "upright, same size and laterally inverted",
+        "upright and bigger",
+        "not formed"
+       ],
+       "ans": "upright, same size and laterally inverted",
+       "why": "Left and right are swapped.",
+       "id": "x4-science-2",
+       "type": "mcq"
+      },
+      {
+       "q": "Which material conducts electricity best?",
+       "options": [
+        "Rubber",
+        "Wood",
+        "Copper",
+        "Plastic"
+       ],
+       "ans": "Copper",
+       "why": "Metals are good conductors.",
+       "id": "x4-science-3",
+       "type": "mcq"
+      },
+      {
+       "q": "A fuse protects a circuit by…",
+       "options": [
+        "storing electricity",
+        "melting when the current is too high",
+        "making bulbs brighter",
+        "cooling wires"
+       ],
+       "ans": "melting when the current is too high",
+       "why": "It breaks the circuit.",
+       "id": "x4-science-4",
+       "type": "mcq"
+      },
+      {
+       "q": "A rainbow forms because sunlight is…",
+       "options": [
+        "reflected only by clouds",
+        "split into colours (dispersed) by water droplets",
+        "absorbed by air",
+        "made by the Moon"
+       ],
+       "ans": "split into colours (dispersed) by water droplets",
+       "why": "Dispersion through raindrops.",
+       "id": "x4-science-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "logic": {
+     "title": "Maps, networks & order",
+     "learn": "Networks (graphs) are points joined by lines. Shortest path = try routes and add distances. A stack is last-in-first-out; a queue is first-in-first-out.",
+     "minutes": 25,
+     "questions": [
+      {
+       "q": "Roads: A–B 4 km, B–C 3 km, A–C 9 km, C–D 2 km, B–D 7 km. Shortest route from A to D?",
+       "options": [
+        "9 km",
+        "11 km",
+        "13 km",
+        "7 km"
+       ],
+       "ans": "9 km",
+       "why": "A → B → C → D = 4 + 3 + 2 = 9.",
+       "id": "x4-logic-1",
+       "type": "mcq"
+      },
+      {
+       "q": "Sort 5, 2, 8, 1 from smallest to largest. Which number is second?",
+       "options": [
+        "1",
+        "2",
+        "5",
+        "8"
+       ],
+       "ans": "2",
+       "why": "1, 2, 5, 8.",
+       "id": "x4-logic-2",
+       "type": "mcq"
+      },
+      {
+       "q": "A network of 6 points, all connected, with no loops (a tree) has how many lines?",
+       "options": [
+        "5",
+        "6",
+        "7",
+        "15"
+       ],
+       "ans": "5",
+       "why": "A tree with n points has n − 1 lines.",
+       "id": "x4-logic-3",
+       "type": "mcq"
+      },
+      {
+       "q": "You can trace a figure using every line exactly once when the number of points with an odd number of lines is…",
+       "options": [
+        "0 or 2",
+        "exactly 1",
+        "exactly 3",
+        "any number"
+       ],
+       "ans": "0 or 2",
+       "why": "Euler’s rule.",
+       "id": "x4-logic-4",
+       "type": "mcq"
+      },
+      {
+       "q": "Plates are stacked one on top of another. Which plate do you take first?",
+       "options": [
+        "The first one placed",
+        "The last one placed",
+        "The middle one",
+        "Any one"
+       ],
+       "ans": "The last one placed",
+       "why": "Last in, first out — a stack.",
+       "id": "x4-logic-5",
+       "type": "mcq"
+      }
+     ]
+    },
+    "english": {
+     "title": "Grammar & critical reasoning",
+     "learn": "Read statements exactly — do not assume more than they say.",
+     "minutes": 20,
+     "questions": [
+      {
+       "q": "Neither of the boys ___ finished the work.",
+       "options": [
+        "have",
+        "has",
+        "are",
+        "were"
+       ],
+       "ans": "has",
+       "why": "“Neither” is singular.",
+       "id": "x4-english-1",
+       "type": "mcq"
+      },
+      {
+       "q": "She is good ___ maths.",
+       "options": [
+        "in",
+        "at",
+        "on",
+        "with"
+       ],
+       "ans": "at",
+       "why": "Good at something.",
+       "id": "x4-english-2",
+       "type": "mcq"
+      },
+      {
+       "q": "“All students who practised daily passed.” Riya passed. What can we conclude?",
+       "options": [
+        "Riya practised daily",
+        "Riya did not practise",
+        "We cannot be sure Riya practised daily",
+        "Everyone passed"
+       ],
+       "ans": "We cannot be sure Riya practised daily",
+       "why": "Others may have passed without daily practice.",
+       "id": "x4-english-3",
+       "type": "mcq"
+      },
+      {
+       "q": "Which sentence is in the passive voice?",
+       "options": [
+        "Our team won the match.",
+        "The match was won by our team.",
+        "Our team is winning.",
+        "We will win."
+       ],
+       "ans": "The match was won by our team.",
+       "why": "be + past participle + by.",
+       "id": "x4-english-4",
+       "type": "mcq"
+      },
+      {
+       "q": "The scientist’s ___ led to a new vaccine.",
+       "options": [
+        "discover",
+        "discovered",
+        "discovery",
+        "discovering"
+       ],
+       "ans": "discovery",
+       "why": "A noun is needed after “scientist’s”.",
+       "id": "x4-english-5",
+       "type": "mcq"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "no": 5,
+   "title": "Number theory & primes · Energy · Recursion puzzles · Summaries",
+   "locked": true
+  },
+  {
+   "no": 6,
+   "title": "Algebra thinking · Acids, bases & salts · Bebras-style puzzles · Idioms",
+   "locked": true
+  },
+  {
+   "no": 7,
+   "title": "Ratios & speed · Cells & microbes · Sorting & searching · Paragraph reading",
+   "locked": true
+  },
+  {
+   "no": 8,
+   "title": "Mid-point mock (all tracks)",
+   "locked": true
+  },
+  {
+   "no": 9,
+   "title": "Geometry proofs · Magnetism · Game strategy · Persuasive writing",
+   "locked": true
+  },
+  {
+   "no": 10,
+   "title": "Combinatorics · Heat & weather · Intro to Python/Scratch project · Reasoning",
+   "locked": true
+  },
+  {
+   "no": 11,
+   "title": "Olympiad past-paper practice (easy level)",
+   "locked": true
+  },
+  {
+   "no": 12,
+   "title": "Final check + discovery report",
+   "locked": true
+  }
+ ],
+ "roadmap": [
+  {
+   "when": "Nov 2026 – Feb 2027",
+   "cls": "Class 7",
+   "title": "Discovery (12 weeks)",
+   "text": "Equal exposure to four tracks. The app tracks accuracy, enjoyment, time and consistency to show where he naturally leans."
+  },
+  {
+   "when": "Mar – Aug 2027",
+   "cls": "Class 7 → 8",
+   "title": "Choose 1–2 focus tracks",
+   "text": "Build foundations in the chosen tracks (Class 8–9 topics) with weekly challenges and past papers."
+  },
+  {
+   "when": "Sep 2027",
+   "cls": "Class 8",
+   "title": "First maths olympiad: IOQM",
+   "text": "Open from Class 8. First attempt is for experience. Route: IOQM → RMO → INMO → IMO camp."
+  },
+  {
+   "when": "Nov 2027",
+   "cls": "Class 8",
+   "title": "First science olympiad: NSEJS",
+   "text": "Open to Classes 8–10. Route: NSEJS → INJSO → selection camp → IJSO."
+  },
+  {
+   "when": "Dec 2027",
+   "cls": "Class 8",
+   "title": "Computing olympiad: ZIO / ZCO",
+   "text": "Open to any school student. ZIO needs no coding. Route: ZIO/ZCO → INOI → IOI camp."
+  },
+  {
+   "when": "2028 – 2029",
+   "cls": "Class 9 – 10",
+   "title": "Serious attempts",
+   "text": "INMO and INJSO are realistic targets. Class 10 is the last chance for the junior science olympiad (IJSO)."
+  },
+  {
+   "when": "2029 – 2030",
+   "cls": "Class 11",
+   "title": "Senior olympiads + JEE base",
+   "text": "NSEP / NSEC / NSEB (or INMO / INOI) alongside JEE preparation — olympiad problem-solving gives a big JEE advantage."
+  }
+ ]
+}

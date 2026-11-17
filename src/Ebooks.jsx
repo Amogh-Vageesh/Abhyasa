@@ -132,7 +132,7 @@ function ScreenHead({ title, onClose, right }) {
   );
 }
 
-async function openExternal(url) {
+export async function openExternal(url) {
   if (isNative) {
     const { InAppBrowser } = await import('@capacitor/inappbrowser');
     await InAppBrowser.openInExternalBrowser({ url });

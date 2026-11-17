@@ -27,6 +27,7 @@ import { PlannerPage, TaskModal } from './Planner';
 import { FinancePage, MoneyModal } from './Finance';
 import { InsightsPage } from './Insights';
 import { ManageEbooks } from './Ebooks';
+import { ExplorePage } from './Explore';
 
 export default function App() {
   const [user, setUser] = useState(undefined);
@@ -108,10 +109,10 @@ function Onboarding({ user, onDone }) {
 const STUDENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
 const PARENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner']];
 // Desktop sidebar shows every destination
-const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['goals', 'target', 'My goals'], ['insights', 'bulb', 'My next steps'], ['ebooks', 'file', 'My books'], ['badges', 'trophy', 'Badges'], ['theme', 'settings', 'Theme'], ['more', 'menu', 'More']];
-const TOP_STUDENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice'], ['planner', 'Planner'], ['finance', 'Money'], ['ebooks', 'Books']];
-const TOP_PARENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice'], ['planner', 'Planner'], ['finance', 'Money'], ['ebooks', 'E-books'], ['settings', 'Settings']];
-const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'Money & rewards'], ['goals', 'target', 'His goals'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
+const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['goals', 'target', 'My goals'], ['insights', 'bulb', 'My next steps'], ['ebooks', 'file', 'My books'], ['explore', 'bulb', 'Explore'], ['badges', 'trophy', 'Badges'], ['theme', 'settings', 'Theme'], ['more', 'menu', 'More']];
+const TOP_STUDENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice'], ['explore', 'Explore'], ['planner', 'Planner'], ['finance', 'Money'], ['ebooks', 'Books']];
+const TOP_PARENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice'], ['explore', 'Explore'], ['planner', 'Planner'], ['finance', 'Money'], ['ebooks', 'E-books'], ['settings', 'Settings']];
+const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['explore', 'bulb', 'Explore'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'Money & rewards'], ['goals', 'target', 'His goals'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
 
 export function Main({ me }) {
   const F = useFamily(me.familyId);
@@ -175,6 +176,7 @@ export function Main({ me }) {
   else if (tab === 'more') page = <MorePage F={F} me={me} go={go} />;
   else if (tab === 'theme') page = <ThemePage />;
   else if (tab === 'goals') page = <GoalsPage F={F} me={me} />;
+  else if (tab === 'explore') page = <ExplorePage F={F} me={me} />;
 
   const today = new Date().toISOString().slice(0, 10);
   const xp = isParent ? null : levelInfo(F);
@@ -274,8 +276,8 @@ function MorePage({ F, me, go }) {
   const isParent = me.role === 'parent';
   const { balance } = walletSummary(F.wallet);
   const rows = isParent
-    ? [['finance', 'rupee', 'teal', 'Money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, fix-it report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'E-books', 'Import textbook PDFs and links'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
-    : [['finance', 'rupee', 'teal', 'My money & rewards', `${rupees(balance)} rewards to collect`], ['insights', 'bulb', 'amber', 'My next steps', 'What to do next, fix-its, exam tips'], ['goals', 'target', 'amber', 'My goals', 'What I want to improve'], ['badges', 'trophy', 'amber', 'Badges & level', 'Your achievements'], ['ebooks', 'file', 'red', 'My books', `${F.ebooks.length} textbook(s)`], ['mistakes', 'mistake', 'red', 'Fix-it list', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
+    ? [['explore', 'bulb', 'amber', 'Explore (beyond school)', '12-week discovery, tracker and 3–4 year roadmap'], ['finance', 'rupee', 'teal', 'Money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, fix-it report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'E-books', 'Import textbook PDFs and links'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
+    : [['explore', 'bulb', 'amber', 'Explore', 'Weekly challenges beyond school'], ['finance', 'rupee', 'teal', 'My money & rewards', `${rupees(balance)} rewards to collect`], ['insights', 'bulb', 'amber', 'My next steps', 'What to do next, fix-its, exam tips'], ['goals', 'target', 'amber', 'My goals', 'What I want to improve'], ['badges', 'trophy', 'amber', 'Badges & level', 'Your achievements'], ['ebooks', 'file', 'red', 'My books', `${F.ebooks.length} textbook(s)`], ['mistakes', 'mistake', 'red', 'Fix-it list', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
   return (
     <div>
       <PageHead title="More" />

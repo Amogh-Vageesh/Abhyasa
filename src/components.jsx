@@ -88,7 +88,7 @@ export function rupees(n) {
 // ---------------- Quiz runner ----------------
 // questions: [{id, type, q, options, ans, why, chapterId}]
 // onFinish({ items:[{qid, chapterId, correct, q}], score, total })
-export function QuizRunner({ title, questions, onFinish, onCancel, timed = false }) {
+export function QuizRunner({ title, questions, onFinish, onCancel, timed = false, doneHint }) {
   const [i, setI] = useState(0);
   const [answer, setAnswer] = useState('');
   const [checked, setChecked] = useState(null); // null | true | false | 'self'
@@ -128,7 +128,7 @@ export function QuizRunner({ title, questions, onFinish, onCancel, timed = false
     return (
       <Card title={`${title} — done!`}>
         <div className="big-score">{result.score}/{result.total} <span>{pct}%</span></div>
-        <p>{pct >= 90 ? 'Outstanding! 🌟' : pct >= 70 ? 'Good work! 👍' : 'Keep going — wrong answers are now in your Fix-it list. 💪'}</p>
+        <p>{pct >= 90 ? 'Outstanding! 🌟' : pct >= 70 ? 'Good work! 👍' : (doneHint || 'Keep going — wrong answers are now in your Fix-it list. 💪')}</p>
         {wrong.length > 0 && <details><summary>Review {wrong.length} wrong answer(s)</summary>
           {wrong.map((w) => { const qq = questions.find((x) => x.id === w.qid); return (
             <div key={w.qid} className="review"><b>{qq.q}</b><div>Your answer: {w.given || '—'}</div><div className="ok">Answer: {qq.ans}</div>{qq.why && <div className="muted">{qq.why}</div>}</div>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { set as idbSet, get as idbGet } from 'idb-keyval';
+import { ExploreSummary } from './Explore';
 import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees, PageHead, useDesktop } from './components';
 import { DeskHome } from './DeskHome';
 import { Icon, Tile, Avatar, HeroArt } from './icons';
@@ -237,6 +238,7 @@ export function StudentToday({ F, go }) {
 
         </div>
       </div>
+      <div className="mt"><ExploreSummary F={F} go={go} /></div>
       {modal?.type === 'log' && <LogModal F={F} initialSubject={modal.subject || ''} onClose={() => setModal(null)} />}
       {modal?.type === 'learn' && <LearnModal F={F} chapters={modal.chapters} onClose={() => setModal(null)} />}
       {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
