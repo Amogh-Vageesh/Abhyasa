@@ -40,7 +40,8 @@
     "8"
    ],
    "ans": "7",
-   "why": "1 crore = 1,00,00,000 which has 7 zeros."
+   "why": "1 crore = 1,00,00,000 which has 7 zeros.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q2",
@@ -54,7 +55,8 @@
     "10 thousand"
    ],
    "ans": "1 million",
-   "why": "10,00,000 = 1,000,000 = one million."
+   "why": "10,00,000 = 1,000,000 = one million.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q3",
@@ -62,7 +64,8 @@
    "level": 1,
    "q": "How many lakhs make one crore?",
    "ans": "100",
-   "why": "1 crore = 100 × 1 lakh."
+   "why": "1 crore = 100 × 1 lakh.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q4",
@@ -70,7 +73,8 @@
    "level": 2,
    "q": "100 crore = 1 ______ (international system)",
    "ans": "billion|1 billion",
-   "why": "100 crore = 1,000,000,000 = one billion."
+   "why": "100 crore = 1,000,000,000 = one billion.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q5",
@@ -84,7 +88,8 @@
     "4,567,8912"
    ],
    "ans": "4,56,78,912",
-   "why": "Indian grouping: 3 digits from the right, then groups of 2."
+   "why": "Indian grouping: 3 digits from the right, then groups of 2.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q6",
@@ -92,7 +97,8 @@
    "level": 2,
    "q": "Write 3 crore 5 lakh as a number (digits only, no commas).",
    "ans": "30500000",
-   "why": "3,00,00,000 + 5,00,000 = 3,05,00,000."
+   "why": "3,00,00,000 + 5,00,000 = 3,05,00,000.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q7",
@@ -104,7 +110,8 @@
     "False"
    ],
    "ans": "True",
-   "why": "1 million = 10 lakh."
+   "why": "1 million = 10 lakh.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q8",
@@ -118,7 +125,8 @@
     "74 lakh"
    ],
    "ans": "7 lakh",
-   "why": "48,900 is less than 50,000, so it rounds down to 7,00,000."
+   "why": "48,900 is less than 50,000, so it rounds down to 7,00,000.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q9",
@@ -126,7 +134,8 @@
    "level": 3,
    "q": "A city has 25 lakh people. How many millions is that?",
    "ans": "2.5",
-   "why": "10 lakh = 1 million, so 25 lakh = 2.5 million."
+   "why": "10 lakh = 1 million, so 25 lakh = 2.5 million.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q10",
@@ -140,7 +149,8 @@
     "About 1 year"
    ],
    "ans": "About 1 day",
-   "why": "1,00,000 seconds ≈ 27.8 hours, a little over a day."
+   "why": "1,00,000 seconds ≈ 27.8 hours, a little over a day.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q11",
@@ -148,7 +158,8 @@
    "level": 3,
    "q": "Explain why the Indian and international systems place commas differently, with an example.",
    "ans": "Indian system groups 3 digits from the right then 2s (lakh, crore); international groups in 3s (thousand, million). Example: 1,00,000 vs 100,000.",
-   "why": "Different naming units: lakh/crore vs million/billion."
+   "why": "Different naming units: lakh/crore vs million/billion.",
+   "src": "starter"
   },
   {
    "id": "m1-1-q12",
@@ -156,7 +167,9 @@
    "level": 3,
    "q": "A factory makes 2,50,000 pencils a month. How many pencils in a year? (digits only)",
    "ans": "3000000",
-   "why": "2,50,000 × 12 = 30,00,000 = 3 million."
+   "why": "2,50,000 × 12 = 30,00,000 = 3 million.",
+   "src": "starter"
   }
- ]
+ ],
+ "source": "starter"
 }

@@ -40,7 +40,8 @@
     "Region"
    ],
    "ans": "Weather",
-   "why": "Weather is short-term; climate is the long-term average."
+   "why": "Weather is short-term; climate is the long-term average.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q2",
@@ -54,7 +55,8 @@
     "Rain gauge"
    ],
    "ans": "Barometer",
-   "why": "Baro = pressure."
+   "why": "Baro = pressure.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q3",
@@ -68,7 +70,8 @@
     "Barometer"
    ],
    "ans": "Anemometer",
-   "why": "A wind vane shows direction; an anemometer measures speed."
+   "why": "A wind vane shows direction; an anemometer measures speed.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q4",
@@ -76,7 +79,8 @@
    "level": 2,
    "q": "The amount of water vapour in the air is called ______.",
    "ans": "humidity",
-   "why": "Humidity is measured with a hygrometer."
+   "why": "Humidity is measured with a hygrometer.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q5",
@@ -88,7 +92,8 @@
     "False"
    ],
    "ans": "True",
-   "why": "That is the definition of climate."
+   "why": "That is the definition of climate.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q6",
@@ -102,7 +107,8 @@
     "Air pressure"
    ],
    "ans": "Climate",
-   "why": "It describes a long-term pattern, not one day."
+   "why": "It describes a long-term pattern, not one day.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q7",
@@ -116,7 +122,8 @@
     "Kilograms"
    ],
    "ans": "Millimetres",
-   "why": "A rain gauge collects rain and measures its depth in mm."
+   "why": "A rain gauge collects rain and measures its depth in mm.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q8",
@@ -130,7 +137,8 @@
     "Students"
    ],
    "ans": "Fishermen",
-   "why": "Storms and high winds at sea are dangerous."
+   "why": "Storms and high winds at sea are dangerous.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q9",
@@ -138,7 +146,8 @@
    "level": 3,
    "q": "Give two ways in which weather forecasts help farmers.",
    "ans": "Deciding when to sow or harvest; protecting crops before heavy rain, hail or frost; planning irrigation.",
-   "why": "Any two reasonable uses."
+   "why": "Any two reasonable uses.",
+   "src": "starter"
   },
   {
    "id": "ss1-2-q10",
@@ -150,7 +159,9 @@
     "False"
    ],
    "ans": "False",
-   "why": "A wind vane shows direction; an anemometer measures speed."
+   "why": "A wind vane shows direction; an anemometer measures speed.",
+   "src": "starter"
   }
- ]
+ ],
+ "source": "starter"
 }

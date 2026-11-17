@@ -22,6 +22,7 @@ const P = {
   gift: <><rect x="3" y="9" width="18" height="4" rx="1" /><path d="M5 13v7h14v-7M12 9v11M12 9c-2-4-6-4-6-1s6 1 6 1c0 0 6 2 6-1s-4-3-6 1" /></>,
   send: <path d="M4 12l16-8-6 16-2-7z" />,
   check: <path d="M5 12l5 5 9-10" />,
+  trash: <><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" /><path d="M10 11v6M14 11v6" /></>,
   bulb: <><path d="M9 17h6M10 21h4" /><path d="M8 14a6 6 0 118 0c-1 1-1 2-1 3H9c0-1 0-2-1-3z" /></>,
   notebook: <><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 3v18M12 8h4M12 12h4" /></>,
   mistake: <><rect x="4" y="3" width="16" height="18" rx="2" /><path d="M9 9l6 6M15 9l-6 6" /></>,

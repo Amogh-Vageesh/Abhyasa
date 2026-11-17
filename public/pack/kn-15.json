@@ -46,7 +46,8 @@
     "ಅಕ್ಟೋಬರ್ 2"
    ],
    "ans": "ಏಪ್ರಿಲ್ 7",
-   "why": "World Health Day."
+   "why": "World Health Day.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q2",
@@ -60,7 +61,8 @@
     "ನುಗ್ಗೆ"
    ],
    "ans": "ಹೀರೇಕಾಯಿ",
-   "why": "Ridge gourd came first."
+   "why": "Ridge gourd came first.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q3",
@@ -74,7 +76,8 @@
     "ಮೂಲಂಗಿ ಮತ್ತು ಕ್ಯಾರೆಟ್"
    ],
    "ans": "ಗೆಡ್ಡೆಕೋಸು ಮತ್ತು ಎಲೆಕೋಸು",
-   "why": "Three cabbage brothers."
+   "why": "Three cabbage brothers.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q4",
@@ -88,7 +91,8 @@
     "ಜ್ವರ"
    ],
    "ans": "ಚರ್ಮ ರೋಗ",
-   "why": "It purifies blood and helps skin."
+   "why": "It purifies blood and helps skin.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q5",
@@ -102,7 +106,8 @@
     "ಅಮೇರಿಕ"
    ],
    "ans": "ಚೀನಾ",
-   "why": "\"ನನ್ನ ತವರು ನೆರೆಯ ಚೀನಾ ದೇಶ\"."
+   "why": "\"ನನ್ನ ತವರು ನೆರೆಯ ಚೀನಾ ದೇಶ\".",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q6",
@@ -116,7 +121,8 @@
     "ಉಳ್ಳಾಗಡ್ಡಿ"
    ],
    "ans": "ವೆಂಗಾಯಂ",
-   "why": "Telugu: Erragadda; English: Onion."
+   "why": "Telugu: Erragadda; English: Onion.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q7",
@@ -130,7 +136,8 @@
     "ಮೂಲಂಗಿ"
    ],
    "ans": "ನುಗ್ಗೆ",
-   "why": "Drumstick."
+   "why": "Drumstick.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q8",
@@ -144,7 +151,8 @@
     "ಹೂಕೋಸು"
    ],
    "ans": "ನುಗ್ಗೆ",
-   "why": "Rich in vitamin A."
+   "why": "Rich in vitamin A.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q9",
@@ -158,7 +166,8 @@
     "ನುಗ್ಗೆ"
    ],
    "ans": "ಸೋರೆಕಾಯಿ",
-   "why": "\"ಸಂಗೀತಕ್ಕೆ ನನ್ನ ಕೊಡುಗೆ ಅಪಾರ\"."
+   "why": "\"ಸಂಗೀತಕ್ಕೆ ನನ್ನ ಕೊಡುಗೆ ಅಪಾರ\".",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q10",
@@ -172,7 +181,8 @@
     "ಆಫ್ರಿಕಾ"
    ],
    "ans": "ಯೂರೋಪ್ ಮತ್ತು ಏಷ್ಯಾ",
-   "why": "Radish."
+   "why": "Radish.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q11",
@@ -186,7 +196,8 @@
     "ಅದರ ಗಾತ್ರ"
    ],
    "ans": "ಅದರ ಘಾಟು ವಾಸನೆ",
-   "why": "ಘಾಟು = strong smell."
+   "why": "ಘಾಟು = strong smell.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q12",
@@ -200,7 +211,8 @@
     "ಎಣ್ಣೆ"
    ],
    "ans": "ಕಬ್ಬಿಣಾಂಶ",
-   "why": "Iron prevents anaemia."
+   "why": "Iron prevents anaemia.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q13",
@@ -214,7 +226,8 @@
     "ಮೆಂತ್ಯ"
    ],
    "ans": "ಕೊತ್ತಂಬರಿಸೊಪ್ಪು",
-   "why": "Coriander."
+   "why": "Coriander.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q14",
@@ -228,7 +241,8 @@
     "ಕೊತ್ತಂಬರಿ"
    ],
    "ans": "ನುಗ್ಗೆ ಸೊಪ್ಪು",
-   "why": "Drumstick leaves."
+   "why": "Drumstick leaves.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q15",
@@ -242,7 +256,8 @@
     "ಅಡುಗೆಮನೆ"
    ],
    "ans": "ಹುಟ್ಟಿದ ಮನೆ",
-   "why": "Place of origin."
+   "why": "Place of origin.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q16",
@@ -256,7 +271,8 @@
     "ವಾದ್ಯ"
    ],
    "ans": "ಧಾನ್ಯವನ್ನು ಸಂಗ್ರಹಿಸುವ ಸ್ಥಳ",
-   "why": "Granary — \"a storehouse of nutrients\"."
+   "why": "Granary — \"a storehouse of nutrients\".",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q17",
@@ -270,7 +286,8 @@
     "ಖ + ನಿಜಾಂಶ"
    ],
    "ans": "ಖನಿಜ + ಅಂಶ",
-   "why": "ಅ + ಅ → ಆ."
+   "why": "ಅ + ಅ → ಆ.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-15-q18",
@@ -284,7 +301,9 @@
     "ನೇರಳೆ"
    ],
    "ans": "ಹಸಿರು",
-   "why": "\"ನನ್ನ ಮೈಬಣ್ಣ ಹಸಿರು\"."
+   "why": "\"ನನ್ನ ಮೈಬಣ್ಣ ಹಸಿರು\".",
+   "src": "tili-kannada"
   }
- ]
+ ],
+ "source": "tili-kannada"
 }

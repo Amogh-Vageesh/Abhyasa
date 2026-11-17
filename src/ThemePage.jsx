@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Card, PageHead } from './components';
-import { THEMES, getMode, getThemeKey, setTheme } from './theme';
+import { THEMES, WEB_BGS, getMode, getThemeKey, getWebBg, setTheme } from './theme';
 
 export function ThemePage() {
   const [mode, setMode] = useState(getMode());
   const [key, setKey] = useState(getThemeKey());
+  const [bg, setBg] = useState(getWebBg());
   return (
     <div>
       <PageHead title="Theme" />
@@ -20,6 +21,17 @@ export function ThemePage() {
           ))}
         </div>
         <p className="muted small-text" style={{ marginTop: 10 }}>Game themes use ranked levels (Iron → Legend), Daily Missions and a weekly Boss Fight.</p>
+      </Card>
+      <Card title="Web background" className="mt">
+        <div className="bg-tiles">
+          {Object.entries(WEB_BGS).map(([k, b]) => (
+            <button key={k} className={`bg-tile ${bg === k ? 'sel' : ''}`} onClick={() => { setBg(k); setTheme({ webBg: k }); }}>
+              <span className={`bg-prev bgv-${k}`} />
+              <b>{b.name}</b><small>{b.tag}</small>
+            </button>
+          ))}
+        </div>
+        <p className="muted small-text" style={{ marginTop: 10 }}>Shown on the computer / wide-screen version. The phone keeps the Kosha look.</p>
       </Card>
       <Card title="Appearance" className="mt">
         <div className="seg" style={{ marginBottom: 0 }}>

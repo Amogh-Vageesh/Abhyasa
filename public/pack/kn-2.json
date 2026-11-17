@@ -52,7 +52,8 @@
     "ನಿಸಾರ್ ಅಹಮದ್"
    ],
    "ans": "ಚಂದ್ರಶೇಖರ ಕಂಬಾರ",
-   "why": "A folk-style story retold by Chandrashekhara Kambara."
+   "why": "A folk-style story retold by Chandrashekhara Kambara.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q2",
@@ -66,7 +67,8 @@
     "ಸುವರ್ಣದಾನ"
    ],
    "ans": "ಅನ್ನದಾನ",
-   "why": "\"ದಾನಗಳಲ್ಲಿ ಅನ್ನದಾನವೇ ಹೆಚ್ಚಿನದು.\""
+   "why": "\"ದಾನಗಳಲ್ಲಿ ಅನ್ನದಾನವೇ ಹೆಚ್ಚಿನದು.\"",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q3",
@@ -80,7 +82,8 @@
     "ಬೇಡನ ಬಳಿ"
    ],
    "ans": "ಶಿವನ ಬಳಿ",
-   "why": "\"ಅದು ಶಿವನಿಗೆ ಗೊತ್ತು. ಅವನನ್ನೇ ಹೋಗಿ ಕೇಳು.\""
+   "why": "\"ಅದು ಶಿವನಿಗೆ ಗೊತ್ತು. ಅವನನ್ನೇ ಹೋಗಿ ಕೇಳು.\"",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q4",
@@ -94,7 +97,8 @@
     "ಸನ್ಯಾಸಿ"
    ],
    "ans": "ಬೇಡ",
-   "why": "The hunter took pity and brought him home."
+   "why": "The hunter took pity and brought him home.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q5",
@@ -108,7 +112,8 @@
     "ರತ್ನ"
    ],
    "ans": "ತನ್ನ ಪಾಲಿನ ಹಣ್ಣು-ಹಾಲು",
-   "why": "His wife refused, so he gave his own share."
+   "why": "His wife refused, so he gave his own share.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q6",
@@ -122,7 +127,8 @@
     "ತೋಳ"
    ],
    "ans": "ಹುಲಿ",
-   "why": "A tiger came at night."
+   "why": "A tiger came at night.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q7",
@@ -136,7 +142,8 @@
     "ಹಣ ದಾನ ಮಾಡುವುದು"
    ],
    "ans": "ಮಗಳನ್ನು ಯೋಗ್ಯ ವರನಿಗೆ ಮದುವೆ ಮಾಡುವುದು",
-   "why": "Once he married her to the boy, the lake filled."
+   "why": "Once he married her to the boy, the lake filled.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q8",
@@ -150,7 +157,8 @@
     "ಹಣ ಕೊಡುವುದು"
    ],
    "ans": "ವಿದ್ಯೆಯನ್ನು ಯೋಗ್ಯನಿಗೆ ದಾನ ಮಾಡುವುದು",
-   "why": "He gave all 64 arts to the boy."
+   "why": "He gave all 64 arts to the boy.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q9",
@@ -164,7 +172,8 @@
     "ನೂರು"
    ],
    "ans": "ಅರವತ್ತನಾಲ್ಕು",
-   "why": "64 arts (ಅರವತ್ತನಾಲ್ಕು ವಿದ್ಯೆಗಳು)."
+   "why": "64 arts (ಅರವತ್ತನಾಲ್ಕು ವಿದ್ಯೆಗಳು).",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q10",
@@ -178,7 +187,8 @@
     "ಮೊಟ್ಟೆ"
    ],
    "ans": "ನೆತ್ತಿಯ ರತ್ನ",
-   "why": "It gave the jewel on its head to the boy."
+   "why": "It gave the jewel on its head to the boy.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q11",
@@ -192,7 +202,8 @@
     "ಬೇಡನಿಗೆ"
    ],
    "ans": "ನೇಪಾಳ ದೇಶದ ರಾಣಿಗೆ",
-   "why": "She then gave birth to a son at once."
+   "why": "She then gave birth to a son at once.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q12",
@@ -206,7 +217,8 @@
     "ತಾಯಿ"
    ],
    "ans": "ನವಜಾತ ರಾಜಕುಮಾರ (ಕೂಸು)",
-   "why": "The newborn laughed and spoke."
+   "why": "The newborn laughed and spoke.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q13",
@@ -220,7 +232,8 @@
     "ಸರ್ಪವಾಗಿ"
    ],
    "ans": "ರಾಜಕುಮಾರನಾಗಿ",
-   "why": "Reward for feeding the hungry boy."
+   "why": "Reward for feeding the hungry boy.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q14",
@@ -234,7 +247,8 @@
     "ಶಿವನನ್ನು ನಿಂದಿಸಿದ್ದರಿಂದ"
    ],
    "ans": "ಹುಡುಗನಿಗೆ ಅನ್ನ ಕೊಡಲು ಒಪ್ಪದಿದ್ದುದರಿಂದ",
-   "why": "She refused to share food."
+   "why": "She refused to share food.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q15",
@@ -248,7 +262,8 @@
     "ಬೇಡ ಹೆಂಡತಿಗೆ"
    ],
    "ans": "ತಾಯಿ ಮಗನಿಗೆ",
-   "why": "The mother explaining why food-giving matters."
+   "why": "The mother explaining why food-giving matters.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q16",
@@ -262,7 +277,8 @@
     "ಬೆಟ್ಟ"
    ],
    "ans": "ಕಾಡು",
-   "why": "ಅಡವಿ = ಕಾಡು; ಅರಣ್ಯ."
+   "why": "ಅಡವಿ = ಕಾಡು; ಅರಣ್ಯ.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q17",
@@ -276,7 +292,8 @@
     "ಸುತ್ತಿ"
    ],
    "ans": "ನೇರವಾಗಿ",
-   "why": "ಸೀದಾ ಕೈಲಾಸ ಪರ್ವತಕ್ಕೆ ಹೋದ = went straight."
+   "why": "ಸೀದಾ ಕೈಲಾಸ ಪರ್ವತಕ್ಕೆ ಹೋದ = went straight.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q18",
@@ -290,7 +307,8 @@
     "ಯೋಗ್ಯ"
    ],
    "ans": "ಬಡವ",
-   "why": "rich × poor."
+   "why": "rich × poor.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q19",
@@ -304,7 +322,8 @@
     "ಆ + ಗಲೆಂದು"
    ],
    "ans": "ಆಗಲಿ + ಎಂದು",
-   "why": "ಇ + ಎ → ಎ (lopa sandhi)."
+   "why": "ಇ + ಎ → ಎ (lopa sandhi).",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-2-q20",
@@ -318,7 +337,9 @@
     "ನಾಡೋಜ"
    ],
    "ans": "ಜ್ಞಾನಪೀಠ",
-   "why": "Kambar received the Jnanpith award."
+   "why": "Kambar received the Jnanpith award.",
+   "src": "tili-kannada"
   }
- ]
+ ],
+ "source": "tili-kannada"
 }

@@ -3,7 +3,8 @@ import {
   doc, getDoc, setDoc, updateDoc, collection, onSnapshot, query, orderBy, limit,
   addDoc, deleteDoc, serverTimestamp, arrayUnion, writeBatch, increment
 } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, isNative } from '../firebase';
+import { get as idbGet, set as idbSet } from 'idb-keyval';
 import { DEFAULT_SETTINGS, makeCode, ymd } from './logic';
 
 // ---------- users & family ----------
@@ -72,6 +73,7 @@ export function useFamily(familyId) {
   const ebooks = useCollection(familyId, 'ebooks', { order: 'order' });
   const goals = useCollection(familyId, 'goals', { order: 'createdAt' });
   const settings = { ...DEFAULT_SETTINGS, ...(family?.settings || {}), rewards: { ...DEFAULT_SETTINGS.rewards, ...(family?.settings?.rewards || {}) } };
+  setHiddenBooks(settings.hiddenBooks);
   return {
     family, settings,
     days: Object.fromEntries(days.map((d) => [d.id, d])),
@@ -101,28 +103,60 @@ export const saveTest = (fid, t) => t.id
 export const deleteTest = (fid, id) => deleteDoc(dref(fid, 'tests', id));
 export const addNote = (fid, note) => addDoc(col(fid, 'notes'), { ...note, at: Date.now() });
 export const updateSettings = (fid, settings) => updateDoc(doc(db, 'families', fid), { settings });
+export const setBookHidden = (fid, settings, bookId, hide) => {
+  const cur = settings.hiddenBooks || [];
+  const hiddenBooks = hide ? [...new Set([...cur, bookId])] : cur.filter((b) => b !== bookId);
+  return updateDoc(doc(db, 'families', fid), { 'settings.hiddenBooks': hiddenBooks });
+};
 
 // ---------- study pack ----------
+// The Android app reads the latest pack from the website, so new chapters / question papers appear
+// without installing a new APK. Last good copy is kept on the device for offline use; the copy
+// bundled inside the APK is the final fallback.
+const PACK_SITE = 'https://abhyasa-3fe1d.web.app';
+async function packJson(path) {
+  if (isNative) {
+    try {
+      const r = await fetch(PACK_SITE + path, { cache: 'no-store' });
+      if (r.ok && (r.headers.get('content-type') || '').includes('json')) { const j = await r.json(); idbSet('pack:' + path, j).catch(() => {}); return j; }
+    } catch {}
+    const saved = await idbGet('pack:' + path).catch(() => null);
+    if (saved) return saved;
+  }
+  const r = await fetch(path);
+  return r.json();
+}
 let packIndex = null;
 const packCache = {};
 export async function loadPackIndex() {
   if (packIndex) return packIndex;
   try {
-    const r = await fetch('/pack/index.json');
-    packIndex = await r.json();
+    packIndex = await packJson('/pack/index.json');
   } catch { packIndex = { chapters: [] }; }
   return packIndex;
 }
-export async function loadChapter(id) {
+// Parent can remove a source book's material (family.settings.hiddenBooks). Questions keep a `src` book tag,
+// so one book can be removed while other books for the same chapter stay.
+let hiddenBooks = [];
+export function setHiddenBooks(list) { hiddenBooks = Array.isArray(list) ? list : []; }
+function visible(p) {
+  if (!p) return null;
+  if (!hiddenBooks.length) return p;
+  const questions = p.questions.filter((q) => !hiddenBooks.includes(q.src || p.source));
+  const explainer = (p.explainer || []).filter((x) => !hiddenBooks.includes(x.src || p.source));
+  if (!questions.length && !explainer.length) return null;
+  return { ...p, questions, explainer };
+}
+async function rawChapter(id) {
   if (packCache[id] !== undefined) return packCache[id];
   const idx = await loadPackIndex();
   if (!idx.chapters.includes(id)) return (packCache[id] = null);
   try {
-    const r = await fetch(`/pack/${id}.json`);
-    packCache[id] = await r.json();
+    packCache[id] = await packJson(`/pack/${id}.json`);
   } catch { packCache[id] = null; }
   return packCache[id];
 }
+export async function loadChapter(id) { return visible(await rawChapter(id)); }
 export async function questionPool(chapterIds) {
   const packs = await Promise.all(chapterIds.map(loadChapter));
   return packs.filter(Boolean).flatMap((p) => p.questions.map((q) => ({ ...q, chapterId: p.id })));

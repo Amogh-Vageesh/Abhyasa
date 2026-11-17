@@ -21,8 +21,19 @@ export const currentTheme = () => THEMES[getThemeKey()];
 export const words = () => (currentTheme().game ? GAME_WORDS : PLAIN_WORDS);
 export const levelNames = () => currentTheme().levels;
 
-export function setTheme({ mode, palette }) {
-  try { if (mode) localStorage.setItem('abhyasa-theme', mode); if (palette) localStorage.setItem('abhyasa-palette', palette); } catch {}
+// Web (desktop) page backgrounds — illustrations are inline SVG/CSS, so they work offline
+export const WEB_BGS = {
+  sunrise: { name: 'Sunrise hills', tag: 'Warm sky & sun' },
+  lavender: { name: 'Lavender peaks', tag: 'Soft mountains' },
+  ocean: { name: 'Calm sea', tag: 'Sky blue waves' },
+  aurora: { name: 'Glow', tag: 'Follows theme colour' },
+  notebook: { name: 'Notebook', tag: 'Ruled paper' },
+  plain: { name: 'Plain', tag: 'Light grey tint' }
+};
+export const getWebBg = () => { const k = get('abhyasa-webbg', 'sunrise'); return WEB_BGS[k] ? k : 'sunrise'; };
+
+export function setTheme({ mode, palette, webBg }) {
+  try { if (mode) localStorage.setItem('abhyasa-theme', mode); if (palette) localStorage.setItem('abhyasa-palette', palette); if (webBg) localStorage.setItem('abhyasa-webbg', webBg); } catch {}
   applyTheme();
   window.dispatchEvent(new Event('abhyasa-theme'));
 }
@@ -33,6 +44,7 @@ export function applyTheme() {
   const r = document.documentElement;
   r.dataset.theme = dark ? 'dark' : 'light';
   r.dataset.color = getThemeKey();
+  r.dataset.bg = getWebBg();
   r.style.setProperty('--accent-a', th.a);
   r.style.setProperty('--accent-b', th.b);
   // window / status bar colour follows the page background, not the accent

@@ -46,7 +46,8 @@
     "ಕೂಡಿಸಿ"
    ],
    "ans": "ಸ್ಫುಟವಾಗಿ",
-   "why": "Clear and easy to recognise."
+   "why": "Clear and easy to recognise.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q2",
@@ -60,7 +61,8 @@
     "ತುಂಬಾ ವೇಗವಾಗಿ ಬರೆಯುವುದು"
    ],
    "ans": "ಅಕ್ಷರಗಳು ಒಂದೇ ಗಾತ್ರದಲ್ಲಿರುವುದು",
-   "why": "Same size, upright, steady speed, no scribbling."
+   "why": "Same size, upright, steady speed, no scribbling.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q3",
@@ -74,7 +76,8 @@
     "ಕಾಗುಣಿತ ಸರಿಯಾಗಿ ಬರೆಯುವುದು"
    ],
    "ans": "ಒತ್ತಿ ಬರೆಯುವುದು",
-   "why": "\"ಒತ್ತಿ ಬರೆಯಬಾರದು.\""
+   "why": "\"ಒತ್ತಿ ಬರೆಯಬಾರದು.\"",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q4",
@@ -88,7 +91,8 @@
     "ತಲೆಕೆಳಗಾದ"
    ],
    "ans": "ನೇರ ನಿಲುವು",
-   "why": "Upright letters."
+   "why": "Upright letters.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q5",
@@ -102,7 +106,8 @@
     "ಕಿಟೆಲ್"
    ],
    "ans": "ಮಹಾತ್ಮಾ ಗಾಂಧೀಜಿ",
-   "why": "Quoted at the end of the lesson."
+   "why": "Quoted at the end of the lesson.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q6",
@@ -116,7 +121,8 @@
     "ಬೀದರ್"
    ],
    "ans": "ವಿಜಯಪುರ",
-   "why": "Gol Gumbaz is in Vijayapura (Bijapur)."
+   "why": "Gol Gumbaz is in Vijayapura (Bijapur).",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q7",
@@ -130,7 +136,8 @@
     "200"
    ],
    "ans": "124",
-   "why": "Panel 1: \"ಗುಮ್ಮಟದ ವ್ಯಾಸ 124 ಅಡಿ\"."
+   "why": "Panel 1: \"ಗುಮ್ಮಟದ ವ್ಯಾಸ 124 ಅಡಿ\".",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q8",
@@ -144,7 +151,8 @@
     "ಅಮೇರಿಕ"
    ],
    "ans": "ಜರ್ಮನಿ",
-   "why": "A German missionary who loved Kannada."
+   "why": "A German missionary who loved Kannada.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q9",
@@ -158,7 +166,8 @@
     "ತಮಿಳು ನಿಘಂಟು"
    ],
    "ans": "ಕನ್ನಡ-ಇಂಗ್ಲಿಷ್ ನಿಘಂಟು",
-   "why": "Published in 1894."
+   "why": "Published in 1894.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q10",
@@ -172,7 +181,8 @@
     "700"
    ],
    "ans": "70,000",
-   "why": "About seventy thousand words."
+   "why": "About seventy thousand words.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q11",
@@ -186,7 +196,8 @@
     "ಜಾನ್ ಮಾರ್ಷಲ್"
    ],
    "ans": "ಹೆನ್ರಿ ಇರ್ವಿನ್",
-   "why": "Panel 3 names the British architect Henry Irwin."
+   "why": "Panel 3 names the British architect Henry Irwin.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q12",
@@ -200,7 +211,8 @@
     "ಇರಲಿ"
    ],
    "ans": "ಇದೆ",
-   "why": "Spoken ಐತಿ = written ಇದೆ."
+   "why": "Spoken ಐತಿ = written ಇದೆ.",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q13",
@@ -214,7 +226,8 @@
     "ಗುಡಿ"
    ],
    "ans": "ಗೋಡೆ",
-   "why": "ಗ್ವಾಡಿ = ಗೋಡೆ (wall)."
+   "why": "ಗ್ವಾಡಿ = ಗೋಡೆ (wall).",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q14",
@@ -228,7 +241,8 @@
     "ಮೂಲೆ"
    ],
    "ans": "ಮೇಲೆ",
-   "why": "ಮ್ಯಾಲ = ಮೇಲೆ (above)."
+   "why": "ಮ್ಯಾಲ = ಮೇಲೆ (above).",
+   "src": "tili-kannada"
   },
   {
    "id": "kn-4-q15",
@@ -242,7 +256,9 @@
     "ಅತ್ಯ + ಉತ್ತಮ"
    ],
    "ans": "ಅತಿ + ಉತ್ತಮ",
-   "why": "ಇ + ಉ → ಯು (yan sandhi)."
+   "why": "ಇ + ಉ → ಯು (yan sandhi).",
+   "src": "tili-kannada"
   }
- ]
+ ],
+ "source": "tili-kannada"
 }

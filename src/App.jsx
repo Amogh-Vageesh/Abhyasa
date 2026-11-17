@@ -18,6 +18,7 @@ import { BadgesPage } from './Badges';
 import { levelInfo } from './lib/xp';
 import { subjectOfFactory } from './Study';
 import { ThemePage } from './ThemePage';
+import { getWebBg } from './theme';
 import { GoalsPage, GoalModal } from './Goals';
 import { words } from './theme';
 import { ParentDashboard, ParentSettings, ImportModal, NoteModal } from './Parent';
@@ -179,6 +180,7 @@ export function Main({ me }) {
   const xp = isParent ? null : levelInfo(F);
   return (
     <div className="shell">
+      <div className={`web-bg bgv-${getWebBg()}`} aria-hidden="true" />
       <header className="topnav">
         <div className="topnav-in">
           <button className="topnav-brand" onClick={() => go('home')}><img src="/icon.svg" alt="" width="32" height="32" style={{ borderRadius: 9 }} />Abhyasa</button>

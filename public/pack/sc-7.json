@@ -40,7 +40,8 @@
     "All of these"
    ],
    "ans": "Radiation",
-   "why": "Radiation travels as waves, even through empty space."
+   "why": "Radiation travels as waves, even through empty space.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q2",
@@ -54,7 +55,8 @@
     "Evaporation"
    ],
    "ans": "Conduction",
-   "why": "Particles in solids pass heat to neighbours without moving."
+   "why": "Particles in solids pass heat to neighbours without moving.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q3",
@@ -66,7 +68,8 @@
     "False"
    ],
    "ans": "False",
-   "why": "Wood is a poor conductor (an insulator), which is why cooking spoons often have wooden handles."
+   "why": "Wood is a poor conductor (an insulator), which is why cooking spoons often have wooden handles.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q4",
@@ -80,7 +83,8 @@
     "It doesn't blow by day"
    ],
    "ans": "Sea to land",
-   "why": "Land heats faster; warm air over land rises and cooler sea air moves in."
+   "why": "Land heats faster; warm air over land rises and cooler sea air moves in.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q5",
@@ -88,7 +92,8 @@
    "level": 2,
    "q": "In a pot of water heated from below, hot water rises and cold water sinks. This is called ______.",
    "ans": "convection",
-   "why": "Convection currents carry heat in liquids and gases."
+   "why": "Convection currents carry heat in liquids and gases.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q6",
@@ -102,7 +107,8 @@
     "They conduct heat away"
    ],
    "ans": "They reflect more heat",
-   "why": "Light colours reflect radiant heat; dark colours absorb it."
+   "why": "Light colours reflect radiant heat; dark colours absorb it.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q7",
@@ -116,7 +122,8 @@
     "Iron"
    ],
    "ans": "Air",
-   "why": "Air is a poor conductor; trapped air in woollens and double windows keeps heat in."
+   "why": "Air is a poor conductor; trapped air in woollens and double windows keeps heat in.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q8",
@@ -128,7 +135,8 @@
     "False"
    ],
    "ans": "False",
-   "why": "Heat always flows from hotter to colder."
+   "why": "Heat always flows from hotter to colder.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q9",
@@ -142,7 +150,8 @@
     "Wool absorbs sunlight"
    ],
    "ans": "Wool traps air, a poor conductor",
-   "why": "Trapped air slows the flow of body heat to the surroundings."
+   "why": "Trapped air slows the flow of body heat to the surroundings.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q10",
@@ -150,7 +159,8 @@
    "level": 3,
    "q": "Explain the land breeze that blows at night near the coast.",
    "ans": "At night land cools faster than the sea; air over the warmer sea rises and cooler air from land moves towards the sea.",
-   "why": "Reverse of the sea breeze, driven by convection."
+   "why": "Reverse of the sea breeze, driven by convection.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q11",
@@ -164,7 +174,8 @@
     "Shiny"
    ],
    "ans": "A poor conductor",
-   "why": "It slows heat from outside reaching the ice."
+   "why": "It slows heat from outside reaching the ice.",
+   "src": "starter"
   },
   {
    "id": "sc-7-q12",
@@ -172,7 +183,9 @@
    "level": 3,
    "q": "Why are ventilators placed near the ceiling of a room?",
    "ans": "Warm air is lighter and rises; ventilators near the ceiling let warm air escape while cooler fresh air enters from below.",
-   "why": "Convection in air."
+   "why": "Convection in air.",
+   "src": "starter"
   }
- ]
+ ],
+ "source": "starter"
 }

@@ -7,7 +7,7 @@ import { Card, Modal, PageHead } from './components';
 import { Icon, Tile } from './icons';
 import { storage, isNative, db } from './firebase';
 import { doc, getDoc, setDoc, deleteDoc, Bytes } from 'firebase/firestore';
-import { deleteItem, saveItem } from './lib/data';
+import { deleteItem, saveItem, loadPackIndex, setBookHidden } from './lib/data';
 import { SUBJECTS } from './lib/syllabus';
 
 // ===================== offline PDF store =====================
@@ -348,18 +348,68 @@ export function ManageEbooks({ F, me, onBack }) {
                 <div key={b.id} role="button" className="lrow" onClick={() => isParent ? setEdit(b) : setOpen({ ...b, fid: F.family.id })}>
                   <Tile icon={b.type === 'pdf' ? 'file' : 'book'} tone={b.type === 'pdf' ? 'red' : 'blue'} />
                   <div className="lt"><b>{b.title}{b.part ? ` · ${b.part}` : ''}</b><small>{b.type === 'pdf' ? (b.fileId || b.storagePath ? `PDF · works offline${b.fileName ? ' · ' + b.fileName : ''}` : 'PDF link') : 'Online e-book'}</small></div>
-                  {isParent ? <button className="small" onClick={(x) => { x.stopPropagation(); setOpen({ ...b, fid: F.family.id }); }}>Open</button> : <Icon name="chevR" className="chev" />}
+                  {isParent ? <div className="row" style={{ gap: 6 }}>
+                    <button className="small" onClick={(x) => { x.stopPropagation(); setOpen({ ...b, fid: F.family.id }); }}>Open</button>
+                    <button className="small icon-only danger-ghost" aria-label={`Delete ${b.title}`} title="Delete book" onClick={(x) => { x.stopPropagation(); removeEbook(F, b); }}><Icon name="trash" size={16} /></button>
+                  </div> : <Icon name="chevR" className="chev" />}
                 </div>
               ))}
             </div>
           </div>
         );
       })}
+      {isParent && <StudyMaterial F={F} />}
       {!isParent && !F.ebooks.length && <div className="card muted small-text">No books yet. Ask Appa/Amma to import your textbooks from their login.</div>}
       {edit && <EbookModal F={F} me={me} ebook={edit} onClose={() => setEdit(null)} />}
       {open && createPortal(open.type === 'pdf'
         ? <PdfScreen ebook={open} onClose={() => setOpen(null)} />
         : <LinkScreen ebook={open} onClose={() => setOpen(null)} />, document.body)}
+    </div>
+  );
+}
+
+async function removeEbook(F, e) {
+  if (!confirm(`Delete “${e.title}${e.part ? ' · ' + e.part : ''}”?\n\nThe PDF is removed from the app and from every device. Study material and question banks are separate — manage them under “Study material” below.`)) return false;
+  if (e.storagePath) await deleteObject(sref(storage, e.storagePath)).catch(() => {});
+  await deleteChunks(F.family.id, e).catch(() => {});
+  await removePdfOffline(e).catch(() => {});
+  await deleteItem(F.family.id, 'ebooks', e.id);
+  return true;
+}
+
+// Study material (explainers + question bank) is built from source books. Each book's material can be
+// removed (hidden for this family) or restored — removing one book keeps other books for the same chapter.
+function StudyMaterial({ F }) {
+  const [books, setBooks] = useState(null);
+  const [busy, setBusy] = useState('');
+  useEffect(() => { loadPackIndex().then((i) => setBooks(i.books || [])); }, []);
+  const hidden = F.settings.hiddenBooks || [];
+  const toggle = async (b, hide) => {
+    if (hide && !confirm(`Remove the study material made from “${b.title}”?\n\n${b.questions} questions and the explainers from this book will no longer appear in Learn, Practice or tests. Past scores stay. You can restore it any time.`)) return;
+    setBusy(b.id);
+    try { await setBookHidden(F.family.id, F.settings, b.id, hide); } finally { setBusy(''); }
+  };
+  if (!books) return null;
+  const subj = (id) => SUBJECTS.find((s) => s.id === id)?.name || 'Mixed';
+  return (
+    <div>
+      <div className="sec-h"><h2>Study material</h2></div>
+      <p className="muted small-text">Explainers and questions in the app come from these source books (prepared from PDFs shared with Claude in chat — not from the books imported above). Remove any you don’t want him to use.</p>
+      <div className="card list">
+        {!books.length && <div className="muted small-text" style={{ padding: '12px 0' }}>No study material yet.</div>}
+        {books.map((b) => {
+          const off = hidden.includes(b.id);
+          return (
+            <div key={b.id} className={`lrow ${off ? 'is-off' : ''}`}>
+              <Tile icon="book" tone={off ? 'gray' : 'green'} />
+              <div className="lt"><b>{b.title}</b><small>{subj(b.subject)} · {b.chapters.length} chapter{b.chapters.length > 1 ? 's' : ''} · {b.questions} questions{off ? ' · removed' : ''}</small></div>
+              {off
+                ? <button className="small" disabled={busy === b.id} onClick={() => toggle(b, false)}>Restore</button>
+                : <button className="small danger-ghost" disabled={busy === b.id} onClick={() => toggle(b, true)}><Icon name="trash" size={15} /> Remove</button>}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -398,13 +448,7 @@ function EbookModal({ F, me, ebook, onClose }) {
         : /unauthorized|permission/i.test(m) ? 'Upload not allowed — check you are signed in as a parent.' : m);
     }
   };
-  const remove = async () => {
-    if (!confirm('Remove this e-book?')) return;
-    if (e.storagePath) await deleteObject(sref(storage, e.storagePath)).catch(() => {});
-    await deleteChunks(F.family.id, e);
-    await deleteItem(F.family.id, 'ebooks', ebook.id);
-    onClose();
-  };
+  const remove = async () => { if (await removeEbook(F, ebook)) onClose(); };
   return (
     <Modal title={ebook.id ? 'Edit book' : 'Import book'} onClose={onClose}>
       <div className="stack">
@@ -426,7 +470,7 @@ function EbookModal({ F, me, ebook, onClose }) {
         {progress !== null && <div className="progress"><div style={{ width: `${progress}%`, background: 'var(--accent-b)' }} /></div>}
         {err && <div className="feedback bad small-text">{err}</div>}
         <button className="primary" disabled={!valid || progress !== null} onClick={save}>{progress !== null ? `Importing ${progress}%` : 'Save'}</button>
-        {ebook.id && <button className="danger" onClick={remove}>Remove e-book</button>}
+        {ebook.id && <button className="danger" onClick={remove}>Delete book</button>}
       </div>
     </Modal>
   );
