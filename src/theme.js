@@ -23,7 +23,7 @@ export const levelNames = () => currentTheme().levels;
 
 // Web (desktop) page backgrounds — illustrations are inline SVG/CSS, so they work offline
 export const WEB_BGS = {
-  plain: { name: 'Kosha cream', tag: 'Same as Kosha (default)' },
+  plain: { name: 'White', tag: 'Clean white (default)' },
   sunrise: { name: 'Sunrise hills', tag: 'Warm sky & sun' },
   lavender: { name: 'Lavender peaks', tag: 'Soft mountains' },
   ocean: { name: 'Calm sea', tag: 'Sky blue waves' },
@@ -50,7 +50,7 @@ export function applyTheme() {
   // window / status bar colour follows the page background, not the accent
   let m = document.querySelector('meta[name="theme-color"]');
   if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); }
-  m.content = dark ? '#17140f' : '#f4efe4'; // same as Kosha's status bar
+  m.content = dark ? '#17140f' : '#ffffff';
 }
 applyTheme();
 window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener?.('change', applyTheme);

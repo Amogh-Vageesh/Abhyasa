@@ -1266,3 +1266,31 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
   .w-dot { border-color: #e3d8c8; }
 }
 @media (min-width: 960px) { :root[data-theme="dark"] .topnav-links button.on { background: var(--raise) !important; color: #f2b45a !important; } }
+
+/* =====================================================================
+   v29: white page everywhere (phone + web), neutral greys instead of
+   Kosha's warm cream tints; Kosha font, cards, corners and orange stay.
+   ===================================================================== */
+:root:not([data-theme="dark"]) {
+  --bg: #ffffff; --raise: #f4f4f5; --rule: #e7e7ea; --rule2: #eeeef0;
+  --w-page: #ffffff; --w-line: #ebebee; --w-line2: #f1f1f3;
+}
+:root:not([data-theme="dark"]) body, :root:not([data-theme="dark"]) .app { background: #ffffff !important; }
+:root:not([data-theme="dark"]) .bgv-plain { background: #ffffff !important; }
+@media (max-width: 959px) {
+  :root:not([data-theme="dark"]) .card, :root:not([data-theme="dark"]) .stat, :root:not([data-theme="dark"]) .subj,
+  :root:not([data-theme="dark"]) .hub-tile, :root:not([data-theme="dark"]) .pc-card, :root:not([data-theme="dark"]) .kpis > div,
+  :root:not([data-theme="dark"]) .quick button, :root:not([data-theme="dark"]) .classes button { border-color: #ebebee !important; box-shadow: 0 4px 14px rgba(20,20,40,.045) !important; }
+  :root:not([data-theme="dark"]) .appbar .icon-btn { border-color: #e7e7ea; }
+  :root:not([data-theme="dark"]) .nav { border-top-color: #ebebee !important; }
+}
+:root:not([data-theme="dark"]) .seg { background: #f1f1f3 !important; }
+:root:not([data-theme="dark"]) .xp-chip { background: #fff4e3 !important; border-color: #f6dcb4 !important; }
+@media (min-width: 960px) {
+  :root:not([data-theme="dark"]) .card, :root:not([data-theme="dark"]) .stat, :root:not([data-theme="dark"]) .w-card,
+  :root:not([data-theme="dark"]) .kpis > div, :root:not([data-theme="dark"]) .w-stats, :root:not([data-theme="dark"]) .hub-tile,
+  :root:not([data-theme="dark"]) .pc-card, :root:not([data-theme="dark"]) .subj { border-color: #ebebee !important; box-shadow: 0 4px 14px rgba(20,20,40,.04) !important; }
+  :root:not([data-theme="dark"]) .topnav { border-bottom-color: #ebebee !important; }
+  :root:not([data-theme="dark"]) .topnav-icon, :root:not([data-theme="dark"]) .topnav-add { border-color: #e7e7ea !important; }
+  :root:not([data-theme="dark"]) .card .kpis > div, :root:not([data-theme="dark"]) .card .stat { background: #f7f7f8 !important; }
+}
