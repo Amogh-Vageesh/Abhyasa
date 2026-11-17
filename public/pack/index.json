@@ -20,7 +20,21 @@
   "kn-14",
   "kn-15",
   "kn-16",
-  "kn-17"
+  "kn-17",
+  "eb-1",
+  "eb-2",
+  "eb-3",
+  "eb-4",
+  "eb-5",
+  "eb-6",
+  "eb-7",
+  "eb-8",
+  "eb-9",
+  "eb-10",
+  "eb-11",
+  "eb-12",
+  "eb-13",
+  "eb-14"
  ],
  "books": [
   {
@@ -59,6 +73,29 @@
    ],
    "questions": 293,
    "written": 51
+  },
+  {
+   "id": "21st-english",
+   "title": "21st Century English Grade 7 (Burlington)",
+   "subject": "english",
+   "chapters": [
+    "eb-1",
+    "eb-2",
+    "eb-3",
+    "eb-4",
+    "eb-5",
+    "eb-6",
+    "eb-7",
+    "eb-8",
+    "eb-9",
+    "eb-10",
+    "eb-11",
+    "eb-12",
+    "eb-13",
+    "eb-14"
+   ],
+   "questions": 180,
+   "written": 38
   }
  ]
 }

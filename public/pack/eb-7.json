@@ -1,0 +1,200 @@
+{
+ "id": "eb-7",
+ "title": "The Brook (poem)",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "What the poem says",
+   "body": "In this excerpt, a brook (small stream) speaks. It chatters as it flows to join a brimming river. It winds in and out past blossoms, trout and grayling; steals by lawns and hazel covers; slips, slides, glooms and glances; murmurs under moon and stars; lingers and loiters — and goes on forever.",
+   "example": "Refrain: “For men may come and men may go, / But I go on forever.”",
+   "hook": "Man is mortal; nature is eternal."
+  },
+  {
+   "heading": "Personification & imagery",
+   "body": "The brook is given human actions: it chatters, steals, slides, murmurs, lingers and loiters. Images: blossoms sailing on it, trout and grayling (fish), forget-me-nots, swallows skimming the water, “netted sunbeams” dancing on sandy shallows.",
+   "example": "trout, grayling = fish; cresses = water plants; shingly bars = pebbly banks.",
+   "hook": ""
+  },
+  {
+   "heading": "Sound words",
+   "body": "Chatter, murmur — the brook’s sounds. Alliteration: “slip, I slide”, “gloom, I glance”, “sandy shallows”.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Refrain",
+   "body": "A refrain is a line repeated within a poem. It adds a musical, lyrical quality and highlights the theme. Here it stresses the immortality of nature against the mortality of human beings. A refrain can have small changes and can be used like a chant.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The poet",
+   "body": "Alfred Lord Tennyson was a leading poet of the Victorian Age (19th century) in England and Poet Laureate during Queen Victoria’s reign. Famous poems: “Break, Break, Break”, “The Charge of the Light Brigade”, “Crossing the Bar”.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-7-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Who is the speaker in the poem?",
+   "options": [
+    "The poet",
+    "The brook",
+    "A fisherman",
+    "A river"
+   ],
+   "ans": "The brook",
+   "why": "The brook speaks in the first person.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Where is the brook going?",
+   "options": [
+    "To the sea directly",
+    "To join the brimming river",
+    "Underground",
+    "To a lake"
+   ],
+   "ans": "To join the brimming river",
+   "why": "“To join the brimming river”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-q3",
+   "type": "mcq",
+   "level": 2,
+   "q": "Which line is the refrain?",
+   "options": [
+    "I chatter, chatter, as I flow",
+    "For men may come and men may go, / But I go on forever",
+    "I slip, I slide, I gloom, I glance",
+    "I murmur under moon and stars"
+   ],
+   "ans": "For men may come and men may go, / But I go on forever",
+   "why": "Repeated at the start and end.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What does the refrain show?",
+   "options": [
+    "The brook is tired",
+    "Nature is eternal while human life is short",
+    "Men are stronger than nature",
+    "The brook will dry up"
+   ],
+   "ans": "Nature is eternal while human life is short",
+   "why": "Theme of immortality of nature.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "Trout and grayling are…",
+   "options": [
+    "flowers",
+    "fish",
+    "birds",
+    "stones"
+   ],
+   "ans": "fish",
+   "why": "Fish in the brook.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "“I chatter, chatter” is an example of…",
+   "options": [
+    "simile",
+    "personification",
+    "metaphor only",
+    "rhetorical question"
+   ],
+   "ans": "personification",
+   "why": "A human action given to the brook.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "Which birds skim over the brook?",
+   "options": [
+    "Sparrows",
+    "Swallows",
+    "Crows",
+    "Peacocks"
+   ],
+   "ans": "Swallows",
+   "why": "“Among my skimming swallows”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-q8",
+   "type": "mcq",
+   "level": 3,
+   "q": "What are the “netted sunbeams”?",
+   "options": [
+    "Sunlight caught in fishing nets",
+    "Patterns of sunlight dancing on the shallow water",
+    "Clouds",
+    "Spider webs"
+   ],
+   "ans": "Patterns of sunlight dancing on the shallow water",
+   "why": "Light shimmering on sandy shallows.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-q9",
+   "type": "mcq",
+   "level": 2,
+   "q": "Who wrote “The Brook”?",
+   "options": [
+    "W. H. Davies",
+    "Alfred Lord Tennyson",
+    "Sarojini Naidu",
+    "Langston Hughes"
+   ],
+   "ans": "Alfred Lord Tennyson",
+   "why": "Victorian Poet Laureate.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "What is a refrain? Quote the refrain from “The Brook”.",
+   "model": "A refrain is a line or phrase repeated in a poem. In “The Brook” it is: “For men may come and men may go, / But I go on forever.”",
+   "points": [
+    "Correct definition of refrain",
+    "Correct refrain quoted"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-7-w2",
+   "type": "written",
+   "marks": 4,
+   "q": "How does the poet convey the sense of immortality of the brook? Give examples.",
+   "model": "The brook speaks of its endless journey to join the river. It describes flowing past blossoms, fish, lawns and hazel covers, moving day and night “under moon and stars”, lingering and loitering. The refrain “For men may come and men may go, / But I go on forever” contrasts short human lives with the brook’s endless flow. Repetition and personification make it seem alive and eternal.",
+   "points": [
+    "Endless journey to the river",
+    "Flows past many places, day and night",
+    "Refrain contrasts mortal men with eternal brook",
+    "Use of personification / repetition explained"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

@@ -1,0 +1,329 @@
+{
+ "id": "eb-1",
+ "title": "The Lottery Ticket",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "The story in brief",
+   "body": "Ivan and Masha Dmitritch live contentedly in a small city house. After supper Masha asks Ivan to check the lottery results. The series number of her ticket, 9,499, is in the list. Before checking the ticket number, they start dreaming about the 75,000-rouble prize — and the dreams slowly turn into selfish, angry thoughts. Finally Ivan reads the number: it is 46, not their 26. They have not won, and they are relieved.",
+   "example": "Theme: money can destroy love instead of helping it.",
+   "hook": "Series matched, number did not — 9,499 / 26 vs 46."
+  },
+  {
+   "heading": "Ivan’s daydreams",
+   "body": "Ivan imagines a house in the country (20,000 roubles), furniture, travel, paying debts and investing. He pictures summer by the river with grandchildren, then cold wet winters — so he decides he will go abroad to France, Italy, India.",
+   "example": "Masha wants a house in Tula or Oryol and to rent it out in winter.",
+   "hook": ""
+  },
+  {
+   "heading": "How the dream turns sour",
+   "body": "Ivan thinks Masha would spoil a trip abroad: heavy bags, worrying about home, refusing to spend. He remembers the ticket is hers and fears she will keep the money. He pictures her relatives asking for money, and for the first time looks at her with anger. Masha reads his thoughts and looks back with hatred: “It’s my lottery ticket!”",
+   "example": "Ivan: “We haven’t got the money yet, but it’s already ripping us apart.”",
+   "hook": "Hopeful → suspicious → angry → sad → relieved."
+  },
+  {
+   "heading": "The ending",
+   "body": "Masha feels sorry for him and says the money would destroy them; their life is perfect as it is. Then Ivan reads the number — 46. They sit silently, Ivan kisses her hand, praises her dinner and offers to make tea.",
+   "example": "Irony: they were happy before and after — only the “prize” made them unhappy.",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary to know",
+   "body": "likelihood (chance), implications (possible effects), scheme (official plan), debts (money owed), supper (evening meal). Suffixes -ful / -less: useful–useless, careful–careless, harmful–harmless. Binomials joined by “and”: day and night, up and down, here and there, give and take, now and then, peace and quiet, pick and choose. Phrasal verbs with “off”: call off (cancel), put off (postpone), set off (start a journey), show off.",
+   "example": "“Gifts come in all shapes and sizes.”",
+   "hook": "-less = without; -ful = full of."
+  },
+  {
+   "heading": "Grammar: connecting words",
+   "body": "Contrast: although / even though + clause; despite / in spite of + noun or -ing; however (new sentence). Reason: because / since / as + clause; because of / due to / owing to + noun. Result: as a result, so. Purpose: in order to + verb; so that + can/would. Addition: besides, moreover, furthermore, in addition. Exception: apart from, except (for). Alternative: instead of + noun/-ing.",
+   "example": "Despite feeling tired, Ivan read the newspaper. / She worked overtime in order to pay the fees.",
+   "hook": "“Despite” never takes “of”."
+  },
+  {
+   "heading": "Writing: a diary entry & author",
+   "body": "A diary entry has the date (and day/time), an informal personal tone, first person, past tense for events and feelings at the end. Anton Chekhov was a 19th-century Russian dramatist and short-story writer; he started writing at 16 to support his family. Famous plays: The Three Sisters, The Cherry Orchard.",
+   "example": "Dear Diary, Today something unbelievable happened…",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-1-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Where did Ivan and Masha live?",
+   "options": [
+    "In a big house in the country",
+    "In a small house in the city",
+    "In a hotel in Italy",
+    "In a flat in Tula"
+   ],
+   "ans": "In a small house in the city",
+   "why": "They “lived contentedly with their family in a small house in the city”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Whose lottery ticket was it?",
+   "options": [
+    "Ivan’s",
+    "Masha’s",
+    "Their son’s",
+    "A neighbour’s"
+   ],
+   "ans": "Masha’s",
+   "why": "Masha bought it on Thursday; Ivan never bought tickets.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q3",
+   "type": "mcq",
+   "level": 1,
+   "q": "Why did Ivan never buy lottery tickets?",
+   "options": [
+    "He had no money",
+    "He thought his chances of winning were very low",
+    "Masha did not allow it",
+    "He had won before"
+   ],
+   "ans": "He thought his chances of winning were very low",
+   "why": "The likelihood of winning was “very slim”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q4",
+   "type": "mcq",
+   "level": 1,
+   "q": "What was the prize money Ivan expected?",
+   "options": [
+    "7,500 roubles",
+    "25,000 roubles",
+    "75,000 roubles",
+    "1 million roubles"
+   ],
+   "ans": "75,000 roubles",
+   "why": "The series was on the second line, so the prize was 75,000 roubles.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why didn’t Ivan check the ticket number straight away?",
+   "options": [
+    "He had lost his glasses",
+    "He wanted to enjoy the moment of hope",
+    "Masha told him not to",
+    "The newspaper was torn"
+   ],
+   "ans": "He wanted to enjoy the moment of hope",
+   "why": "“There’s plenty of time to be disappointed.”",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "How much did Ivan plan to spend on a house in the country?",
+   "options": [
+    "10,000",
+    "20,000",
+    "40,000",
+    "75,000"
+   ],
+   "ans": "20,000",
+   "why": "20,000 on a house, 10,000 on furniture…",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why did Ivan decide he would go abroad in winter?",
+   "options": [
+    "To visit relatives",
+    "Winters in the country would be cold, wet and boring",
+    "For a job",
+    "To buy furniture"
+   ],
+   "ans": "Winters in the country would be cold, wet and boring",
+   "why": "He imagined everyone wet, bored and unhappy indoors.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "What made Ivan angry with Masha for the first time?",
+   "options": [
+    "She burnt the dinner",
+    "He thought she would keep all the money and spoil his fun",
+    "She lost the ticket",
+    "She laughed at him"
+   ],
+   "ans": "He thought she would keep all the money and spoil his fun",
+   "why": "He remembered the ticket was hers and thought of her greedy relatives.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q9",
+   "type": "mcq",
+   "level": 2,
+   "q": "“We haven’t got the money yet, but it’s already ripping us apart.” Who said this?",
+   "options": [
+    "Masha",
+    "Ivan",
+    "The narrator",
+    "Masha’s brother"
+   ],
+   "ans": "Ivan",
+   "why": "Ivan says it aloud after seeing Masha’s angry look.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q10",
+   "type": "mcq",
+   "level": 2,
+   "q": "What was the winning ticket number?",
+   "options": [
+    "26",
+    "46",
+    "64",
+    "9,499"
+   ],
+   "ans": "46",
+   "why": "Series 9,499, number 46 — not their 26.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q11",
+   "type": "mcq",
+   "level": 3,
+   "q": "What is the main theme of the story?",
+   "options": [
+    "Hard work brings success",
+    "Money can destroy love and peace",
+    "Travel broadens the mind",
+    "Always check newspapers"
+   ],
+   "ans": "Money can destroy love and peace",
+   "why": "Chekhov shows money’s power to destroy love.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q12",
+   "type": "mcq",
+   "level": 3,
+   "q": "Choose the correct connector: ____ feeling tired, Ivan kept reading.",
+   "options": [
+    "Although",
+    "Despite",
+    "Because",
+    "So that"
+   ],
+   "ans": "Despite",
+   "why": "Despite + -ing form; “although” needs a full clause.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q13",
+   "type": "mcq",
+   "level": 3,
+   "q": "Choose the correct word: Junk food is ____ to your health.",
+   "options": [
+    "harmless",
+    "harmful",
+    "careless",
+    "hopeless"
+   ],
+   "ans": "harmful",
+   "why": "-ful = full of harm.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q14",
+   "type": "mcq",
+   "level": 2,
+   "q": "Complete the binomial: I was ready for some peace and ____.",
+   "options": [
+    "noise",
+    "quiet",
+    "quick",
+    "now"
+   ],
+   "ans": "quiet",
+   "why": "“Peace and quiet” = a restful time.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q15",
+   "type": "mcq",
+   "level": 2,
+   "q": "“The match was called off.” Called off means:",
+   "options": [
+    "started",
+    "cancelled",
+    "shouted",
+    "postponed to a new date"
+   ],
+   "ans": "cancelled",
+   "why": "Call off = cancel.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-q16",
+   "type": "mcq",
+   "level": 3,
+   "q": "She worked overtime ____ pay the college fees.",
+   "options": [
+    "so that",
+    "in order to",
+    "because of",
+    "despite"
+   ],
+   "ans": "in order to",
+   "why": "In order to + base verb shows purpose.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "Why didn’t Ivan look at the ticket number straight away?",
+   "model": "Ivan wanted to enjoy the moment of hope and imagine what winning would mean. He said there was plenty of time to be disappointed.",
+   "points": [
+    "He wanted to enjoy the moment / imagine winning",
+    "“Plenty of time to be disappointed” (he expected to lose)"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "How did Ivan and Masha react after checking the final two digits?",
+   "model": "The number was 46, not 26, so they had not won. They sat in silence; then Ivan kissed Masha’s hand, praised her dinner and offered to make tea — they were calm and loving again.",
+   "points": [
+    "Realised they had not won (46 not 26)",
+    "Became loving and calm again (kissed hand / tea)"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-1-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "How did the lottery ticket change Ivan and Masha’s feelings towards each other? What is the message of the story?",
+   "model": "At first they were contented and happy. When the series number matched, they dreamt happily about a country house and travel. Soon Ivan thought Masha would spoil his trips, keep the money and that her relatives would come asking for money; he looked at her with anger. Masha read his thoughts and looked at him with hatred. Ivan realised the money was “ripping them apart”, and Masha agreed it would destroy them. When the ticket lost, they were happy again. Message: greed for money can destroy love; contentment is more valuable.",
+   "points": [
+    "Happy and contented at the start; joyful dreams",
+    "Selfish thoughts → anger and hatred (Ivan’s fears, Masha’s look)",
+    "Realisation that money was ripping them apart; peace after losing",
+    "Message: money/greed can destroy love; value contentment"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

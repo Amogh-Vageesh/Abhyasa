@@ -1,0 +1,299 @@
+{
+ "id": "eb-13",
+ "title": "A Midsummer Night's Dream",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "Background",
+   "body": "An adapted excerpt from Shakespeare’s comedy, set in a fairyland in Athens. Oberon, the Fairy King, wants Titania’s boy attendant for his chores, but Titania refuses, so he puts her under a spell: on waking she becomes fond of the first face she sees. She falls for Bottom, an Athenian peasant who has been given the head of an ass (donkey).",
+   "example": "Theme: dreams, magic and fantasy — comedy.",
+   "hook": ""
+  },
+  {
+   "heading": "Titania and Bottom",
+   "body": "Titania sits Bottom on a flower-strewn bed, strokes his cheeks, puts musk roses in his hair and pets his big ears. Bottom orders the fairies around: Peaseblossom must scratch his head; Cobweb must kill a red-hipped bumblebee and bring its honey without breaking the honey sac; Mustardseed must help scratch, because his face feels hairy and he is “a very sensitive ass”.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Funny requests",
+   "body": "Asked about music, Bottom wants percussion. For food he wants good dry oats and a bundle of sweet hay; when offered squirrel’s nuts, he prefers dried peas. He wants to sleep, so Titania sends the fairies away and wraps him in her arms like ivy around an elm.",
+   "example": "Comedy: a queen treating a donkey-headed peasant like a prince.",
+   "hook": ""
+  },
+  {
+   "heading": "The spell is broken",
+   "body": "Oberon tells Robin (Puck) that he mocked Titania and agreed to stop only if she gave him her attendant — she did at once, so the boy is now his. He drops a flower’s nectar on her eyelid: “Diana’s flower has more power than Cupid’s.” Titania wakes and says she dreamt she loved an ass. Oberon winks at Robin: “was it really a dream?” Puck will remove the ass’s head so Bottom can return to Athens.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Titania’s song",
+   "body": "In a lyrical rhyming verse, Titania describes the “dream”: a man with an ass’s head; she got to know him, he told funny stories and made her happy — but wasn’t she a little mad? She is glad it was just a dream. Tone: light-hearted, amused, relieved.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary & grammar",
+   "body": "Adjective suffixes -y / -ly: hair → hairy, friend → friendly, love → lovely, sleep → sleepy. Expressions with “out of”: out of the blue, out of control, out of breath, out of date. Kinds of sentences (2): imperative (command/request: “Scratch my head.”) and exclamatory (strong feeling, ends with !: “What a dream!”).",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Writing & author",
+   "body": "A descriptive essay uses the five senses, vivid adjectives, similes and a clear order (place/time/feeling). William Shakespeare, the “Bard of Avon”, born 1564 in Stratford-upon-Avon, playwright, poet and actor. Famous works: Hamlet, The Tempest, Macbeth, King Lear.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-13-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Who is Titania?",
+   "options": [
+    "A fairy attendant",
+    "The Queen of Fairies",
+    "A peasant girl",
+    "Oberon’s servant"
+   ],
+   "ans": "The Queen of Fairies",
+   "why": "The Fairy Queen.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Who is Bottom?",
+   "options": [
+    "The Fairy King",
+    "An Athenian peasant with an ass’s head",
+    "A fairy",
+    "Robin’s brother"
+   ],
+   "ans": "An Athenian peasant with an ass’s head",
+   "why": "Under Oberon’s spell.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q3",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why did Oberon put a spell on Titania?",
+   "options": [
+    "She insulted him",
+    "He wanted her boy attendant for his chores",
+    "She stole his crown",
+    "For fun only"
+   ],
+   "ans": "He wanted her boy attendant for his chores",
+   "why": "She was unwilling to give the boy.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What does the spell make Titania do?",
+   "options": [
+    "Sleep forever",
+    "Become fond of the first face she sees on waking",
+    "Turn into an ass",
+    "Forget Oberon"
+   ],
+   "ans": "Become fond of the first face she sees on waking",
+   "why": "She falls for Bottom.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "What does Bottom ask Peaseblossom to do?",
+   "options": [
+    "Bring honey",
+    "Scratch his head",
+    "Play music",
+    "Fetch nuts"
+   ],
+   "ans": "Scratch his head",
+   "why": "His head itches.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "What task does Bottom give Cobweb?",
+   "options": [
+    "Scratch him",
+    "Kill a bumblebee and bring its honey",
+    "Sing a lullaby",
+    "Fetch oats"
+   ],
+   "ans": "Kill a bumblebee and bring its honey",
+   "why": "Without breaking the honey sac.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "What kind of music does Bottom want?",
+   "options": [
+    "Flute",
+    "Percussion",
+    "Violin",
+    "Singing"
+   ],
+   "ans": "Percussion",
+   "why": "“Let’s hear some percussion.”",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "What food does Bottom crave?",
+   "options": [
+    "Cakes",
+    "Dry oats and hay",
+    "Fruits",
+    "Bread and butter"
+   ],
+   "ans": "Dry oats and hay",
+   "why": "He has a donkey’s head!",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q9",
+   "type": "mcq",
+   "level": 3,
+   "q": "How does Oberon break the spell?",
+   "options": [
+    "He says a prayer",
+    "He drops a flower’s nectar on Titania’s eyelid",
+    "He wakes her with music",
+    "Robin hits her"
+   ],
+   "ans": "He drops a flower’s nectar on Titania’s eyelid",
+   "why": "“Diana’s flower has more power than Cupid’s.”",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q10",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did Titania think had happened?",
+   "options": [
+    "She had been ill",
+    "It was all a dream",
+    "Oberon had been kind",
+    "Bottom was a king"
+   ],
+   "ans": "It was all a dream",
+   "why": "Oberon winks: was it really a dream?",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q11",
+   "type": "mcq",
+   "level": 3,
+   "q": "What is the tone of Titania’s lyrical reflection?",
+   "options": [
+    "Angry and bitter",
+    "Light-hearted, amused and relieved",
+    "Sad and mournful",
+    "Frightened"
+   ],
+   "ans": "Light-hearted, amused and relieved",
+   "why": "She is glad it was just a dream.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q12",
+   "type": "mcq",
+   "level": 2,
+   "q": "Identify: “Scratch my head, Peaseblossom.”",
+   "options": [
+    "Declarative",
+    "Interrogative",
+    "Imperative",
+    "Exclamatory"
+   ],
+   "ans": "Imperative",
+   "why": "A request/command.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q13",
+   "type": "mcq",
+   "level": 2,
+   "q": "Identify: “What a dream!”",
+   "options": [
+    "Imperative",
+    "Exclamatory",
+    "Interrogative",
+    "Declarative"
+   ],
+   "ans": "Exclamatory",
+   "why": "Strong feeling with !",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-q14",
+   "type": "mcq",
+   "level": 2,
+   "q": "Add -y: hair →",
+   "options": [
+    "hairly",
+    "hairy",
+    "hairful",
+    "hairous"
+   ],
+   "ans": "hairy",
+   "why": "Bottom’s face felt hairy.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "What tasks did Bottom assign to Peaseblossom, Cobweb and Mustardseed?",
+   "model": "Peaseblossom had to scratch his head; Cobweb had to kill a red-hipped bumblebee and bring him its honey; Mustardseed had to help Peaseblossom scratch him.",
+   "points": [
+    "Peaseblossom — scratch head",
+    "Cobweb — bee/honey; Mustardseed — help scratch"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "Why did Oberon decide to break the spell?",
+   "model": "Titania had given him her boy attendant, which was what he wanted. The spell was only to divert her attention, so once he had the boy, he released her.",
+   "points": [
+    "He got the boy attendant",
+    "Spell only to divert her; no longer needed"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-13-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "How does the excerpt create comedy through magic and Bottom’s behaviour?",
+   "model": "The comedy comes from the spell: the proud Fairy Queen falls in love with Bottom, a peasant with an ass’s head. She treats him like a prince — flowers, roses in his hair, petting his ears. Bottom behaves like a donkey but orders fairies like a lord: scratch my head, bring honey, he wants percussion, oats, hay and dried peas. Oberon laughs at Titania, and when she wakes she thinks it was only a dream, while he winks at Robin. Her lyrical song about loving an ass adds to the fun.",
+   "points": [
+    "Spell makes Queen love a donkey-headed peasant",
+    "Titania’s fussing over Bottom",
+    "Bottom’s donkey-like wants but lordly orders",
+    "Oberon’s laughter / “was it really a dream?” / Titania’s song"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

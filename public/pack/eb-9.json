@@ -1,0 +1,299 @@
+{
+ "id": "eb-9",
+ "title": "An Uncomfortable Bed",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "The story in brief",
+   "body": "The narrator spends the autumn hunting season with friends at a chateau. His friends love practical jokes, so when they give him a princely reception and laugh too much at dinner, he is sure a joke is planned against him. He spends the night guarding against it — and his own precautions cause the “joke” the next morning.",
+   "example": "Theme: irony — trying too hard to avoid something brings it about.",
+   "hook": "He made his own uncomfortable bed!"
+  },
+  {
+   "heading": "Suspicion",
+   "body": "They fire rifles, embrace him and make much of him. He tells himself, “Look out, old ferret!” (meaning himself). All evening he watches every word and gesture, even suspecting the helpers. The whole household escorts him to his room and calls a chorus of “Good night”; he hears laughter and whispers in the corridor.",
+   "example": "“I scented a practical joke in the air, just as a dog scents game.”",
+   "hook": ""
+  },
+  {
+   "heading": "The night of precautions",
+   "body": "He lights all the candles on the mantelpiece, inspects every article, shuts the large wooden shutters, draws the velvet curtains and puts a chair in front. He fears a cold shower from above or the bed collapsing, so he drags the mattress and bedclothes into the middle of the room facing the door, puts out the candles and finally falls asleep.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The morning",
+   "body": "He wakes with a heavy body falling on him and a burning liquid on his face, with a crash like a sideboard of dishes falling. He hits the face he feels, gets blows in return and runs into the corridor — it is broad daylight. The valet, bringing his morning tea, had tripped over the bed in the middle of the floor and spilt the breakfast on him. Everyone laughed that day.",
+   "example": "The valet also got the surprise of his life.",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary",
+   "body": "Adjectives of personality: suspicious, cautious, watchful, restless, mischievous. Suffixes -ation / -ion / -th: suspect → suspicion, prepare → preparation, strong → strength, warm → warmth. Collocations (adjective + noun): practical joke, broad daylight, princely reception. Idioms with senses: smell a rat (suspect something), see eye to eye, keep an eye on.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Grammar: reported speech",
+   "body": "In reported speech the tense usually moves one step back and pronouns/time words change: am → was, will → would, can → could, today → that day, tomorrow → the next day, here → there.",
+   "example": "Direct: He said, “I am on my guard.” → Reported: He said that he was on his guard.",
+   "hook": "Tense back, pronoun shift, time words change."
+  },
+  {
+   "heading": "Writing & author",
+   "body": "A notice: name of institution, the word NOTICE, date, heading, short body (what, when, where, who to contact), name and designation of the writer, often boxed. Guy de Maupassant was a French writer, one of the greatest short-story writers; works include “Boule de Suif”, “The Necklace”, “The Horla” and “Bel-Ami”.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-9-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Where did the narrator spend the hunting season?",
+   "options": [
+    "At a hotel",
+    "In a chateau with friends",
+    "In a forest tent",
+    "At his own home"
+   ],
+   "ans": "In a chateau with friends",
+   "why": "A chateau with friends who loved practical jokes.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "What made the narrator suspicious on arrival?",
+   "options": [
+    "A cold welcome",
+    "A princely reception",
+    "A locked door",
+    "A letter"
+   ],
+   "ans": "A princely reception",
+   "why": "They fired rifles and embraced him.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q3",
+   "type": "mcq",
+   "level": 2,
+   "q": "Whom does “old ferret” refer to?",
+   "options": [
+    "A pet animal",
+    "The narrator himself",
+    "The valet",
+    "The host"
+   ],
+   "ans": "The narrator himself",
+   "why": "He warns himself to be alert.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did the narrator first do inside the room?",
+   "options": [
+    "Went to sleep",
+    "Stood still holding a candle and looked around",
+    "Opened the window",
+    "Called the valet"
+   ],
+   "ans": "Stood still holding a candle and looked around",
+   "why": "He remained standing, without moving a step.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why did he light all the candles on the mantelpiece?",
+   "options": [
+    "To read",
+    "In case his candle suddenly went out",
+    "To warm the room",
+    "For decoration"
+   ],
+   "ans": "In case his candle suddenly went out",
+   "why": "He feared being left in darkness.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why did he shut the shutters and put a chair before the curtains?",
+   "options": [
+    "To keep out noise",
+    "So nothing could come at him from outside",
+    "To hide",
+    "Because it was cold"
+   ],
+   "ans": "So nothing could come at him from outside",
+   "why": "He wanted nothing to fear from outside.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "Where did he finally make his bed?",
+   "options": [
+    "On the armchair",
+    "In the middle of the room facing the door",
+    "In the corridor",
+    "Under the window"
+   ],
+   "ans": "In the middle of the room facing the door",
+   "why": "Away from the suspected bedstead.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "What woke him in the morning?",
+   "options": [
+    "An alarm",
+    "A heavy body falling on him and burning liquid on his face",
+    "A gunshot",
+    "His friends shouting"
+   ],
+   "ans": "A heavy body falling on him and burning liquid on his face",
+   "why": "The valet fell over his bed.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q9",
+   "type": "mcq",
+   "level": 3,
+   "q": "Was there really a practical joke planned?",
+   "options": [
+    "Yes, a cold shower",
+    "No — the accident happened because of his own precautions",
+    "Yes, a collapsing bed",
+    "Yes, the friends hid in the room"
+   ],
+   "ans": "No — the accident happened because of his own precautions",
+   "why": "The valet tripped over his improvised bed.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q10",
+   "type": "mcq",
+   "level": 3,
+   "q": "What is the irony in the story?",
+   "options": [
+    "The friends were kind",
+    "His efforts to avoid being laughed at made everyone laugh at him",
+    "The valet was a thief",
+    "The bed was comfortable"
+   ],
+   "ans": "His efforts to avoid being laughed at made everyone laugh at him",
+   "why": "His precautions caused the funny incident.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q11",
+   "type": "mcq",
+   "level": 2,
+   "q": "At what time did the incident happen?",
+   "options": [
+    "Midnight",
+    "Broad daylight (morning)",
+    "Evening",
+    "Afternoon"
+   ],
+   "ans": "Broad daylight (morning)",
+   "why": "“It was broad daylight.”",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q12",
+   "type": "mcq",
+   "level": 3,
+   "q": "Report: He said, “I will sleep here.”",
+   "options": [
+    "He said that he will sleep here.",
+    "He said that he would sleep there.",
+    "He said that I would sleep there.",
+    "He says he slept here."
+   ],
+   "ans": "He said that he would sleep there.",
+   "why": "will → would; here → there.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q13",
+   "type": "mcq",
+   "level": 2,
+   "q": "“Smell a rat” means…",
+   "options": [
+    "to clean the house",
+    "to suspect something is wrong",
+    "to dislike animals",
+    "to be hungry"
+   ],
+   "ans": "to suspect something is wrong",
+   "why": "Idiom with a sense word.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-q14",
+   "type": "mcq",
+   "level": 2,
+   "q": "Who wrote “An Uncomfortable Bed”?",
+   "options": [
+    "O. Henry",
+    "Guy de Maupassant",
+    "Anton Chekhov",
+    "Ruskin Bond"
+   ],
+   "ans": "Guy de Maupassant",
+   "why": "French short-story writer.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "Why did the princely reception make the narrator suspicious?",
+   "model": "His friends were fond of practical jokes. The over-warm welcome and excessive laughing made him feel they had a joke planned in which he would be the victim.",
+   "points": [
+    "Friends loved practical jokes",
+    "Too much welcome/laughter → thought he’d be the victim"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "How did the valet land on top of the narrator?",
+   "model": "While bringing the narrator’s morning tea, the valet tripped over the bed the narrator had made in the middle of the room, fell on him and spilt the tea on his face.",
+   "points": [
+    "Bringing morning tea",
+    "Tripped over the bed in the middle of the room"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-9-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "Describe the precautions the narrator took during the night and explain the irony of the story.",
+   "model": "He lit all the candles, inspected every article, closed the shutters, drew the velvet curtains and placed a chair before them. Fearing a trick with the bed, he dragged the mattress and bedclothes to the middle of the room facing the door and slept there. Ironically, there was no joke at all. In the morning the valet tripped over this improvised bed and spilt hot tea on him, and the narrator fought him thinking it was a prank. His efforts to avoid being laughed at made everyone laugh at him.",
+   "points": [
+    "Candles lit; room inspected",
+    "Shutters, curtains, chair",
+    "Bed moved to the middle of the room",
+    "Irony: no joke, but his precautions caused the laughable accident"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

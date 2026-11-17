@@ -1,0 +1,284 @@
+{
+ "id": "eb-8",
+ "title": "The Durrells",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "What happens",
+   "body": "A comic-strip story. On a stormy midnight, Myla is reading “My Family and Other Animals” by Gerald Durrell with her friend Luke. They find themselves in the Durrells’ old house in Corfu and meet young Gerald, his mother Mrs Durrell and his animals. Gerald shows them around the island.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The Durrell house",
+   "body": "The house is old: the roof has holes, rain drips onto Gerald’s bed and there is no electricity — but it is big and has room for guests. Mrs Durrell says they moved from England, where it was cold and they were always ill; leaving was the best thing they ever did.",
+   "example": "“Leaving was the best thing we ever did.” — Mrs Durrell",
+   "hook": ""
+  },
+  {
+   "heading": "Gerald and his animals",
+   "body": "Gerald thinks swimming is boring and prefers exploring the island’s wildlife. He keeps bringing animals indoors (Mrs Durrell asks him to stop). Peli the pelican pushes Luke off a cliff while he looks at the view — Luke is safe. Gerald shows them his butterfly farm and shell collection; a butterfly lands on Myla’s nose. Myla gets the idea of an insect exhibition for the museum.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "About Gerald Durrell",
+   "body": "Gerald Malcolm Durrell (born 1925 in Jamshedpur, India, to British parents) was a conservationist, zookeeper and writer. His first encounter with animals was at a zoo in India. He founded the Durrell Wildlife Conservation Trust and the Jersey Zoo. “My Family and Other Animals” was published in 1956.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary",
+   "body": "Adjective suffix -al: nature → natural, environment → environmental, tradition → traditional, music → musical. Expressions with “take”: take place, take care of, take part in, take a break. House vs home: housework, homework, homesick, home-made, at home, household.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Grammar: participles",
+   "body": "A participle is a verb form used as an adjective or to build tenses. Present participle (-ing): an exciting book, a dripping roof. Past participle (-ed/-en): a broken roof, an excited girl. Participle phrases can join ideas: “Reading the book, Myla forgot the storm.”",
+   "example": "exciting = causes the feeling; excited = has the feeling.",
+   "hook": ""
+  },
+  {
+   "heading": "Writing: a biography",
+   "body": "A biography tells a real person’s life in the third person, in time order: birth and childhood, education, important events and achievements, later life, why they are remembered. Use past tense and dates.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-8-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Which book is Myla reading?",
+   "options": [
+    "The Jungle Book",
+    "My Family and Other Animals",
+    "Swami and Friends",
+    "Robinson Crusoe"
+   ],
+   "ans": "My Family and Other Animals",
+   "why": "By Gerald Durrell.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Where is the Durrells’ house?",
+   "options": [
+    "London",
+    "Corfu",
+    "Jamshedpur",
+    "Jersey"
+   ],
+   "ans": "Corfu",
+   "why": "A Greek island.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q3",
+   "type": "mcq",
+   "level": 1,
+   "q": "What is the weather like when Myla is reading?",
+   "options": [
+    "Sunny",
+    "A stormy night",
+    "Snowing",
+    "Foggy"
+   ],
+   "ans": "A stormy night",
+   "why": "Midnight with thunder and lightning.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why was Gerald awake at night?",
+   "options": [
+    "He was reading",
+    "He was getting a bucket because rain was dripping onto his bed",
+    "He was feeding animals",
+    "He heard a thief"
+   ],
+   "ans": "He was getting a bucket because rain was dripping onto his bed",
+   "why": "Holes in the old roof.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why did the Durrells leave England?",
+   "options": [
+    "For a job",
+    "It was cold and they were ill all the time",
+    "To start a zoo",
+    "Their house burnt down"
+   ],
+   "ans": "It was cold and they were ill all the time",
+   "why": "Mrs Durrell explains this.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "What does Gerald think about swimming?",
+   "options": [
+    "He loves it",
+    "It is boring; he prefers exploring",
+    "He is afraid",
+    "He swims daily"
+   ],
+   "ans": "It is boring; he prefers exploring",
+   "why": "He prefers the island’s wildlife.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "What does Mrs Durrell ask Gerald to stop doing?",
+   "options": [
+    "Swimming",
+    "Bringing his animals inside",
+    "Reading at night",
+    "Climbing cliffs"
+   ],
+   "ans": "Bringing his animals inside",
+   "why": "An animal turned up in the sugar bowl area.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "How did Luke fall off the cliff?",
+   "options": [
+    "He slipped on rocks",
+    "Peli the pelican pushed him",
+    "He was chasing a butterfly",
+    "He jumped"
+   ],
+   "ans": "Peli the pelican pushed him",
+   "why": "He was looking at the view.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q9",
+   "type": "mcq",
+   "level": 2,
+   "q": "What two collections does Gerald show them?",
+   "options": [
+    "Stamps and coins",
+    "A butterfly farm and a shell collection",
+    "Books and maps",
+    "Birds’ eggs and feathers"
+   ],
+   "ans": "A butterfly farm and a shell collection",
+   "why": "Safer than pelicans!",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q10",
+   "type": "mcq",
+   "level": 2,
+   "q": "Where was Gerald Durrell born?",
+   "options": [
+    "Corfu",
+    "London",
+    "Jamshedpur, India",
+    "Jersey"
+   ],
+   "ans": "Jamshedpur, India",
+   "why": "Born 1925 to British parents.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q11",
+   "type": "mcq",
+   "level": 3,
+   "q": "Choose the correct participle: It was an ____ adventure.",
+   "options": [
+    "excited",
+    "exciting",
+    "excite",
+    "excitement"
+   ],
+   "ans": "exciting",
+   "why": "-ing describes what causes the feeling.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q12",
+   "type": "mcq",
+   "level": 3,
+   "q": "Choose the correct participle: The ____ roof let the rain in.",
+   "options": [
+    "breaking",
+    "broken",
+    "broke",
+    "break"
+   ],
+   "ans": "broken",
+   "why": "Past participle as adjective.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-q13",
+   "type": "mcq",
+   "level": 2,
+   "q": "Add -al: environment →",
+   "options": [
+    "environmentful",
+    "environmental",
+    "environmently",
+    "environmentic"
+   ],
+   "ans": "environmental",
+   "why": "-al forms adjectives.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "Why did the Durrells move to Corfu? Were they happy there?",
+   "model": "They left England because it was cold and they were ill all the time. Yes — Mrs Durrell says leaving was the best thing they ever did and they love the old house and the lovely weather.",
+   "points": [
+    "Reason: cold England, always ill",
+    "Happy: “best thing we ever did”, love the weather/house"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "Write two facts about Gerald Durrell from the text.",
+   "model": "Gerald Durrell was born in Jamshedpur, India, in 1925 to British parents. He was a conservationist, zookeeper and writer who founded the Durrell Wildlife Conservation Trust and the Jersey Zoo. (Any two.)",
+   "points": [
+    "First correct fact",
+    "Second correct fact"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-8-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "Describe Gerald as a boy from the story. What shows that he loves animals?",
+   "model": "Gerald is friendly and welcoming — he invites Myla and Luke to stay. He finds swimming boring and prefers exploring the island, which has lots of wildlife. He keeps bringing animals into the house, so his mother scolds him. He has a pet pelican, Peli, a butterfly farm and a shell collection. He dreams of having a real zoo one day. These show his deep love for animals.",
+   "points": [
+    "Friendly/welcoming",
+    "Prefers exploring wildlife to swimming",
+    "Brings animals home; pelican, butterfly farm, shells",
+    "Dream of a zoo / love of animals concluded"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

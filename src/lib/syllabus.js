@@ -13,9 +13,12 @@ export const SUBJECTS = [
     ...mk('ss1', 'Exploring Society I', ['Geographical Diversity of India', 'Understanding the Weather', 'Climates of India', 'New Beginnings: Cities and States', 'The Rise of Empires', 'The Age of Reorganisation', 'The Gupta Era: An Age of Tireless Creativity', 'How the Land Becomes Sacred', 'From the Rulers to the Ruled: Types of Governments', 'The Constitution of India: An Introduction', 'From Barter to Money', 'Understanding Markets']),
     ...mk('ss2', 'Exploring Society II', ['The Story of Indian Farming', 'India and Her Neighbours', 'Empires and Kingdoms: 6th to 10th Centuries', 'Turning Tides: 11th and 12th Centuries', 'India, a Home to Many', 'The State, the Government, and You', "Infrastructure: Engine of India's Development", 'Banks and the Magic of Finance'])
   ]},
-  { id: 'english', name: 'English', color: '#8b5cf6', chapters: mk('en', 'Poorvi', [
+  { id: 'english', name: 'English', color: '#8b5cf6', chapters: [
+    ...mk('eb', '21st Century English (Coursebook)', ["The Lottery Ticket", "Pushing the Limits", "An Unusual Holiday", "Indian Weavers (poem)", "The Last Leaf", "Monday Morning", "The Brook (poem)", "The Durrells", "An Uncomfortable Bed", "The Second Voyage of Sindbad the Sailor", "Leisure (poem)", "The Material of 1000 Uses", "A Midsummer Night's Dream", "Mother to Son (poem)"]),
+    ...mk('en', 'Poorvi', [
     'The Day the River Spoke', 'Try Again', 'Three Days to See', 'Animals, Birds, and Dr. Dolittle', 'A Funny Man', 'Say the Right Thing', "My Brother's Great Invention", 'Paper Boats', 'North, South, East, West', 'The Tunnel', 'Travel', 'Conquering the Summit', 'A Homage to Our Brave Soldiers', 'My Dear Soldiers', 'Rani Abbakka'
-  ])},
+  ])
+  ]},
   { id: 'other', name: 'Kannada', color: '#ec4899', chapters: [
     // Karnataka state Kannada (Second Language) Class 7, 2026-27 — Tili Kannada Part 1 & 2
     { id: 'kn-1', no: 1, title: 'ನಿತ್ಯೋತ್ಸವ', book: 'ತಿಳಿ ಕನ್ನಡ ಭಾಗ-1' },

@@ -1,0 +1,200 @@
+{
+ "id": "eb-14",
+ "title": "Mother to Son (poem)",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "What the poem says",
+   "body": "A mother tells her son that her life has not been a “crystal stair” (easy and beautiful). It had tacks, splinters, torn-up boards and bare places with no carpet. Yet she kept climbing, reaching landings, turning corners, sometimes going on in the dark. She tells him not to turn back, sit down on the steps or fall, because she is still climbing.",
+   "example": "Theme: perseverance and determination in a hard life.",
+   "hook": "Crystal stair = easy, luxurious life."
+  },
+  {
+   "heading": "Extended metaphor",
+   "body": "Life is compared to a staircase throughout. Tacks and splinters = pain and problems; boards torn up and no carpet = poverty and hardship; landings = achievements; turning corners = changes; going in the dark = times without hope or help.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Tone and language",
+   "body": "Tone: loving, honest, encouraging and determined. The mother speaks in informal dialect (“ain’t been no”, “I’se been a-climbin’ on”) which makes her voice real and personal.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Devices",
+   "body": "Repetition: “life for me ain’t been no crystal stair” opens and closes the poem. Anaphora: lines starting with “And” (“And splinters, / And boards torn up, / And places with no carpet…”) and “Don’t you…”. Assonance: repeated vowel sound, e.g. /o/ in “So boy, don’t you turn back”.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The poet",
+   "body": "Langston Hughes was an American poet, novelist and playwright of the Harlem Renaissance (1920–1930), known for his engagement with jazz. Works include “The Weary Blues”, “The Ways of White Folks” and “The Big Sea”.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-14-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Who is speaking in the poem?",
+   "options": [
+    "A son",
+    "A mother",
+    "A teacher",
+    "A carpenter"
+   ],
+   "ans": "A mother",
+   "why": "A mother speaking to her son.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-q2",
+   "type": "mcq",
+   "level": 2,
+   "q": "“Life for me ain’t been no crystal stair” means…",
+   "options": [
+    "Her house had glass stairs",
+    "Her life has not been easy or comfortable",
+    "She hates stairs",
+    "She was rich"
+   ],
+   "ans": "Her life has not been easy or comfortable",
+   "why": "Crystal stair = smooth, beautiful life.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-q3",
+   "type": "mcq",
+   "level": 2,
+   "q": "What do the tacks and splinters represent?",
+   "options": [
+    "Furniture",
+    "Difficulties and pain in life",
+    "Tools",
+    "Toys"
+   ],
+   "ans": "Difficulties and pain in life",
+   "why": "Part of the stair metaphor.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What does “reachin’ landin’s” suggest?",
+   "options": [
+    "Falling down",
+    "Reaching achievements / resting points",
+    "Landing a plane",
+    "Going to the ground floor"
+   ],
+   "ans": "Reaching achievements / resting points",
+   "why": "Milestones in life.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "What advice does the mother give her son?",
+   "options": [
+    "Give up when it is hard",
+    "Don’t turn back, don’t sit down, don’t fall — keep going",
+    "Move to a new house",
+    "Buy a crystal stair"
+   ],
+   "ans": "Don’t turn back, don’t sit down, don’t fall — keep going",
+   "why": "She is still climbing.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-q6",
+   "type": "mcq",
+   "level": 3,
+   "q": "The whole poem compares life to…",
+   "options": [
+    "a river",
+    "a staircase",
+    "a road",
+    "a garden"
+   ],
+   "ans": "a staircase",
+   "why": "Extended metaphor.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "Lines beginning with “And splinters, / And boards torn up” show…",
+   "options": [
+    "simile",
+    "anaphora",
+    "rhetorical question",
+    "refrain only"
+   ],
+   "ans": "anaphora",
+   "why": "Repetition at the start of lines.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "What is the overall tone of the poem?",
+   "options": [
+    "Hopeless and bitter",
+    "Encouraging and determined",
+    "Funny",
+    "Angry"
+   ],
+   "ans": "Encouraging and determined",
+   "why": "She motivates her son.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-q9",
+   "type": "mcq",
+   "level": 2,
+   "q": "Langston Hughes belonged to the…",
+   "options": [
+    "Victorian Age",
+    "Harlem Renaissance",
+    "Georgian movement",
+    "Romantic Age"
+   ],
+   "ans": "Harlem Renaissance",
+   "why": "1920–1930.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "What does the mother mean by “life for me ain’t been no crystal stair”?",
+   "model": "She means her life has not been easy, smooth or comfortable like a beautiful crystal staircase; it has been full of hardships.",
+   "points": [
+    "Life not easy/comfortable",
+    "Full of hardships (vs a beautiful crystal stair)"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-14-w2",
+   "type": "written",
+   "marks": 4,
+   "q": "How does the poet use the image of a staircase to show the mother’s struggle and determination?",
+   "model": "The poet compares life to a staircase. The mother’s stair had tacks and splinters (pain), torn-up boards and bare places without carpet (poverty and hardship) — unlike a crystal stair. Still, she kept climbing, reaching landings (achievements), turning corners (changes) and going on even in the dark (times without hope). She urges her son not to turn back or sit down because she is still climbing. The image shows that she never gave up and wants her son to persevere.",
+   "points": [
+    "Staircase = life; crystal stair = easy life",
+    "Tacks, splinters, torn boards, no carpet = hardships",
+    "Climbing, landings, corners, dark = perseverance through difficulties",
+    "Advice to son; message of determination"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

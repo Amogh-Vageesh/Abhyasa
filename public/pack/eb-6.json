@@ -1,0 +1,314 @@
+{
+ "id": "eb-6",
+ "title": "Monday Morning",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "The story in brief",
+   "body": "From R. K. Narayan’s “Swami and Friends”. Swaminathan hates Mondays after the freedom of the weekend. He rushes through homework, is pinched and scolded by his arithmetic teacher, enjoys the history period, and we meet his four special friends: Somu, Mani, Sankar and Samuel.",
+   "example": "Set in the fictional South Indian town of Malgudi.",
+   "hook": "Monday = work and discipline after delicious freedom."
+  },
+  {
+   "heading": "Morning at home",
+   "body": "Swaminathan’s “room” is only a corner of his father’s dressing-room, with a table heaped with coat, cap, slate, ink-bottle and books. He has two hours for arithmetic (five profit-and-loss sums), English (copy a page and write dictionary meanings) and geography.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "In class",
+   "body": "Fire-eyed Vedanayagam, the class teacher, takes arithmetic and drones monotonously. Swaminathan watches the Infant Standards and the 12.30 mail train on the embankment. Vedanayagam pinches his arm, crosses out all his sums, writes “Very Bad” and flings the notebook at him. History with D. Pillai is loved — he is kind, never frowns, and tells vivid stories of Vasco da Gama, Clive and Hastings. Scripture is the last period.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The four friends",
+   "body": "Somu — the confident monitor, chummy with teachers, “uncle of the class”. Mani — the Mighty Good-For-Nothing, tall, never does homework, bullies others; Swaminathan is proud to be his friend. Sankar — the most brilliant boy, solves problems in five minutes, scores around ninety per cent; some say he is a sycophant. Samuel — “the Pea” because of his size; ordinary, as weak in arithmetic as Swami, and the friend he feels closest to.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary",
+   "body": "reluctant (unwilling), dismal (gloomy), monotonously (in a dull, unchanging way), reverie (daydream), scrutinising (examining closely), reprimand (scold). Negative prefixes: un- (unhappy, unkind), dis- (dislike, disagree, dishonest). Easily confused: lose/loose, quiet/quite.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Grammar: gerunds and infinitives",
+   "body": "Gerund = verb + -ing used as a noun (Swimming is fun). Some verbs take gerunds: enjoy, avoid, finish, mind, keep. Some take infinitives (to + verb): want, decide, hope, plan, refuse. Some take both: like, love, start, begin.",
+   "example": "Swami enjoyed watching the trains. / He decided to finish his sums.",
+   "hook": ""
+  },
+  {
+   "heading": "Writing & author",
+   "body": "A newspaper report: headline, byline (reporter, place, date), opening paragraph answering who/what/when/where, details and quotes, passive voice and past tense, neutral tone. R. K. Narayan was a 20th-century Indian writer famous for stories set in Malgudi.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-6-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Why did Swaminathan dislike Mondays?",
+   "options": [
+    "He had sports practice",
+    "After the weekend’s freedom, work and discipline began",
+    "He had to wake up at 4",
+    "His father was strict on Mondays"
+   ],
+   "ans": "After the weekend’s freedom, work and discipline began",
+   "why": "Saturday and Sunday felt like delicious freedom.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Where was Swaminathan’s “room”?",
+   "options": [
+    "A corner of his father’s dressing-room",
+    "A corner of his mother’s kitchen",
+    "The veranda",
+    "A separate bedroom"
+   ],
+   "ans": "A corner of his father’s dressing-room",
+   "why": "A corner in his father’s dressing-room.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q3",
+   "type": "mcq",
+   "level": 2,
+   "q": "What arithmetic homework did he have?",
+   "options": [
+    "Ten fractions",
+    "Five puzzles in profit and loss",
+    "A page of tables",
+    "Geometry drawings"
+   ],
+   "ans": "Five puzzles in profit and loss",
+   "why": "Five puzzles in profit and loss.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "Who was Vedanayagam?",
+   "options": [
+    "The history teacher",
+    "The class teacher who took arithmetic",
+    "The headmaster",
+    "The monitor"
+   ],
+   "ans": "The class teacher who took arithmetic",
+   "why": "Fire-eyed class teacher; arithmetic.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did Swaminathan watch through the window?",
+   "options": [
+    "Cricket matches",
+    "The Infant Standards and the 12.30 mail train",
+    "Birds",
+    "The headmaster’s house"
+   ],
+   "ans": "The Infant Standards and the 12.30 mail train",
+   "why": "That made classroom life bearable.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did Vedanayagam write at the bottom of the page?",
+   "options": [
+    "Good",
+    "Very Bad",
+    "See me",
+    "Redo"
+   ],
+   "ans": "Very Bad",
+   "why": "He crossed out all the sums too.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why did the boys look forward to the history period?",
+   "options": [
+    "It was short",
+    "D. Pillai was kind and told history like exciting stories",
+    "There was no homework",
+    "It was in the playground"
+   ],
+   "ans": "D. Pillai was kind and told history like exciting stories",
+   "why": "He never frowned or swore at boys.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "Who was the monitor?",
+   "options": [
+    "Mani",
+    "Somu",
+    "Sankar",
+    "Samuel"
+   ],
+   "ans": "Somu",
+   "why": "Somu — “uncle of the class”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q9",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why was Mani called the Mighty Good-For-Nothing?",
+   "options": [
+    "He was strong, bullying and never studied",
+    "He was the best student",
+    "He was very short",
+    "He sang well"
+   ],
+   "ans": "He was strong, bullying and never studied",
+   "why": "He towered above others and never did homework.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q10",
+   "type": "mcq",
+   "level": 2,
+   "q": "Who was the most brilliant boy in class?",
+   "options": [
+    "Samuel",
+    "Sankar",
+    "Mani",
+    "Swaminathan"
+   ],
+   "ans": "Sankar",
+   "why": "Solved any problem in five minutes.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q11",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why was Samuel called “the Pea”?",
+   "options": [
+    "He loved peas",
+    "Because of his small size",
+    "He was green",
+    "He was quiet"
+   ],
+   "ans": "Because of his small size",
+   "why": "On account of his size.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q12",
+   "type": "mcq",
+   "level": 3,
+   "q": "What was common between Swaminathan and Samuel?",
+   "options": [
+    "Both were monitors",
+    "Both were weak in arithmetic and ordinary",
+    "Both were bullies",
+    "Both topped the class"
+   ],
+   "ans": "Both were weak in arithmetic and ordinary",
+   "why": "Samuel was as bad at arithmetic as Swami.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q13",
+   "type": "mcq",
+   "level": 3,
+   "q": "Choose correctly: Swami enjoys ____ the trains.",
+   "options": [
+    "to watch",
+    "watching",
+    "watch",
+    "watched"
+   ],
+   "ans": "watching",
+   "why": "enjoy + gerund.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q14",
+   "type": "mcq",
+   "level": 3,
+   "q": "Choose correctly: He decided ____ his homework early.",
+   "options": [
+    "finishing",
+    "to finish",
+    "finish",
+    "finished"
+   ],
+   "ans": "to finish",
+   "why": "decide + infinitive.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-q15",
+   "type": "mcq",
+   "level": 2,
+   "q": "Choose the word with a negative prefix meaning “not honest”.",
+   "options": [
+    "unhonest",
+    "dishonest",
+    "nonhonest",
+    "inhonest"
+   ],
+   "ans": "dishonest",
+   "why": "dis- + honest.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "Why was Swaminathan proud of his friendship with Mani?",
+   "model": "Mani was feared by the whole class and even teachers did not trouble him. While others were scared of him, Swaminathan could call him “Mani” and pat him on the back.",
+   "points": [
+    "Mani was powerful/feared by everyone",
+    "Swami could treat him familiarly (call him Mani, pat his back)"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "Write a short note on D. Pillai.",
+   "model": "D. Pillai was the history teacher, known for kindness and good humour. He never frowned or scolded the boys and taught history through vivid, detailed stories of people like Vasco da Gama and Clive, so the boys loved his class.",
+   "points": [
+    "Kind, good-humoured; never scolded",
+    "Taught history as vivid stories → boys loved it"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-6-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "Compare the arithmetic and history periods and describe Swaminathan’s four friends briefly.",
+   "model": "Arithmetic with fire-eyed Vedanayagam was dull and frightening: he droned monotonously, pinched Swami, crossed out his sums and wrote “Very Bad”. History with kind D. Pillai was exciting as he told stories with rich detail. Swami’s friends: Somu, the calm, confident monitor; Mani, the strong, lazy bully; Sankar, the brilliant boy who scored ninety per cent; and Samuel “the Pea”, small and ordinary like Swami.",
+   "points": [
+    "Arithmetic: dull/strict Vedanayagam, punishment",
+    "History: kind D. Pillai, story-like teaching",
+    "Somu and Mani described correctly",
+    "Sankar and Samuel described correctly"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

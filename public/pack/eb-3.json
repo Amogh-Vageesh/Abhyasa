@@ -1,0 +1,299 @@
+{
+ "id": "eb-3",
+ "title": "An Unusual Holiday",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "What happens",
+   "body": "A girl writes about her family cruise around Greenland to see the Northern Lights. It was “the most amazing — and terrifying” experience of her life. On a hike on Ella Island a polar bear charged the group; the ranger stopped it with a tranquilliser gun. Back home, the incident started a social-media debate.",
+   "example": "Her dream trip: scenery, hiking, wildlife — not Disneyland.",
+   "hook": "Amazing → terrifying → debate."
+  },
+  {
+   "heading": "The journey",
+   "body": "They flew London → Reykjavik (Iceland), stayed in a hotel overlooking the harbour and saw green Northern Lights “like a laser light show”. Next they flew to Greenland. The cabin was uncomfortable, but she spent most time on deck. They sailed past steep cliffs and rode a raft between icebergs close enough to touch.",
+   "example": "She learned only snow-covered icebergs are white; others look sky-blue.",
+   "hook": ""
+  },
+  {
+   "heading": "The polar bear",
+   "body": "On day four, 20 people hiked on Ella Island with a guide and an armed ranger. A thin, bony, furious polar bear appeared. The ranger told everyone to move behind him; adults gathered around the narrator, the youngest. The bear charged; a warning shot made it angrier. Then the ranger used a tranquilliser gun — the bear lay still but was not killed.",
+   "example": "“I was absolutely petrified.”",
+   "hook": ""
+  },
+  {
+   "heading": "The debate & the writer’s view",
+   "body": "Someone posted praise for the ranger. Others were outraged: the group had no right to be in the bear’s territory and polar bears are endangered. The writer’s view: they didn’t expect bears there; bears now come to Ella Island because melting ice stops them finding food in their own habitat. The true cause is climate change and lack of food.",
+   "example": "“If the ranger hadn’t stopped the bear, what would have happened?”",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary",
+   "body": "Words beginning with over- / under-: overlook, overcome, overboard, underestimate, underwater. Similar or different pairs: journey/trip (similar), cruise/voyage. Expressions with “matter”: the fact of the matter, no matter what, a matter of time, as a matter of fact.",
+   "example": "As a matter of fact = actually.",
+   "hook": ""
+  },
+  {
+   "heading": "Grammar: have been to / have gone to",
+   "body": "Have been to = went and came back (experience). Have gone to = went and is still there / not back yet.",
+   "example": "I have been to Greenland (I’m home now). Dad has gone to the market (he is there now).",
+   "hook": "Been = back; gone = still away."
+  },
+  {
+   "heading": "Writing: a formal letter",
+   "body": "Sender’s address, date, receiver’s designation and address, subject line, salutation (Dear Sir/Madam), body (purpose, details, request), complimentary close (Yours faithfully/sincerely), name. Use polite, formal language; no short forms.",
+   "example": "Subject: Request to protect wildlife habitats",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-3-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Where did the family go on holiday?",
+   "options": [
+    "Disneyland",
+    "A cruise around Greenland",
+    "A safari in Africa",
+    "A beach in Goa"
+   ],
+   "ans": "A cruise around Greenland",
+   "why": "“A cruise around Greenland”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "What had always fascinated the writer?",
+   "options": [
+    "Whales",
+    "The Northern Lights",
+    "Mountains",
+    "Cruise ships"
+   ],
+   "ans": "The Northern Lights",
+   "why": "The coloured lights dancing in Arctic skies.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q3",
+   "type": "mcq",
+   "level": 2,
+   "q": "Where did the family stay overnight before going to Greenland?",
+   "options": [
+    "London",
+    "Reykjavik, Iceland",
+    "Ella Island",
+    "Oslo"
+   ],
+   "ans": "Reykjavik, Iceland",
+   "why": "A fancy hotel overlooking the harbour.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did the writer say about the cabin?",
+   "options": [
+    "It was luxurious",
+    "It was not very comfortable, but that didn’t bother her",
+    "It had a view of icebergs",
+    "She never left it"
+   ],
+   "ans": "It was not very comfortable, but that didn’t bother her",
+   "why": "She spent most of the time on deck.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did she discover about icebergs?",
+   "options": [
+    "They are always white",
+    "Only snow-covered icebergs are white",
+    "They are warm inside",
+    "They float upside down"
+   ],
+   "ans": "Only snow-covered icebergs are white",
+   "why": "Others looked sky-blue.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why was the ranger carrying a rifle?",
+   "options": [
+    "For hunting",
+    "As a safety precaution",
+    "To signal the ship",
+    "For a photo"
+   ],
+   "ans": "As a safety precaution",
+   "why": "Sadly it was needed that afternoon.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "How did the ranger first react when the bear appeared?",
+   "options": [
+    "He ran away",
+    "He told everyone to move behind him",
+    "He killed it at once",
+    "He called the ship"
+   ],
+   "ans": "He told everyone to move behind him",
+   "why": "Then he aimed his rifle.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did the ranger use to stop the bear?",
+   "options": [
+    "A net",
+    "A tranquilliser gun",
+    "A loud horn",
+    "Food"
+   ],
+   "ans": "A tranquilliser gun",
+   "why": "The bear lay still but was not killed.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q9",
+   "type": "mcq",
+   "level": 3,
+   "q": "According to the writer, why are polar bears coming to Ella Island?",
+   "options": [
+    "They like tourists",
+    "Melting ice stops them finding food in their own habitat",
+    "They are being chased",
+    "It is their breeding ground"
+   ],
+   "ans": "Melting ice stops them finding food in their own habitat",
+   "why": "Climate change is the true cause.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q10",
+   "type": "mcq",
+   "level": 3,
+   "q": "“Sadly, this was not the case that afternoon.” This means…",
+   "options": [
+    "The rifle was actually used",
+    "The ranger stayed on the ship",
+    "The narrator was lied to",
+    "The rifle was broken"
+   ],
+   "ans": "The rifle was actually used",
+   "why": "It was not just a precaution — it had to be used.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q11",
+   "type": "mcq",
+   "level": 2,
+   "q": "How did the writer feel when the bear charged?",
+   "options": [
+    "Bored",
+    "Petrified",
+    "Excited",
+    "Sleepy"
+   ],
+   "ans": "Petrified",
+   "why": "Petrified = extremely frightened.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q12",
+   "type": "mcq",
+   "level": 3,
+   "q": "Choose correctly: My brother ____ to Delhi; he will return next week.",
+   "options": [
+    "has been",
+    "has gone",
+    "have been",
+    "goes"
+   ],
+   "ans": "has gone",
+   "why": "Still away → has gone.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q13",
+   "type": "mcq",
+   "level": 3,
+   "q": "Choose correctly: I ____ to Mysore three times. It’s lovely!",
+   "options": [
+    "have gone",
+    "have been",
+    "has gone",
+    "was go"
+   ],
+   "ans": "have been",
+   "why": "Experience, came back → have been.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-q14",
+   "type": "mcq",
+   "level": 2,
+   "q": "“As a matter of fact” means…",
+   "options": [
+    "in fact / actually",
+    "it doesn’t matter",
+    "a serious problem",
+    "in future"
+   ],
+   "ans": "in fact / actually",
+   "why": "Used to add a true detail.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "Why did the writer’s parents book the cruise?",
+   "model": "The writer had always been fascinated by the Northern Lights, so her parents booked a cruise to see them. It also promised scenery, hiking and wildlife, which she loved.",
+   "points": [
+    "She was fascinated by the Northern Lights",
+    "Cruise offered scenery/hiking/wildlife she loved"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "Explain the difference between “have been to” and “have gone to” with an example each.",
+   "model": "“Have been to” means someone went and came back, e.g. “I have been to Ooty.” “Have gone to” means someone went and is still there, e.g. “Ravi has gone to Chennai.”",
+   "points": [
+    "Correct meaning + example of “have been to”",
+    "Correct meaning + example of “have gone to”"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-3-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "Describe the encounter with the polar bear and the debate that followed. Whose view do you agree with and why?",
+   "model": "On Ella Island a thin, furious polar bear appeared and charged the hiking group. The ranger made everyone stand behind him, fired a warning shot that made the bear angrier, and then used a tranquilliser gun; the bear was not killed. Later, people online praised the ranger, but others said tourists had no right to enter the bear’s territory as polar bears are endangered. The writer says bears come there because melting ice leaves them without food. (Student gives own opinion with a reason, e.g. the ranger was right to protect people safely without killing the bear.)",
+   "points": [
+    "Bear appears and charges; ranger’s actions",
+    "Tranquilliser — bear not killed",
+    "Both sides of the debate + writer’s view (melting ice / food)",
+    "Own opinion with a reason"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

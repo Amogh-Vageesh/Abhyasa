@@ -1,0 +1,305 @@
+{
+ "id": "eb-12",
+ "title": "The Material of 1000 Uses",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "What the article says",
+   "body": "Author Susan Freinkel wrote down everything she touched for a day: 196 of 298 things were plastic. This began her book “Plastic: A Toxic Love Story”. The article explains plastic’s history, its benefits and its harm, and concludes that plastic itself is not bad — the way we use it is the problem.",
+   "example": "Plastic: remarkable but highly problematic.",
+   "hook": ""
+  },
+  {
+   "heading": "History",
+   "body": "The first plastic, Bakelite, was invented in 1907 by Leo Baekeland, who marketed it as the “material of a thousand uses” (radios, combs, jewellery). It inspired artificial substitutes for natural materials such as ivory, whose animals were becoming endangered. In the 1920s–30s plastics were used for packaging, clocks and clothing; during World War II plastic filled the gap when natural resources were not sufficient.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Benefits",
+   "body": "Plastic packets keep food fresh longer than metal, glass or paper; plastic bottles are unbreakable; disposable gloves and instruments prevent infection in hospitals. Vehicles with plastic parts are lighter and use less fuel; light packaging needs less energy to ship; plastics made solar panels possible.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Harm",
+   "body": "More than nine billion tons have been made since the 1950s; production may double in 20 years. Very little is recycled, and plastic does not break down. Chemicals from landfills enter ground water and the sea, are eaten by marine life and eventually by us. Every ocean has plastic pollution and over 260 animal species are affected.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Solutions",
+   "body": "Some plastics (e.g. hospital supplies) are worthwhile, but plastic bags and straws are hard to justify — many countries have banned them. We can choose products made of metal, wood or glass, which are easier to recycle or dispose of.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary",
+   "body": "Expressions with take / have / get / keep: take for granted, have an effect, get rid of, keep in mind. Easily confused words: affect/effect, lose/loose, advice/advise. Words beginning with out- / up-: outnumber, outgrow, upgrade, upset, outcome.",
+   "example": "We take plastic for granted because it is everywhere.",
+   "hook": ""
+  },
+  {
+   "heading": "Grammar: kinds of sentences (1)",
+   "body": "Declarative (statement) ends with a full stop: “Plastic does not break down.” Interrogative (question) ends with “?”: “Should plastic be banned?”",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Writing: an essay",
+   "body": "Title, introduction (topic + your view), body paragraphs (one main idea each with examples — e.g. benefits, harms, solutions), conclusion summing up. Use linking words: firstly, however, moreover, in conclusion.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-12-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "How many of the 298 things Susan Freinkel touched were plastic?",
+   "options": [
+    "98",
+    "150",
+    "196",
+    "298"
+   ],
+   "ans": "196",
+   "why": "196 were plastic.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "What was the first type of plastic called?",
+   "options": [
+    "Melamine",
+    "Bakelite",
+    "Nylon",
+    "PVC"
+   ],
+   "ans": "Bakelite",
+   "why": "Invented in 1907.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q3",
+   "type": "mcq",
+   "level": 1,
+   "q": "Who invented Bakelite?",
+   "options": [
+    "Susan Freinkel",
+    "Leo Baekeland",
+    "Thomas Edison",
+    "Marie Curie"
+   ],
+   "ans": "Leo Baekeland",
+   "why": "He marketed it as the material of a thousand uses.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What natural material was plastic needed to replace because animals were endangered?",
+   "options": [
+    "Wood",
+    "Ivory",
+    "Cotton",
+    "Leather only"
+   ],
+   "ans": "Ivory",
+   "why": "Substitutes were badly needed.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why did plastic production grow during World War II?",
+   "options": [
+    "It was cheaper than paper",
+    "Natural resources were not sufficient",
+    "It was fashionable",
+    "The army banned metal"
+   ],
+   "ans": "Natural resources were not sufficient",
+   "why": "Plastic filled the gap.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why are plastic bottles preferred to glass?",
+   "options": [
+    "They are prettier",
+    "They are unbreakable",
+    "They keep water colder",
+    "They are recyclable forever"
+   ],
+   "ans": "They are unbreakable",
+   "why": "Unbreakable.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "How does plastic help hospitals?",
+   "options": [
+    "It is cheap",
+    "Disposable gloves and instruments prevent the spread of infection",
+    "It is strong",
+    "It keeps rooms warm"
+   ],
+   "ans": "Disposable gloves and instruments prevent the spread of infection",
+   "why": "They are thrown away after use.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why do vehicles with plastic parts use less fuel?",
+   "options": [
+    "They are lighter",
+    "They are smaller",
+    "They have plastic engines",
+    "They go slower"
+   ],
+   "ans": "They are lighter",
+   "why": "Lighter weight.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q9",
+   "type": "mcq",
+   "level": 3,
+   "q": "What is the main problem with plastic?",
+   "options": [
+    "It is too expensive",
+    "It does not break down and very little is recycled",
+    "It is too heavy",
+    "It cannot be coloured"
+   ],
+   "ans": "It does not break down and very little is recycled",
+   "why": "Long-lasting = hard to get rid of.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q10",
+   "type": "mcq",
+   "level": 2,
+   "q": "How many animal species have been affected by plastic pollution?",
+   "options": [
+    "Over 26",
+    "Over 100",
+    "Over 260",
+    "Over 1,000"
+   ],
+   "ans": "Over 260",
+   "why": "Every ocean contains plastic.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q11",
+   "type": "mcq",
+   "level": 3,
+   "q": "What does Freinkel conclude?",
+   "options": [
+    "Plastic should be banned completely",
+    "Plastics aren’t necessarily bad; how we use them is the problem",
+    "Plastic is perfectly safe",
+    "Glass is worse than plastic"
+   ],
+   "ans": "Plastics aren’t necessarily bad; how we use them is the problem",
+   "why": "Her conclusion in the book.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q12",
+   "type": "mcq",
+   "level": 2,
+   "q": "Which items does the article say are hard to justify?",
+   "options": [
+    "Hospital gloves",
+    "Plastic shopping bags and straws",
+    "Solar panels",
+    "Car parts"
+   ],
+   "ans": "Plastic shopping bags and straws",
+   "why": "Many countries have banned them.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q13",
+   "type": "mcq",
+   "level": 2,
+   "q": "Identify the sentence type: “Should we ban plastic straws?”",
+   "options": [
+    "Declarative",
+    "Interrogative",
+    "Imperative",
+    "Exclamatory"
+   ],
+   "ans": "Interrogative",
+   "why": "A question.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-q14",
+   "type": "mcq",
+   "level": 2,
+   "q": "“Take for granted” means…",
+   "options": [
+    "to steal",
+    "to value too little because it is always there",
+    "to give a grant",
+    "to take carefully"
+   ],
+   "ans": "to value too little because it is always there",
+   "why": "We take plastic for granted.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "Give two benefits of plastic mentioned in the article.",
+   "model": "Plastic packets keep food fresh longer, and disposable plastic hospital equipment prevents the spread of infection. (Also: unbreakable bottles; lighter vehicles use less fuel; solar panels.)",
+   "points": [
+    "First correct benefit",
+    "Second correct benefit"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "Why is it difficult to get rid of plastic?",
+   "model": "Plastic does not break down over time; the same qualities that make it long-lasting make it hard to dispose of. Very little is recycled, so most is thrown away.",
+   "points": [
+    "Does not break down / long-lasting",
+    "Little recycled; most thrown away"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-12-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "“Plastic might be doing more harm than good.” Discuss using points from the article, and suggest ways to tackle the problem.",
+   "model": "Plastic is useful: it keeps food fresh, makes unbreakable bottles, prevents infection in hospitals and makes vehicles lighter and solar panels possible. But over nine billion tons have been made, very little is recycled and it does not break down. Its chemicals reach ground water and the sea, harming marine life and us; every ocean is polluted and over 260 species are affected. To tackle this we can stop using plastic bags and straws, choose metal, wood or glass products, and use plastic only where it is truly needed, like hospital supplies.",
+   "points": [
+    "Benefits explained",
+    "Harms: not biodegradable, little recycling",
+    "Pollution of water/oceans, animals and humans affected",
+    "Solutions: bans on bags/straws, alternatives, use wisely"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

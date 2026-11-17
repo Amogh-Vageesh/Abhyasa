@@ -1,0 +1,215 @@
+{
+ "id": "eb-11",
+ "title": "Leisure (poem)",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "What the poem says",
+   "body": "W. H. Davies asks what life is worth if, full of worries, we have no time to stand and stare. He lists the simple joys we miss: standing beneath the boughs and staring as long as sheep or cows; seeing where squirrels hide nuts in grass; seeing streams full of sunlight sparkling like stars at night; turning at Beauty’s glance and watching her dance and smile. He ends: it is a poor life if we have no time to stand and stare.",
+   "example": "Theme: slow down and enjoy nature and simple pleasures.",
+   "hook": "Opening and closing couplets almost the same."
+  },
+  {
+   "heading": "Imagery",
+   "body": "Nature images: boughs, sheep and cows, woods, squirrels hiding nuts, “streams full of stars, like skies at night” (sunlight glittering on water). Beauty is personified as a woman whose glance, dancing feet and smile we have no time to notice.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Rhetorical question",
+   "body": "A question asked to make a point, not to get an answer. “What is this life if, full of care, / We have no time to stand and stare?” really means: such a life is not worth much.",
+   "example": "Another: “No time to wait till her mouth can / Enrich that smile her eyes began?”",
+   "hook": ""
+  },
+  {
+   "heading": "Other devices",
+   "body": "Simile: “Streams full of stars, like skies at night”. Repetition / anaphora: “No time to…” begins many lines. Rhyming couplets: care/stare, boughs/cows, pass/grass, daylight/night, glance/dance, can/began.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The poet",
+   "body": "William Henry Davies was a Welsh poet of the Georgian poetry movement, born in 1871 in Monmouthshire. He spent much of his life as a tramp, travelling through the USA and the UK; his attitude to life shows in “Leisure”.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-11-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Who wrote “Leisure”?",
+   "options": [
+    "Tennyson",
+    "W. H. Davies",
+    "Sarojini Naidu",
+    "Langston Hughes"
+   ],
+   "ans": "W. H. Davies",
+   "why": "Welsh poet.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "According to the poet, what do we have no time to do?",
+   "options": [
+    "Work and earn",
+    "Stand and stare",
+    "Sleep",
+    "Travel abroad"
+   ],
+   "ans": "Stand and stare",
+   "why": "The key line of the poem.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q3",
+   "type": "mcq",
+   "level": 2,
+   "q": "“Full of care” means…",
+   "options": [
+    "very careful",
+    "full of worries",
+    "full of love",
+    "full of time"
+   ],
+   "ans": "full of worries",
+   "why": "Care = worry here.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "Which animals stare for a long time beneath the boughs?",
+   "options": [
+    "Dogs and cats",
+    "Sheep and cows",
+    "Horses",
+    "Squirrels"
+   ],
+   "ans": "Sheep and cows",
+   "why": "“As long as sheep or cows”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "What do squirrels hide in grass?",
+   "options": [
+    "Seeds",
+    "Nuts",
+    "Eggs",
+    "Leaves"
+   ],
+   "ans": "Nuts",
+   "why": "Seen when we pass through woods.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q6",
+   "type": "mcq",
+   "level": 3,
+   "q": "“Streams full of stars, like skies at night” describes…",
+   "options": [
+    "stars reflected at night",
+    "sunlight sparkling on water in daytime",
+    "fish in the stream",
+    "fireworks"
+   ],
+   "ans": "sunlight sparkling on water in daytime",
+   "why": "“In broad daylight”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "“What is this life if, full of care, / We have no time to stand and stare?” is a…",
+   "options": [
+    "simile",
+    "rhetorical question",
+    "refrain only",
+    "alliteration"
+   ],
+   "ans": "rhetorical question",
+   "why": "It makes a point; no answer expected.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "Beauty in the poem is…",
+   "options": [
+    "a flower",
+    "personified as a woman who dances and smiles",
+    "a painting",
+    "a bird"
+   ],
+   "ans": "personified as a woman who dances and smiles",
+   "why": "Personification.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q9",
+   "type": "mcq",
+   "level": 3,
+   "q": "What is the central message?",
+   "options": [
+    "Work hard always",
+    "We should make time to enjoy nature and simple joys",
+    "Animals are lazy",
+    "Life is too short to be happy"
+   ],
+   "ans": "We should make time to enjoy nature and simple joys",
+   "why": "A life without leisure is poor.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-q10",
+   "type": "mcq",
+   "level": 2,
+   "q": "W. H. Davies spent much of his life as…",
+   "options": [
+    "a king",
+    "a tramp travelling the USA and UK",
+    "a sailor only",
+    "a teacher"
+   ],
+   "ans": "a tramp travelling the USA and UK",
+   "why": "From the author note.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "Pick out two things from nature that, according to the poet, we have no time to see.",
+   "model": "We have no time to see where squirrels hide their nuts in grass, and no time to see streams full of sunlight sparkling like stars. (Also: standing beneath boughs like sheep or cows.)",
+   "points": [
+    "First correct example",
+    "Second correct example"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-11-w2",
+   "type": "written",
+   "marks": 4,
+   "q": "What does the poet say about modern life in “Leisure”? How does he use the rhetorical question to make his point?",
+   "model": "The poet says people are so full of worries and busy that they have no time to stand and stare at nature — trees, cattle, squirrels, sparkling streams — or to notice beauty. Such a life is poor. He opens with a rhetorical question, “What is this life if, full of care, / We have no time to stand and stare?”, which does not expect an answer but suggests that such a life has little value. He repeats “No time to…” and ends with “A poor life this if…”, stressing the need to slow down and enjoy simple pleasures.",
+   "points": [
+    "Busy, worried life; no time to enjoy nature/beauty",
+    "Examples from the poem",
+    "Rhetorical question explained (no answer expected; makes a point)",
+    "Message: slow down; repetition/ending reinforces it"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

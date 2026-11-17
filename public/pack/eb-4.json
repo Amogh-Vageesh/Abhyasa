@@ -1,0 +1,200 @@
+{
+ "id": "eb-4",
+ "title": "Indian Weavers (poem)",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "What the poem says",
+   "body": "Sarojini Naidu asks weavers what they weave at three times of day. At break of day they weave a bright blue robe for a new-born child; at fall of night, purple-and-green marriage veils of a queen; in the chill moonlight, a white funeral shroud for a dead man.",
+   "example": "The three garments stand for birth, marriage (youth) and death — the three stages of life.",
+   "hook": "Morning = birth, evening = marriage, night = death."
+  },
+  {
+   "heading": "Colours and moods",
+   "body": "Blue (“as the wing of a halcyon wild”) — fresh, joyful start of life. Purple and green (“like the plumes of a peacock”) — royal, rich, colourful youth. White (“as a feather and white as a cloud”) — calm, peace, purity and the end of life. The mood moves from gay (cheerful) to solemn and still.",
+   "example": "gay = bright, cheerful (old meaning).",
+   "hook": ""
+  },
+  {
+   "heading": "Simile",
+   "body": "A simile compares two unlike things using “like” or “as”: “Blue as the wing of a halcyon wild”; “Like the plumes of a peacock”; “White as a feather and white as a cloud”.",
+   "example": "halcyon = kingfisher.",
+   "hook": ""
+  },
+  {
+   "heading": "Alliteration",
+   "body": "Repetition of the same consonant sound in nearby words: “plumes of a peacock, purple”; “Weavers, weaving”; “solemn and still”; “garment so gay” (g).",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The poet",
+   "body": "Sarojini Naidu (the “Nightingale of India”) was a 20th-century poet and freedom fighter, fluent in English, Urdu and other languages. Her first collection was “The Golden Threshold”.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-4-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "Who wrote “Indian Weavers”?",
+   "options": [
+    "Rabindranath Tagore",
+    "Sarojini Naidu",
+    "W. H. Davies",
+    "Langston Hughes"
+   ],
+   "ans": "Sarojini Naidu",
+   "why": "Sarojini Naidu.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "What do the weavers weave at break of day?",
+   "options": [
+    "A queen’s veil",
+    "Robes of a new-born child",
+    "A funeral shroud",
+    "A soldier’s uniform"
+   ],
+   "ans": "Robes of a new-born child",
+   "why": "Blue robes for a new-born child.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-q3",
+   "type": "mcq",
+   "level": 1,
+   "q": "What colour is the queen’s marriage veil?",
+   "options": [
+    "Blue",
+    "White",
+    "Purple and green",
+    "Red and gold"
+   ],
+   "ans": "Purple and green",
+   "why": "Like the plumes of a peacock.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What is woven in the moonlight chill?",
+   "options": [
+    "A wedding dress",
+    "A dead man’s funeral shroud",
+    "A baby blanket",
+    "A flag"
+   ],
+   "ans": "A dead man’s funeral shroud",
+   "why": "White as a feather and a cloud.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "The three garments represent…",
+   "options": [
+    "three seasons",
+    "three stages of life: birth, youth/marriage, death",
+    "three kings",
+    "three festivals"
+   ],
+   "ans": "three stages of life: birth, youth/marriage, death",
+   "why": "Parallel between times of day and life.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "“Blue as the wing of a halcyon wild” is an example of…",
+   "options": [
+    "alliteration",
+    "simile",
+    "refrain",
+    "rhetorical question"
+   ],
+   "ans": "simile",
+   "why": "Comparison using “as”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "Which sound is repeated in “Why do you weave a garment so gay?”",
+   "options": [
+    "w and g",
+    "p",
+    "s",
+    "m"
+   ],
+   "ans": "w and g",
+   "why": "weave/why (w) and garment/gay (g).",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-q8",
+   "type": "mcq",
+   "level": 3,
+   "q": "What does the colour white symbolise in the last stanza?",
+   "options": [
+    "Celebration",
+    "Peace, purity and the end of life",
+    "Wealth",
+    "Anger"
+   ],
+   "ans": "Peace, purity and the end of life",
+   "why": "Used for the funeral shroud.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-q9",
+   "type": "mcq",
+   "level": 2,
+   "q": "What is the mood of the weavers in the last stanza?",
+   "options": [
+    "Gay and lively",
+    "Solemn and still",
+    "Angry",
+    "Excited"
+   ],
+   "ans": "Solemn and still",
+   "why": "“Weavers, weaving solemn and still”.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "Pick out two similes from the poem.",
+   "model": "“Blue as the wing of a halcyon wild” and “White as a feather and white as a cloud” (also “Like the plumes of a peacock, purple and green”).",
+   "points": [
+    "First correct simile",
+    "Second correct simile"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-4-w2",
+   "type": "written",
+   "marks": 4,
+   "q": "How does the poet show the three stages of human life through the work of the weavers?",
+   "model": "The weavers work at three times of day, matching three stages of life. At break of day (morning of life) they weave a bright blue robe for a new-born child — birth. At fall of night they weave purple and green marriage veils for a queen — youth and marriage, the rich, colourful middle of life. In the chill moonlight they weave a white shroud for a dead man — death. The mood changes from gay and bright to solemn and still.",
+   "points": [
+    "Morning — blue robe — birth",
+    "Evening — purple/green veil — youth/marriage",
+    "Night — white shroud — death",
+    "Change of mood / colours explained"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

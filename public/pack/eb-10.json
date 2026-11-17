@@ -1,0 +1,305 @@
+{
+ "id": "eb-10",
+ "title": "The Second Voyage of Sindbad the Sailor",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "The story in brief",
+   "body": "Sindbad falls asleep on a beautiful uninhabited island and his ship leaves without him. He escapes by tying himself to a giant bird, the rukh, lands in a valley of diamonds full of serpents, and escapes again by hiding under a carcass carried off by a vulture. Merchants rescue him and he shares his diamonds.",
+   "example": "Theme: courage, presence of mind and luck.",
+   "hook": ""
+  },
+  {
+   "heading": "Stranded",
+   "body": "The island had ripe fruit, birds of bright plumage, rare flowers and clear streams. The breeze and murmuring stream lulled him to sleep; when he woke, the ship was far out at sea. Climbing a tree, he saw a huge white dome about fifty paces round with no door.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The rukh",
+   "body": "The sky darkened — not a cloud but a monstrous bird blotting out the sun. Sindbad remembered travellers’ stories of the rukh, which fed its young on elephants: the dome was its egg. When the bird slept on the egg, he twisted his turban into a rope, tied himself to its foot, and next morning it carried him to a tableland. It then flew off with a huge serpent in its talons.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "The valley of diamonds",
+   "body": "The valley floor was strewn with large diamonds, with gigantic serpents coiled among them. A carcass fell before him, reminding him of a merchant’s story: merchants throw slaughtered animals into the valley; diamonds stick to them; vultures carry them up to the mountain, where the merchants scare the birds away and collect the diamonds.",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Escape and sharing",
+   "body": "Sindbad filled his clothes with diamonds, tied himself under a carcass (the stench was horrible) and a vulture carried him to a ledge near the summit. A merchant scared the bird away and was disappointed to find no diamonds — so Sindbad promised him ten diamond pieces. The merchants praised his bravery.",
+   "example": "“Don’t worry dear merchant! I shall give you ten diamond pieces!”",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary",
+   "body": "uninhabited (no people live there), plumage (feathers), slumber (sleep), circumference (distance around), carcass (dead body of an animal), talons (claws), stench (bad smell). Phrasal verbs with through / on: go through (experience), get through (survive/pass), carry on (continue), hold on (wait/grip).",
+   "example": "",
+   "hook": ""
+  },
+  {
+   "heading": "Grammar: passive tenses (review)",
+   "body": "Passive = be (in the right tense) + past participle. The object becomes the subject; “by” shows the doer.",
+   "example": "Active: A vulture carried the carcass. → Passive: The carcass was carried by a vulture. / Diamonds are found in the valley. / Sindbad has been rescued.",
+   "hook": "be + V3."
+  },
+  {
+   "heading": "Writing: a book review",
+   "body": "Title and author, genre, brief plot (no spoilers), characters, what you liked/disliked, your rating and recommendation.",
+   "example": "",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-10-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "How was the uninhabited island described?",
+   "options": [
+    "Dark and scary",
+    "Beautiful, full of fruits, birds, flowers and streams",
+    "Rocky and dry",
+    "Covered in snow"
+   ],
+   "ans": "Beautiful, full of fruits, birds, flowers and streams",
+   "why": "Full of nature’s delights.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Why was Sindbad left alone on the island?",
+   "options": [
+    "He ran away",
+    "He fell asleep and the ship sailed away",
+    "He was punished",
+    "The ship sank"
+   ],
+   "ans": "He fell asleep and the ship sailed away",
+   "why": "The breeze lulled him to slumber.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q3",
+   "type": "mcq",
+   "level": 2,
+   "q": "What was the huge white dome?",
+   "options": [
+    "A palace",
+    "The rukh’s egg",
+    "A rock",
+    "A tent"
+   ],
+   "ans": "The rukh’s egg",
+   "why": "Round, white, about fifty paces round.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did the rukh feed its young on?",
+   "options": [
+    "Fish",
+    "Elephants",
+    "Camels",
+    "Snakes"
+   ],
+   "ans": "Elephants",
+   "why": "From travellers’ stories.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "How did Sindbad tie himself to the bird?",
+   "options": [
+    "With a chain",
+    "With his turban twisted into a rope",
+    "With ivy",
+    "With his belt"
+   ],
+   "ans": "With his turban twisted into a rope",
+   "why": "Tied around his waist and the bird’s foot.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did the bird carry away after landing on the tableland?",
+   "options": [
+    "A goat",
+    "An enormous serpent",
+    "A diamond",
+    "Sindbad"
+   ],
+   "ans": "An enormous serpent",
+   "why": "Twisting in its talons.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "What covered the floor of the valley?",
+   "options": [
+    "Gold coins",
+    "Large diamonds and gigantic serpents",
+    "Bones only",
+    "Water"
+   ],
+   "ans": "Large diamonds and gigantic serpents",
+   "why": "He became careful where he stepped.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "How did the merchants collect diamonds?",
+   "options": [
+    "They dug mines",
+    "They threw carcasses into the valley; vultures carried them up",
+    "They used ropes",
+    "They traded with snakes"
+   ],
+   "ans": "They threw carcasses into the valley; vultures carried them up",
+   "why": "Diamonds stuck to the meat.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q9",
+   "type": "mcq",
+   "level": 3,
+   "q": "How did Sindbad escape from the valley?",
+   "options": [
+    "He climbed the mountain",
+    "He tied himself under a carcass and a vulture carried him up",
+    "He rode a serpent",
+    "A ship rescued him"
+   ],
+   "ans": "He tied himself under a carcass and a vulture carried him up",
+   "why": "Despite the horrible stench.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q10",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why was the merchant disappointed?",
+   "options": [
+    "Sindbad was rude",
+    "No diamonds were stuck to the carcass",
+    "The vulture escaped",
+    "He was hurt"
+   ],
+   "ans": "No diamonds were stuck to the carcass",
+   "why": "Sindbad had covered it.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q11",
+   "type": "mcq",
+   "level": 2,
+   "q": "How many diamond pieces did Sindbad promise the merchant?",
+   "options": [
+    "Five",
+    "Ten",
+    "Twenty",
+    "One hundred"
+   ],
+   "ans": "Ten",
+   "why": "Shows he believes in sharing.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q12",
+   "type": "mcq",
+   "level": 3,
+   "q": "Change to passive: A vulture carried the carcass.",
+   "options": [
+    "The carcass carried a vulture.",
+    "The carcass was carried by a vulture.",
+    "The carcass is carrying by a vulture.",
+    "A vulture was carried by the carcass."
+   ],
+   "ans": "The carcass was carried by a vulture.",
+   "why": "was + past participle.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q13",
+   "type": "mcq",
+   "level": 2,
+   "q": "“Uninhabited” means…",
+   "options": [
+    "crowded",
+    "where no people live",
+    "very large",
+    "dangerous"
+   ],
+   "ans": "where no people live",
+   "why": "un- + inhabited.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-q14",
+   "type": "mcq",
+   "level": 2,
+   "q": "“Carry on” means…",
+   "options": [
+    "continue",
+    "stop",
+    "carry a bag",
+    "fall"
+   ],
+   "ans": "continue",
+   "why": "Phrasal verb with on.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "How did Sindbad end up stranded on the island?",
+   "model": "He sat admiring the beautiful island; the soft breeze and murmuring stream lulled him to sleep. When he woke, his ship had sailed far out into the ocean, leaving him alone.",
+   "points": [
+    "Fell asleep (lulled by breeze/stream)",
+    "Ship sailed away without him"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "What does Sindbad’s promise to the merchant show about him?",
+   "model": "It shows he was generous and kind-hearted. He felt sorry for the disappointed merchant and promised him ten diamond pieces, showing he believed in sharing.",
+   "points": [
+    "Generous / kind / believes in sharing",
+    "Felt sorry for the merchant; promised ten diamonds"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-10-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "Write a character sketch of Sindbad with examples from the story.",
+   "model": "Sindbad is adventurous and brave — he faces the giant rukh, serpents and vultures. He is quick-thinking: he twists his turban into a rope to tie himself to the rukh, and remembers the merchants’ trick to escape by hiding under a carcass despite the stench. He is calm in danger and observant, recognising the egg and the bird from travellers’ stories. He is generous, promising ten diamonds to the disappointed merchant. Luck also favours him.",
+   "points": [
+    "Brave/adventurous (rukh, serpents)",
+    "Clever/resourceful (turban rope, carcass plan)",
+    "Observant/remembers stories; calm",
+    "Generous (shares diamonds)"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}

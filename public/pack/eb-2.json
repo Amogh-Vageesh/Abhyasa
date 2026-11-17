@@ -1,0 +1,314 @@
+{
+ "id": "eb-2",
+ "title": "Pushing the Limits",
+ "source": "21st-english",
+ "explainer": [
+  {
+   "heading": "What the article says",
+   "body": "The Olympic motto is “Faster, Higher, Stronger”, and records keep being broken. The article asks why. Its answer: records are not mainly the result of humans becoming more able — the conditions, technology and lifestyle of athletes have changed.",
+   "example": "Roger Bannister ran the first mile under 4 minutes (1954); today’s record is nearly 17 seconds faster.",
+   "hook": "Records ≠ better humans; records = better conditions."
+  },
+  {
+   "heading": "Owens vs Bolt",
+   "body": "Jesse Owens ran 100 m in 10.2 s in 1936 on a simple dirt track that slowed him down. Usain Bolt ran 9.58 s in 2009 on a bouncy, non-slip modern track with state-of-the-art shoes. Analysing film of Owens showed that on a modern track he would have been less than a step behind Bolt.",
+   "example": "The 2016 Olympic marathon winner was 50 minutes faster than the 1896 winner.",
+   "hook": ""
+  },
+  {
+   "heading": "Technology in sport",
+   "body": "Swimming: gutters at the sides of pools stop waves slowing swimmers; special swimsuits help too. At the 2008 Olympics, 25 world records were broken in the “Water Cube”, a pool engineers perfected to be the fastest in the world. Wearable devices record speed and heart rate, giving instant feedback so injuries can be spotted early.",
+   "example": "Data at the 2016 Olympics showed Neymar did more sprints than average; he was told to slow down or get injured.",
+   "hook": ""
+  },
+  {
+   "heading": "Different lives",
+   "body": "Bannister was a medical student who ran his record mile after a morning hospital shift. Owens spent much of his time earning money to pay university fees. Bolt had full-time training, coaches, adequate rest and his own cook. Sport has become an industry — but human desire to be faster, higher, stronger still drives it.",
+   "example": "Antonym of “insufficient” in the text: adequate.",
+   "hook": ""
+  },
+  {
+   "heading": "Vocabulary",
+   "body": "Words with more than one meaning (e.g. “record”, “track”, “match”). Adjectives vs adverbs: quick → quickly, good → well, fast → fast, hard → hard. Suffixes -able / -ic: comfort → comfortable, athlete → athletic, energy → energetic. Phrasal verbs: give up (stop trying), warm up (prepare body), back down (withdraw), take over (take control), get over (recover).",
+   "example": "He runs fast. (adverb) / He is a fast runner. (adjective)",
+   "hook": ""
+  },
+  {
+   "heading": "Grammar: clauses",
+   "body": "A main (independent) clause makes sense alone. A subordinate (dependent) clause does not; it begins with a word like because, when, who, that, if. Kinds: noun clause (works as a noun: “I know that he won”), adjective/relative clause (describes a noun: “the athlete who won”), adverb clause (tells when/why/how: “He trained hard because he wanted gold”).",
+   "example": "Main: Bolt won the race. Subordinate: because he trained hard.",
+   "hook": "Who/which/that after a noun → adjective clause."
+  },
+  {
+   "heading": "Writing: a story",
+   "body": "A good story has a catchy title, an opening that sets the scene (who, where, when), a problem or conflict, a climax, and a resolution. Use past tenses, time words (suddenly, after that, finally), adjectives and dialogue to make it lively.",
+   "example": "“As the whistle blew, Riya’s heart pounded…”",
+   "hook": ""
+  }
+ ],
+ "questions": [
+  {
+   "id": "eb-2-q1",
+   "type": "mcq",
+   "level": 1,
+   "q": "What is the motto of the Olympic Games?",
+   "options": [
+    "Play Fair, Play Hard",
+    "Faster, Higher, Stronger",
+    "Win at All Costs",
+    "Unity in Sport"
+   ],
+   "ans": "Faster, Higher, Stronger",
+   "why": "Stated in the first line.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q2",
+   "type": "mcq",
+   "level": 1,
+   "q": "Who first ran a mile in under four minutes?",
+   "options": [
+    "Usain Bolt",
+    "Jesse Owens",
+    "Roger Bannister",
+    "Neymar"
+   ],
+   "ans": "Roger Bannister",
+   "why": "Roger Bannister in 1954.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q3",
+   "type": "mcq",
+   "level": 1,
+   "q": "Jesse Owens ran 100 m in ____ in 1936.",
+   "options": [
+    "9.58 seconds",
+    "10.2 seconds",
+    "11 seconds",
+    "9.9 seconds"
+   ],
+   "ans": "10.2 seconds",
+   "why": "Bolt later ran 9.58 s (2009).",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q4",
+   "type": "mcq",
+   "level": 2,
+   "q": "What slowed Owens down?",
+   "options": [
+    "A heavy wind",
+    "A simple dirt track",
+    "Poor eyesight",
+    "A leg injury"
+   ],
+   "ans": "A simple dirt track",
+   "why": "Modern tracks are bouncy and non-slip; his was dirt.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q5",
+   "type": "mcq",
+   "level": 2,
+   "q": "The analysis showed that on a modern track Owens would have been…",
+   "options": [
+    "far behind Bolt",
+    "less than a step behind Bolt",
+    "faster than Bolt",
+    "disqualified"
+   ],
+   "ans": "less than a step behind Bolt",
+   "why": "This suggests records come from changed conditions.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q6",
+   "type": "mcq",
+   "level": 2,
+   "q": "Why are gutters built at the sides of swimming pools?",
+   "options": [
+    "To drain dirty water",
+    "To stop waves slowing swimmers down",
+    "For safety rails",
+    "To heat the water"
+   ],
+   "ans": "To stop waves slowing swimmers down",
+   "why": "Waves slow swimmers.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q7",
+   "type": "mcq",
+   "level": 2,
+   "q": "How many world records were broken in the Water Cube in 2008?",
+   "options": [
+    "5",
+    "15",
+    "25",
+    "50"
+   ],
+   "ans": "25",
+   "why": "25 world records.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q8",
+   "type": "mcq",
+   "level": 2,
+   "q": "What did data reveal about Neymar at the 2016 Olympics?",
+   "options": [
+    "He was the fastest player",
+    "He had done more sprints than average and risked injury",
+    "He was not fit to play",
+    "He needed new boots"
+   ],
+   "ans": "He had done more sprints than average and risked injury",
+   "why": "He was told to slow down.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q9",
+   "type": "mcq",
+   "level": 2,
+   "q": "Roger Bannister ran his record mile after…",
+   "options": [
+    "a week of rest",
+    "his morning shift at a hospital",
+    "a flight from America",
+    "a big breakfast cooked by his chef"
+   ],
+   "ans": "his morning shift at a hospital",
+   "why": "He was a medical student.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q10",
+   "type": "mcq",
+   "level": 3,
+   "q": "What is the main idea of the article?",
+   "options": [
+    "Modern athletes are naturally more talented",
+    "New records are mainly due to changed conditions and technology",
+    "Technology should be banned in sport",
+    "Swimming is the hardest sport"
+   ],
+   "ans": "New records are mainly due to changed conditions and technology",
+   "why": "“It is the conditions that have changed.”",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q11",
+   "type": "mcq",
+   "level": 2,
+   "q": "Find the antonym of “insufficient” used in the text.",
+   "options": [
+    "nutritious",
+    "adequate",
+    "finest",
+    "specific"
+   ],
+   "ans": "adequate",
+   "why": "Bolt got adequate rest.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q12",
+   "type": "mcq",
+   "level": 3,
+   "q": "Identify the clause type: “The athlete who won the race was only sixteen.”",
+   "options": [
+    "Noun clause",
+    "Adjective clause",
+    "Adverb clause",
+    "Main clause"
+   ],
+   "ans": "Adjective clause",
+   "why": "“who won the race” describes the noun athlete.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q13",
+   "type": "mcq",
+   "level": 3,
+   "q": "Identify the clause type: “She trained every day because she wanted a medal.”",
+   "options": [
+    "Adverb clause",
+    "Adjective clause",
+    "Noun clause",
+    "Not a clause"
+   ],
+   "ans": "Adverb clause",
+   "why": "“because…” tells why → adverb clause.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q14",
+   "type": "mcq",
+   "level": 2,
+   "q": "Choose the adverb: She ran ____ and won.",
+   "options": [
+    "quick",
+    "quickly",
+    "quicker race",
+    "quickness"
+   ],
+   "ans": "quickly",
+   "why": "Adverb describes how she ran.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-q15",
+   "type": "mcq",
+   "level": 2,
+   "q": "“Don’t ____ up — keep trying!” Choose the phrasal verb.",
+   "options": [
+    "give",
+    "take",
+    "get",
+    "warm"
+   ],
+   "ans": "give",
+   "why": "Give up = stop trying.",
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-w1",
+   "type": "written",
+   "marks": 2,
+   "q": "How has technology changed the way athletes train?",
+   "model": "Athletes wear devices that record running speed and data like heart rate. This gives instant feedback to athletes and coaches, so health problems or injuries can be found and treated quickly and performance can be improved.",
+   "points": [
+    "Devices record speed / heart rate",
+    "Instant feedback → injuries found early / better performance"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-w2",
+   "type": "written",
+   "marks": 2,
+   "q": "Give an example from the text showing that athletes of the past led different lives.",
+   "model": "Roger Bannister ran his record mile after his usual morning shift at a hospital, while Usain Bolt had full-time training, coaches, rest and his own cook. (Or: Jesse Owens had to earn money for his university fees.)",
+   "points": [
+    "Example of a past athlete (Bannister’s hospital shift / Owens earning fees)",
+    "Contrast with modern full-time training (Bolt)"
+   ],
+   "src": "21st-english"
+  },
+  {
+   "id": "eb-2-w3",
+   "type": "written",
+   "marks": 4,
+   "q": "“New records in athletics are not necessarily the result of changes in human ability.” Explain with evidence from the article.",
+   "model": "The article compares Owens and Bolt. Owens ran on a slow dirt track; Bolt ran on a bouncy non-slip track with special shoes. Analysis showed Owens would have been less than a step behind Bolt on a modern track. In swimming, gutters and special swimsuits increased speed; 25 records fell in the Water Cube. Modern athletes also train full-time with coaches and diets, unlike Bannister and Owens. So changed conditions and technology, not just ability, explain new records.",
+   "points": [
+    "Owens vs Bolt comparison (track/shoes; less than a step behind)",
+    "Swimming technology (gutters, swimsuits, Water Cube)",
+    "Lifestyle difference (full-time training vs jobs/fees)",
+    "Clear conclusion: conditions/technology explain records"
+   ],
+   "src": "21st-english"
+  }
+ ]
+}
