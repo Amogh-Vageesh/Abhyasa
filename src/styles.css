@@ -1294,3 +1294,22 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
   :root:not([data-theme="dark"]) .topnav-icon, :root:not([data-theme="dark"]) .topnav-add { border-color: #e7e7ea !important; }
   :root:not([data-theme="dark"]) .card .kpis > div, :root:not([data-theme="dark"]) .card .stat { background: #f7f7f8 !important; }
 }
+
+/* =====================================================================
+   v30: main action buttons are solid blue (default "Clean" theme).
+   Orange stays for streaks, goals, progress and the hero card.
+   ===================================================================== */
+:root[data-color="clean"] { --btn: #2563eb; --btn-hover: #1d4ed8; }
+:root[data-color="clean"] button.primary, :root[data-color="clean"] .button.primary, :root[data-color="clean"] .primary,
+:root[data-color="clean"] .w-btn.dark {
+  background: var(--btn) !important; border-color: var(--btn) !important; color: #fff !important;
+  box-shadow: 0 4px 10px rgba(37,99,235,.18) !important;
+}
+:root[data-color="clean"] button.primary:hover, :root[data-color="clean"] .w-btn.dark:hover { background: var(--btn-hover) !important; }
+:root[data-color="clean"] .seg button.on { background: var(--btn) !important; color: #fff !important; box-shadow: 0 2px 5px rgba(37,99,235,.18) !important; }
+:root[data-color="clean"] .nav button.on { color: var(--btn) !important; }
+:root[data-color="clean"] .nav .fab-in { background: var(--btn) !important; box-shadow: 0 5px 14px rgba(37,99,235,.30) !important; }
+:root[data-color="clean"] .topnav-links button.on { color: var(--btn) !important; background: #eff4ff !important; }
+:root[data-color="clean"][data-theme="dark"] .topnav-links button.on { color: #8fb3ff !important; background: var(--raise) !important; }
+:root[data-color="clean"] .link, :root[data-color="clean"] .w-link { color: var(--btn) !important; }
+:root[data-color="clean"] .side-add { background: var(--btn) !important; }
