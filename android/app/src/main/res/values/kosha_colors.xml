@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Same window colours as the Kosha app -->
+<resources>
+    <color name="kosha_status">#F4EFE4</color>
+    <color name="kosha_nav">#FBF8F1</color>
+    <color name="kosha_page">#F4EFE4</color>
+    <bool name="kosha_light_bars">true</bool>
+</resources>

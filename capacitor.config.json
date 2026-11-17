@@ -5,10 +5,13 @@
   "plugins": {
     "FirebaseAuthentication": {
       "skipNativeAuth": true,
-      "providers": ["google.com"]
+      "providers": [
+        "google.com"
+      ]
     },
     "LocalNotifications": {
       "iconColor": "#f59e0b"
     }
-  }
+  },
+  "backgroundColor": "#f8f4ed"
 }

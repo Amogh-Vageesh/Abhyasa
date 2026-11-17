@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="kosha_status">#17140F</color>
+    <color name="kosha_nav">#201C16</color>
+    <color name="kosha_page">#17140F</color>
+    <bool name="kosha_light_bars">false</bool>
+</resources>

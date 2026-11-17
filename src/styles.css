@@ -1210,3 +1210,9 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
 .mny-bars .in, .mny-key.in { background: #22b35e; } .mny-bars .out, .mny-key.out { background: #ef6b4a; }
 .mny-col small { font-size: 11px; color: var(--muted); }
 .mny-key { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: -1px; }
+
+/* v27: phone dark mode uses Kosha's warm dark palette */
+@media (max-width: 959px) {
+  :root[data-theme="dark"] { --bg: #17140f; --panel: #201c16; --raise: #2a251d; --rule: #3a342a; --rule2: #332d24; --text: #efe7d6; --muted: #9d9483; }
+  :root[data-theme="dark"] body, :root[data-theme="dark"] .app { background: #17140f !important; }
+}
