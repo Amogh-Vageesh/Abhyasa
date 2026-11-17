@@ -1216,3 +1216,53 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
   :root[data-theme="dark"] { --bg: #17140f; --panel: #201c16; --raise: #2a251d; --rule: #3a342a; --rule2: #332d24; --text: #efe7d6; --muted: #9d9483; }
   :root[data-theme="dark"] body, :root[data-theme="dark"] .app { background: #17140f !important; }
 }
+
+/* =====================================================================
+   v28: web version uses the same Kosha configuration as the phone:
+   Figtree 15px, cream page, white 19px cards, Kosha text colours,
+   orange gradient buttons, Kosha segmented control, warm dark mode.
+   Layout stays wide (top menu, columns).
+   ===================================================================== */
+@media (min-width: 960px) {
+  :root, body, button, input, select, textarea, h1, h2, h3, h4, .w-h1, .w-big, .w-stats b, .page-head h1, .sec-h h2,
+  .big-score, .summary-main b, .stat b, .kpis b, .card-head h3, .brand, .topnav-brand, .question {
+    font-family: 'Figtree Variable', 'Noto Sans Kannada Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+  }
+  :root, body { font-size: 15px; line-height: 1.42; font-weight: 400; }
+  :root:not([data-theme="dark"]) {
+    --bg: #f8f4ed; --panel: #ffffff; --raise: #f3eee6; --rule: #e9e1d6; --rule2: #eee7dd; --text: #29251f; --muted: #81796f;
+    --w-page: #f8f4ed; --w-ink: #29251f; --w-sub: #81796f; --w-mute: #81796f; --w-line: #eee7dd; --w-line2: #f0e9df;
+  }
+  :root[data-theme="dark"] {
+    --bg: #17140f; --panel: #201c16; --raise: #2a251d; --rule: #3a342a; --rule2: #332d24; --text: #efe7d6; --muted: #9d9483;
+    --w-page: #17140f; --w-ink: #efe7d6; --w-sub: #b8ae9c; --w-mute: #9d9483; --w-line: #3a342a; --w-line2: #332d24;
+  }
+  :root[data-bg="plain"] body, :root[data-bg="plain"] .app { background: var(--w-page) !important; }
+  .bgv-plain { background: var(--w-page) !important; }
+  .topnav { background: rgba(255,255,255,.97) !important; border-bottom: 1px solid #e9e1d6 !important; box-shadow: 0 5px 18px rgba(54,39,22,.035); }
+  :root[data-theme="dark"] .topnav { background: color-mix(in srgb, var(--panel) 97%, transparent) !important; border-bottom-color: var(--rule) !important; }
+  .topnav-links button { font-weight: 600; color: #8b8176; }
+  .topnav-links button.on { color: #dc8526 !important; background: #fff4e3 !important; }
+  .topnav-icon, .topnav-add { border-color: #eee3d5 !important; }
+  /* cards */
+  .card, .stat, .summary, .subj, .path-item, .chap, .w-card, .kpis > div, .w-stats, .hub-tile, .pc-card { background: var(--panel) !important; border: 1px solid var(--w-line) !important; border-radius: 19px !important; box-shadow: 0 4px 14px rgba(72,48,22,.035) !important; }
+  .card:hover, .stat:hover, .subj:hover, .w-subj:hover, .hub-tile:hover { border-color: #e3d8c8 !important; }
+  /* type scale (Kosha weights, a little larger for desktop) */
+  .page-head h1 { font-size: 30px !important; font-weight: 800 !important; letter-spacing: -0.035em; color: var(--w-ink); }
+  .w-h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.035em; }
+  .w-sec-h h2, .sec-h h2 { font-size: 18px !important; font-weight: 750 !important; letter-spacing: -0.015em; }
+  .card h2, .card-head h3, .lrow .lt b { font-weight: 650; }
+  .w-stats b, .kpis b { font-weight: 800; letter-spacing: -0.03em; }
+  .muted, .lrow .lt small { color: var(--w-mute); }
+  /* buttons */
+  button, .button { border-radius: 12px; }
+  .primary, button.primary, .w-btn.dark { background: linear-gradient(135deg, #f6b74d, #eb8c2e) !important; border-color: #ec9b38 !important; color: #fff !important; box-shadow: 0 4px 10px rgba(228,143,45,.18) !important; }
+  .w-btn { border-color: #e7dfd4 !important; }
+  .seg { background: #f1ece4 !important; border: 0 !important; border-radius: 12px !important; padding: 4px !important; }
+  .seg button { border-radius: 9px !important; min-height: 34px; font-size: 13px; font-weight: 600; }
+  .seg button.on { background: linear-gradient(135deg, #f6b74d, #eb8c2e) !important; color: #fff !important; box-shadow: 0 2px 5px rgba(205,128,33,.16) !important; }
+  :root[data-theme="dark"] .seg { background: var(--raise) !important; }
+  input, select, textarea { border-color: #e8dfd3; border-radius: 12px; }
+  .w-dot { border-color: #e3d8c8; }
+}
+@media (min-width: 960px) { :root[data-theme="dark"] .topnav-links button.on { background: var(--raise) !important; color: #f2b45a !important; } }

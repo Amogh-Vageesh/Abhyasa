@@ -23,17 +23,17 @@ export const levelNames = () => currentTheme().levels;
 
 // Web (desktop) page backgrounds — illustrations are inline SVG/CSS, so they work offline
 export const WEB_BGS = {
+  plain: { name: 'Kosha cream', tag: 'Same as Kosha (default)' },
   sunrise: { name: 'Sunrise hills', tag: 'Warm sky & sun' },
   lavender: { name: 'Lavender peaks', tag: 'Soft mountains' },
   ocean: { name: 'Calm sea', tag: 'Sky blue waves' },
   aurora: { name: 'Glow', tag: 'Follows theme colour' },
   notebook: { name: 'Notebook', tag: 'Ruled paper' },
-  plain: { name: 'Plain', tag: 'Light grey tint' }
 };
-export const getWebBg = () => { const k = get('abhyasa-webbg', 'sunrise'); return WEB_BGS[k] ? k : 'sunrise'; };
+export const getWebBg = () => { const k = get('abhyasa-webbg-v2', 'plain'); return WEB_BGS[k] ? k : 'plain'; };
 
 export function setTheme({ mode, palette, webBg }) {
-  try { if (mode) localStorage.setItem('abhyasa-theme', mode); if (palette) localStorage.setItem('abhyasa-palette', palette); if (webBg) localStorage.setItem('abhyasa-webbg', webBg); } catch {}
+  try { if (mode) localStorage.setItem('abhyasa-theme', mode); if (palette) localStorage.setItem('abhyasa-palette', palette); if (webBg) localStorage.setItem('abhyasa-webbg-v2', webBg); } catch {}
   applyTheme();
   window.dispatchEvent(new Event('abhyasa-theme'));
 }
