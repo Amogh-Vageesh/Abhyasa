@@ -1203,3 +1203,10 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
 @media (max-width: 480px) { .pc-step small { display: none; } }
 .nt-card { margin-bottom: 12px; }
 .lrow:disabled { opacity: 1; cursor: default; }
+.mny-chart { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; height: 140px; align-items: end; }
+.mny-col { display: flex; flex-direction: column; align-items: center; height: 100%; gap: 4px; }
+.mny-bars { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 3px; }
+.mny-bars span { width: 38%; max-width: 18px; min-height: 2px; border-radius: 5px 5px 2px 2px; }
+.mny-bars .in, .mny-key.in { background: #22b35e; } .mny-bars .out, .mny-key.out { background: #ef6b4a; }
+.mny-col small { font-size: 11px; color: var(--muted); }
+.mny-key { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: -1px; }

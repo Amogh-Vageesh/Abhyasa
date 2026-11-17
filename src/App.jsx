@@ -7,7 +7,7 @@ const SITE = 'https://abhyasa-3fe1d.web.app';
 const APK_URL = 'https://github.com/Amogh-Vageesh/Abhyasa/releases/latest';
 import { createFamily, getProfile, joinFamily, useFamily } from './lib/data';
 import { syncReminders } from './lib/notify';
-import { Card, Modal, PageHead, rupees } from './components';
+import { Card, Modal, PageHead, rupees, useDesktop } from './components';
 import { Icon, Tile, Avatar } from './icons';
 import { walletSummary } from './lib/logic';
 import { StudentToday, LogModal, LearnModal } from './Student';
@@ -113,7 +113,7 @@ const PARENT_NAV = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['fab'
 const SIDE_STUDENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'My Money'], ['goals', 'target', 'My goals'], ['insights', 'bulb', 'My next steps'], ['ebooks', 'file', 'My books'], ['explore', 'bulb', 'Explore'], ['sports', 'trophy', 'Sports'], ['badges', 'trophy', 'Badges'], ['theme', 'settings', 'Theme'], ['more', 'menu', 'More']];
 const TOP_STUDENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice'], ['explore', 'Explore'], ['sports', 'Sports'], ['planner', 'Planner'], ['finance', 'Money'], ['ebooks', 'Books']];
 const TOP_PARENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice'], ['explore', 'Explore'], ['sports', 'Sports'], ['planner', 'Planner'], ['finance', 'Money'], ['ebooks', 'E-books'], ['settings', 'Settings']];
-const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['explore', 'bulb', 'Explore'], ['sports', 'trophy', 'Sports'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'Money & rewards'], ['goals', 'target', 'His goals'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
+const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['explore', 'bulb', 'Explore'], ['sports', 'trophy', 'Sports'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'His money'], ['goals', 'target', 'His goals'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
 
 export function Main({ me }) {
   const F = useFamily(me.familyId);
@@ -286,13 +286,16 @@ function MorePage({ F, me, go }) {
   const isParent = me.role === 'parent';
   const { balance } = walletSummary(F.wallet);
   const rows = isParent
-    ? [['finance', 'rupee', 'teal', 'Money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, fix-it report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'E-books', 'Import textbook PDFs and links'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
+    ? [['finance', 'rupee', 'teal', 'His money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, fix-it report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'E-books', 'Import textbook PDFs and links'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
     : [['ebooks', 'file', 'red', 'My books', `${F.ebooks.length} textbook(s)`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
+  const desktop = useDesktop();
+  const inTop = new Set((isParent ? TOP_PARENT : TOP_STUDENT).map(([k]) => k));
+  const shown = desktop ? rows.filter(([k]) => !inTop.has(k.split(':')[0])) : rows;
   return (
     <div>
       <PageHead title="More" />
       <div className="card list">
-        {rows.map(([k, icon, tone, label, sub]) => (
+        {shown.map(([k, icon, tone, label, sub]) => (
           <button key={k} className="lrow" onClick={() => { const [t, x] = k.split(':'); go(t, x); }}>
             <Tile icon={icon} tone={tone} /><div className="lt"><b>{label}</b><small>{sub}</small></div><Icon name="chevR" className="chev" />
           </button>

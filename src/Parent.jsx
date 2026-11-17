@@ -115,11 +115,6 @@ export function ParentDashboard({ F, me, go }) {
       <div className="sec-h"><h2>Last 14 days</h2></div>
       <div className="card"><Progress7 F={F} /></div>
       </div><div className="col">
-      <div className="sec-h"><h2>His money</h2><button className="link" onClick={() => go('finance')}>Open <Icon name="chevR" size={16} /></button></div>
-      <div className="card money-card">
-        <div className="row between"><div><div className="muted small-text">He has</div><div className="big-score" style={{ fontSize: 24 }}>{formatMoney(moneyBalances(F.money).filter((b) => b.currency === 'INR').reduce((a, b) => a + b.balance, 0))}</div></div>
-          <div style={{ textAlign: 'right' }}><div className="muted small-text">Spent this month (all payers)</div><b className="money-out">{formatMoney(F.money.filter((e) => e.type === 'out' && (e.currency || 'INR') === 'INR' && String(e.date).startsWith(today.slice(0, 7))).reduce((a, e) => a + Number(e.amount || 0), 0))}</b></div></div>
-      </div>
       <GoalsCard F={F} me={me} go={go} />
       <div className="sec-h"><h2>Why wrong answers happen</h2><button className="link" onClick={() => go('insights', 'mistakes')}>Report <Icon name="chevR" size={16} /></button></div>
       <MistakeReport F={F} compact go={go} />

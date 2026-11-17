@@ -17,6 +17,77 @@ function payerLabel(p, F) {
   return p;
 }
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function periodRange(kind, offset) {
+  const now = new Date();
+  if (kind === 'month') { const d = new Date(now.getFullYear(), now.getMonth() + offset, 1); const e = new Date(d.getFullYear(), d.getMonth() + 1, 0); return { from: ymd(d), to: ymd(e), label: `${MONTHS[d.getMonth()]} ${d.getFullYear()}` }; }
+  if (kind === 'quarter') { const q = Math.floor(now.getMonth() / 3) + offset; const y = now.getFullYear() + Math.floor(q / 4); const qq = ((q % 4) + 4) % 4; const d = new Date(y, qq * 3, 1); const e = new Date(y, qq * 3 + 3, 0); return { from: ymd(d), to: ymd(e), label: `${MONTHS[qq * 3]}–${MONTHS[qq * 3 + 2]} ${y}` }; }
+  const y = now.getFullYear() + offset; return { from: `${y}-01-01`, to: `${y}-12-31`, label: String(y) };
+}
+const sumBy = (list, key) => { const o = {}; for (const e of list) { const k = key(e); o[k] = (o[k] || 0) + Number(e.amount || 0); } return Object.entries(o).sort((a, b) => b[1] - a[1]); };
+const PAYER = { self: 'From his own money', dad: 'Paid by Appa', mom: 'Paid by Amma', other: 'Paid by someone else' };
+
+// Parent: a clear view of money given to him and how it was spent — month / quarter / year
+function ParentMoney({ F, setEdit, setTab }) {
+  const [kind, setKind] = useState('month');
+  const [off, setOff] = useState(0);
+  const r = periodRange(kind, off);
+  const inr = (e) => (e.currency || 'INR') === 'INR';
+  const inP = F.money.filter((e) => inr(e) && e.date >= r.from && e.date <= r.to);
+  const given = inP.filter((e) => e.type === 'in');
+  const out = inP.filter((e) => e.type === 'out');
+  const own = out.filter((e) => (e.paidBy || 'self') === 'self');
+  const byParents = out.filter((e) => (e.paidBy || 'self') !== 'self');
+  const tot = (l) => l.reduce((a, e) => a + Number(e.amount || 0), 0);
+  const withHim = moneyBalances(F.money).filter((b) => b.currency === 'INR').reduce((a, b) => a + b.balance, 0);
+  const rewardBal = walletSummary(F.wallet).balance;
+  const cats = sumBy(out, (e) => e.category || 'Other');
+  const maxCat = cats[0]?.[1] || 1;
+  const trend = Array.from({ length: 6 }, (_, k) => { const m = periodRange('month', off * (kind === 'month' ? 1 : 0) - (5 - k)); const l = F.money.filter((e) => inr(e) && e.date >= m.from && e.date <= m.to); return { label: m.label.slice(0, 3), inn: tot(l.filter((e) => e.type === 'in')), out: tot(l.filter((e) => e.type === 'out')) }; });
+  const maxT = Math.max(1, ...trend.flatMap((t) => [t.inn, t.out]));
+  return (
+    <div className="stack">
+      {rewardBal > 0 && <button className="note" style={{ border: 0, width: '100%', marginTop: 0 }} onClick={() => setTab('rewards')}><span style={{ fontSize: 26 }}>🎁</span><div style={{ textAlign: 'left' }}><b>₹{rewardBal} in rewards to pay</b><div className="small-text muted">Record a payout and it moves into his cash</div></div></button>}
+      <div className="row between wrap" style={{ gap: 8 }}>
+        <div className="seg" style={{ margin: 0 }}>{[['month', 'Month'], ['quarter', 'Quarter'], ['year', 'Year']].map(([k, l]) => <button key={k} className={kind === k ? 'on' : ''} onClick={() => { setKind(k); setOff(0); }}>{l}</button>)}</div>
+        <div className="row" style={{ gap: 6, alignItems: 'center' }}><button className="small icon-only" onClick={() => setOff(off - 1)} aria-label="Previous">‹</button><b style={{ minWidth: 110, textAlign: 'center' }}>{r.label}</b><button className="small icon-only" disabled={off >= 0} onClick={() => setOff(off + 1)} aria-label="Next">›</button></div>
+      </div>
+      <div className="kpis">
+        <div><Tile icon="download" tone="green" /><small>Given to him</small><b>{formatMoney(tot(given))}</b><em>{given.length} entr{given.length === 1 ? 'y' : 'ies'}</em></div>
+        <div><Tile icon="rupee" tone="red" /><small>He spent (his money)</small><b>{formatMoney(tot(own))}</b><em>{own.length} purchase{own.length === 1 ? '' : 's'}</em></div>
+        <div><Tile icon="users" tone="purple" /><small>You paid for him</small><b>{formatMoney(tot(byParents))}</b><em>tracked, not from his money</em></div>
+        <div><Tile icon="wallet" tone="teal" /><small>With him now</small><b>{formatMoney(withHim)}</b><em>cash + accounts</em></div>
+      </div>
+      <Card title="Money given — what for">
+        {!given.length && <p className="muted small-text">Nothing given in {r.label}.</p>}
+        {sumBy(given, (e) => e.category || 'Other').map(([k, v]) => <div key={k} className="row between" style={{ padding: '6px 0' }}><span>{k}</span><b className="money-in">+{formatMoney(v)}</b></div>)}
+        {given.length > 0 && <details style={{ marginTop: 6 }}><summary className="small-text muted">Show each entry</summary>{given.map((e) => <div key={e.id} className="row between small-text" style={{ padding: '4px 0' }}><span>{e.date} · {e.category}{e.from ? ` · from ${e.from}` : ''}{e.note ? ` · ${e.note}` : ''}</span><b>{formatMoney(e.amount)}</b></div>)}</details>}
+      </Card>
+      <Card title="Spent on">
+        {!cats.length && <p className="muted small-text">No spending in {r.label}.</p>}
+        {cats.map(([k, v]) => (
+          <div key={k} style={{ margin: '8px 0' }}>
+            <div className="row between small-text"><span>{k}</span><b>{formatMoney(v)}</b></div>
+            <div className="progress"><div style={{ width: `${(v / maxCat) * 100}%`, background: 'var(--accent-b)' }} /></div>
+          </div>
+        ))}
+        {out.length > 0 && <div className="small-text muted" style={{ marginTop: 8 }}>{Object.entries(PAYER).map(([k, l]) => { const t = tot(out.filter((e) => (e.paidBy || 'self') === k)); return t ? `${l}: ${formatMoney(t)}` : null; }).filter(Boolean).join(' · ')}</div>}
+        {out.length > 0 && <details style={{ marginTop: 6 }}><summary className="small-text muted">Show each purchase</summary>{out.map((e) => <div key={e.id} className="row between small-text" style={{ padding: '4px 0' }}><span>{e.date} · {e.category || 'Other'}{e.note ? ` · ${e.note}` : ''} · {PAYER[e.paidBy || 'self'].replace('Paid by ', '').replace('From his own money', 'his money')}</span><b>{formatMoney(e.amount)}</b></div>)}</details>}
+      </Card>
+      <Card title="Last 6 months">
+        <div className="mny-chart">{trend.map((t, k) => (
+          <div key={k} className="mny-col"><div className="mny-bars"><span className="in" style={{ height: `${(t.inn / maxT) * 100}%` }} title={`Given ${formatMoney(t.inn)}`} /><span className="out" style={{ height: `${(t.out / maxT) * 100}%` }} title={`Spent ${formatMoney(t.out)}`} /></div><small>{t.label}</small></div>
+        ))}</div>
+        <div className="small-text muted" style={{ marginTop: 6 }}><span className="mny-key in" /> Given &nbsp; <span className="mny-key out" /> Spent (all payers)</div>
+      </Card>
+      <div className="row" style={{ gap: 8 }}>
+        <button className="small" onClick={() => setEdit({ type: 'in', from: 'Appa', category: 'Pocket money' })}><Icon name="download" size={16} /> Record money given</button>
+        <button className="small" onClick={() => setEdit({ type: 'out', paidBy: 'dad' })}><Icon name="rupee" size={16} /> Record something you paid</button>
+      </div>
+    </div>
+  );
+}
+
 export function FinancePage({ F, me, tab = 'overview', setTab = () => {} }) {
   const [edit, setEdit] = useState(null);
   const rewardBal = walletSummary(F.wallet).balance;
@@ -28,10 +99,11 @@ export function FinancePage({ F, me, tab = 'overview', setTab = () => {} }) {
   const monthIn = F.money.filter((e) => e.type === 'in' && e.date?.startsWith(month));
   return (
     <div>
-      <PageHead title={me.role === 'parent' ? 'Money & rewards' : 'My Money'} right={<button className="primary small" onClick={() => setEdit({ type: 'out' })}><Icon name="plus" size={16} /> Add</button>} />
+      <PageHead title={me.role === 'parent' ? 'His money & rewards' : 'My Money'} right={<button className="primary small" onClick={() => setEdit({ type: 'out' })}><Icon name="plus" size={16} /> Add</button>} />
       <div className="seg">{[['overview', 'Overview'], ['rewards', `Rewards${rewardBal ? ' · ₹' + rewardBal : ''}`], ['history', 'History']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
       {tab === 'rewards' && <WalletPage F={F} me={me} embedded />}
-      {tab === 'overview' && <div className="stack">
+      {tab === 'overview' && me.role === 'parent' && <ParentMoney F={F} setEdit={setEdit} setTab={setTab} />}
+      {tab === 'overview' && me.role !== 'parent' && <div className="stack">
         {rewardBal > 0 && <button className="note" style={{ border: 0, width: '100%', marginTop: 0 }} onClick={() => setTab('rewards')}><span style={{ fontSize: 26 }}>🎁</span><div style={{ textAlign: 'left' }}><b>₹{rewardBal} in rewards {me.role === 'parent' ? 'to pay' : 'to collect'}</b><div className="small-text muted">{me.role === 'parent' ? 'Record a payout and it moves into his cash' : 'When Appa/Amma pay you, it moves into your cash'}</div></div></button>}
         <Card>
           <div className="muted small-text">My money</div>
