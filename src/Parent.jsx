@@ -3,6 +3,7 @@ import { Card, ChapterPicker, Modal, rupees, PageHead, Progress } from './compon
 import { Icon, Tile, Avatar, HeroArt } from './icons';
 import { ExploreSummary } from './Explore';
 import { SportsSummary } from './Sports';
+import { DayPlanCard } from './DayPlan';
 import { STEPS } from './lib/actions';
 import { addNote, deleteTest, saveTest, updateSettings } from './lib/data';
 import { currentStreak, dueChapters, parseTestText, taskStats, walletSummary, ymd, moneyBalances, formatMoney } from './lib/logic';
@@ -55,6 +56,7 @@ export function ParentDashboard({ F, me, go }) {
       </button>}
       <ExploreSummary F={F} go={go} isParent />
       <SportsSummary F={F} go={go} />
+      <div style={{ marginBottom: 12 }}><DayPlanCard F={F} me={me} /></div>
       <div className="top-row">
       <div className="summary">
         <Avatar name={kid} tone="blue" size={52} />

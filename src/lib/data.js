@@ -76,13 +76,14 @@ export function useFamily(familyId) {
   const explore = useCollection(familyId, 'explore');
   const sports = useCollection(familyId, 'sports', { order: 'date', dir: 'desc', limit: 800 });
   const achievements = useCollection(familyId, 'achievements', { order: 'date', dir: 'desc' });
+  const dayplans = useCollection(familyId, 'dayplans');
   const settings = { ...DEFAULT_SETTINGS, ...(family?.settings || {}), rewards: { ...DEFAULT_SETTINGS.rewards, ...(family?.settings?.rewards || {}) } };
   setHiddenBooks(settings.hiddenBooks);
   return {
     family, settings,
     days: Object.fromEntries(days.map((d) => [d.id, d])),
     chapters: Object.fromEntries(chapters.map((c) => [c.id, c])),
-    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks, goals, answers, explore, sports, achievements
+    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks, goals, answers, explore, sports, achievements, dayplans
   };
 }
 

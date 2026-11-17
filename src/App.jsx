@@ -123,7 +123,7 @@ export function Main({ me }) {
   const [tab, setTab] = useState('home');
   const [studyNav, setStudyNav] = useState({});
   const [ptab, setPtab] = useState('practice');
-  const [psub, setPsub] = useState('tasks');
+  const [psub, setPsub] = useState('day');
   const [sheet, setSheet] = useState(null); // 'fab' | action key
   const [launch, setLaunch] = useState(null);
   const [finTab, setFinTab] = useState('overview');

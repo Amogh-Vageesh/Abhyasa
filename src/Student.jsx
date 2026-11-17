@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { set as idbSet, get as idbGet } from 'idb-keyval';
 import { ExploreSummary } from './Explore';
 import { SportsSummary } from './Sports';
+import { DayPlanCard } from './DayPlan';
 import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees, PageHead, useDesktop } from './components';
 import { DeskHome } from './DeskHome';
 import { Icon, Tile, Avatar, HeroArt } from './icons';
@@ -134,6 +135,7 @@ export function StudentToday({ F, go }) {
         </div>
         <HeroArt />
       </div>
+      <div className="mobile-only" style={{ marginBottom: 12 }}><DayPlanCard F={F} me={{ role: 'student', name: F.family.studentName }} compact /></div>
 
       <div className="top-row">
       <button className="summary" onClick={() => document.getElementById('routine')?.scrollIntoView({ behavior: 'smooth' })}>

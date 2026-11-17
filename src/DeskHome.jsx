@@ -3,6 +3,7 @@
 import { Icon } from './icons';
 import { rupees } from './components';
 import { usePlan } from './Insights';
+import { DayPlanCard } from './DayPlan';
 import { SUBJECTS } from './lib/syllabus';
 import { subjectChapters, subjectOfFactory } from './Study';
 import { daysBetween, studyStats, ymd } from './lib/logic';
@@ -104,6 +105,7 @@ export function DeskHome({ F, go, routine, doneCount, streak, greet, openMistake
         </div>
       </section>
 
+      <section className="w-sec"><DayPlanCard F={F} me={{ role: 'student', name: F.family.studentName }} /></section>
       <section className="w-two">
         <div className="w-col-wide">
           <div className="w-sec-h"><h2>Coming up</h2><button className="w-link" onClick={() => go('calendar')}>Calendar →</button></div>

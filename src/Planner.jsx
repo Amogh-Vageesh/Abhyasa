@@ -4,6 +4,7 @@ import { Icon, Tile } from './icons';
 import { deleteItem, saveItem } from './lib/data';
 import { blocksFor, minutes, periodKey, recentPeriods, taskAppliesOn, taskStats, ymd } from './lib/logic';
 import { CalendarPage } from './Shared';
+import { DayPlanCard } from './DayPlan';
 
 const FREQS = [['daily', 'Daily'], ['weekly', 'Weekly'], ['monthly', 'Monthly']];
 const WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -24,10 +25,11 @@ export function PlannerPage({ F, me, sub, setSub }) {
     <div>
       <PageHead title="Planner" />
       <div className="seg">
-        {[['tasks', 'Tasks'], ['timetable', 'Timetable'], ['calendar', 'Calendar']].map(([k, l]) => (
+        {[['day', 'My day'], ['tasks', 'Tasks'], ['timetable', 'Timetable'], ['calendar', 'Calendar']].map(([k, l]) => (
           <button key={k} className={sub === k ? 'on' : ''} onClick={() => setSub(k)}>{l}</button>
         ))}
       </div>
+      {sub === 'day' && <DayPlanCard F={F} me={me} />}
       {sub === 'tasks' && <TasksView F={F} me={me} />}
       {sub === 'timetable' && <TimetableView F={F} me={me} />}
       {sub === 'calendar' && <CalendarPage F={F} me={me} embedded />}

@@ -1137,3 +1137,45 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
 .sp-add { position: absolute; top: 14px; right: 14px; font-size: 12px; font-weight: 700; color: var(--accent-b); }
 .sp-pick { display: flex; flex-wrap: wrap; gap: 6px; }
 .sp-medal { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; background: color-mix(in srgb, #f59e0b 14%, transparent); flex: none; }
+
+/* ===================== v25: planning coach ===================== */
+.pc-card { padding: 16px 18px !important; }
+.pc-kicker { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.pc-title { margin: 2px 0 0; font-size: 18px; }
+.pc-items { display: flex; flex-direction: column; gap: 2px; margin-top: 10px; }
+.pc-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--rule); }
+.pc-item .check-circle { width: 24px; height: 24px; padding: 0; min-height: 0; }
+.pc-item b { display: block; font-size: 14.5px; }
+.pc-item small { font-size: 12px; }
+.pc-item.done b { text-decoration: line-through; color: var(--muted); font-weight: 500; }
+.pc-actual { width: 84px; padding: 4px 6px; font-size: 13px; }
+.pc-refl { margin-top: 10px; padding: 9px 12px; border-radius: 12px; background: color-mix(in srgb, var(--accent-b) 9%, transparent); }
+.pc-skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+.pc-skills span { display: flex; flex-direction: column; font-weight: 800; }
+.pc-skills small { font-size: 11px; color: var(--muted); font-weight: 600; }
+.pc-q { display: flex; flex-direction: column; gap: 8px; }
+.pc-q b { font-size: 16px; }
+.pc-fixed { gap: 6px; }
+.pc-fixed input[type="time"] { width: 110px; }
+.pc-star { width: 34px; padding: 0 !important; font-size: 18px; color: var(--muted) !important; }
+.pc-star.on { color: #f59e0b !important; border-color: #f59e0b !important; }
+.pc-when { display: flex !important; flex-direction: row; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pc-when b { display: block; font-size: 14.5px; }
+.pc-when small { display: block; font-size: 12px; }
+.pc-when input[type="time"] { width: 120px; }
+.pc-order { display: flex; flex-direction: column; gap: 4px; }
+.pc-order .icon-only { height: 26px; min-height: 0; }
+.pc-fixedline { padding: 8px 12px; border-radius: 10px; background: var(--raise); }
+.pc-tip { padding: 11px 14px; border-radius: 12px; line-height: 1.5; font-size: 14.5px; border: 1px solid var(--rule); background: var(--panel); }
+.pc-tip.bad { border-color: color-mix(in srgb, #dc2626 35%, transparent); background: color-mix(in srgb, #dc2626 6%, var(--panel)); }
+.pc-tip.warn { border-color: color-mix(in srgb, #d97706 35%, transparent); background: color-mix(in srgb, #d97706 7%, var(--panel)); }
+.pc-tip.tip { border-color: color-mix(in srgb, #2563eb 25%, transparent); background: color-mix(in srgb, #2563eb 5%, var(--panel)); }
+.pc-tip.good { border-color: color-mix(in srgb, #16a34a 35%, transparent); background: color-mix(in srgb, #16a34a 7%, var(--panel)); }
+.pc-timeline { padding: 8px 16px !important; }
+.pc-row { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; }
+.pc-row:last-child { border-bottom: 0; }
+.pc-row span { width: 104px; flex: none; color: var(--muted); font-variant-numeric: tabular-nums; font-size: 13px; }
+.pc-row.fixed b { font-weight: 500; color: var(--muted); }
+.pc-fixed { flex-wrap: wrap; }
+.pc-fixed input:first-child { flex: 1 1 100%; }
+.pc-fixed input[type="time"] { flex: 1 1 100px; }
