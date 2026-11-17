@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Card, ChapterPicker, Modal, rupees, PageHead, Progress } from './components';
 import { Icon, Tile, Avatar, HeroArt } from './icons';
 import { ExploreSummary } from './Explore';
+import { SportsSummary } from './Sports';
 import { STEPS } from './lib/actions';
 import { addNote, deleteTest, saveTest, updateSettings } from './lib/data';
 import { currentStreak, dueChapters, parseTestText, taskStats, walletSummary, ymd, moneyBalances, formatMoney } from './lib/logic';
@@ -53,6 +54,7 @@ export function ParentDashboard({ F, me, go }) {
         <Tile icon="edit" tone="purple" /><div style={{ textAlign: 'left' }}><b>{F.answers.filter((a) => a.status === 'submitted').length} written answer set(s) to mark</b><div className="small-text muted">Tick the points he covered — takes a minute each</div></div>
       </button>}
       <ExploreSummary F={F} go={go} isParent />
+      <SportsSummary F={F} go={go} />
       <div className="top-row">
       <div className="summary">
         <Avatar name={kid} tone="blue" size={52} />

@@ -74,13 +74,15 @@ export function useFamily(familyId) {
   const goals = useCollection(familyId, 'goals', { order: 'createdAt' });
   const answers = useCollection(familyId, 'answers', { order: 'at', dir: 'desc', limit: 60 });
   const explore = useCollection(familyId, 'explore');
+  const sports = useCollection(familyId, 'sports', { order: 'date', dir: 'desc', limit: 800 });
+  const achievements = useCollection(familyId, 'achievements', { order: 'date', dir: 'desc' });
   const settings = { ...DEFAULT_SETTINGS, ...(family?.settings || {}), rewards: { ...DEFAULT_SETTINGS.rewards, ...(family?.settings?.rewards || {}) } };
   setHiddenBooks(settings.hiddenBooks);
   return {
     family, settings,
     days: Object.fromEntries(days.map((d) => [d.id, d])),
     chapters: Object.fromEntries(chapters.map((c) => [c.id, c])),
-    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks, goals, answers, explore
+    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks, goals, answers, explore, sports, achievements
   };
 }
 
@@ -169,6 +171,7 @@ export async function questionPool(chapterIds) {
 // ---------- Explore (beyond-school discovery track) ----------
 let exploreCache = null;
 export async function loadExplore() { if (!exploreCache) exploreCache = await packJson('/pack/explore.json'); return exploreCache; }
+export const setFamilySports = (fid, list) => updateDoc(doc(db, 'families', fid), { sports: list });
 export const startExplore = (fid, date) => updateDoc(doc(db, 'families', fid), { exploreStart: date });
 export const saveExplore = (fid, id, data) => setDoc(dref(fid, 'explore', id), data, { merge: true });
 

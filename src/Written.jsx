@@ -258,7 +258,7 @@ function AnswerSheet({ F, me, a, onClose }) {
   );
 }
 
-function Photo({ fid, id }) {
+export function Photo({ fid, id }) {
   const [url, setUrl] = useState(null);
   const [big, setBig] = useState(false);
   const [fail, setFail] = useState(false);

@@ -1118,3 +1118,22 @@ button.primary, .button.primary, .seg button.on, .daypick button.on { box-shadow
 .ex-faces button small { font-size: 10.5px; color: var(--muted); }
 .ex-faces button.on { border-color: var(--accent-b) !important; background: color-mix(in srgb, var(--accent-b) 12%, var(--panel)) !important; }
 @media (max-width: 640px) { .ex-row { grid-template-columns: minmax(0, 1.8fr) .8fr .6fr 1.2fr; } .ex-row > :nth-child(4) { display: none; } .ex-tracks-mini { display: none; } }
+
+/* ===================== v24: sports & achievements ===================== */
+.sp-chips { align-items: center; }
+.sp-pill { --tc: #16a34a; font-size: 13px; padding: 5px 12px; }
+.kpis.three { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.sp-chart { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; height: 170px; align-items: end; }
+.sp-bar { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 4px; }
+.sp-fill { width: 70%; max-width: 38px; min-height: 3px; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, #34d399, #16a34a); }
+.sp-val { font-size: 10.5px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.sp-bar small { font-size: 10.5px; color: var(--muted); }
+.sp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.sp-card { display: flex !important; flex-direction: column; align-items: stretch !important; gap: 8px; text-align: left; padding: 16px !important; position: relative; cursor: pointer; }
+.sp-name { font-size: 16px; }
+.sp-mini { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.sp-mini span { display: flex; flex-direction: column; font-weight: 800; font-size: 15px; }
+.sp-mini small { font-size: 10.5px; font-weight: 600; color: var(--muted); }
+.sp-add { position: absolute; top: 14px; right: 14px; font-size: 12px; font-weight: 700; color: var(--accent-b); }
+.sp-pick { display: flex; flex-wrap: wrap; gap: 6px; }
+.sp-medal { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; background: color-mix(in srgb, #f59e0b 14%, transparent); flex: none; }
