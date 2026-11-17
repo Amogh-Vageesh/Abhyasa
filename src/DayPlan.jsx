@@ -40,6 +40,7 @@ export function candidates(F, today) {
     const gap = daysBetween(today, e.date);
     out.push({ key: `test-${e.id}`, kind: 'test', label: `Prepare: ${e.title}`, hint: gap === 0 ? 'today!' : `in ${gap} day${gap > 1 ? 's' : ''}`, testGap: gap, hard: true, subject: e.subject || subjectOf((e.chapters || [])[0]) });
   }
+  if (day.noTeaching) out.unshift({ key: 'noteach', kind: 'revise', label: 'No class today — catch up or read ahead', hint: 'See ideas on your home screen' });
   const open = (F.mistakes || []).filter((m) => !m.resolved).length;
   if (open) out.push({ key: 'fixit', kind: 'fixit', label: `Clear fix-its (${open} open)`, hint: 'Practice → Fix-its' });
   if (weekOf(F) !== null) out.push({ key: 'explore', kind: 'explore', label: 'Explore challenge', hint: 'Beyond school · ~20 min' });
@@ -256,7 +257,7 @@ export function PlanCoach({ F, me, onClose }) {
 }
 
 // ===================== today's plan: tick off, record actual time, reflect =====================
-export function DayPlanCard({ F, me, compact = false }) {
+export function DayPlanCard({ F, me, compact = false, go }) {
   const today = ymd();
   const [coach, setCoach] = useState(false);
   const [reflect, setReflect] = useState(false);
@@ -271,13 +272,31 @@ export function DayPlanCard({ F, me, compact = false }) {
   const stopTimer = () => { const m = Math.max(1, Math.round((Date.now() - timing.at) / 60000)); upd(plan.items.map((x, j) => (j === timing.k ? { ...x, actual: m, done: true } : x))); setTiming(null); };
   const done = plan ? plan.items.filter((x) => x.done).length : 0;
   const evening = new Date().getHours() >= 18;
+  const stage = !plan ? 0 : plan.reflection ? 3 : done === plan.items.length || evening ? 2 : 1;
+  if (compact && go) {
+    return (
+      <button className="card pc-card pc-compact" onClick={() => go('planner', 'day')}>
+        <Tile icon="calendar" tone="purple" />
+        <div className="grow" style={{ textAlign: 'left' }}>
+          <small className="muted pc-kicker">Planner · today</small>
+          <b className="pc-title">{!plan ? 'Plan my day' : stage === 3 ? 'Day done & reflected ✓' : `${done}/${plan.items.length} tasks done`}</b>
+          <small className="muted" style={{ display: 'block' }}>{!plan ? (isParent ? 'No plan yet today' : 'Tap — 5 quick questions, you decide') : stage === 2 ? 'Time to reflect on your day' : (plan.items.find((x) => !x.done) ? `Next: ${plan.items.find((x) => !x.done).label} · ${plan.items.find((x) => !x.done).start}` : '')}</small>
+          {plan && <div className="progress" style={{ marginTop: 8 }}><div style={{ width: `${(done / Math.max(1, plan.items.length)) * 100}%`, background: 'linear-gradient(90deg, var(--accent-a), var(--accent-b))' }} /></div>}
+        </div>
+        <Icon name="chevR" className="chev" />
+      </button>
+    );
+  }
 
   return (
     <div className="card pc-card">
+      {!compact && <div className="pc-steps">{[['Plan', 'Decide what, how long & when'], ['Do', 'Start, time & tick off'], ['Reflect', '1 minute in the evening']].map(([t, d], k) => (
+        <div key={t} className={`pc-step ${stage === k ? 'cur' : ''} ${stage > k ? 'done' : ''}`}><span>{stage > k ? '✓' : k + 1}</span><div><b>{t}</b><small>{d}</small></div></div>
+      ))}</div>}
       <div className="row between" style={{ alignItems: 'flex-start' }}>
         <div><small className="muted pc-kicker">Plan my day</small>
           <h3 className="pc-title">{plan ? `${done}/${plan.items.length} done` : isParent ? 'No plan made yet today' : 'Make your plan for today'}</h3></div>
-        {!isParent && <button className={plan ? 'small' : 'primary small'} onClick={() => setCoach(true)}>{plan ? 'Change plan' : 'Plan my day'}</button>}
+        {!isParent && <button className={plan ? 'small' : 'primary'} onClick={() => setCoach(true)}>{plan ? 'Change plan' : 'Start planning →'}</button>}
       </div>
       {!plan && !isParent && <p className="muted small-text" style={{ margin: '6px 0 0' }}>5 quick questions — you decide what to do and when; the coach checks your plan.</p>}
       {plan && <div className="pc-items">

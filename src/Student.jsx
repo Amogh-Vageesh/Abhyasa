@@ -3,6 +3,9 @@ import { set as idbSet, get as idbGet } from 'idb-keyval';
 import { ExploreSummary } from './Explore';
 import { SportsSummary } from './Sports';
 import { DayPlanCard } from './DayPlan';
+import { HomeShortcuts } from './Shortcuts';
+import { NO_TEACH_REASONS, SuggestionList, NoTeachingCard } from './NoTeaching';
+import { setDay } from './lib/data';
 import { Card, ChapterPicker, Modal, QuizRunner, Progress, rupees, PageHead, useDesktop } from './components';
 import { DeskHome } from './DeskHome';
 import { Icon, Tile, Avatar, HeroArt } from './icons';
@@ -117,12 +120,12 @@ export function StudentToday({ F, go }) {
   ];
 
   const modals = <>
-      {modal?.type === 'log' && <LogModal F={F} initialSubject={modal.subject || ''} onClose={() => setModal(null)} />}
+      {modal?.type === 'log' && <LogModal F={F} go={go} initialSubject={modal.subject || ''} initialMode={modal.mode || 'taught'} onClose={() => setModal(null)} />}
       {modal?.type === 'learn' && <LearnModal F={F} chapters={modal.chapters} onClose={() => setModal(null)} />}
       {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
       {modal?.type === 'money' && <MoneyModal F={F} me={{ role: 'student', name: F.family.studentName }} entry={modal.entry} onClose={() => setModal(null)} />}
   </>;
-  if (desktop) return <><DeskHome F={F} go={go} routine={routine} doneCount={doneCount} streak={streak} greet={greet} openMistakes={openMistakes} balance={balance} onLog={() => setModal({ type: 'log' })} onNoSchool={() => markStep(F, 'logDone')} />{modals}</>;
+  if (desktop) return <><DeskHome F={F} go={go} routine={routine} doneCount={doneCount} streak={streak} greet={greet} openMistakes={openMistakes} balance={balance} onLog={() => setModal({ type: 'log' })} onNoSchool={() => setModal({ type: 'log', mode: 'none' })} moneyLabel={moneyLabel} due={due.length} onRevise={startRevise} />{modals}</>;
 
   return (
     <div>
@@ -135,7 +138,8 @@ export function StudentToday({ F, go }) {
         </div>
         <HeroArt />
       </div>
-      <div className="mobile-only" style={{ marginBottom: 12 }}><DayPlanCard F={F} me={{ role: 'student', name: F.family.studentName }} compact /></div>
+      <div className="mobile-only" style={{ marginBottom: 12 }}><DayPlanCard F={F} me={{ role: 'student', name: F.family.studentName }} compact go={go} /></div>
+      <NoTeachingCard F={F} go={go} />
 
       <div className="top-row">
       <button className="summary" onClick={() => document.getElementById('routine')?.scrollIntoView({ behavior: 'smooth' })}>
@@ -148,12 +152,7 @@ export function StudentToday({ F, go }) {
         <div className="delta">🔥 {streak}<span>day streak</span><span className="xp-mini" onClick={(e) => { e.stopPropagation(); go('badges'); }}>⭐ Lv {lv.level} · {lv.xp} XP</span></div>
       </button>
 
-      <div className="stats four">
-        <button className="stat" style={{ '--tc': '#22b35e' }} onClick={() => go('finance')}><Tile icon="rupee" tone="green" /><small>My money</small><b>{moneyLabel}</b></button>
-        <button className="stat" style={{ '--tc': '#ff8a1f' }} onClick={() => go('wallet')}><Tile icon="gift" tone="amber" /><small>Rewards</small><b>{rupees(balance)}</b></button>
-        <button className="stat" style={{ '--tc': '#ef4f5a' }} onClick={() => go('mistakes')}><Tile icon="mistake" tone="red" /><small>Fix-its</small><b>{openMistakes} open</b></button>
-        <button className="stat" style={{ '--tc': '#3b82f6' }} onClick={startRevise}><Tile icon="repeat" tone="blue" /><small>Revision</small><b>{due.length} due</b></button>
-      </div>
+      <HomeShortcuts F={F} go={go} moneyLabel={moneyLabel} balance={balance} openMistakes={openMistakes} due={due.length} onRevise={startRevise} />
       </div>
 
       {latestNote && <div className="note"><Avatar name={latestNote.from} tone="purple" size={34} /><div><b>{latestNote.from}</b><div className="small-text">{latestNote.text}</div></div></div>}
@@ -179,7 +178,7 @@ export function StudentToday({ F, go }) {
             <MissionCheck done={r.done} label={r.label} onToggle={() => markStep(F, r.key, !r.done)} />
           </button>
         ))}
-        {!day.logDone && <button className="lrow" onClick={() => markStep(F, 'logDone')}><Tile icon="calendar" tone="gray" /><div className="lt"><b>No school today</b><small>Holiday or weekend — skip logging</small></div><Icon name="chevR" className="chev" /></button>}
+        {!day.logDone && <button className="lrow" onClick={() => setModal({ type: 'log', mode: 'none' })}><Tile icon="calendar" tone="gray" /><div className="lt"><b>Nothing taught today?</b><small>Exam, event, holiday, free period — log it and get ideas</small></div><Icon name="chevR" className="chev" /></button>}
       </div>
         </div>
         <div className="col">
@@ -214,8 +213,6 @@ export function StudentToday({ F, go }) {
       </div>
         </div>
         <div className="col">
-      <div className="sec-h"><h2>My Plan</h2><button className="link" onClick={() => go('planner', 'timetable')}>Timetable <Icon name="chevR" size={16} /></button></div>
-      <TodayPlanCard F={F} go={go} />
 
       <div className="sec-h"><h2>Coming up</h2><button className="link" onClick={() => go('calendar')}>See all <Icon name="chevR" size={16} /></button></div>
       <div className="card list">
@@ -232,17 +229,10 @@ export function StudentToday({ F, go }) {
         })}
       </div>
 
-      <div className="sec-h"><h2>My Money</h2><button className="link" onClick={() => go('finance')}>Open <Icon name="chevR" size={16} /></button></div>
-      <div className="card money-card">
-        <div className="row between"><div><div className="muted small-text">I have</div><div className="big-score" style={{ fontSize: 26 }}>{moneyLabel}</div></div>
-          <div style={{ textAlign: 'right' }}><div className="muted small-text">Spent this month</div><b className="money-out">{formatMoney(spentMonth)}</b></div></div>
-        <div className="row"><button className="small" onClick={() => setModal({ type: 'money', entry: { type: 'in' } })}><Icon name="download" size={16} /> Got money</button><button className="small" onClick={() => setModal({ type: 'money', entry: { type: 'out' } })}><Icon name="rupee" size={16} /> Spent</button></div>
-      </div>
 
         </div>
       </div>
-      <div className="mt"><ExploreSummary F={F} go={go} /><SportsSummary F={F} go={go} /></div>
-      {modal?.type === 'log' && <LogModal F={F} initialSubject={modal.subject || ''} onClose={() => setModal(null)} />}
+      {modal?.type === 'log' && <LogModal F={F} go={go} initialSubject={modal.subject || ''} initialMode={modal.mode || 'taught'} onClose={() => setModal(null)} />}
       {modal?.type === 'learn' && <LearnModal F={F} chapters={modal.chapters} onClose={() => setModal(null)} />}
       {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
       {modal?.type === 'money' && <MoneyModal F={F} me={{ role: 'student', name: F.family.studentName }} entry={modal.entry} onClose={() => setModal(null)} />}
@@ -272,13 +262,17 @@ function Step({ s, done, detail, action }) {
   );
 }
 
-export function LogModal({ F, onClose, initialSubject = '' }) {
+export function LogModal({ F, onClose, initialSubject = '', go, initialMode = 'taught' }) {
+  const [mode, setMode] = useState(initialMode);
   const [subject, setSubject] = useState(initialSubject);
   const [chapterId, setChapterId] = useState('');
   const [pages, setPages] = useState('');
   const [note, setNote] = useState('');
   const [doubt, setDoubt] = useState(false);
   const [photos, setPhotos] = useState([]);
+  const [reason, setReason] = useState('');
+  const [subs, setSubs] = useState([]);
+  const [done, setDone] = useState(null);
   const save = async () => {
     const photoKeys = [];
     for (const f of photos) {
@@ -289,18 +283,41 @@ export function LogModal({ F, onClose, initialSubject = '' }) {
     await logClass(F, { subject, subjectName: SUBJECTS.find((x) => x.id === subject)?.name || subject, chapterId: chapterId || null, pages, note, doubt, photoKeys });
     onClose();
   };
+  const saveNone = async () => {
+    const info = { reason, subjects: subs, note: note.trim(), at: Date.now() };
+    await setDay(F.family.id, ymd(), { noTeaching: info });
+    if (!subs.length || subs.length === SUBJECTS.length) await markStep(F, 'logDone');
+    setDone(info);
+  };
+  if (done) return (
+    <Modal title="Here’s what you can do today" onClose={onClose}>
+      <p className="muted small-text" style={{ marginTop: 0 }}>No new lesson — so use the time on these. Tap one to start (they’re also on your home screen today).</p>
+      <SuggestionList F={F} info={done} go={go} onPick={onClose} />
+      <button className="primary" style={{ width: '100%', marginTop: 12 }} onClick={onClose}>Done</button>
+    </Modal>
+  );
   return (
-    <Modal title="What was taught today?" onClose={onClose}>
+    <Modal title={mode === 'taught' ? 'What was taught today?' : 'Nothing taught today'} onClose={onClose}>
       <div className="stack">
-        <ChapterPicker subject={subject} onSubject={setSubject} value={chapterId} onChange={setChapterId} chaptersFor={(sid) => subjectChapters(F, sid)} />
-        <input placeholder="Pages (e.g. 45–52)" value={pages} onChange={(e) => setPages(e.target.value)} />
-        <textarea rows={3} placeholder="What did the teacher explain? Tip: tap the 🎤 mic on your keyboard and just speak." value={note} onChange={(e) => setNote(e.target.value)} />
-        <label className="check"><input type="checkbox" checked={doubt} onChange={(e) => setDoubt(e.target.checked)} /> I didn’t understand something</label>
-        <label className="file-btn">📷 Add photos of book / notes ({photos.length})
-          <input type="file" accept="image/*" capture="environment" multiple hidden onChange={(e) => setPhotos([...photos, ...e.target.files])} />
-        </label>
-        <p className="muted small-text">Photos stay on this device.</p>
-        <button className="primary" disabled={!subject} onClick={save}>Save</button>
+        <div className="seg" style={{ marginBottom: 0 }}>{[['taught', 'Something was taught'], ['none', 'Nothing taught']].map(([k, l]) => <button key={k} className={mode === k ? 'on' : ''} onClick={() => setMode(k)}>{l}</button>)}</div>
+        {mode === 'taught' ? <>
+          <ChapterPicker subject={subject} onSubject={setSubject} value={chapterId} onChange={setChapterId} chaptersFor={(sid) => subjectChapters(F, sid)} />
+          <input placeholder="Pages (e.g. 45–52)" value={pages} onChange={(e) => setPages(e.target.value)} />
+          <textarea rows={3} placeholder="What did the teacher explain? Tip: tap the 🎤 mic on your keyboard and just speak." value={note} onChange={(e) => setNote(e.target.value)} />
+          <label className="check"><input type="checkbox" checked={doubt} onChange={(e) => setDoubt(e.target.checked)} /> I didn’t understand something</label>
+          <label className="file-btn">📷 Add photos of book / notes ({photos.length})
+            <input type="file" accept="image/*" capture="environment" multiple hidden onChange={(e) => setPhotos([...photos, ...e.target.files])} />
+          </label>
+          <p className="muted small-text">Photos stay on this device.</p>
+          <button className="primary" disabled={!subject} onClick={save}>Save</button>
+        </> : <>
+          <b>Why was nothing taught?</b>
+          <div className="row wrap" style={{ gap: 6 }}>{NO_TEACH_REASONS.map(([k, l]) => <button key={k} className={`small ${reason === k ? 'primary' : ''}`} onClick={() => setReason(k)}>{l}</button>)}</div>
+          <b>Which subjects had no class? <span className="muted small-text">(leave empty = whole day)</span></b>
+          <div className="row wrap" style={{ gap: 6 }}>{SUBJECTS.map((sj) => <button key={sj.id} className={`small ${subs.includes(sj.id) ? 'primary' : ''}`} onClick={() => setSubs(subs.includes(sj.id) ? subs.filter((x) => x !== sj.id) : [...subs, sj.id])}>{sj.name.replace('Social Science', 'Social')}</button>)}</div>
+          <input placeholder="Anything else? (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
+          <button className="primary" disabled={!reason} onClick={saveNone}>Save & show what I can do</button>
+        </>}
       </div>
     </Modal>
   );

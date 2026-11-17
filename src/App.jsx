@@ -124,6 +124,7 @@ export function Main({ me }) {
   const [studyNav, setStudyNav] = useState({});
   const [ptab, setPtab] = useState('practice');
   const [psub, setPsub] = useState('day');
+  const [sportTab, setSportTab] = useState('overview');
   const [sheet, setSheet] = useState(null); // 'fab' | action key
   const [launch, setLaunch] = useState(null);
   const [finTab, setFinTab] = useState('overview');
@@ -158,7 +159,8 @@ export function Main({ me }) {
     if (t === 'practice' && extra) setPtab(extra);
     if (t === 'mistakes') { setPtab('mistakes'); t = 'practice'; }
     if (t === 'tests') { setPtab('library'); t = 'practice'; }
-    if (t === 'planner' && extra) setPsub(extra);
+    if (t === 'planner') setPsub(extra || 'day');
+    if (t === 'sports') setSportTab(extra || 'overview');
     if (t === 'calendar') { setPsub('calendar'); t = 'planner'; }
     setTab(t); window.scrollTo(0, 0);
   };
@@ -178,7 +180,7 @@ export function Main({ me }) {
   else if (tab === 'theme') page = <ThemePage />;
   else if (tab === 'goals') page = <GoalsPage F={F} me={me} />;
   else if (tab === 'explore') page = <ExplorePage F={F} me={me} />;
-  else if (tab === 'sports') page = <SportsPage F={F} me={me} />;
+  else if (tab === 'sports') page = <SportsPage key={sportTab} F={F} me={me} initialTab={sportTab} />;
 
   const today = new Date().toISOString().slice(0, 10);
   const xp = isParent ? null : levelInfo(F);
@@ -222,7 +224,7 @@ export function Main({ me }) {
         </nav>
       </div>
       {sheet === 'fab' && <FabSheet isParent={isParent} onPick={setSheet} onClose={() => setSheet(null)} />}
-      {sheet === 'log' && <LogModal F={F} onClose={() => setSheet(null)} />}
+      {sheet === 'log' && <LogModal F={F} go={go} onClose={() => setSheet(null)} />}
       {sheet === 'goal' && <GoalsQuickAdd F={F} me={me} onClose={() => setSheet(null)} />}
       {sheet === 'task' && <TaskModal F={F} me={me} task={{ freq: 'daily', title: '', days: [] }} onClose={() => setSheet(null)} />}
       {sheet === 'money' && <MoneyModal F={F} me={me} entry={{ type: 'out' }} onClose={() => setSheet(null)} />}
@@ -284,8 +286,8 @@ function MorePage({ F, me, go }) {
   const isParent = me.role === 'parent';
   const { balance } = walletSummary(F.wallet);
   const rows = isParent
-    ? [['explore', 'bulb', 'amber', 'Explore (beyond school)', '12-week discovery, tracker and 3–4 year roadmap'], ['sports', 'trophy', 'green', 'Sports & achievements', 'Classes, matches, tournaments, time, awards'], ['finance', 'rupee', 'teal', 'Money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, fix-it report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'E-books', 'Import textbook PDFs and links'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
-    : [['explore', 'bulb', 'amber', 'Explore', 'Weekly challenges beyond school'], ['sports', 'trophy', 'green', 'Sports & achievements', 'Classes, matches, tournaments, awards'], ['finance', 'rupee', 'teal', 'My money & rewards', `${rupees(balance)} rewards to collect`], ['insights', 'bulb', 'amber', 'My next steps', 'What to do next, fix-its, exam tips'], ['goals', 'target', 'amber', 'My goals', 'What I want to improve'], ['badges', 'trophy', 'amber', 'Badges & level', 'Your achievements'], ['ebooks', 'file', 'red', 'My books', `${F.ebooks.length} textbook(s)`], ['mistakes', 'mistake', 'red', 'Fix-it list', `${F.mistakes.filter((m) => !m.resolved).length} open`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
+    ? [['finance', 'rupee', 'teal', 'Money & rewards', `${rupees(balance)} rewards to pay`], ['insights', 'bulb', 'amber', 'What to do', 'Action plan, fix-it report, exam tips'], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone'], ['ebooks', 'file', 'red', 'E-books', 'Import textbook PDFs and links'], ['settings', 'settings', 'gray', 'Settings', 'Routine and reward rules']]
+    : [['ebooks', 'file', 'red', 'My books', `${F.ebooks.length} textbook(s)`], ['theme', 'settings', 'gray', 'Theme', 'Light, dark or follow phone']];
   return (
     <div>
       <PageHead title="More" />

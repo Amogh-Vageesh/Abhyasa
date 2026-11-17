@@ -18,7 +18,7 @@ const LEVELS = [['school', 'School'], ['interschool', 'Inter-school'], ['club', 
 const T_RESULTS = [['winner', '🥇 Winner'], ['runner', '🥈 Runner-up'], ['third', '🥉 3rd place'], ['semi', 'Semi-final'], ['quarter', 'Quarter-final'], ['participated', 'Participated']];
 const A_CATS = [['sports', 'Sports'], ['academic', 'Academic'], ['olympiad', 'Olympiad / quiz'], ['arts', 'Arts & music'], ['leadership', 'Leadership'], ['other', 'Other']];
 const A_RESULTS = [['gold', '🥇 1st / Gold'], ['silver', '🥈 2nd / Silver'], ['bronze', '🥉 3rd / Bronze'], ['merit', 'Merit / distinction'], ['special', 'Special award'], ['participation', 'Participation']];
-const lbl = (list, k) => (list.find((x) => x[0] === k) || [])[1] || k;
+const lbl = (list, k) => (list.find((x) => x[0] === k) || [])[1] || k || '';
 const fmtMin = (m) => (m >= 60 ? `${Math.floor(m / 60)}h${m % 60 ? ` ${m % 60}m` : ''}` : `${m || 0}m`);
 const PERIODS = [['week', 'This week', 7], ['month', 'This month', 30], ['year', 'This year', 365], ['all', 'All time', 100000]];
 
@@ -42,8 +42,8 @@ export function sportStats(logs, fromDate) {
   return { minutes, classes: classes.length, attended: attended.length, w, l: lo, d, tours: tours.length, podiums, games: w + lo + d };
 }
 
-export function SportsPage({ F, me }) {
-  const [tab, setTab] = useState('overview');
+export function SportsPage({ F, me, initialTab = 'overview' }) {
+  const [tab, setTab] = useState(initialTab);
   const [period, setPeriod] = useState('week');
   const [log, setLog] = useState(null);
   const [ach, setAch] = useState(null);
@@ -66,7 +66,7 @@ export function SportsPage({ F, me }) {
 
   return (
     <div>
-      <PageHead title="Sports" right={<button className="primary small" onClick={() => (tab === 'achievements' ? setAch({ where: 'school', category: 'sports', result: 'gold', date: today }) : newLog())}><Icon name="plus" size={16} /> {tab === 'achievements' ? 'Achievement' : 'Log'}</button>} />
+      <PageHead title={tab === 'achievements' ? 'Achievements' : 'Sports'} right={<button className="primary small" onClick={() => (tab === 'achievements' ? setAch({ where: 'school', category: 'sports', result: 'gold', date: today }) : newLog())}><Icon name="plus" size={16} /> {tab === 'achievements' ? 'Achievement' : 'Log'}</button>} />
       <div className="seg" style={{ marginBottom: 12 }}>{[['overview', 'Overview'], ['activity', 'Activity'], ['achievements', 'Achievements']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
 
       {tab !== 'achievements' && <>
