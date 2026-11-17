@@ -305,6 +305,7 @@ export function recentPeriods(freq, today, n) {
   return out;
 }
 export function taskAppliesOn(task, dateStr) {
+  if (task.until && dateStr > task.until) return false;
   if (task.freq !== 'daily' || !task.days?.length) return true;
   const [y, m, d] = dateStr.split('-').map(Number);
   return task.days.includes(new Date(y, m - 1, d).getDay());

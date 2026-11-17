@@ -24,6 +24,7 @@ import { words } from './theme';
 import { ParentDashboard, ParentSettings, ImportModal, NoteModal } from './Parent';
 import { WalletPage, EventModal, WalletModal, allEvents } from './Shared';
 import { PlannerPage, TaskModal } from './Planner';
+import { KidToday, CapturePage, useHomeMode } from './Journey';
 import { FinancePage, MoneyModal } from './Finance';
 import { InsightsPage } from './Insights';
 import { ManageEbooks } from './Ebooks';
@@ -116,6 +117,7 @@ const TOP_PARENT = [['home', 'Home'], ['study', 'Study'], ['practice', 'Practice
 const SIDE_PARENT = [['home', 'home', 'Home'], ['study', 'book', 'Study'], ['practice', 'target', 'Practice & tests'], ['explore', 'bulb', 'Explore'], ['sports', 'trophy', 'Sports'], ['planner', 'calendar', 'Planner'], ['finance', 'rupee', 'His money'], ['goals', 'target', 'His goals'], ['insights', 'bulb', 'What to do'], ['ebooks', 'file', 'E-books'], ['settings', 'settings', 'Settings'], ['more', 'menu', 'More']];
 
 export function Main({ me }) {
+  const [homeMode] = useHomeMode();
   const F = useFamily(me.familyId);
   const isParent = me.role === 'parent';
   const nav = isParent ? PARENT_NAV : STUDENT_NAV;
@@ -167,7 +169,8 @@ export function Main({ me }) {
   const hasNote = !isParent && F.notes[0] && Date.now() - F.notes[0].at < 86400000;
 
   let page;
-  if (tab === 'home') page = isParent ? <ParentDashboard F={F} me={me} go={go} /> : <StudentToday F={F} go={go} />;
+  if (tab === 'home') page = isParent ? <ParentDashboard F={F} me={me} go={go} /> : homeMode === 'journey' ? <KidToday F={F} go={go} /> : <StudentToday F={F} go={go} />;
+  else if (tab === 'capture') page = <CapturePage F={F} me={me} go={go} />;
   else if (tab === 'study') page = <StudyPage F={F} me={me} nav={studyNav} setNav={(n) => { setStudyNav(n); window.scrollTo(0, 0); }} />;
   else if (tab === 'practice') page = <PracticePage F={F} me={me} tab={ptab} setTab={setPtab} launch={launch} clearLaunch={() => setLaunch(null)} />;
   else if (tab === 'planner') page = <PlannerPage F={F} me={me} sub={psub} setSub={setPsub} />;

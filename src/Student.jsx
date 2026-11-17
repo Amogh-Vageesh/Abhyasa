@@ -125,7 +125,7 @@ export function StudentToday({ F, go }) {
       {modal?.type === 'paper' && <PaperTestModal F={F} test={modal.test} onClose={() => setModal(null)} />}
       {modal?.type === 'money' && <MoneyModal F={F} me={{ role: 'student', name: F.family.studentName }} entry={modal.entry} onClose={() => setModal(null)} />}
   </>;
-  if (desktop) return <><DeskHome F={F} go={go} routine={routine} doneCount={doneCount} streak={streak} greet={greet} openMistakes={openMistakes} balance={balance} onLog={() => setModal({ type: 'log' })} onNoSchool={() => setModal({ type: 'log', mode: 'none' })} moneyLabel={moneyLabel} due={due.length} onRevise={startRevise} />{modals}</>;
+  if (desktop) return <><button className="j-try" onClick={() => { try { localStorage.setItem('abhyasa-home', 'journey'); } catch {} window.dispatchEvent(new Event('abhyasa-home')); }}>✨ Try the new home — one step at a time</button><DeskHome F={F} go={go} routine={routine} doneCount={doneCount} streak={streak} greet={greet} openMistakes={openMistakes} balance={balance} onLog={() => setModal({ type: 'log' })} onNoSchool={() => setModal({ type: 'log', mode: 'none' })} moneyLabel={moneyLabel} due={due.length} onRevise={startRevise} />{modals}</>;
 
   return (
     <div>
@@ -138,6 +138,7 @@ export function StudentToday({ F, go }) {
         </div>
         <HeroArt />
       </div>
+      <button className="j-try" onClick={() => { try { localStorage.setItem('abhyasa-home', 'journey'); } catch {} window.dispatchEvent(new Event('abhyasa-home')); }}>✨ Try the new home — one step at a time</button>
       <div className="mobile-only" style={{ marginBottom: 12 }}><DayPlanCard F={F} me={{ role: 'student', name: F.family.studentName }} compact go={go} /></div>
       <NoTeachingCard F={F} go={go} />
 
