@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   doc, getDoc, setDoc, updateDoc, collection, onSnapshot, query, orderBy, limit,
-  addDoc, deleteDoc, serverTimestamp, arrayUnion, writeBatch, increment
+  addDoc, deleteDoc, serverTimestamp, arrayUnion, writeBatch, increment, Bytes
 } from 'firebase/firestore';
 import { db, isNative } from '../firebase';
 import { get as idbGet, set as idbSet } from 'idb-keyval';
@@ -72,13 +72,14 @@ export function useFamily(familyId) {
   const papers = useCollection(familyId, 'papers', { order: 'date', dir: 'desc' });
   const ebooks = useCollection(familyId, 'ebooks', { order: 'order' });
   const goals = useCollection(familyId, 'goals', { order: 'createdAt' });
+  const answers = useCollection(familyId, 'answers', { order: 'at', dir: 'desc', limit: 60 });
   const settings = { ...DEFAULT_SETTINGS, ...(family?.settings || {}), rewards: { ...DEFAULT_SETTINGS.rewards, ...(family?.settings?.rewards || {}) } };
   setHiddenBooks(settings.hiddenBooks);
   return {
     family, settings,
     days: Object.fromEntries(days.map((d) => [d.id, d])),
     chapters: Object.fromEntries(chapters.map((c) => [c.id, c])),
-    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks, goals
+    mistakes, events, wallet, attempts, tests, notes, tasks, blocks, money, snotes, papers, ebooks, goals, answers
   };
 }
 
@@ -139,13 +140,16 @@ export async function loadPackIndex() {
 // so one book can be removed while other books for the same chapter stay.
 let hiddenBooks = [];
 export function setHiddenBooks(list) { hiddenBooks = Array.isArray(list) ? list : []; }
+// pack.questions = auto-marked (MCQ) only; pack.written = answers a parent marks
 function visible(p) {
   if (!p) return null;
-  if (!hiddenBooks.length) return p;
-  const questions = p.questions.filter((q) => !hiddenBooks.includes(q.src || p.source));
-  const explainer = (p.explainer || []).filter((x) => !hiddenBooks.includes(x.src || p.source));
-  if (!questions.length && !explainer.length) return null;
-  return { ...p, questions, explainer };
+  const keep = (x) => !hiddenBooks.includes(x.src || p.source);
+  const all = (p.questions || []).filter(keep);
+  const questions = all.filter((q) => q.type !== 'written');
+  const written = all.filter((q) => q.type === 'written');
+  const explainer = (p.explainer || []).filter(keep);
+  if (!all.length && !explainer.length) return null;
+  return { ...p, questions, written, explainer };
 }
 async function rawChapter(id) {
   if (packCache[id] !== undefined) return packCache[id];
@@ -161,6 +165,51 @@ export async function questionPool(chapterIds) {
   const packs = await Promise.all(chapterIds.map(loadChapter));
   return packs.filter(Boolean).flatMap((p) => p.questions.map((q) => ({ ...q, chapterId: p.id })));
 }
+export async function writtenPool(chapterIds) {
+  const packs = await Promise.all(chapterIds.map(loadChapter));
+  return packs.filter(Boolean).flatMap((p) => (p.written || []).map((q) => ({ ...q, chapterId: p.id })));
+}
+
+// ---------- written answers (photos kept in Firestore: works on the free plan) ----------
+export const saveAnswers = (fid, a) => a.id
+  ? setDoc(dref(fid, 'answers', a.id), a, { merge: true })
+  : addDoc(col(fid, 'answers'), { ...a, at: Date.now() }).then((r) => r.id);
+export const deleteAnswers = async (fid, a) => {
+  for (const it of a.items || []) for (const pid of it.photos || []) await deleteDoc(dref(fid, 'answerphotos', pid)).catch(() => {});
+  await deleteDoc(dref(fid, 'answers', a.id));
+};
+async function shrinkImage(file) {
+  const bmp = await createImageBitmap(file).catch(() => null);
+  if (!bmp) throw new Error('Could not read that photo.');
+  let max = 1600, q = 0.75;
+  for (let tries = 0; tries < 6; tries++) {
+    const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    const blob = await new Promise((r) => c.toBlob(r, 'image/jpeg', q));
+    if (blob && blob.size < 850 * 1024) return blob;
+    max = Math.round(max * 0.8); q = Math.max(0.5, q - 0.08);
+  }
+  throw new Error('That photo is too large.');
+}
+export async function savePhoto(fid, file) {
+  const blob = await shrinkImage(file);
+  const ref = doc(col(fid, 'answerphotos'));
+  await setDoc(ref, { b: Bytes.fromUint8Array(new Uint8Array(await blob.arrayBuffer())), type: 'image/jpeg', at: Date.now() });
+  idbSet('aphoto:' + ref.id, blob).catch(() => {});
+  return ref.id;
+}
+export async function loadPhoto(fid, id) {
+  const cached = await idbGet('aphoto:' + id).catch(() => null);
+  if (cached) return cached;
+  const s = await getDoc(dref(fid, 'answerphotos', id));
+  if (!s.exists()) return null;
+  const blob = new Blob([s.data().b.toUint8Array()], { type: s.data().type || 'image/jpeg' });
+  idbSet('aphoto:' + id, blob).catch(() => {});
+  return blob;
+}
+
 export async function questionsById(ids) {
   // ids look like "<chapterId>-q<n>"; imported ones are stored on the mistake doc itself
   const chIds = [...new Set(ids.map((id) => id.replace(/-q\d+$/, '')))];

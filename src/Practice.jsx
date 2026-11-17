@@ -9,6 +9,7 @@ import { LocalPhotos, PaperModal } from './Subjects';
 import { MistakeBook } from './Student';
 import { ParentTests } from './Parent';
 import { subjectChapters, subjectOfFactory, chapterTitle } from './Study';
+import { WrittenStart, WrittenList } from './Written';
 
 const KIND = { practice: 'Practice', revise: 'Revision', test: 'Weekly test', imported: 'Test' };
 
@@ -45,7 +46,8 @@ export function PracticePage({ F, me, tab, setTab, launch, clearLaunch }) {
   }, [launch]);
   if (quiz) return <QuizRunner title={quiz.title} questions={quiz.questions} onCancel={() => setQuiz(null)} onFinish={async (r) => { await recordQuiz(F, quiz.kind, r, quiz.extra); if (quiz.onDone) await quiz.onDone(); setQuiz(null); }} />;
 
-  const tabs = [['practice', 'Practice'], ['papers', 'Papers'], ['mistakes', 'Fix-its'], ['history', 'Progress'], ...(isParent ? [['library', 'Test library']] : [])];
+  const toMark = F.answers.filter((a) => a.status === 'submitted').length;
+  const tabs = [['practice', 'Practice'], ['written', isParent && toMark ? `Written (${toMark})` : 'Written'], ['papers', 'Papers'], ['mistakes', 'Fix-its'], ['history', 'Progress'], ...(isParent ? [['library', 'Test library']] : [])];
   return (
     <div>
       <PageHead title="Practice" />
@@ -60,6 +62,7 @@ export function PracticePage({ F, me, tab, setTab, launch, clearLaunch }) {
       </Card>
       <div className="seg scroll" style={{ marginTop: 12 }}>{tabs.map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}</div>
       {tab === 'practice' && <PracticeStart F={F} run={run} setQuiz={setQuiz} />}
+      {tab === 'written' && <>{!isParent && <WrittenStart F={F} me={me} />}<WrittenList F={F} me={me} /></>}
       {tab === 'papers' && <PapersList F={F} me={me} onEdit={setPaper} />}
       {tab === 'mistakes' && <MistakeBook F={F} />}
       {tab === 'history' && <History F={F} subjectOf={subjectOf} />}

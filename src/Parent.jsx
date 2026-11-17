@@ -48,6 +48,9 @@ export function ParentDashboard({ F, me, go }) {
         <HeroArt />
       </div>
 
+      {F.answers.some((a) => a.status === 'submitted') && <button className="note wr-note" style={{ border: 0, width: "100%", marginBottom: 12 }} onClick={() => go("practice", "written")}>
+        <Tile icon="edit" tone="purple" /><div style={{ textAlign: 'left' }}><b>{F.answers.filter((a) => a.status === 'submitted').length} written answer set(s) to mark</b><div className="small-text muted">Tick the points he covered — takes a minute each</div></div>
+      </button>}
       <div className="top-row">
       <div className="summary">
         <Avatar name={kid} tone="blue" size={52} />
