@@ -49,6 +49,17 @@ function Splash({ text }) {
   return <div className="splash"><img src="/icon.svg" alt="" width="72" /><h1>Abhyasa</h1><p className="muted">{text}</p></div>;
 }
 
+function loginHelp(e) {
+  const c = e?.code || '';
+  if (c === 'auth/popup-blocked') return 'The browser blocked the Google sign-in window. Allow pop-ups for abhyasa-3fe1d.web.app (icon at the right end of the address bar), then try again.';
+  if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request') return 'The Google window closed before sign-in finished. Try again and pick your account in that window.';
+  if (c === 'auth/unauthorized-domain') return `This address (${location.hostname}) isn’t allowed. Open https://abhyasa-3fe1d.web.app instead.`;
+  if (c === 'auth/network-request-failed') return 'No connection to Google. Check the internet (or office firewall/VPN) and try again.';
+  if (c === 'auth/web-storage-unsupported' || c === 'auth/operation-not-supported-in-this-environment') return 'This browser is blocking cookies/storage. Turn off “Block third-party cookies” for this site, or try Chrome without incognito.';
+  if (c === 'auth/internal-error') return 'Google sign-in failed inside the browser. Allow third-party cookies for this site or try another browser. (' + c + ')';
+  return (e?.message || 'Sign-in failed') + (c ? ` (${c})` : '');
+}
+
 function Login() {
   const [err, setErr] = useState('');
   return (
@@ -56,7 +67,7 @@ function Login() {
       <img src="/icon.svg" alt="" width="88" />
       <h1>Abhyasa</h1>
       <p className="muted">Daily routine · Practice · Tests · Revision</p>
-      <button className="primary big" onClick={() => signIn().catch((e) => setErr(e.message))}>Sign in with Google</button>
+      <button className="primary big" onClick={() => { setErr(''); signIn().catch((e) => setErr(loginHelp(e))); }}>Sign in with Google</button>
       {err && <p className="bad-text small-text">{err}</p>}
       {!isNative && /Android/i.test(navigator.userAgent) && <a className="button small" href={APK_URL}>⬇️ Get the Android app</a>}
     </div>
@@ -90,6 +101,7 @@ function Onboarding({ user, onDone }) {
   return (
     <div className="onboard">
       <h2>Welcome to Abhyasa</h2>
+      <p className="note small-text">Signed in as <b>{user.email}</b>. Already use Abhyasa on another device? This is a different Google account — tap “Use a different Google account” below and pick the one you use there.</p>
       <Card title="Who is using this?">
         <div className="row">
           <button className={`option ${role === 'student' ? 'sel' : ''}`} onClick={() => setRole('student')}>🎒 I’m the student</button>
